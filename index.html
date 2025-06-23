@@ -4,27 +4,46 @@
   <meta charset="UTF-8" />
   <title>Altinkaya Romain - Portfolio</title>
   <style>
-    /* Reset et styles de base */
+    :root {
+      --bg-color: #e0f2f1;
+      --text-color: #004d40;
+      --accent-color: #00796b;
+      --nav-bg: #004d40;
+      --nav-link: #a7ffeb;
+      --nav-link-hover: #64ffda;
+      --card-bg: white;
+      --shadow: rgba(0,0,0,0.1);
+    }
+
+    body.dark-mode {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --accent-color: #80cbc4;
+      --nav-bg: #1e1e1e;
+      --nav-link: #b2dfdb;
+      --nav-link-hover: #4db6ac;
+      --card-bg: #1c1c1c;
+      --shadow: rgba(255,255,255,0.05);
+    }
+
     * {
       box-sizing: border-box;
-      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
       max-width: 900px;
       margin: 0 auto;
       padding: 20px;
-      background: #e0f2f1;
-      color: #004d40;
       line-height: 1.6;
-      transition: background-color 0.3s, color 0.3s;
+      transition: background 0.4s, color 0.4s;
     }
 
     header {
       text-align: center;
       padding-bottom: 20px;
-      position: relative;
     }
 
     header h1 {
@@ -34,23 +53,23 @@
 
     header p {
       font-size: 1.2rem;
-      color: #00796b;
+      color: var(--accent-color);
     }
 
     nav {
-      background: #004d40;
+      background: var(--nav-bg);
       padding: 10px 0;
       margin-bottom: 30px;
       border-radius: 8px;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
+      text-align: center;
+      box-shadow: 0 4px 6px var(--shadow);
     }
 
     nav a {
-      color: #a7ffeb;
+      color: var(--nav-link);
       margin: 0 15px;
       font-weight: 600;
       text-decoration: none;
@@ -59,23 +78,49 @@
     }
 
     nav a:hover {
-      color: #64ffda;
+      color: var(--nav-link-hover);
+    }
+
+    .dark-toggle {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      cursor: pointer;
+      font-size: 1rem;
+      background: var(--nav-link-hover);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 10px;
+      transition: background 0.3s ease;
     }
 
     section {
-      background: white;
+      background: var(--card-bg);
       padding: 25px 30px;
       margin-bottom: 30px;
       border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: background-color 0.3s ease, color 0.3s ease;
+      box-shadow: 0 4px 10px var(--shadow);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    section:nth-child(2) { animation-delay: 0.2s; }
+    section:nth-child(3) { animation-delay: 0.4s; }
+    section:nth-child(4) { animation-delay: 0.6s; }
+    section:nth-child(5) { animation-delay: 0.8s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     h2 {
-      color: #00796b;
+      color: var(--accent-color);
       margin-top: 0;
-      border-bottom: 3px solid #00796b;
-      padding-bottom: 6px;
     }
 
     ul {
@@ -84,50 +129,23 @@
     }
 
     a {
-      color: #004d40;
+      color: var(--text-color);
       text-decoration: none;
-      transition: color 0.3s ease;
     }
 
     a:hover {
       text-decoration: underline;
-      color: #00796b;
     }
 
     footer {
       text-align: center;
-      margin-top: 40px;
-      padding: 20px;
-      background-color: #004d40;
-      color: #a7ffeb;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transition: background-color 0.3s, color 0.3s;
+      font-size: 0.9rem;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid var(--accent-color);
+      color: var(--accent-color);
     }
 
-    /* Bouton dark mode */
-    #darkModeToggle {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      background-color: #00796b;
-      color: white;
-      border: none;
-      padding: 10px 14px;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      transition: background-color 0.3s ease;
-      z-index: 101;
-    }
-
-    #darkModeToggle:hover {
-      background-color: #004d40;
-    }
-
-    /* Responsive */
     @media (max-width: 600px) {
       body {
         padding: 10px;
@@ -136,55 +154,17 @@
         display: block;
         margin: 10px 0;
       }
-    }
-
-    /* Dark Mode */
-    body.dark {
-      background-color: #121212;
-      color: #e0f2f1;
-    }
-
-    body.dark header p {
-      color: #80cbc4;
-    }
-
-    body.dark nav {
-      background: #263238;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.7);
-    }
-
-    body.dark nav a {
-      color: #80cbc4;
-    }
-
-    body.dark nav a:hover {
-      color: #b2dfdb;
-    }
-
-    body.dark section {
-      background-color: #263238;
-      color: #e0f2f1;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.7);
-    }
-
-    body.dark a {
-      color: #80cbc4;
-    }
-
-    body.dark a:hover {
-      color: #b2dfdb;
-    }
-
-    body.dark footer {
-      background-color: #263238;
-      color: #80cbc4;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+      .dark-toggle {
+        position: static;
+        display: block;
+        margin: 10px auto;
+      }
     }
   </style>
 </head>
 <body>
 
-  <button id="darkModeToggle" aria-label="Basculer en mode sombre">🌓 Mode Sombre</button>
+  <button class="dark-toggle" onclick="toggleDarkMode()">🌓 Mode sombre</button>
 
   <header>
     <h1>Altinkaya Romain</h1>
@@ -193,7 +173,7 @@
 
   <nav>
     <a href="#qui-suis-je">Qui suis-je</a>
-    <a href="#mes-tutoriels">Mes tutoriels</a>
+    <a href="#mes-tutoriels">Tutoriels</a>
     <a href="#competences">Compétences</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -213,50 +193,35 @@
   </section>
 
   <section id="competences">
-    <h2>Compétences techniques</h2>
+    <h2>Compétences</h2>
     <ul>
-      <li><strong>Assistance :</strong> Support utilisateur, gestion des pannes, résolution d’incidents</li>
-      <li><strong>Maintenance :</strong> Dépannage hardware/software, installation de systèmes</li>
-      <li><strong>Réseaux :</strong> Administration LAN/WAN, configuration de switchs & routeurs</li>
-      <li><strong>Virtualisation :</strong> VMware, Hyper-V</li>
-      <li><strong>Automatisation :</strong> Scripting PowerShell</li>
-      <li><strong>Déploiement :</strong> FOG, Clonezilla, Ventoy</li>
-      <li><strong>Gestion de parc :</strong> GLPI, N-Able</li>
-      <li><strong>Comptes utilisateurs :</strong> Active Directory, Microsoft 365 Admin, KoXo Admin</li>
-      <li><strong>Veille technologique :</strong> Suivi régulier des nouveautés & apprentissage continu</li>
+      <li>Assistance technique et gestion des pannes utilisateurs</li>
+      <li>Maintenance et dépannage des systèmes informatiques</li>
+      <li>Administration et gestion des réseaux (LAN/WAN)</li>
+      <li>Technologies de virtualisation (VMware, Hyper-V)</li>
+      <li>Automatisation, scripting (PowerShell)</li>
+      <li>Configuration et gestion des équipements réseaux</li>
+      <li>Veille technologique active et apprentissage continu</li>
+      <li>Déploiement d'images systèmes (FOG, Clonezilla, Ventoy)</li>
+      <li>Outils de gestion de parc (GLPI, N-Able)</li>
+      <li>Création des comptes utilisateurs (AD, 365, KoXo)</li>
     </ul>
   </section>
 
   <section id="contact">
     <h2>Contact</h2>
     <p>Email : <a href="mailto:altinkayaromain@outlook.fr">altinkayaromain@outlook.fr</a></p>
-    <p>LinkedIn : <a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank" rel="noopener noreferrer">romain-altinkaya</a></p>
+    <p>LinkedIn : <a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank">romain-altinkaya</a></p>
   </section>
 
   <footer>
-    Site web développé avec ❤️ par Altinkaya Romain
+    Site web développé avec ❤️ par Altinkaya Romain – 2025
   </footer>
 
   <script>
-    const toggleBtn = document.getElementById('darkModeToggle');
-    const body = document.body;
-
-    // Check local storage to keep theme
-    if (localStorage.getItem('theme') === 'dark') {
-      body.classList.add('dark');
-      toggleBtn.textContent = '☀️ Mode Clair';
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
     }
-
-    toggleBtn.addEventListener('click', () => {
-      body.classList.toggle('dark');
-      if (body.classList.contains('dark')) {
-        toggleBtn.textContent = '☀️ Mode Clair';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        toggleBtn.textContent = '🌓 Mode Sombre';
-        localStorage.setItem('theme', 'light');
-      }
-    });
   </script>
 
 </body>
