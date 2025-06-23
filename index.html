@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>Altinkaya Romain - Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-aWxZ5vVZ8IbQvqYZmPNNIm6/INXb4iReo6vYzPlKw+xm07pgYz3c9q4QG6K1rYbRMoBkZh3qPl4K/1t8PA72ig==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
   /* Reset et styles de base */
   * {
@@ -38,6 +40,7 @@
     padding: 10px 0;
     margin-bottom: 30px;
     border-radius: 8px;
+    text-align: center;
   }
 
   nav a {
@@ -80,6 +83,33 @@
     text-decoration: underline;
   }
 
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.95rem;
+    color: #004d40;
+    background: #b2dfdb;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  footer .social-links {
+    margin-top: 10px;
+  }
+
+  footer .social-links a {
+    color: #004d40;
+    margin: 0 12px;
+    font-size: 1.3rem;
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  footer .social-links a:hover {
+    transform: scale(1.2);
+    color: #00796b;
+  }
+
   /* Responsive */
   @media (max-width: 600px) {
     body {
@@ -92,14 +122,6 @@
   }
   </style>
 </head>
-  <footer>
-  <p>&copy; 2025 Altinkaya Romain — Site personnel développé avec ❤️ en HTML & CSS</p>
-  <div class="social-links">
-    <a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank">LinkedIn</a> |
-    <a href="mailto:altinkayaromain@outlook.fr">Email</a>
-  </div>
-</footer>
-
 <body>
 
 <nav>
@@ -132,6 +154,13 @@
   <p>Vous pouvez me contacter par email : <a href="mailto:altinkayaromain@outlook.fr">altinkayaromain@outlook.fr</a></p>
 </section>
 
+<footer>
+  <p>&copy; 2025 Altinkaya Romain — Site personnel développé avec ❤️ en HTML & CSS</p>
+  <div class="social-links">
+    <a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="mailto:altinkayaromain@outlook.fr" title="Email"><i class="fas fa-envelope"></i></a>
+  </div>
+</footer>
+
 </body>
 </html>
-
