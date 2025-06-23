@@ -38,6 +38,28 @@
       transition: background 0.3s, color 0.3s;
     }
 
+    #progressBar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      background: var(--accent);
+      z-index: 10000;
+      transition: width 0.25s ease-out;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
     header {
       text-align: center;
       padding-bottom: 20px;
@@ -137,7 +159,6 @@
       background: var(--hover);
     }
 
-    /* Dark mode toggle button */
     #themeToggle {
       position: fixed;
       top: 20px;
@@ -170,6 +191,7 @@
 </head>
 <body>
 
+<div id="progressBar"></div>
 <button id="themeToggle">🌙 Mode sombre</button>
 
 <nav>
@@ -179,17 +201,17 @@
   <a href="#contact">Contact</a>
 </nav>
 
-<header>
+<header class="fade-in">
   <h1>Altinkaya Romain</h1>
   <p>Technicien Informatique - CV & Tutoriels</p>
 </header>
 
-<section id="qui-suis-je">
+<section id="qui-suis-je" class="fade-in">
   <h2>Qui suis-je ?</h2>
   <p>Je suis technicien informatique spécialisé en systèmes et réseaux. Passionné par le partage de connaissances, je crée des tutoriels pour aider les débutants et les professionnels à progresser.</p>
 </section>
 
-<section id="mes-tutoriels">
+<section id="mes-tutoriels" class="fade-in">
   <h2>Mes tutoriels</h2>
 
   <h3>📡 Réseaux</h3>
@@ -210,7 +232,7 @@
   </ul>
 </section>
 
-<section id="competences">
+<section id="competences" class="fade-in">
   <h2>Compétences</h2>
   <ul>
     <li>🧰 Assistance technique & gestion des pannes utilisateurs</li>
@@ -226,33 +248,38 @@
   </ul>
 </section>
 
-<section id="contact">
+<section id="contact" class="fade-in">
   <h2>Contact</h2>
   <p>📧 <a href="mailto:altinkayaromain@outlook.fr">altinkayaromain@outlook.fr</a></p>
   <p>🔗 <a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank">Mon profil LinkedIn</a></p>
 </section>
 
-<footer>
+<footer class="fade-in">
   <p>Site web développé avec ❤️ par Altinkaya Romain – 2025</p>
 </footer>
 
-<!-- Retour en haut -->
 <button id="backToTop" title="Retour en haut">↑</button>
 
 <script>
-  // Retour en haut
-  const btn = document.getElementById('backToTop');
-  window.onscroll = function () {
-    btn.style.display = (document.documentElement.scrollTop > 200) ? "flex" : "none";
+  // Barre de progression
+  window.onscroll = () => {
+    const winScroll = document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById("progressBar").style.width = scrolled + "%";
+
+    // Scroll top button
+    document.getElementById("backToTop").style.display = winScroll > 200 ? "flex" : "none";
   };
-  btn.onclick = function () {
+
+  // Scroll top
+  document.getElementById("backToTop").onclick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Dark mode toggle
+  // Theme toggle
   const toggleBtn = document.getElementById('themeToggle');
   const body = document.body;
-
   function setTheme(mode) {
     if (mode === 'dark') {
       body.classList.add('dark');
@@ -269,9 +296,18 @@
     setTheme(isDark ? 'light' : 'dark');
   });
 
-  // Load saved theme
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme) setTheme(savedTheme);
+
+  // Animation au scroll
+  const faders = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  faders.forEach(el => observer.observe(el));
 </script>
 
 </body>
