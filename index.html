@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <title>Altinkaya Romain - Portfolio</title>
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     :root {
       --bg-color: #e0f2f1;
       --text-color: #004d40;
@@ -137,6 +141,19 @@
       text-decoration: underline;
     }
 
+    .card {
+      background: var(--card-bg);
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px var(--shadow);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
     footer {
       text-align: center;
       font-size: 0.9rem;
@@ -185,11 +202,25 @@
 
   <section id="mes-tutoriels">
     <h2>Mes tutoriels</h2>
-    <ul>
-      <li><a href="#">Installation et configuration de Linux</a></li>
-      <li><a href="#">Gestion des réseaux avec Cisco</a></li>
-      <li><a href="#">Automatisation avec PowerShell</a></li>
-    </ul>
+
+    <div class="card">
+      <h3>Installation et configuration de Linux</h3>
+      <p>Un guide complet pour démarrer avec Linux, de l'installation à la configuration de base.</p>
+      <a href="#">Voir le tutoriel →</a>
+    </div>
+
+    <div class="card">
+      <h3>Gestion des réseaux avec Cisco</h3>
+      <p>Introduction à la configuration de switchs, routeurs et aux commandes essentielles Cisco.</p>
+      <a href="#">Voir le tutoriel →</a>
+    </div>
+
+    <div class="card">
+      <h3>Automatisation avec PowerShell</h3>
+      <p>Apprenez à automatiser des tâches administratives avec des scripts PowerShell efficaces.</p>
+      <a href="#">Voir le tutoriel →</a>
+    </div>
+
   </section>
 
   <section id="competences">
