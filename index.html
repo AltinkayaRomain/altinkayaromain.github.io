@@ -5,7 +5,6 @@
   <title>Altinkaya Romain - Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* Reset + dark/light mode */
     :root {
       --bg: #e0f2f1;
       --text: #004d40;
@@ -14,15 +13,14 @@
       --hover: #64ffda;
       --nav: #004d40;
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #121212;
-        --text: #e0f2f1;
-        --card: #1e1e1e;
-        --accent: #80cbc4;
-        --hover: #00e5ff;
-        --nav: #263238;
-      }
+
+    body.dark {
+      --bg: #121212;
+      --text: #e0f2f1;
+      --card: #1e1e1e;
+      --accent: #80cbc4;
+      --hover: #00e5ff;
+      --nav: #263238;
     }
 
     html {
@@ -37,6 +35,7 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
     }
 
     header {
@@ -62,6 +61,9 @@
       margin-bottom: 30px;
       border-radius: 8px;
       z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     nav a {
@@ -83,6 +85,7 @@
       margin-bottom: 30px;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: background 0.3s, color 0.3s;
     }
 
     h2 {
@@ -111,7 +114,6 @@
       color: var(--accent);
     }
 
-    /* Retour en haut */
     #backToTop {
       position: fixed;
       bottom: 30px;
@@ -135,17 +137,40 @@
       background: var(--hover);
     }
 
-    /* Responsive */
+    /* Dark mode toggle button */
+    #themeToggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--card);
+      color: var(--text);
+      border: 2px solid var(--accent);
+      border-radius: 30px;
+      padding: 6px 12px;
+      cursor: pointer;
+      z-index: 1001;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    #themeToggle:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
     @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+      }
       nav a {
-        display: block;
         margin: 10px 0;
-        text-align: center;
       }
     }
   </style>
 </head>
 <body>
+
+<button id="themeToggle">🌙 Mode sombre</button>
 
 <nav>
   <a href="#qui-suis-je">Qui suis-je</a>
@@ -211,10 +236,11 @@
   <p>Site web développé avec ❤️ par Altinkaya Romain – 2025</p>
 </footer>
 
-<!-- Bouton retour en haut -->
+<!-- Retour en haut -->
 <button id="backToTop" title="Retour en haut">↑</button>
 
 <script>
+  // Retour en haut
   const btn = document.getElementById('backToTop');
   window.onscroll = function () {
     btn.style.display = (document.documentElement.scrollTop > 200) ? "flex" : "none";
@@ -222,6 +248,30 @@
   btn.onclick = function () {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Dark mode toggle
+  const toggleBtn = document.getElementById('themeToggle');
+  const body = document.body;
+
+  function setTheme(mode) {
+    if (mode === 'dark') {
+      body.classList.add('dark');
+      toggleBtn.textContent = "☀️ Mode clair";
+    } else {
+      body.classList.remove('dark');
+      toggleBtn.textContent = "🌙 Mode sombre";
+    }
+    localStorage.setItem('theme', mode);
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    const isDark = body.classList.contains('dark');
+    setTheme(isDark ? 'light' : 'dark');
+  });
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) setTheme(savedTheme);
 </script>
 
 </body>
