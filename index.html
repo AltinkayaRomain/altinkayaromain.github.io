@@ -4,158 +4,260 @@
   <meta charset="UTF-8" />
   <title>Altinkaya Romain - Portfolio</title>
   <style>
-  /* Reset et styles de base */
-  * {
-    box-sizing: border-box;
-  }
+    /* Reset et styles de base */
+    * {
+      box-sizing: border-box;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #e0f2f1;
-    color: #004d40;
-    line-height: 1.6;
-  }
-
-  header {
-    text-align: center;
-    padding-bottom: 20px;
-  }
-
-  header h1 {
-    font-size: 2.8rem;
-    margin-bottom: 0;
-  }
-
-  header p {
-    font-size: 1.2rem;
-    color: #00796b;
-  }
-
-  nav {
-    background: #004d40;
-    padding: 10px 0;
-    margin-bottom: 30px;
-    border-radius: 8px;
-    text-align: center;
-  }
-
-  nav a {
-    color: #a7ffeb;
-    margin: 0 15px;
-    font-weight: 600;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
-  }
-
-  nav a:hover {
-    color: #64ffda;
-  }
-
-  section {
-    background: white;
-    padding: 25px 30px;
-    margin-bottom: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-
-  h2 {
-    color: #00796b;
-    margin-top: 0;
-  }
-
-  ul {
-    list-style-type: disc;
-    padding-left: 20px;
-  }
-
-  a {
-    color: #004d40;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  footer {
-    text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    background-color: #004d40;
-    color: #a7ffeb;
-    border-radius: 10px;
-    font-size: 0.95rem;
-  }
-
-  /* Responsive */
-  @media (max-width: 600px) {
     body {
-      padding: 10px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #e0f2f1;
+      color: #004d40;
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
     }
+
+    header {
+      text-align: center;
+      padding-bottom: 20px;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #00796b;
+    }
+
+    nav {
+      background: #004d40;
+      padding: 10px 0;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
     nav a {
-      display: block;
-      margin: 10px 0;
+      color: #a7ffeb;
+      margin: 0 15px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
     }
-  }
+
+    nav a:hover {
+      color: #64ffda;
+    }
+
+    section {
+      background: white;
+      padding: 25px 30px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    h2 {
+      color: #00796b;
+      margin-top: 0;
+      border-bottom: 3px solid #00796b;
+      padding-bottom: 6px;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+
+    a {
+      color: #004d40;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #00796b;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #004d40;
+      color: #a7ffeb;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Bouton dark mode */
+    #darkModeToggle {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+      z-index: 101;
+    }
+
+    #darkModeToggle:hover {
+      background-color: #004d40;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      nav a {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+
+    /* Dark Mode */
+    body.dark {
+      background-color: #121212;
+      color: #e0f2f1;
+    }
+
+    body.dark header p {
+      color: #80cbc4;
+    }
+
+    body.dark nav {
+      background: #263238;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.7);
+    }
+
+    body.dark nav a {
+      color: #80cbc4;
+    }
+
+    body.dark nav a:hover {
+      color: #b2dfdb;
+    }
+
+    body.dark section {
+      background-color: #263238;
+      color: #e0f2f1;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+    }
+
+    body.dark a {
+      color: #80cbc4;
+    }
+
+    body.dark a:hover {
+      color: #b2dfdb;
+    }
+
+    body.dark footer {
+      background-color: #263238;
+      color: #80cbc4;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Altinkaya Romain</h1>
-  <p>Technicien Informatique - CV & Tutoriels</p>
-</header>
+  <button id="darkModeToggle" aria-label="Basculer en mode sombre">🌓 Mode Sombre</button>
 
-<nav>
-  <a href="#qui-suis-je">Qui suis-je</a>
-  <a href="#mes-tutoriels">Mes tutoriels</a>
-  <a href="#competences">Compétences</a>
-  <a href="#contact">Contact</a>
-</nav>
+  <header>
+    <h1>Altinkaya Romain</h1>
+    <p>Technicien Informatique - CV & Tutoriels</p>
+  </header>
 
-<section id="qui-suis-je">
-  <h2>Qui suis-je ?</h2>
-  <p>Je suis technicien informatique spécialisé en systèmes et réseaux. Passionné par le partage de connaissances, je crée des tutoriels pour aider les débutants et les professionnels à progresser.</p>
-</section>
+  <nav>
+    <a href="#qui-suis-je">Qui suis-je</a>
+    <a href="#mes-tutoriels">Mes tutoriels</a>
+    <a href="#competences">Compétences</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-<section id="mes-tutoriels">
-  <h2>Mes tutoriels</h2>
-  <ul>
-    <li><a href="#">Installation et configuration de Linux</a></li>
-    <li><a href="#">Gestion des réseaux avec Cisco</a></li>
-    <li><a href="#">Automatisation avec PowerShell</a></li>
-  </ul>
-</section>
+  <section id="qui-suis-je">
+    <h2>Qui suis-je ?</h2>
+    <p>Je suis technicien informatique spécialisé en systèmes et réseaux. Passionné par le partage de connaissances, je crée des tutoriels pour aider les débutants et les professionnels à progresser.</p>
+  </section>
 
-<section id="competences">
-  <h2>Compétences techniques</h2>
-  <ul>
-    <li><strong>Assistance :</strong> Support utilisateur, gestion des pannes, résolution d’incidents</li>
-    <li><strong>Maintenance :</strong> Dépannage hardware/software, installation de systèmes</li>
-    <li><strong>Réseaux :</strong> Administration LAN/WAN, configuration de switchs & routeurs</li>
-    <li><strong>Virtualisation :</strong> VMware, Hyper-V</li>
-    <li><strong>Automatisation :</strong> Scripting PowerShell</li>
-    <li><strong>Déploiement :</strong> FOG, Clonezilla, Ventoy</li>
-    <li><strong>Gestion de parc :</strong> GLPI, N-Able</li>
-    <li><strong>Comptes utilisateurs :</strong> Active Directory, Microsoft 365 Admin, KoXo Admin</li>
-    <li><strong>Veille technologique :</strong> Suivi régulier des nouveautés & apprentissage continu</li>
-  </ul>
-</section>
+  <section id="mes-tutoriels">
+    <h2>Mes tutoriels</h2>
+    <ul>
+      <li><a href="#">Installation et configuration de Linux</a></li>
+      <li><a href="#">Gestion des réseaux avec Cisco</a></li>
+      <li><a href="#">Automatisation avec PowerShell</a></li>
+    </ul>
+  </section>
 
-<section id="contact">
-  <h2>Contact</h2>
-  <p>Email : <a href="mailto:altinkayaromain@outlook.fr">altinkayaromain@outlook.fr</a></p>
-  <p>LinkedIn : <a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank">romain-altinkaya</a></p>
-</section>
+  <section id="competences">
+    <h2>Compétences techniques</h2>
+    <ul>
+      <li><strong>Assistance :</strong> Support utilisateur, gestion des pannes, résolution d’incidents</li>
+      <li><strong>Maintenance :</strong> Dépannage hardware/software, installation de systèmes</li>
+      <li><strong>Réseaux :</strong> Administration LAN/WAN, configuration de switchs & routeurs</li>
+      <li><strong>Virtualisation :</strong> VMware, Hyper-V</li>
+      <li><strong>Automatisation :</strong> Scripting PowerShell</li>
+      <li><strong>Déploiement :</strong> FOG, Clonezilla, Ventoy</li>
+      <li><strong>Gestion de parc :</strong> GLPI, N-Able</li>
+      <li><strong>Comptes utilisateurs :</strong> Active Directory, Microsoft 365 Admin, KoXo Admin</li>
+      <li><strong>Veille technologique :</strong> Suivi régulier des nouveautés & apprentissage continu</li>
+    </ul>
+  </section>
 
-<footer>
-  Site web développé avec ❤️ par Altinkaya Romain
-</footer>
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email : <a href="mailto:altinkayaromain@outlook.fr">altinkayaromain@outlook.fr</a></p>
+    <p>LinkedIn : <a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank" rel="noopener noreferrer">romain-altinkaya</a></p>
+  </section>
+
+  <footer>
+    Site web développé avec ❤️ par Altinkaya Romain
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('darkModeToggle');
+    const body = document.body;
+
+    // Check local storage to keep theme
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark');
+      toggleBtn.textContent = '☀️ Mode Clair';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      if (body.classList.contains('dark')) {
+        toggleBtn.textContent = '☀️ Mode Clair';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        toggleBtn.textContent = '🌓 Mode Sombre';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
 
 </body>
 </html>
