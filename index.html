@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <title>Altinkaya Romain - Portfolio</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-aWxZ5vVZ8IbQvqYZmPNNIm6/INXb4iReo6vYzPlKw+xm07pgYz3c9q4QG6K1rYbRMoBkZh3qPl4K/1t8PA72ig==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
   <style>
   /* Reset et styles de base */
   * {
     box-sizing: border-box;
   }
+
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     max-width: 900px;
@@ -85,35 +84,12 @@
 
   footer {
     text-align: center;
+    margin-top: 40px;
     padding: 20px;
-    font-size: 0.95rem;
-    color: #004d40;
-    background: #b2dfdb;
+    background-color: #004d40;
+    color: #a7ffeb;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-
-  footer .social-links {
-    margin-top: 10px;
-  }
-
-  footer .social-links a {
-    color: #004d40;
-    margin: 0 12px;
-    font-size: 1.3rem;
-    display: inline-block;
-    transition: transform 0.2s ease;
-  }
-
-  footer .social-links a:hover {
-    transform: scale(1.2);
-    color: #00796b;
-  }
-
-  .footer-note {
-    margin-top: 15px;
-    font-size: 0.85rem;
-    color: #00695c;
+    font-size: 0.95rem;
   }
 
   /* Responsive */
@@ -130,16 +106,17 @@
 </head>
 <body>
 
-<nav>
-  <a href="#qui-suis-je">Qui suis-je</a>
-  <a href="#mes-tutoriels">Mes tutoriels</a>
-  <a href="#contact">Contact</a>
-</nav>
-
 <header>
   <h1>Altinkaya Romain</h1>
   <p>Technicien Informatique - CV & Tutoriels</p>
 </header>
+
+<nav>
+  <a href="#qui-suis-je">Qui suis-je</a>
+  <a href="#mes-tutoriels">Mes tutoriels</a>
+  <a href="#competences">Compétences</a>
+  <a href="#contact">Contact</a>
+</nav>
 
 <section id="qui-suis-je">
   <h2>Qui suis-je ?</h2>
@@ -155,22 +132,30 @@
   </ul>
 </section>
 
+<section id="competences">
+  <h2>Compétences techniques</h2>
+  <ul>
+    <li><strong>Assistance :</strong> Support utilisateur, gestion des pannes, résolution d’incidents</li>
+    <li><strong>Maintenance :</strong> Dépannage hardware/software, installation de systèmes</li>
+    <li><strong>Réseaux :</strong> Administration LAN/WAN, configuration de switchs & routeurs</li>
+    <li><strong>Virtualisation :</strong> VMware, Hyper-V</li>
+    <li><strong>Automatisation :</strong> Scripting PowerShell</li>
+    <li><strong>Déploiement :</strong> FOG, Clonezilla, Ventoy</li>
+    <li><strong>Gestion de parc :</strong> GLPI, N-Able</li>
+    <li><strong>Comptes utilisateurs :</strong> Active Directory, Microsoft 365 Admin, KoXo Admin</li>
+    <li><strong>Veille technologique :</strong> Suivi régulier des nouveautés & apprentissage continu</li>
+  </ul>
+</section>
+
 <section id="contact">
   <h2>Contact</h2>
-  <p><i class="fas fa-envelope"></i> <a href="mailto:altinkayaromain@outlook.fr">altinkayaromain@outlook.fr</a></p>
-  <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank">Mon profil LinkedIn</a></p>
+  <p>Email : <a href="mailto:altinkayaromain@outlook.fr">altinkayaromain@outlook.fr</a></p>
+  <p>LinkedIn : <a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank">romain-altinkaya</a></p>
 </section>
 
 <footer>
-  <div class="social-links">
-    <a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-    <a href="mailto:altinkayaromain@outlook.fr" title="Email"><i class="fas fa-envelope"></i></a>
-  </div>
-  <div class="footer-note">
-    Site web développé avec ❤️ — Altinkaya Romain © 2025
-  </div>
+  Site web développé avec ❤️ par Altinkaya Romain
 </footer>
 
 </body>
 </html>
-
