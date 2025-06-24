@@ -5,19 +5,20 @@
   <title>Altinkaya Romain - Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
     :root {
-      --bg-light: #f5f5f5; /* Fond doux pour le mode clair */
+      --bg-light: #f3e8fc; /* Fond mauve doux pour le mode clair */
       --bg-dark: #0f172a;
-      --text-light: #2b2b2b; /* Texte plus foncé pour une meilleure lisibilité */
+      --text-light: #2b2b2b;
       --text-dark: #f8fafc;
-      --card-light: #e2e2e2; /* Cartes plus douces */
+      --card-light: #e2e2e2;
       --card-dark: #1e293b;
-      --banner-light: #f0f0f0; /* Bannière moins blanche */
+      --banner-light: #f0f0f0;
       --banner-dark: #1f2937;
-      --accent-light: #0077b6; /* Accent bleu doux */
+      --accent-light: #7c4dff; /* Accent mauve */
       --accent-dark: #38bdf8;
       --hover-light: #00a6c0;
       --hover-dark: #00a6c0;
@@ -26,14 +27,14 @@
     }
 
     body {
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Poppins', sans-serif;
       background: var(--bg-light);
       color: var(--text-light);
       margin: 0;
       padding: 0 20px;
       max-width: 960px;
       margin: auto;
-      transition: background 0.3s, color 0.3s;
+      transition: background 0.3s, color 0.3s, font-family 0.3s;
       position: relative;
       z-index: 1;
     }
@@ -41,6 +42,7 @@
     body.dark {
       background: var(--bg-dark);
       color: var(--text-dark);
+      font-family: 'Montserrat', sans-serif;
     }
 
     #particles-js {
@@ -172,7 +174,7 @@
 
     #backToTop:hover {
       opacity: 1;
-      transform: scale(1.2); /* Augmenter la taille au survol */
+      transform: scale(1.2);
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
     }
 
@@ -193,7 +195,7 @@
     }
 
     section {
-      background: var(--banner-light); /* Bannière plus douce */
+      background: var(--banner-light);
       padding: 30px;
       margin: 30px 0;
       border-radius: 14px;
@@ -299,7 +301,7 @@
         size: { value: 4 },
         move: { speed: 2, direction: "random", out_mode: "out" },
         opacity: { value: 0.5 },
-        line_linked: { enable: true, color: "#0077b6" }
+        line_linked: { enable: true, color: "#7c4dff" }
       }
     });
 
