@@ -276,7 +276,7 @@
     <p>Site web développé avec ❤️ par Altinkaya Romain – 2025</p>
   </footer>
 
-  <button id="themeToggle">🌙 Mode sombre</button>
+  <button id="themeToggle">🌙</button>
 
   <script>
     // Particles.js Background
@@ -286,4 +286,17 @@
         size: { value: 4 },
         move: { speed: 2, direction: "random", out_mode: "out" },
         opacity: { value: 0.5 },
-        line_linked: { enable
+        line_linked: { enable: true, color: "#38bdf8" }
+      }
+    });
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById("themeToggle");
+
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      themeToggle.textContent = document.body.classList.contains("dark") ? "🌞" : "🌙";
+    });
+  </script>
+</body>
+</html>
