@@ -1,18 +1,18 @@
 :root {
-  --bg-light: #f3e8fc;
-  --bg-dark: #0f172a;
-  --text-light: #2b2b2b;
-  --text-dark: #f8fafc;
-  --card-light: #e2e2e2;
-  --card-dark: #1e293b;
-  --banner-light: #f0f0f0;
-  --banner-dark: #1f2937;
-  --accent-light: #7c4dff;
-  --accent-dark: #38bdf8;
-  --hover-light: #00a6c0;
-  --hover-dark: #00a6c0;
-  --nav-light: #ffffff;
-  --nav-dark: #0f172a;
+  --bg-light: #f4f1eb;  /* Fond clair crème foncé */
+  --bg-dark: #0f172a;   /* Fond sombre profond */
+  --text-light: #5c4b51;  /* Texte clair taupe chaud */
+  --text-dark: #f8fafc;  /* Texte sombre clair */
+  --card-light: #ffffff;  /* Cartes claires (blanc cassé) */
+  --card-dark: #1e293b;  /* Cartes sombres marron foncé */
+  --banner-light: #ede6d8;  /* Bannière claire beige pâle */
+  --banner-dark: #1f2937;   /* Bannière sombre taupe foncé */
+  --accent-light: #c57d52;  /* Accent clair marron chaleureux */
+  --accent-dark: #38bdf8;   /* Accent sombre bleu lumineux */
+  --hover-light: #8a4b35;   /* Hover clair marron doux */
+  --hover-dark: #00a6c0;    /* Hover sombre bleu lumineux */
+  --nav-light: #ffffff;  /* Nav claire crème */
+  --nav-dark: #0f172a;   /* Nav sombre taupe foncé */
 }
 
 body {
