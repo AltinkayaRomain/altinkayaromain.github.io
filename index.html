@@ -6,19 +6,202 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-  <link rel="stylesheet" href="assets/css/style.css"> <!-- Lien vers ton fichier CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    :root {
+      --bg-light: #e0e7ff; /* Mode clair ajusté (plus doux) */
+      --bg-dark: #0f172a; /* Mode sombre */
+      --text-light: #0f172a;
+      --text-dark: #f8fafc;
+      --card-light: #ffffff;
+      --card-dark: #1e293b;
+      --accent-light: #38bdf8;
+      --accent-dark: #38bdf8;
+      --hover-light: #7dd3fc;
+      --hover-dark: #7dd3fc;
+      --nav-light: #ffffff;
+      --nav-dark: #0f172a;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      margin: 0;
+      padding: 0 20px;
+      max-width: 960px;
+      margin: auto;
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    /* === PARTICLES JS BACKGROUND === */
+    #particles-js {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* === NAVIGATION === */
+    nav {
+      background: var(--nav-light);
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    body.dark nav {
+      background: var(--nav-dark);
+    }
+
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+      padding-bottom: 2px;
+    }
+
+    body.dark nav a {
+      color: var(--text-dark);
+    }
+
+    nav a.active, nav a:hover {
+      border-bottom: 2px solid var(--accent-light);
+      color: var(--hover-light);
+    }
+
+    body.dark nav a.active, body.dark nav a:hover {
+      color: var(--hover-dark);
+    }
+
+    /* === HEADER === */
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-light);
+      text-shadow: 0 0 10px var(--accent-light);
+    }
+
+    body.dark header h1 {
+      color: var(--accent-dark);
+      text-shadow: 0 0 10px var(--accent-dark);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: var(--accent-light);
+    }
+
+    body.dark header p {
+      color: var(--accent-dark);
+    }
+
+    /* === THEME TOGGLE BUTTON === */
+    #themeToggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--accent-light);
+      border: none;
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--bg-light);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+
+    body.dark #themeToggle {
+      background: var(--accent-dark);
+      color: var(--bg-dark);
+    }
+
+    #themeToggle:hover {
+      background: var(--hover-light);
+    }
+
+    body.dark #themeToggle:hover {
+      background: var(--hover-dark);
+    }
+
+    /* === SECTIONS === */
+    section {
+      background: var(--card-light);
+      padding: 30px;
+      margin: 30px 0;
+      border-radius: 14px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    }
+
+    body.dark section {
+      background: var(--card-dark);
+    }
+
+    h2 {
+      color: var(--accent-light);
+      margin-top: 0;
+    }
+
+    body.dark h2 {
+      color: var(--accent-dark);
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    a {
+      color: var(--hover-light);
+    }
+
+    body.dark a {
+      color: var(--hover-dark);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 10px;
+      font-size: 0.9rem;
+      color: var(--hover-light);
+    }
+
+    body.dark footer {
+      color: var(--hover-dark);
+    }
+  </style>
 </head>
 <body>
   <div id="particles-js"></div>
-  <div id="progressBar"></div>
-  <button id="themeToggle">🌙 Mode sombre</button>
 
   <nav>
-    <a href="#qui-suis-je">Qui suis-je</a>
-    <a href="#mes-cours">Cours</a>
-    <a href="#mes-tutoriels">Tutoriels</a>
-    <a href="#competences">Compétences</a>
-    <a href="#contact">Contact</a>
+    <a href="index.html">Accueil</a>
+    <a href="about.html">Qui suis-je</a>
+    <a href="courses.html">Cours</a>
+    <a href="tutorials.html">Tutoriels</a>
+    <a href="skills.html">Compétences</a>
+    <a href="contact.html">Contact</a>
   </nav>
 
   <header>
@@ -93,7 +276,7 @@
     <p>Site web développé avec ❤️ par Altinkaya Romain – 2025</p>
   </footer>
 
-  <button id="backToTop">↑</button>
+  <button id="themeToggle">🌙 Mode sombre</button>
 
   <script>
     // Particles.js Background
@@ -103,52 +286,4 @@
         size: { value: 4 },
         move: { speed: 2, direction: "random", out_mode: "out" },
         opacity: { value: 0.5 },
-        line_linked: { enable: true, color: "#38bdf8", distance: 150, width: 1 }
-      },
-      interactivity: {
-        events: { onhover: { enable: true, mode: "repulse" } }
-      }
-    });
-
-    // Barre de progression
-    window.onscroll = () => {
-      const scroll = document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (scroll / height) * 100;
-      document.getElementById("progressBar").style.width = scrolled + "%";
-      document.getElementById("backToTop").style.display = scroll > 200 ? "flex" : "none";
-    };
-
-    // Retour en haut
-    document.getElementById("backToTop").onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // Thème sombre/clair
-    const toggleBtn = document.getElementById('themeToggle');
-    const body = document.body;
-    function setTheme(mode) {
-      if (mode === 'dark') {
-        body.classList.add('dark');
-        toggleBtn.textContent = "☀️ Mode clair";
-      } else {
-        body.classList.remove('dark');
-        toggleBtn.textContent = "🌙 Mode sombre";
-      }
-      localStorage.setItem('theme', mode);
-    }
-    toggleBtn.onclick = () => setTheme(body.classList.contains('dark') ? 'light' : 'dark');
-    setTheme(localStorage.getItem('theme') || 'light');
-
-    // Recherche dans les cours et tutoriels
-    document.getElementById("searchInput").addEventListener("input", function () {
-      const filter = this.value.toLowerCase();
-      const sections = ["mes-cours", "mes-tutoriels"];
-      sections.forEach(id => {
-        document.querySelectorAll(`#${id} li`).forEach(item => {
-          item.style.display = item.textContent.toLowerCase().includes(filter) ? "" : "none";
-        });
-      });
-    });
-  </script>
-</body>
-</html>
-
+        line_linked: { enable
