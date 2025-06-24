@@ -9,13 +9,15 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
     :root {
-      --bg-light: #f5f5f5; /* Nouveau fond plus doux pour le mode clair */
+      --bg-light: #f5f5f5; /* Fond doux pour le mode clair */
       --bg-dark: #0f172a;
       --text-light: #2b2b2b; /* Texte plus foncé pour une meilleure lisibilité */
       --text-dark: #f8fafc;
-      --card-light: #e2e2e2; /* Cartes dans une teinte plus douce */
+      --card-light: #e2e2e2; /* Cartes plus douces */
       --card-dark: #1e293b;
-      --accent-light: #0077b6; /* Accent bleu plus subtil pour mode clair */
+      --banner-light: #f0f0f0; /* Bannière moins blanche */
+      --banner-dark: #1f2937;
+      --accent-light: #0077b6; /* Accent bleu doux */
       --accent-dark: #38bdf8;
       --hover-light: #00a6c0;
       --hover-dark: #00a6c0;
@@ -152,7 +154,7 @@
       background-color: var(--accent-light);
       color: var(--bg-light);
       border: none;
-      padding: 15px 20px;
+      padding: 12px 18px;
       border-radius: 50%;
       font-size: 25px;
       cursor: pointer;
@@ -160,6 +162,7 @@
       opacity: 0.9;
       transition: all 0.3s ease;
       display: none;
+      transform: scale(1);
     }
 
     body.dark #backToTop {
@@ -169,13 +172,13 @@
 
     #backToTop:hover {
       opacity: 1;
-      transform: scale(1.1);
+      transform: scale(1.2); /* Augmenter la taille au survol */
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
     }
 
     body.dark #backToTop:hover {
       opacity: 1;
-      transform: scale(1.1);
+      transform: scale(1.2);
     }
 
     #searchInput {
@@ -190,7 +193,7 @@
     }
 
     section {
-      background: var(--card-light);
+      background: var(--banner-light); /* Bannière plus douce */
       padding: 30px;
       margin: 30px 0;
       border-radius: 14px;
@@ -198,7 +201,7 @@
     }
 
     body.dark section {
-      background: var(--card-dark);
+      background: var(--banner-dark);
     }
 
     h2 {
@@ -256,7 +259,6 @@
     <input type="text" id="searchInput" placeholder="Tapez pour rechercher..." />
   </section>
 
-  <!-- Example Sections -->
   <section id="qui-suis-je">
     <h2>Qui suis-je ?</h2>
     <p>Je suis technicien informatique spécialisé en systèmes et réseaux. Passionné par le partage de connaissances, je crée des tutoriels pour aider les débutants et les professionnels à progresser.</p>
@@ -288,7 +290,6 @@
     <span id="themeText">🌙 Mode Sombre</span>
   </button>
 
-  <!-- Back to top button -->
   <button id="backToTop" onclick="window.scrollTo(0, 0)">↑</button>
 
   <script>
@@ -314,7 +315,6 @@
       }
     });
 
-    // Handle the "back to top" button visibility
     window.onscroll = () => {
       const backToTopButton = document.getElementById("backToTop");
       if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
