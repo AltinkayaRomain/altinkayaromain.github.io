@@ -314,10 +314,21 @@
       const input = document.getElementById("searchInput").value.toLowerCase();
       const sections = document.querySelectorAll("section");
 
+      let found = false;
       sections.forEach(section => {
         const text = section.textContent.toLowerCase();
-        section.style.display = text.includes(input) ? "" : "none";
+        if (text.includes(input)) {
+          section.style.display = "";
+          found = true;
+        } else {
+          section.style.display = "none";
+        }
       });
+
+      // Si rien n'est trouvé, afficher un message
+      if (!found) {
+        alert("Aucun résultat trouvé.");
+      }
     }
   </script>
 </body>
