@@ -1,39 +1,154 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Altinkaya Romain - Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <link rel="stylesheet" href="assets/css/style.css"> <!-- Lien vers ton fichier CSS -->
 </head>
 <body>
-  <!-- Injection de l'en-tête -->
-  <div id="header"></div>
-  
-  <!-- Injection de la navigation -->
-  <div id="nav"></div>
+  <div id="particles-js"></div>
+  <div id="progressBar"></div>
+  <button id="themeToggle">🌙 Mode sombre</button>
 
-  <main>
-    <h2>Bienvenue sur mon portfolio</h2>
-    <p>Ceci est la page d'accueil de mon portfolio.</p>
-  </main>
-  
-  <!-- Injection du footer -->
-  <div id="footer"></div>
+  <nav>
+    <a href="#qui-suis-je">Qui suis-je</a>
+    <a href="#mes-cours">Cours</a>
+    <a href="#mes-tutoriels">Tutoriels</a>
+    <a href="#competences">Compétences</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-  <script src="assets/js/script.js"></script> <!-- Lien vers ton fichier JS -->
-  
+  <header>
+    <h1>Altinkaya Romain</h1>
+    <p>Technicien Informatique - CV & Tutoriels</p>
+  </header>
+
+  <section>
+    <h2>🔍 Rechercher dans mes cours et tutoriels</h2>
+    <input type="text" id="searchInput" placeholder="Tapez pour rechercher..." />
+  </section>
+
+  <section id="qui-suis-je">
+    <h2>Qui suis-je ?</h2>
+    <p>Je suis technicien informatique spécialisé en systèmes et réseaux. Passionné par le partage de connaissances, je crée des tutoriels pour aider les débutants et les professionnels à progresser.</p>
+  </section>
+
+  <section id="mes-cours">
+    <h2>Mes cours (alternance)</h2>
+    <ul>
+      <li>📘 Introduction à la cybersécurité</li>
+      <li>📘 Supervision réseau avec Zabbix</li>
+      <li>📘 Windows Server & Active Directory avancé</li>
+      <li>📘 VPN & pare-feux (pfSense, OPNsense)</li>
+    </ul>
+  </section>
+
+  <section id="mes-tutoriels">
+    <h2>Mes tutoriels</h2>
+
+    <h3>📡 Réseaux</h3>
+    <ul>
+      <li>Gestion des réseaux avec Cisco</li>
+      <li>Configuration des équipements (switch, routeur)</li>
+    </ul>
+
+    <h3>🖥️ Systèmes & OS</h3>
+    <ul>
+      <li>Installation et configuration de Linux</li>
+      <li>Déploiement d'images système (FOG, Clonezilla)</li>
+    </ul>
+
+    <h3>⚙️ Automatisation</h3>
+    <ul>
+      <li>Automatisation avec PowerShell</li>
+    </ul>
+  </section>
+
+  <section id="competences">
+    <h2>Compétences</h2>
+    <ul>
+      <li>🧰 Assistance technique & gestion des pannes utilisateurs</li>
+      <li>🛠️ Maintenance et dépannage des systèmes informatiques</li>
+      <li>🌐 Administration et gestion des réseaux (LAN/WAN)</li>
+      <li>📦 Technologies de virtualisation (VMware, Hyper-V)</li>
+      <li>🧪 Automatisation, scripting (PowerShell)</li>
+      <li>🔌 Configuration des équipements réseaux (switch, routeurs)</li>
+      <li>🧭 Veille technologique active</li>
+      <li>💾 Déploiement d'images système (FOG, Clonezilla, Ventoy)</li>
+      <li>📊 Outils de gestion de parc (GLPI, N-Able)</li>
+      <li>👤 Gestion des comptes utilisateurs (AD, Office 365, KoXo)</li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>📧 <a href="mailto:altinkayaromain@outlook.fr">altinkayaromain@outlook.fr</a></p>
+    <p>🔗 <a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank">Mon profil LinkedIn</a></p>
+  </section>
+
+  <footer>
+    <p>Site web développé avec ❤️ par Altinkaya Romain – 2025</p>
+  </footer>
+
+  <button id="backToTop">↑</button>
+
   <script>
-    // Fonction pour charger les parties communes (header, nav, footer)
-    function loadCommonParts() {
-      fetch('partials/header.html').then(response => response.text()).then(data => document.getElementById('header').innerHTML = data);
-      fetch('partials/navigation.html').then(response => response.text()).then(data => document.getElementById('nav').innerHTML = data);
-      fetch('partials/footer.html').then(response => response.text()).then(data => document.getElementById('footer').innerHTML = data);
-    }
+    // Particles.js Background
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 100 },
+        size: { value: 4 },
+        move: { speed: 2, direction: "random", out_mode: "out" },
+        opacity: { value: 0.5 },
+        line_linked: { enable: true, color: "#38bdf8", distance: 150, width: 1 }
+      },
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" } }
+      }
+    });
 
-    // Charger les parties communes
-    loadCommonParts();
+    // Barre de progression
+    window.onscroll = () => {
+      const scroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (scroll / height) * 100;
+      document.getElementById("progressBar").style.width = scrolled + "%";
+      document.getElementById("backToTop").style.display = scroll > 200 ? "flex" : "none";
+    };
+
+    // Retour en haut
+    document.getElementById("backToTop").onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Thème sombre/clair
+    const toggleBtn = document.getElementById('themeToggle');
+    const body = document.body;
+    function setTheme(mode) {
+      if (mode === 'dark') {
+        body.classList.add('dark');
+        toggleBtn.textContent = "☀️ Mode clair";
+      } else {
+        body.classList.remove('dark');
+        toggleBtn.textContent = "🌙 Mode sombre";
+      }
+      localStorage.setItem('theme', mode);
+    }
+    toggleBtn.onclick = () => setTheme(body.classList.contains('dark') ? 'light' : 'dark');
+    setTheme(localStorage.getItem('theme') || 'light');
+
+    // Recherche dans les cours et tutoriels
+    document.getElementById("searchInput").addEventListener("input", function () {
+      const filter = this.value.toLowerCase();
+      const sections = ["mes-cours", "mes-tutoriels"];
+      sections.forEach(id => {
+        document.querySelectorAll(`#${id} li`).forEach(item => {
+          item.style.display = item.textContent.toLowerCase().includes(filter) ? "" : "none";
+        });
+      });
+    });
   </script>
 </body>
 </html>
+
