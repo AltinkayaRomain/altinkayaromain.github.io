@@ -101,6 +101,11 @@
       color: var(--hover);
     }
 
+    nav a.active {
+      border-bottom: 2px solid var(--hover);
+      padding-bottom: 2px;
+    }
+
     section {
       background: var(--card);
       padding: 25px 30px;
@@ -197,6 +202,7 @@
 <nav>
   <a href="#qui-suis-je">Qui suis-je</a>
   <a href="#mes-tutoriels">Tutoriels</a>
+  <a href="#mes-cours">Cours</a>
   <a href="#competences">Compétences</a>
   <a href="#contact">Contact</a>
 </nav>
@@ -229,6 +235,17 @@
   <h3>⚙️ Automatisation</h3>
   <ul>
     <li><a href="#">Automatisation avec PowerShell</a></li>
+  </ul>
+</section>
+
+<section id="mes-cours" class="fade-in">
+  <h2>Mes cours</h2>
+  <ul>
+    <li>📘 Administration système Linux (services, utilisateurs, sécurité)</li>
+    <li>📘 Réseaux avancés (routage, VLAN, sécurité réseau)</li>
+    <li>📘 Virtualisation et Cloud (VMware, Hyper-V, Azure)</li>
+    <li>📘 Sécurité informatique (pare-feux, audits, GPO)</li>
+    <li>📘 Gestion de projet IT et documentation technique</li>
   </ul>
 </section>
 
@@ -308,7 +325,27 @@
   }, { threshold: 0.1 });
 
   faders.forEach(el => observer.observe(el));
+
+  // Highlight menu link on scroll
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll("nav a");
+
+  window.addEventListener("scroll", () => {
+    let current = "";
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      if (pageYOffset >= sectionTop) current = section.getAttribute("id");
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === "#" + current) {
+        link.classList.add("active");
+      }
+    });
+  });
 </script>
 
 </body>
 </html>
+
