@@ -1,18 +1,21 @@
 :root {
-  --bg-light: #1e1e1e;  /* Fond clair mais encore sombre avec une touche de métal */
-  --bg-dark: #0f172a;   /* Fond sombre profond (mode sombre inchangé) */
-  --text-light: #ffffff; /* Texte clair pur pour un bon contraste sur fond sombre */
-  --text-dark: #f8fafc;  /* Texte sombre clair */
-  --card-light: #333333; /* Cartes avec fond métal sombre mais clair */
-  --card-dark: #1e293b;  /* Cartes sombres inchangées */
-  --banner-light: #444444; /* Bannière gris foncé mais plus lumineuse */
-  --banner-dark: #1f2937;  /* Bannière sombre inchangée */
-  --accent-light: #00b8d4;  /* Accent bleu clair, tout en étant lumineux mais doux */
-  --accent-dark: #38bdf8;   /* Accent sombre inchangé */
-  --hover-light: #00e5ff;   /* Hover bleu néon clair pour l'interaction */
-  --hover-dark: #00a6c0;    /* Hover sombre inchangé */
-  --nav-light: #595959;  /* Nav claire en gris léger mais métallique */
-  --nav-dark: #0f172a;   /* Nav sombre inchangée */
+  /* Mode Clair */
+  --bg-light: #f5e1f0;  /* Fond lavande pâle, doux et apaisant */
+  --text-light: #3c3c3c; /* Texte sombre mais doux, un gris foncé presque noir */
+  --card-light: #ffffff; /* Cartes blanches avec une teinte douce */
+  --banner-light: #e0bbd7; /* Bannière rose poudré pastel */
+  --accent-light: #d3a6e1;  /* Accent lavande clair, doux et futuriste */
+  --hover-light: #c36fd6;   /* Hover rose violet pastel plus intense */
+  --nav-light: #ffffff;  /* Nav claire en blanc */
+  
+  /* Mode Sombre */
+  --bg-dark: #0a0a0a;   /* Fond sombre presque noir */
+  --text-dark: #f8fafc;  /* Texte clair et lumineux sur fond sombre */
+  --card-dark: #333333;  /* Cartes sombres, pas noir total mais suffisant pour un contraste */
+  --banner-dark: #1f2937;  /* Bannière sombre avec une touche de bleu foncé */
+  --accent-dark: #00e5ff;   /* Bleu néon éclatant, pour les accents */
+  --hover-dark: #00b8d4;    /* Hover bleu légèrement plus foncé pour le contraste */
+  --nav-dark: #212121;   /* Nav sombre mais avec un ton de gris plus doux */
 }
 
 body {
@@ -59,7 +62,7 @@ nav {
   top: 0;
   z-index: 1000;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 body.dark nav {
@@ -127,7 +130,7 @@ body.dark header p {
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 body.dark #themeToggle {
@@ -182,7 +185,7 @@ section {
   padding: 30px;
   margin: 30px 0;
   border-radius: 14px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
 }
 
 body.dark section {
@@ -224,4 +227,3 @@ footer {
 body.dark footer {
   color: var(--text-dark);
 }
-
