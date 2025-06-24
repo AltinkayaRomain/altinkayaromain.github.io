@@ -41,6 +41,14 @@ body.dark {
   z-index: -1;
 }
 
+body.dark #particles-js {
+  background-color: var(--bg-dark);
+}
+
+body #particles-js {
+  background-color: var(--bg-light);
+}
+
 nav {
   background: var(--nav-light);
   display: flex;
