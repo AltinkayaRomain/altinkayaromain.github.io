@@ -80,12 +80,12 @@
       top: 0;
       background: var(--nav);
       padding: 10px 0;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       border-radius: 8px;
       z-index: 1000;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
+      align-items: center;
     }
 
     nav a {
@@ -97,33 +97,9 @@
       transition: color 0.3s ease;
     }
 
-    nav a:hover,
     nav a.active {
+      text-decoration: underline;
       color: var(--hover);
-    }
-
-    #searchBar {
-      width: 100%;
-      margin-bottom: 30px;
-      display: flex;
-      justify-content: center;
-    }
-
-    #searchInput {
-      width: 100%;
-      max-width: 400px;
-      padding: 10px 15px;
-      border-radius: 30px;
-      border: 2px solid var(--accent);
-      outline: none;
-      font-size: 1rem;
-      background: var(--card);
-      color: var(--text);
-      transition: all 0.3s ease;
-    }
-
-    #searchInput:focus {
-      border-color: var(--hover);
     }
 
     section {
@@ -204,6 +180,26 @@
       color: var(--bg);
     }
 
+    .hidden {
+      display: none;
+    }
+
+    .toggle-btn {
+      margin-top: 10px;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      background: var(--hover);
+    }
+
     @media (max-width: 600px) {
       nav {
         flex-direction: column;
@@ -222,14 +218,10 @@
 <nav>
   <a href="#qui-suis-je">Qui suis-je</a>
   <a href="#mes-tutoriels">Tutoriels</a>
-  <a href="#cours">Cours</a>
+  <a href="#mes-cours">Cours</a>
   <a href="#competences">Compétences</a>
   <a href="#contact">Contact</a>
 </nav>
-
-<div id="searchBar">
-  <input type="text" id="searchInput" placeholder="Rechercher un tutoriel ou un cours...">
-</div>
 
 <header class="fade-in">
   <h1>Altinkaya Romain</h1>
@@ -243,48 +235,60 @@
 
 <section id="mes-tutoriels" class="fade-in">
   <h2>Mes tutoriels</h2>
+  <div class="category">
+    <h3>📡 Réseaux</h3>
+    <ul>
+      <li>Gestion des réseaux avec Cisco</li>
+      <li>Configuration des équipements (switch, routeur)</li>
+      <li class="hidden">Wireshark et analyse de trames</li>
+    </ul>
+    <button class="toggle-btn" onclick="toggleSection(this)">Voir plus</button>
+  </div>
 
-  <h3>📡 Réseaux</h3>
-  <ul>
-    <li><a href="#">Gestion des réseaux avec Cisco</a></li>
-    <li><a href="#">Configuration des équipements (switch, routeur)</a></li>
-  </ul>
+  <div class="category">
+    <h3>🖥️ Systèmes & OS</h3>
+    <ul>
+      <li>Installation de Linux</li>
+      <li>Déploiement d’images système</li>
+      <li class="hidden">Scripts de démarrage Windows</li>
+    </ul>
+    <button class="toggle-btn" onclick="toggleSection(this)">Voir plus</button>
+  </div>
 
-  <h3>🖥️ Systèmes & OS</h3>
-  <ul>
-    <li><a href="#">Installation et configuration de Linux</a></li>
-    <li><a href="#">Déploiement d'images système (FOG, Clonezilla)</a></li>
-  </ul>
-
-  <h3>⚙️ Automatisation</h3>
-  <ul>
-    <li><a href="#">Automatisation avec PowerShell</a></li>
-  </ul>
+  <div class="category">
+    <h3>⚙️ Automatisation</h3>
+    <ul>
+      <li>Scripts PowerShell de base</li>
+      <li class="hidden">Planification de tâches automatisées</li>
+    </ul>
+    <button class="toggle-btn" onclick="toggleSection(this)">Voir plus</button>
+  </div>
 </section>
 
-<section id="cours" class="fade-in">
-  <h2>Mes cours (en alternance)</h2>
+<section id="mes-cours" class="fade-in">
+  <h2>Mes cours en alternance</h2>
   <ul>
-    <li><a href="#">Administration systèmes Windows / Linux</a></li>
-    <li><a href="#">Sécurité des réseaux</a></li>
-    <li><a href="#">Virtualisation et services cloud</a></li>
-    <li><a href="#">Scripting et automatisation avancée</a></li>
+    <li>Administration Windows Server</li>
+    <li>Réseaux avancés (VLAN, routage)</li>
+    <li class="hidden">Virtualisation avec Hyper-V</li>
+    <li class="hidden">Sécurité informatique (pare-feux, audits)</li>
   </ul>
+  <button class="toggle-btn" onclick="toggleSection(this)">Voir plus</button>
 </section>
 
 <section id="competences" class="fade-in">
   <h2>Compétences</h2>
   <ul>
-    <li>🧰 Assistance technique & gestion des pannes utilisateurs</li>
-    <li>🛠️ Maintenance et dépannage des systèmes informatiques</li>
-    <li>🌐 Administration et gestion des réseaux (LAN/WAN)</li>
-    <li>📦 Technologies de virtualisation (VMware, Hyper-V)</li>
-    <li>🧪 Automatisation, scripting (PowerShell)</li>
-    <li>🔌 Configuration des équipements réseaux (switch, routeurs)</li>
-    <li>🧭 Veille technologique active</li>
-    <li>💾 Déploiement d'images système (FOG, Clonezilla, Ventoy)</li>
-    <li>📊 Outils de gestion de parc (GLPI, N-Able)</li>
-    <li>👤 Gestion des comptes utilisateurs (AD, Office 365, KoXo)</li>
+    <li>🧰 Assistance technique & gestion des pannes</li>
+    <li>🛠️ Maintenance des systèmes informatiques</li>
+    <li>🌐 Administration réseaux (LAN/WAN)</li>
+    <li>📦 Virtualisation (VMware, Hyper-V)</li>
+    <li>⚙️ Automatisation (PowerShell)</li>
+    <li>🔌 Configuration réseau (switch, routeurs)</li>
+    <li>🧭 Veille technologique</li>
+    <li>💾 Déploiement d'images (FOG, Ventoy)</li>
+    <li>📊 Gestion de parc (GLPI, N-Able)</li>
+    <li>👤 Comptes utilisateurs (AD, 365, KoXo)</li>
   </ul>
 </section>
 
@@ -301,66 +305,61 @@
 <button id="backToTop" title="Retour en haut">↑</button>
 
 <script>
-  // Scroll progress
+  // Progression
   window.onscroll = () => {
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    document.getElementById("progressBar").style.width = (scrollTop / scrollHeight) * 100 + "%";
-
-    // Back to top
-    document.getElementById("backToTop").style.display = scrollTop > 200 ? "flex" : "none";
-
-    // Section highlight
-    document.querySelectorAll("nav a").forEach(link => {
-      const section = document.querySelector(link.getAttribute("href"));
-      const offset = section.offsetTop - 100;
-      if (scrollTop >= offset && scrollTop < offset + section.offsetHeight) {
-        link.classList.add("active");
-      } else {
-        link.classList.remove("active");
-      }
-    });
+    const winScroll = document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    document.getElementById("progressBar").style.width = (winScroll / height) * 100 + "%";
+    document.getElementById("backToTop").style.display = winScroll > 200 ? "flex" : "none";
   };
 
-  // Scroll to top
+  // Back to top
   document.getElementById("backToTop").onclick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Dark mode
   const toggleBtn = document.getElementById('themeToggle');
   const body = document.body;
-  function setTheme(mode) {
-    if (mode === 'dark') {
-      body.classList.add('dark');
-      toggleBtn.textContent = "☀️ Mode clair";
-    } else {
-      body.classList.remove('dark');
-      toggleBtn.textContent = "🌙 Mode sombre";
-    }
+  const setTheme = mode => {
+    body.classList.toggle('dark', mode === 'dark');
+    toggleBtn.textContent = mode === 'dark' ? "☀️ Mode clair" : "🌙 Mode sombre";
     localStorage.setItem('theme', mode);
-  }
-  toggleBtn.addEventListener('click', () => {
-    setTheme(body.classList.contains('dark') ? 'light' : 'dark');
-  });
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) setTheme(savedTheme);
+  };
+  toggleBtn.onclick = () => {
+    const dark = body.classList.contains('dark');
+    setTheme(dark ? 'light' : 'dark');
+  };
+  const saved = localStorage.getItem('theme');
+  if (saved) setTheme(saved);
 
-  // Scroll animations
+  // Animation scroll
   const faders = document.querySelectorAll('.fade-in');
-  const observer = new IntersectionObserver(entries => {
+  new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-  }, { threshold: 0.1 });
-  faders.forEach(el => observer.observe(el));
+  }, { threshold: 0.1 }).observe(document.body);
 
-  // Search
-  const searchInput = document.getElementById("searchInput");
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase();
-    document.querySelectorAll("#mes-tutoriels li, #cours li").forEach(item => {
-      item.style.display = item.textContent.toLowerCase().includes(query) ? "list-item" : "none";
+  // Voir plus / moins
+  function toggleSection(btn) {
+    const hiddenItems = btn.previousElementSibling.querySelectorAll('.hidden');
+    const isVisible = hiddenItems[0].style.display === 'list-item';
+    hiddenItems.forEach(item => item.style.display = isVisible ? 'none' : 'list-item');
+    btn.textContent = isVisible ? 'Voir plus' : 'Voir moins';
+  }
+
+  // Highlight nav
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll("nav a");
+  window.addEventListener("scroll", () => {
+    let current = "";
+    sections.forEach(s => {
+      const top = s.offsetTop - 100;
+      if (scrollY >= top) current = s.id;
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
     });
   });
 </script>
