@@ -4,23 +4,24 @@
   <meta charset="UTF-8" />
   <title>Altinkaya Romain - Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #e0f2f1;
-      --text: #004d40;
-      --card: #ffffff;
-      --accent: #00796b;
-      --hover: #64ffda;
-      --nav: #004d40;
+      --bg: #0f172a;
+      --text: #f8fafc;
+      --card: #1e293b;
+      --accent: #38bdf8;
+      --hover: #7dd3fc;
+      --nav: #0f172a;
     }
 
     body.dark {
-      --bg: #121212;
-      --text: #e0f2f1;
-      --card: #1e1e1e;
-      --accent: #80cbc4;
-      --hover: #00e5ff;
-      --nav: #263238;
+      --bg: #0f172a;
+      --text: #f8fafc;
+      --card: #1e293b;
+      --accent: #38bdf8;
+      --hover: #7dd3fc;
+      --nav: #0f172a;
     }
 
     html {
@@ -28,14 +29,95 @@
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px;
+      font-family: 'Outfit', sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      margin: 0;
+      padding: 0 20px;
+      max-width: 960px;
+      margin: auto;
       transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    nav {
+      background: var(--nav);
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+      padding-bottom: 2px;
+    }
+
+    nav a.active, nav a:hover {
+      border-bottom: 2px solid var(--accent);
+      color: var(--hover);
+    }
+
+    section {
+      background: var(--card);
+      padding: 30px;
+      margin: 30px 0;
+      border-radius: 14px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      color: var(--accent);
+      margin-top: 0;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    a {
+      color: var(--hover);
+    }
+
+    #themeToggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: 2px solid var(--accent);
+      border-radius: 30px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    #themeToggle:hover {
+      background: var(--accent);
+      color: var(--bg);
     }
 
     #progressBar {
@@ -45,317 +127,171 @@
       width: 0%;
       height: 4px;
       background: var(--accent);
-      z-index: 10000;
-      transition: width 0.25s ease-out;
-    }
-
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s ease-out;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    header {
-      text-align: center;
-      padding-bottom: 20px;
-    }
-
-    header h1 {
-      font-size: 2.8rem;
-      margin-bottom: 0;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      color: var(--accent);
-    }
-
-    nav {
-      position: sticky;
-      top: 0;
-      background: var(--nav);
-      padding: 10px 0;
-      margin-bottom: 30px;
-      border-radius: 8px;
-      z-index: 1000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    nav a {
-      color: var(--bg);
-      margin: 0 15px;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 1.1rem;
-      transition: color 0.3s ease;
-    }
-
-    nav a.active {
-      border-bottom: 2px solid var(--hover);
-    }
-
-    nav a:hover {
-      color: var(--hover);
-    }
-
-    section {
-      background: var(--card);
-      padding: 25px 30px;
-      margin-bottom: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: background 0.3s, color 0.3s;
-    }
-
-    h2 {
-      color: var(--accent);
-      margin-top: 0;
-    }
-
-    ul {
-      list-style-type: disc;
-      padding-left: 20px;
-    }
-
-    a {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 0.9rem;
-      color: var(--accent);
+      z-index: 999;
+      transition: width 0.2s;
     }
 
     #backToTop {
       position: fixed;
       bottom: 30px;
       right: 30px;
-      background: var(--accent);
-      color: var(--bg);
-      border: none;
-      border-radius: 50%;
       width: 45px;
       height: 45px;
-      font-size: 20px;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      transition: background 0.3s ease;
-    }
-
-    #backToTop:hover {
-      background: var(--hover);
-    }
-
-    #themeToggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: var(--card);
-      color: var(--text);
-      border: 2px solid var(--accent);
-      border-radius: 30px;
-      padding: 6px 12px;
-      cursor: pointer;
-      z-index: 1001;
-      font-weight: bold;
-      transition: all 0.3s;
-    }
-
-    #themeToggle:hover {
+      border-radius: 50%;
       background: var(--accent);
       color: var(--bg);
+      font-size: 22px;
+      border: none;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
     input[type="text"] {
-      margin-top: 10px;
       width: 100%;
-      padding: 8px;
-      border: 1px solid var(--accent);
-      border-radius: 6px;
-      background: var(--card);
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #0f1c2e;
       color: var(--text);
     }
 
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-      }
-      nav a {
-        margin: 10px 0;
-      }
+    footer {
+      text-align: center;
+      padding: 30px 10px;
+      font-size: 0.9rem;
+      color: var(--hover);
     }
   </style>
 </head>
 <body>
+  <div id="progressBar"></div>
+  <button id="themeToggle">🌙 Mode sombre</button>
 
-<div id="progressBar"></div>
-<button id="themeToggle">🌙 Mode sombre</button>
+  <nav>
+    <a href="#qui-suis-je">Qui suis-je</a>
+    <a href="#mes-cours">Cours</a>
+    <a href="#mes-tutoriels">Tutoriels</a>
+    <a href="#competences">Compétences</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-<nav>
-  <a href="#qui-suis-je">Qui suis-je</a>
-  <a href="#mes-cours">Cours</a>
-  <a href="#mes-tutoriels">Tutoriels</a>
-  <a href="#competences">Compétences</a>
-  <a href="#contact">Contact</a>
-</nav>
+  <header>
+    <h1>Altinkaya Romain</h1>
+    <p>Technicien Informatique - CV & Tutoriels</p>
+  </header>
 
-<header class="fade-in">
-  <h1>Altinkaya Romain</h1>
-  <p>Technicien Informatique - CV & Tutoriels</p>
-</header>
+  <section>
+    <h2>🔍 Rechercher dans mes cours et tutoriels</h2>
+    <input type="text" id="searchInput" placeholder="Tapez pour rechercher..." />
+  </section>
 
-<section class="fade-in">
-  <h2>🔍 Rechercher dans mes cours et tutoriels</h2>
-  <input type="text" id="searchInput" placeholder="Tapez pour rechercher..." />
-</section>
+  <section id="qui-suis-je">
+    <h2>Qui suis-je ?</h2>
+    <p>Je suis technicien informatique spécialisé en systèmes et réseaux. Passionné par le partage de connaissances, je crée des tutoriels pour aider les débutants et les professionnels à progresser.</p>
+  </section>
 
-<section id="qui-suis-je" class="fade-in">
-  <h2>Qui suis-je ?</h2>
-  <p>Je suis technicien informatique spécialisé en systèmes et réseaux. Passionné par le partage de connaissances, je crée des tutoriels pour aider les débutants et les professionnels à progresser.</p>
-</section>
+  <section id="mes-cours">
+    <h2>Mes cours (alternance)</h2>
+    <ul>
+      <li>📘 Introduction à la cybersécurité</li>
+      <li>📘 Supervision réseau avec Zabbix</li>
+      <li>📘 Windows Server & Active Directory avancé</li>
+      <li>📘 VPN & pare-feux (pfSense, OPNsense)</li>
+    </ul>
+  </section>
 
-<section id="mes-cours" class="fade-in">
-  <h2>Mes cours (alternance)</h2>
-  <ul>
-    <li>📘 Introduction à la cybersécurité</li>
-    <li>📘 Supervision réseau avec Zabbix</li>
-    <li>📘 Windows Server & Active Directory avancé</li>
-    <li>📘 VPN & pare-feux (pfSense, OPNsense)</li>
-  </ul>
-</section>
+  <section id="mes-tutoriels">
+    <h2>Mes tutoriels</h2>
 
-<section id="mes-tutoriels" class="fade-in">
-  <h2>Mes tutoriels</h2>
+    <h3>📡 Réseaux</h3>
+    <ul>
+      <li>Gestion des réseaux avec Cisco</li>
+      <li>Configuration des équipements (switch, routeur)</li>
+    </ul>
 
-  <h3>📡 Réseaux</h3>
-  <ul>
-    <li>Gestion des réseaux avec Cisco</li>
-    <li>Configuration des équipements (switch, routeur)</li>
-  </ul>
+    <h3>🖥️ Systèmes & OS</h3>
+    <ul>
+      <li>Installation et configuration de Linux</li>
+      <li>Déploiement d'images système (FOG, Clonezilla)</li>
+    </ul>
 
-  <h3>🖥️ Systèmes & OS</h3>
-  <ul>
-    <li>Installation et configuration de Linux</li>
-    <li>Déploiement d'images système (FOG, Clonezilla)</li>
-  </ul>
+    <h3>⚙️ Automatisation</h3>
+    <ul>
+      <li>Automatisation avec PowerShell</li>
+    </ul>
+  </section>
 
-  <h3>⚙️ Automatisation</h3>
-  <ul>
-    <li>Automatisation avec PowerShell</li>
-  </ul>
-</section>
+  <section id="competences">
+    <h2>Compétences</h2>
+    <ul>
+      <li>🧰 Assistance technique & gestion des pannes utilisateurs</li>
+      <li>🛠️ Maintenance et dépannage des systèmes informatiques</li>
+      <li>🌐 Administration et gestion des réseaux (LAN/WAN)</li>
+      <li>📦 Technologies de virtualisation (VMware, Hyper-V)</li>
+      <li>🧪 Automatisation, scripting (PowerShell)</li>
+      <li>🔌 Configuration des équipements réseaux (switch, routeurs)</li>
+      <li>🧭 Veille technologique active</li>
+      <li>💾 Déploiement d'images système (FOG, Clonezilla, Ventoy)</li>
+      <li>📊 Outils de gestion de parc (GLPI, N-Able)</li>
+      <li>👤 Gestion des comptes utilisateurs (AD, Office 365, KoXo)</li>
+    </ul>
+  </section>
 
-<section id="competences" class="fade-in">
-  <h2>Compétences</h2>
-  <ul>
-    <li>🧰 Assistance technique & gestion des pannes utilisateurs</li>
-    <li>🛠️ Maintenance et dépannage des systèmes informatiques</li>
-    <li>🌐 Administration et gestion des réseaux (LAN/WAN)</li>
-    <li>📦 Technologies de virtualisation (VMware, Hyper-V)</li>
-    <li>🧪 Automatisation, scripting (PowerShell)</li>
-    <li>🔌 Configuration des équipements réseaux (switch, routeurs)</li>
-    <li>🧭 Veille technologique active</li>
-    <li>💾 Déploiement d'images système (FOG, Clonezilla, Ventoy)</li>
-    <li>📊 Outils de gestion de parc (GLPI, N-Able)</li>
-    <li>👤 Gestion des comptes utilisateurs (AD, Office 365, KoXo)</li>
-  </ul>
-</section>
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>📧 <a href="mailto:altinkayaromain@outlook.fr">altinkayaromain@outlook.fr</a></p>
+    <p>🔗 <a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank">Mon profil LinkedIn</a></p>
+  </section>
 
-<section id="contact" class="fade-in">
-  <h2>Contact</h2>
-  <p>📧 <a href="mailto:altinkayaromain@outlook.fr">altinkayaromain@outlook.fr</a></p>
-  <p>🔗 <a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank">Mon profil LinkedIn</a></p>
-</section>
+  <footer>
+    <p>Site web développé avec ❤️ par Altinkaya Romain – 2025</p>
+  </footer>
 
-<footer class="fade-in">
-  <p>Site web développé avec ❤️ par Altinkaya Romain – 2025</p>
-</footer>
+  <button id="backToTop">↑</button>
 
-<button id="backToTop" title="Retour en haut">↑</button>
+  <script>
+    // Barre de progression
+    window.onscroll = () => {
+      const scroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (scroll / height) * 100;
+      document.getElementById("progressBar").style.width = scrolled + "%";
+      document.getElementById("backToTop").style.display = scroll > 200 ? "flex" : "none";
+    };
 
-<script>
-  // Barre de progression
-  window.onscroll = () => {
-    const winScroll = document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    document.getElementById("progressBar").style.width = scrolled + "%";
+    // Retour en haut
+    document.getElementById("backToTop").onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Scroll top button
-    document.getElementById("backToTop").style.display = winScroll > 200 ? "flex" : "none";
-  };
-
-  // Scroll top
-  document.getElementById("backToTop").onclick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Theme toggle
-  const toggleBtn = document.getElementById('themeToggle');
-  const body = document.body;
-  function setTheme(mode) {
-    if (mode === 'dark') {
-      body.classList.add('dark');
-      toggleBtn.textContent = "☀️ Mode clair";
-    } else {
-      body.classList.remove('dark');
-      toggleBtn.textContent = "🌙 Mode sombre";
+    // Thème sombre/clair
+    const toggleBtn = document.getElementById('themeToggle');
+    const body = document.body;
+    function setTheme(mode) {
+      if (mode === 'dark') {
+        body.classList.add('dark');
+        toggleBtn.textContent = "☀️ Mode clair";
+      } else {
+        body.classList.remove('dark');
+        toggleBtn.textContent = "🌙 Mode sombre";
+      }
+      localStorage.setItem('theme', mode);
     }
-    localStorage.setItem('theme', mode);
-  }
+    toggleBtn.onclick = () => setTheme(body.classList.contains('dark') ? 'light' : 'dark');
+    setTheme(localStorage.getItem('theme') || 'light');
 
-  toggleBtn.addEventListener('click', () => {
-    const isDark = body.classList.contains('dark');
-    setTheme(isDark ? 'light' : 'dark');
-  });
-
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) setTheme(savedTheme);
-
-  // Animation au scroll
-  const faders = document.querySelectorAll('.fade-in');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, { threshold: 0.1 });
-
-  faders.forEach(el => observer.observe(el));
-
-  // Barre de recherche
-  document.getElementById("searchInput").addEventListener("input", function () {
-    const filter = this.value.toLowerCase();
-    const sectionsToFilter = ["mes-cours", "mes-tutoriels"];
-
-    sectionsToFilter.forEach(sectionId => {
-      const section = document.getElementById(sectionId);
-      if (!section) return;
-
-      const items = section.querySelectorAll("li");
-      items.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        item.style.display = text.includes(filter) ? "" : "none";
+    // Recherche dans les cours et tutoriels
+    document.getElementById("searchInput").addEventListener("input", function () {
+      const filter = this.value.toLowerCase();
+      const sections = ["mes-cours", "mes-tutoriels"];
+      sections.forEach(id => {
+        document.querySelectorAll(`#${id} li`).forEach(item => {
+          item.style.display = item.textContent.toLowerCase().includes(filter) ? "" : "none";
+        });
       });
     });
-  });
-</script>
-
+  </script>
 </body>
 </html>
