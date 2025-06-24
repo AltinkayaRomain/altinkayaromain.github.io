@@ -50,6 +50,12 @@
     }
 
     .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .fade-in.visible {
       opacity: 1;
       transform: none;
     }
@@ -91,10 +97,12 @@
       transition: color 0.3s ease;
     }
 
-    nav a:hover,
     nav a.active {
+      border-bottom: 2px solid var(--hover);
+    }
+
+    nav a:hover {
       color: var(--hover);
-      text-decoration: underline;
     }
 
     section {
@@ -175,6 +183,10 @@
       color: var(--bg);
     }
 
+    input[type="text"] {
+      margin-top: 10px;
+    }
+
     @media (max-width: 600px) {
       nav {
         flex-direction: column;
@@ -200,42 +212,47 @@
 
 <header class="fade-in">
   <h1>Altinkaya Romain</h1>
-  <p>Technicien Informatique - Portfolio & Apprentissage</p>
+  <p>Technicien Informatique - CV & Tutoriels</p>
 </header>
+
+<section class="fade-in">
+  <h2>🔍 Rechercher dans mes cours et tutoriels</h2>
+  <input type="text" id="searchInput" placeholder="Tapez pour rechercher..." />
+</section>
 
 <section id="qui-suis-je" class="fade-in">
   <h2>Qui suis-je ?</h2>
-  <p>Je suis technicien informatique spécialisé en systèmes et réseaux. En alternance, je partage mes apprentissages et tutoriels autour de l'informatique et des technologies réseau.</p>
+  <p>Je suis technicien informatique spécialisé en systèmes et réseaux. Passionné par le partage de connaissances, je crée des tutoriels pour aider les débutants et les professionnels à progresser.</p>
 </section>
 
 <section id="mes-cours" class="fade-in">
-  <h2>Mes cours</h2>
+  <h2>Mes cours (alternance)</h2>
   <ul>
-    <li>Administration système sous Windows & Linux</li>
-    <li>Virtualisation avec Hyper-V et VMware</li>
-    <li>Réseaux TCP/IP, routage, VLAN</li>
-    <li>Services Active Directory & déploiements d’images</li>
-    <li>Automatisation PowerShell & supervision</li>
+    <li>📘 Introduction à la cybersécurité</li>
+    <li>📘 Supervision réseau avec Zabbix</li>
+    <li>📘 Windows Server & Active Directory avancé</li>
+    <li>📘 VPN & pare-feux (pfSense, OPNsense)</li>
   </ul>
 </section>
 
 <section id="mes-tutoriels" class="fade-in">
   <h2>Mes tutoriels</h2>
+
   <h3>📡 Réseaux</h3>
   <ul>
-    <li><a href="#">Gestion des réseaux avec Cisco</a></li>
-    <li><a href="#">Configuration des équipements (switch, routeur)</a></li>
+    <li>Gestion des réseaux avec Cisco</li>
+    <li>Configuration des équipements (switch, routeur)</li>
   </ul>
 
   <h3>🖥️ Systèmes & OS</h3>
   <ul>
-    <li><a href="#">Installation et configuration de Linux</a></li>
-    <li><a href="#">Déploiement d'images système (FOG, Clonezilla)</a></li>
+    <li>Installation et configuration de Linux</li>
+    <li>Déploiement d'images système (FOG, Clonezilla)</li>
   </ul>
 
   <h3>⚙️ Automatisation</h3>
   <ul>
-    <li><a href="#">Automatisation avec PowerShell</a></li>
+    <li>Automatisation avec PowerShell</li>
   </ul>
 </section>
 
@@ -275,23 +292,16 @@
     const scrolled = (winScroll / height) * 100;
     document.getElementById("progressBar").style.width = scrolled + "%";
 
-    // Bouton retour haut
+    // Scroll top button
     document.getElementById("backToTop").style.display = winScroll > 200 ? "flex" : "none";
-
-    // Menu actif
-    const sections = document.querySelectorAll("section");
-    let index = sections.length;
-    while (--index && window.scrollY + 150 < sections[index].offsetTop) {}
-    document.querySelectorAll("nav a").forEach(link => link.classList.remove("active"));
-    document.querySelectorAll("nav a")[index].classList.add("active");
   };
 
-  // Retour haut
+  // Scroll top
   document.getElementById("backToTop").onclick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Thème sombre
+  // Theme toggle
   const toggleBtn = document.getElementById('themeToggle');
   const body = document.body;
   function setTheme(mode) {
@@ -312,6 +322,33 @@
 
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme) setTheme(savedTheme);
+
+  // Animation au scroll
+  const faders = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  faders.forEach(el => observer.observe(el));
+
+  // Barre de recherche
+  document.getElementById("searchInput").addEventListener("input", function () {
+    const filter = this.value.toLowerCase();
+    const sectionsToFilter = ["mes-cours", "mes-tutoriels"];
+
+    sectionsToFilter.forEach(sectionId => {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+
+      const items = section.querySelectorAll("li");
+      items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(filter) ? "" : "none";
+      });
+    });
+  });
 </script>
 
 </body>
