@@ -124,13 +124,16 @@
       right: 20px;
       background: var(--accent-light);
       border: none;
-      border-radius: 50%;
-      padding: 10px;
+      border-radius: 25px;
+      padding: 10px 20px;
       cursor: pointer;
-      font-size: 20px;
+      font-size: 16px;
       color: var(--bg-light);
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     body.dark #themeToggle {
@@ -144,6 +147,15 @@
 
     body.dark #themeToggle:hover {
       background: var(--hover-dark);
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-top: 20px;
+      margin-bottom: 20px;
     }
 
     /* === SECTIONS === */
@@ -211,7 +223,7 @@
 
   <section>
     <h2>🔍 Rechercher dans mes cours et tutoriels</h2>
-    <input type="text" id="searchInput" placeholder="Tapez pour rechercher..." />
+    <input type="text" id="searchInput" placeholder="Tapez pour rechercher..." oninput="filterContent()" />
   </section>
 
   <section id="qui-suis-je">
@@ -276,7 +288,9 @@
     <p>Site web développé avec ❤️ par Altinkaya Romain – 2025</p>
   </footer>
 
-  <button id="themeToggle">🌙</button>
+  <button id="themeToggle">
+    <span id="themeText">Mode Sombre</span> 🌙
+  </button>
 
   <script>
     // Particles.js Background
@@ -292,11 +306,29 @@
 
     // Theme toggle functionality
     const themeToggle = document.getElementById("themeToggle");
+    const themeText = document.getElementById("themeText");
 
     themeToggle.addEventListener("click", () => {
       document.body.classList.toggle("dark");
-      themeToggle.textContent = document.body.classList.contains("dark") ? "🌞" : "🌙";
+      if (document.body.classList.contains("dark")) {
+        themeText.textContent = "Mode Clair";
+        themeToggle.querySelector("span").innerText = "🌞";
+      } else {
+        themeText.textContent = "Mode Sombre";
+        themeToggle.querySelector("span").innerText = "🌙";
+      }
     });
+
+    // Search filter function
+    function filterContent() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const sections = document.querySelectorAll("section");
+
+      sections.forEach(section => {
+        const text = section.textContent.toLowerCase();
+        section.style.display = text.includes(input) ? "" : "none";
+      });
+    }
   </script>
 </body>
 </html>
