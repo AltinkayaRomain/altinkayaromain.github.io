@@ -9,15 +9,15 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
     :root {
-      --bg-light: #e5e5e5; /* Nouveau fond pour le mode clair */
+      --bg-light: #f5f5f5; /* Nouveau fond plus doux pour le mode clair */
       --bg-dark: #0f172a;
-      --text-light: #212121; /* Texte plus sombre et moderne */
+      --text-light: #2b2b2b; /* Texte plus foncé pour une meilleure lisibilité */
       --text-dark: #f8fafc;
-      --card-light: #f2f2f2; /* Nouvelle couleur pour les cartes en mode clair */
+      --card-light: #e2e2e2; /* Cartes dans une teinte plus douce */
       --card-dark: #1e293b;
-      --accent-light: #00b4d8; /* Accent en mode clair */
+      --accent-light: #0077b6; /* Accent bleu plus subtil pour mode clair */
       --accent-dark: #38bdf8;
-      --hover-light: #00a6c0; /* Teinte d'accentuation plus claire en hover */
+      --hover-light: #00a6c0;
       --hover-dark: #00a6c0;
       --nav-light: #ffffff;
       --nav-dark: #0f172a;
@@ -156,9 +156,10 @@
       border-radius: 50%;
       font-size: 25px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      opacity: 0.8;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      opacity: 0.9;
       transition: all 0.3s ease;
+      display: none;
     }
 
     body.dark #backToTop {
@@ -168,12 +169,13 @@
 
     #backToTop:hover {
       opacity: 1;
-      transform: translateY(-5px);
+      transform: scale(1.1);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
     }
 
     body.dark #backToTop:hover {
       opacity: 1;
-      transform: translateY(-5px);
+      transform: scale(1.1);
     }
 
     #searchInput {
@@ -296,7 +298,7 @@
         size: { value: 4 },
         move: { speed: 2, direction: "random", out_mode: "out" },
         opacity: { value: 0.5 },
-        line_linked: { enable: true, color: "#00b4d8" }
+        line_linked: { enable: true, color: "#0077b6" }
       }
     });
 
