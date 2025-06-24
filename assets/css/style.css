@@ -200,3 +200,19 @@ ul {
 
 a {
   color: var(--hover-light);
+}
+
+body.dark a {
+  color: var(--hover-dark);
+}
+
+footer {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+body.dark footer {
+  color: var(--text-dark);
+}
