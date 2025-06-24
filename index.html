@@ -284,7 +284,7 @@
   </footer>
 
   <button id="themeToggle">
-    🌙 <span id="themeText">Mode Sombre</span>
+    <span id="themeText">🌙 Mode Sombre</span>
   </button>
 
   <script>
@@ -304,11 +304,9 @@
     themeToggle.addEventListener("click", () => {
       document.body.classList.toggle("dark");
       if (document.body.classList.contains("dark")) {
-        themeText.textContent = "Mode Clair";
-        themeToggle.querySelector("span").innerText = "🌞";
+        themeText.innerText = "🌞 Mode Clair";
       } else {
-        themeText.textContent = "Mode Sombre";
-        themeToggle.querySelector("span").innerText = "🌙";
+        themeText.innerText = "🌙 Mode Sombre";
       }
     });
 
