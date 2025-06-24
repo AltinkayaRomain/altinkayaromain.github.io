@@ -9,9 +9,9 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
     :root {
-      --bg-light: #e0e7ff;
+      --bg-light: #f9f9f9; /* Couleur de fond pour le mode clair */
       --bg-dark: #0f172a;
-      --text-light: #0f172a;
+      --text-light: #333333; /* Texte plus sombre pour mieux contraster */
       --text-dark: #f8fafc;
       --card-light: #ffffff;
       --card-dark: #1e293b;
@@ -145,6 +145,37 @@
       background: var(--hover-dark);
     }
 
+    #backToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--accent-light);
+      color: var(--bg-light);
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+
+    body.dark #backToTop {
+      background-color: var(--accent-dark);
+      color: var(--bg-dark);
+    }
+
+    #backToTop:hover {
+      opacity: 1;
+      transform: translateY(-5px);
+    }
+
+    body.dark #backToTop:hover {
+      opacity: 1;
+      transform: translateY(-5px);
+    }
+
     #searchInput {
       width: 100%;
       padding: 10px;
@@ -220,16 +251,17 @@
 
   <section>
     <h2>🔍 Rechercher dans mes cours et tutoriels</h2>
-    <input type="text" id="searchInput" placeholder="Tapez pour rechercher..." oninput="filterContent()" />
+    <input type="text" id="searchInput" placeholder="Tapez pour rechercher..." />
   </section>
 
+  <!-- Example Sections -->
   <section id="qui-suis-je">
     <h2>Qui suis-je ?</h2>
     <p>Je suis technicien informatique spécialisé en systèmes et réseaux. Passionné par le partage de connaissances, je crée des tutoriels pour aider les débutants et les professionnels à progresser.</p>
   </section>
 
   <section id="mes-cours">
-    <h2>Mes cours (alternance)</h2>
+    <h2>Mes cours</h2>
     <ul>
       <li>📘 Introduction à la cybersécurité</li>
       <li>📘 Supervision réseau avec Zabbix</li>
@@ -240,44 +272,10 @@
 
   <section id="mes-tutoriels">
     <h2>Mes tutoriels</h2>
-    <h3>📡 Réseaux</h3>
     <ul>
       <li>Gestion des réseaux avec Cisco</li>
       <li>Configuration des équipements (switch, routeur)</li>
     </ul>
-
-    <h3>🖥️ Systèmes & OS</h3>
-    <ul>
-      <li>Installation et configuration de Linux</li>
-      <li>Déploiement d'images système (FOG, Clonezilla)</li>
-    </ul>
-
-    <h3>⚙️ Automatisation</h3>
-    <ul>
-      <li>Automatisation avec PowerShell</li>
-    </ul>
-  </section>
-
-  <section id="competences">
-    <h2>Compétences</h2>
-    <ul>
-      <li>🧰 Assistance technique & gestion des pannes utilisateurs</li>
-      <li>🛠️ Maintenance et dépannage des systèmes informatiques</li>
-      <li>🌐 Administration et gestion des réseaux (LAN/WAN)</li>
-      <li>📦 Technologies de virtualisation (VMware, Hyper-V)</li>
-      <li>🧪 Automatisation, scripting (PowerShell)</li>
-      <li>🔌 Configuration des équipements réseaux (switch, routeurs)</li>
-      <li>🧭 Veille technologique active</li>
-      <li>💾 Déploiement d'images système (FOG, Clonezilla, Ventoy)</li>
-      <li>📊 Outils de gestion de parc (GLPI, N-Able)</li>
-      <li>👤 Gestion des comptes utilisateurs (AD, Office 365, KoXo)</li>
-    </ul>
-  </section>
-
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>📧 <a href="mailto:altinkayaromain@outlook.fr">altinkayaromain@outlook.fr</a></p>
-    <p>🔗 <a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank">Mon profil LinkedIn</a></p>
   </section>
 
   <footer>
@@ -287,6 +285,9 @@
   <button id="themeToggle">
     <span id="themeText">🌙 Mode Sombre</span>
   </button>
+
+  <!-- Back to top button -->
+  <button id="backToTop" onclick="window.scrollTo(0, 0)">↑</button>
 
   <script>
     particlesJS("particles-js", {
@@ -311,20 +312,15 @@
       }
     });
 
-    function filterContent() {
-      const input = document.getElementById("searchInput").value.toLowerCase();
-      const sections = document.querySelectorAll("section");
-      let found = false;
-      sections.forEach(section => {
-        const text = section.textContent.toLowerCase();
-        if (text.includes(input)) {
-          section.style.display = "";
-          found = true;
-        } else {
-          section.style.display = "none";
-        }
-      });
-    }
+    // Handle the "back to top" button visibility
+    window.onscroll = () => {
+      const backToTopButton = document.getElementById("backToTop");
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        backToTopButton.style.display = "block";
+      } else {
+        backToTopButton.style.display = "none";
+      }
+    };
   </script>
 </body>
 </html>
