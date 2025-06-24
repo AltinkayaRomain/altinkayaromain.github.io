@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <title>Altinkaya Romain - Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <style>
     :root {
       --bg: #0f172a;
@@ -29,7 +30,7 @@
     }
 
     body {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Orbitron', sans-serif;
       background: var(--bg);
       color: var(--text);
       margin: 0;
@@ -37,23 +38,21 @@
       max-width: 960px;
       margin: auto;
       transition: background 0.3s, color 0.3s;
+      position: relative;
+      z-index: 1;
     }
 
-    header {
-      text-align: center;
-      padding: 60px 20px 20px;
+    /* === PARTICLES JS BACKGROUND === */
+    #particles-js {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
 
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      color: var(--accent);
-    }
-
+    /* === NAVIGATION === */
     nav {
       background: var(--nav);
       display: flex;
@@ -80,6 +79,25 @@
       color: var(--hover);
     }
 
+    /* === HEADER === */
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    /* === SECTIONS === */
     section {
       background: var(--card);
       padding: 30px;
@@ -101,6 +119,7 @@
       color: var(--hover);
     }
 
+    /* === THEME TOGGLE BUTTON === */
     #themeToggle {
       position: fixed;
       top: 20px;
@@ -120,6 +139,7 @@
       color: var(--bg);
     }
 
+    /* === PROGRESS BAR === */
     #progressBar {
       position: fixed;
       top: 0;
@@ -131,6 +151,7 @@
       transition: width 0.2s;
     }
 
+    /* === BACK TO TOP BUTTON === */
     #backToTop {
       position: fixed;
       bottom: 30px;
@@ -149,6 +170,7 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
+    /* === SEARCH BAR === */
     input[type="text"] {
       width: 100%;
       padding: 12px;
@@ -159,6 +181,7 @@
       color: var(--text);
     }
 
+    /* === FOOTER === */
     footer {
       text-align: center;
       padding: 30px 10px;
@@ -168,6 +191,7 @@
   </style>
 </head>
 <body>
+  <div id="particles-js"></div>
   <div id="progressBar"></div>
   <button id="themeToggle">🌙 Mode sombre</button>
 
@@ -254,6 +278,20 @@
   <button id="backToTop">↑</button>
 
   <script>
+    // Particles.js Background
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 100 },
+        size: { value: 4 },
+        move: { speed: 2, direction: "random", out_mode: "out" },
+        opacity: { value: 0.5 },
+        line_linked: { enable: true, color: "#38bdf8", distance: 150, width: 1 }
+      },
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" } }
+      }
+    });
+
     // Barre de progression
     window.onscroll = () => {
       const scroll = document.documentElement.scrollTop;
