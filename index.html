@@ -8,53 +8,38 @@
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <style>
     :root {
-      --bg-light: #ffffff;
-      --bg-dark: #0f172a;
-      --text-light: #1f2937;
-      --text-dark: #f8fafc;
-      --card-light: #f1f5f9;
-      --card-dark: #1e293b;
+      --bg: #0f172a;
+      --text: #f8fafc;
+      --card: #1e293b;
       --accent: #38bdf8;
-      --hover-light: #7dd3fc;
-      --hover-dark: #7dd3fc;
-      --nav-light: #ffffff;
-      --nav-dark: #0f172a;
+      --hover: #7dd3fc;
+      --nav: #0f172a;
     }
 
-    /* === Mode sombre === */
     body.dark {
-      background: var(--bg-dark);
-      color: var(--text-dark);
+      --bg: #0f172a;
+      --text: #f8fafc;
+      --card: #1e293b;
+      --accent: #38bdf8;
+      --hover: #7dd3fc;
+      --nav: #0f172a;
     }
 
-    body.dark nav {
-      background: var(--nav-dark);
+    html {
+      scroll-behavior: smooth;
     }
 
-    body.dark section {
-      background: var(--card-dark);
-    }
-
-    body.dark a {
-      color: var(--hover-dark);
-    }
-
-    /* === Mode clair (par défaut) === */
     body {
-      background: var(--bg-light);
-      color: var(--text-light);
-    }
-
-    nav {
-      background: var(--nav-light);
-    }
-
-    section {
-      background: var(--card-light);
-    }
-
-    a {
-      color: var(--hover-light);
+      font-family: 'Orbitron', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0 20px;
+      max-width: 960px;
+      margin: auto;
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+      z-index: 1;
     }
 
     /* === PARTICLES JS BACKGROUND === */
@@ -69,6 +54,7 @@
 
     /* === NAVIGATION === */
     nav {
+      background: var(--nav);
       display: flex;
       justify-content: center;
       gap: 20px;
@@ -81,7 +67,7 @@
     }
 
     nav a {
-      color: var(--text-light);
+      color: var(--text);
       text-decoration: none;
       font-weight: 600;
       transition: 0.3s;
@@ -90,7 +76,7 @@
 
     nav a.active, nav a:hover {
       border-bottom: 2px solid var(--accent);
-      color: var(--hover-light);
+      color: var(--hover);
     }
 
     /* === HEADER === */
@@ -113,6 +99,7 @@
 
     /* === SECTIONS === */
     section {
+      background: var(--card);
       padding: 30px;
       margin: 30px 0;
       border-radius: 14px;
@@ -129,7 +116,7 @@
     }
 
     a {
-      color: var(--hover-light);
+      color: var(--hover);
     }
 
     /* === THEME TOGGLE BUTTON === */
@@ -143,13 +130,13 @@
       padding: 6px 12px;
       cursor: pointer;
       font-weight: bold;
-      color: var(--text-light);
+      color: var(--text);
       transition: all 0.3s ease;
     }
 
     #themeToggle:hover {
       background: var(--accent);
-      color: var(--bg-dark);
+      color: var(--bg);
     }
 
     /* === PROGRESS BAR === */
@@ -173,7 +160,7 @@
       height: 45px;
       border-radius: 50%;
       background: var(--accent);
-      color: var(--bg-dark);
+      color: var(--bg);
       font-size: 22px;
       border: none;
       display: none;
@@ -191,7 +178,7 @@
       border: none;
       border-radius: 8px;
       background: #0f1c2e;
-      color: var(--text-light);
+      color: var(--text);
     }
 
     /* === FOOTER === */
@@ -199,7 +186,7 @@
       text-align: center;
       padding: 30px 10px;
       font-size: 0.9rem;
-      color: var(--hover-light);
+      color: var(--hover);
     }
   </style>
 </head>
