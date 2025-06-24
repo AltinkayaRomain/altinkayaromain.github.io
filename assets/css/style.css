@@ -1,17 +1,17 @@
 :root {
-  --bg-light: #f4f1eb;  /* Fond clair crème foncé */
+  --bg-light: #e0e7ff;  /* Gris clair métallique, futuriste */
   --bg-dark: #0f172a;   /* Fond sombre profond */
-  --text-light: #5c4b51;  /* Texte clair taupe chaud */
+  --text-light: #1e293b;  /* Texte clair bleu-gris */
   --text-dark: #f8fafc;  /* Texte sombre clair */
-  --card-light: #ffffff;  /* Cartes claires (blanc cassé) */
-  --card-dark: #1e293b;  /* Cartes sombres marron foncé */
-  --banner-light: #ede6d8;  /* Bannière claire beige pâle */
-  --banner-dark: #1f2937;   /* Bannière sombre taupe foncé */
-  --accent-light: #c57d52;  /* Accent clair marron chaleureux */
-  --accent-dark: #38bdf8;   /* Accent sombre bleu lumineux */
-  --hover-light: #8a4b35;   /* Hover clair marron doux */
+  --card-light: #ffffff;  /* Cartes claires, blanches et épurées */
+  --card-dark: #1e293b;  /* Cartes sombres, foncées */
+  --banner-light: #f1f5f9;  /* Bannière claire avec un ton gris froid */
+  --banner-dark: #1f2937;   /* Bannière sombre avec un fond bleu-gris foncé */
+  --accent-light: #38bdf8;  /* Accent clair bleu néon pour un effet tech */
+  --accent-dark: #38bdf8;   /* Accent sombre avec une touche de bleu lumineux */
+  --hover-light: #4f96ff;   /* Hover clair, bleu plus foncé pour l'interaction */
   --hover-dark: #00a6c0;    /* Hover sombre bleu lumineux */
-  --nav-light: #ffffff;  /* Nav claire crème */
+  --nav-light: #ffffff;  /* Nav claire, épurée en blanc */
   --nav-dark: #0f172a;   /* Nav sombre taupe foncé */
 }
 
