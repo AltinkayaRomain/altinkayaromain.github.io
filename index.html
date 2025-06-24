@@ -5,24 +5,24 @@
   <title>Altinkaya Romain - Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <style>
     :root {
-      --bg: #0e0e10;
-      --text: #e0f7fa;
-      --card: #1a1a1d;
-      --accent: #00e5ff;
-      --hover: #00ffc3;
-      --nav: rgba(20, 20, 25, 0.8);
+      --bg: #0f172a;
+      --text: #f8fafc;
+      --card: #1e293b;
+      --accent: #38bdf8;
+      --hover: #7dd3fc;
+      --nav: #0f172a;
     }
 
     body.dark {
-      --bg: #0e0e10;
-      --text: #e0f7fa;
-      --card: #1a1a1d;
-      --accent: #00e5ff;
-      --hover: #00ffc3;
-      --nav: rgba(20, 20, 25, 0.8);
+      --bg: #0f172a;
+      --text: #f8fafc;
+      --card: #1e293b;
+      --accent: #38bdf8;
+      --hover: #7dd3fc;
+      --nav: #0f172a;
     }
 
     html {
@@ -38,95 +38,85 @@
       max-width: 960px;
       margin: auto;
       transition: background 0.3s, color 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* === PARTICLES JS BACKGROUND === */
+    #particles-js {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
 
     /* === NAVIGATION === */
     nav {
-      position: sticky;
-      top: 0;
-      width: 100%;
       background: var(--nav);
-      backdrop-filter: blur(10px);
       display: flex;
       justify-content: center;
-      padding: 12px 0;
+      gap: 20px;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
       z-index: 1000;
-      box-shadow: 0 0 10px var(--accent);
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     }
 
     nav a {
       color: var(--text);
       text-decoration: none;
-      margin: 0 20px;
-      font-size: 1rem;
-      letter-spacing: 1px;
+      font-weight: 600;
       transition: 0.3s;
+      padding-bottom: 2px;
     }
 
-    nav a:hover, nav a.active {
+    nav a.active, nav a:hover {
+      border-bottom: 2px solid var(--accent);
       color: var(--hover);
-      text-shadow: 0 0 5px var(--hover);
     }
 
     /* === HEADER === */
     header {
       text-align: center;
-      padding: 100px 20px 60px;
+      padding: 60px 20px 20px;
     }
 
     header h1 {
       font-size: 3rem;
-      margin-bottom: 10px;
+      margin-bottom: 0.5rem;
       color: var(--accent);
       text-shadow: 0 0 10px var(--accent);
     }
 
     header p {
       font-size: 1.2rem;
-      color: var(--text);
-      opacity: 0.8;
-      margin-bottom: 30px;
-    }
-
-    .btn-cv {
-      background: transparent;
       color: var(--accent);
-      border: 2px solid var(--accent);
-      padding: 10px 20px;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.3s ease;
     }
 
-    .btn-cv:hover {
-      background: var(--accent);
-      color: var(--bg);
-      box-shadow: 0 0 10px var(--hover);
-    }
-
-    /* === SEARCH === */
-    #searchSection {
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    #searchInput {
+    /* === SECTIONS === */
+    section {
       background: var(--card);
-      border: none;
-      border-radius: 8px;
-      padding: 12px 20px;
-      width: 80%;
-      max-width: 500px;
-      color: var(--text);
-      font-size: 1rem;
-      box-shadow: 0 0 10px rgba(0,255,204,0.1);
-      outline: none;
-      transition: box-shadow 0.3s;
+      padding: 30px;
+      margin: 30px 0;
+      border-radius: 14px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
     }
 
-    #searchInput:focus {
-      box-shadow: 0 0 15px var(--hover);
+    h2 {
+      color: var(--accent);
+      margin-top: 0;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    a {
+      color: var(--hover);
     }
 
     /* === THEME TOGGLE BUTTON === */
@@ -180,6 +170,7 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
+    /* === SEARCH BAR === */
     input[type="text"] {
       width: 100%;
       padding: 12px;
@@ -190,6 +181,7 @@
       color: var(--text);
     }
 
+    /* === FOOTER === */
     footer {
       text-align: center;
       padding: 30px 10px;
@@ -199,9 +191,7 @@
   </style>
 </head>
 <body>
-  <!-- Particles.js background -->
   <div id="particles-js"></div>
-
   <div id="progressBar"></div>
   <button id="themeToggle">🌙 Mode sombre</button>
 
@@ -216,11 +206,11 @@
   <header>
     <h1>Altinkaya Romain</h1>
     <p>Technicien Informatique - CV & Tutoriels</p>
-    <a href="Altinkaya_CV.pdf" class="btn-cv" target="_blank">📄 Voir mon CV</a>
   </header>
 
-  <section id="searchSection">
-    <input type="text" id="searchInput" placeholder="🔍 Rechercher un cours ou tutoriel...">
+  <section>
+    <h2>🔍 Rechercher dans mes cours et tutoriels</h2>
+    <input type="text" id="searchInput" placeholder="Tapez pour rechercher..." />
   </section>
 
   <section id="qui-suis-je">
@@ -240,6 +230,7 @@
 
   <section id="mes-tutoriels">
     <h2>Mes tutoriels</h2>
+
     <h3>📡 Réseaux</h3>
     <ul>
       <li>Gestion des réseaux avec Cisco</li>
@@ -287,80 +278,18 @@
   <button id="backToTop">↑</button>
 
   <script>
-    // Particles.js configuration
+    // Particles.js Background
     particlesJS("particles-js", {
-      "particles": {
-        "number": {
-          "value": 80,
-          "density": {
-            "enable": true,
-            "value_area": 800
-          }
-        },
-        "color": {
-          "value": "#00e5ff"
-        },
-        "shape": {
-          "type": "circle",
-          "stroke": {
-            "width": 0,
-            "color": "#000000"
-          }
-        },
-        "opacity": {
-          "value": 0.5,
-          "random": true,
-          "anim": {
-            "enable": true,
-            "speed": 1,
-            "opacity_min": 0.1
-          }
-        },
-        "size": {
-          "value": 3,
-          "random": true,
-          "anim": {
-            "enable": true,
-            "speed": 4,
-            "size_min": 0.1
-          }
-        },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#00e5ff",
-          "opacity": 0.4,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 6,
-          "direction": "none",
-          "random": true,
-          "straight": false,
-          "out_mode": "out",
-          "bounce": false,
-          "attract": {
-            "enable": true,
-            "rotateX": 600,
-            "rotateY": 1200
-          }
-        }
+      particles: {
+        number: { value: 100 },
+        size: { value: 4 },
+        move: { speed: 2, direction: "random", out_mode: "out" },
+        opacity: { value: 0.5 },
+        line_linked: { enable: true, color: "#38bdf8", distance: 150, width: 1 }
       },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": {
-            "enable": true,
-            "mode": "repulse"
-          },
-          "onclick": {
-            "enable": true,
-            "mode": "push"
-          }
-        }
-      },
-      "retina_detect": true
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" } }
+      }
     });
 
     // Barre de progression
@@ -383,4 +312,24 @@
         body.classList.add('dark');
         toggleBtn.textContent = "☀️ Mode clair";
       } else {
-        body.class
+        body.classList.remove('dark');
+        toggleBtn.textContent = "🌙 Mode sombre";
+      }
+      localStorage.setItem('theme', mode);
+    }
+    toggleBtn.onclick = () => setTheme(body.classList.contains('dark') ? 'light' : 'dark');
+    setTheme(localStorage.getItem('theme') || 'light');
+
+    // Recherche dans les cours et tutoriels
+    document.getElementById("searchInput").addEventListener("input", function () {
+      const filter = this.value.toLowerCase();
+      const sections = ["mes-cours", "mes-tutoriels"];
+      sections.forEach(id => {
+        document.querySelectorAll(`#${id} li`).forEach(item => {
+          item.style.display = item.textContent.toLowerCase().includes(filter) ? "" : "none";
+        });
+      });
+    });
+  </script>
+</body>
+</html>
