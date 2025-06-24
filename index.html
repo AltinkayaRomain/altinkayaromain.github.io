@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
     :root {
-      --bg-light: #e0e7ff; 
-      --bg-dark: #0f172a; 
+      --bg-light: #e0e7ff;
+      --bg-dark: #0f172a;
       --text-light: #0f172a;
       --text-dark: #f8fafc;
       --card-light: #ffffff;
@@ -199,18 +199,6 @@
     body.dark footer {
       color: var(--hover-dark);
     }
-
-    #noResults {
-      display: none;
-      color: var(--accent-light);
-      font-size: 1.2rem;
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    body.dark #noResults {
-      color: var(--accent-dark);
-    }
   </style>
 </head>
 <body>
@@ -233,7 +221,6 @@
   <section>
     <h2>🔍 Rechercher dans mes cours et tutoriels</h2>
     <input type="text" id="searchInput" placeholder="Tapez pour rechercher..." oninput="filterContent()" />
-    <p id="noResults">Aucun résultat trouvé. Essayez un autre terme de recherche.</p>
   </section>
 
   <section id="qui-suis-je">
@@ -253,7 +240,6 @@
 
   <section id="mes-tutoriels">
     <h2>Mes tutoriels</h2>
-
     <h3>📡 Réseaux</h3>
     <ul>
       <li>Gestion des réseaux avec Cisco</li>
@@ -338,12 +324,6 @@
           section.style.display = "none";
         }
       });
-      const noResults = document.getElementById("noResults");
-      if (found) {
-        noResults.style.display = "none";
-      } else {
-        noResults.style.display = "block";
-      }
     }
   </script>
 </body>
