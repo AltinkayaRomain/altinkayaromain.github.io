@@ -1,40 +1,46 @@
-/* === Variables === */
 :root {
-  --bg-light: #e0e7ff;
+  --bg-light: #f3e8fc;
   --bg-dark: #0f172a;
-  --text-light: #0f172a;
+  --text-light: #2b2b2b;
   --text-dark: #f8fafc;
-  --card-light: #ffffff;
+  --card-light: #e2e2e2;
   --card-dark: #1e293b;
-  --accent-light: #38bdf8;
+  --banner-light: #f0f0f0;
+  --banner-dark: #1f2937;
+  --accent-light: #7c4dff;
   --accent-dark: #38bdf8;
-  --hover-light: #7dd3fc;
-  --hover-dark: #7dd3fc;
+  --hover-light: #00a6c0;
+  --hover-dark: #00a6c0;
   --nav-light: #ffffff;
   --nav-dark: #0f172a;
 }
 
-/* === Body === */
 body {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background: var(--bg-light);
   color: var(--text-light);
   margin: 0;
   padding: 0 20px;
   max-width: 960px;
   margin: auto;
-  transition: background 0.3s, color 0.3s;
-  position: relative;
-  z-index: 1;
+  transition: background 0.3s, color 0.3s, font-family 0.3s;
 }
 
-/* Dark mode styles */
 body.dark {
   background: var(--bg-dark);
   color: var(--text-dark);
+  font-family: 'Montserrat', sans-serif;
 }
 
-/* === Navigation === */
+#particles-js {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
 nav {
   background: var(--nav-light);
   display: flex;
@@ -45,7 +51,7 @@ nav {
   top: 0;
   z-index: 1000;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
 body.dark nav {
@@ -73,7 +79,6 @@ body.dark nav a.active, body.dark nav a:hover {
   color: var(--hover-dark);
 }
 
-/* === Header === */
 header {
   text-align: center;
   padding: 60px 20px 20px;
@@ -100,25 +105,92 @@ body.dark header p {
   color: var(--accent-dark);
 }
 
-/* === Sections === */
+#themeToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--accent-light);
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--bg-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+body.dark #themeToggle {
+  background: var(--accent-dark);
+  color: var(--bg-dark);
+}
+
+#themeToggle:hover {
+  background: var(--hover-light);
+}
+
+body.dark #themeToggle:hover {
+  background: var(--hover-dark);
+}
+
+#backToTop {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  background: var(--accent-light);
+  color: var(--bg-light);
+  border: none;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  display: none;
+  transform: scale(1);
+}
+
+body.dark #backToTop {
+  background-color: var(--accent-dark);
+  color: var(--bg-dark);
+}
+
+#backToTop:hover {
+  opacity: 1;
+  transform: scale(1.2);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+}
+
+body.dark #backToTop:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
 section {
-  background: var(--card-light);
+  background: var(--banner-light);
   padding: 30px;
   margin: 30px 0;
   border-radius: 14px;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
 }
 
 body.dark section {
-  background: var(--card-dark);
+  background: var(--banner-dark);
 }
 
-h2 {
+section a {
+  text-decoration: none;
+}
+
+section h2 {
   color: var(--accent-light);
   margin-top: 0;
 }
 
-body.dark h2 {
+body.dark section h2 {
   color: var(--accent-dark);
 }
 
@@ -128,20 +200,3 @@ ul {
 
 a {
   color: var(--hover-light);
-}
-
-body.dark a {
-  color: var(--hover-dark);
-}
-
-/* === Footer === */
-footer {
-  text-align: center;
-  padding: 30px 10px;
-  font-size: 0.9rem;
-  color: var(--hover-light);
-}
-
-body.dark footer {
-  color: var(--hover-dark);
-}
