@@ -199,6 +199,18 @@
     body.dark footer {
       color: var(--hover-dark);
     }
+
+    #noResults {
+      display: none;
+      color: var(--accent-light);
+      font-size: 1.2rem;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    body.dark #noResults {
+      color: var(--accent-dark);
+    }
   </style>
 </head>
 <body>
@@ -221,6 +233,7 @@
   <section>
     <h2>🔍 Rechercher dans mes cours et tutoriels</h2>
     <input type="text" id="searchInput" placeholder="Tapez pour rechercher..." oninput="filterContent()" />
+    <p id="noResults">Aucun résultat trouvé. Essayez un autre terme de recherche.</p>
   </section>
 
   <section id="qui-suis-je">
@@ -315,7 +328,6 @@
     function filterContent() {
       const input = document.getElementById("searchInput").value.toLowerCase();
       const sections = document.querySelectorAll("section");
-
       let found = false;
       sections.forEach(section => {
         const text = section.textContent.toLowerCase();
@@ -326,10 +338,11 @@
           section.style.display = "none";
         }
       });
-
-      // Si rien n'est trouvé, afficher un message
-      if (!found) {
-        alert("Aucun résultat trouvé.");
+      const noResults = document.getElementById("noResults");
+      if (found) {
+        noResults.style.display = "none";
+      } else {
+        noResults.style.display = "block";
       }
     }
   </script>
