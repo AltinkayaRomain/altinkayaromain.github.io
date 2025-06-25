@@ -1,27 +1,31 @@
+/* Mode Clair */
 :root {
-  /* Mode Clair avec des couleurs pastels variées */
-  --bg-light: #f4f7fc;  /* Fond clair avec un ton froid, bleu pâle/gris très doux */
-  --text-light: #3b3b3b; /* Texte sombre mais lisible sur fond clair */
-  --card-light: #e6f7ff;  /* Carte bleue claire, pas trop intense, douce et aérienne */
-  --banner-light: #e0f7fa; /* Bannière bleu pastel clair avec une touche de vert */
-  --accent-light: #a7c5eb; /* Bleu lavande pastel, doux et subtil */
-  --hover-light: #7fa3d0;  /* Hover bleu plus intense mais toujours pastel */
-  --nav-light: #ffffff;    /* Nav claire en blanc épuré */
-  --link-light: #ffab91;   /* Lien en pêche pastel pour une touche chaleureuse */
-  --highlight-light: #d1c4e9; /* Violet pâle et subtil pour les surbrillances */
-  --particles-bg-light: #b3e0ff; /* Fond dynamique bleu clair pastel */
-  
+  --bg-light: #e0f7fa;  /* Fond clair bleu pastel */
+  --text-light: #1e293b; /* Texte clair bleu-gris */
+  --card-light: #ffffff;  /* Cartes blanches, épurées, nettes */
+  --banner-light: #e3f2fd; /* Bannière bleue très pâle, douce et futuriste */
+  --accent-light: #40c4ff;  /* Bleu clair néon, frais et futuriste */
+  --hover-light: #00b8d4;   /* Hover bleu foncé, toujours lumineux mais subtilement plus intense */
+  --nav-light: #ffffff;  /* Nav claire, épurée en blanc */
+  --particles-bg-light: #e0f7fa;  /* Fond dynamique bleu clair pour mode clair */
+
   /* Mode Sombre */
   --bg-dark: #0a0a0a;   /* Fond sombre presque noir */
   --text-dark: #f8fafc;  /* Texte clair et lumineux sur fond sombre */
   --card-dark: #333333;  /* Cartes sombres, pas noir total mais suffisant pour un contraste */
   --banner-dark: #1f2937;  /* Bannière sombre avec une touche de bleu foncé */
-  --accent-dark: #00e5ff;  /* Bleu clair néon pour accents sombres */
-  --hover-dark: #00b8d4;    /* Hover bleu légèrement plus foncé pour le contraste */
-  --nav-dark: #212121;   /* Nav sombre mais avec un ton de gris plus doux */
-  --particles-bg-dark: #1a1a1a; /* Fond dynamique sombre pour mode dark */
+  --accent-dark: #00e;  /* Accent sombre clair */
+  --particles-bg-dark: #1f2937;  /* Fond dynamique sombre pour mode sombre */
 }
 
+/* Assurer que html et body prennent toute la hauteur */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Corps de la page */
 body {
   font-family: 'Poppins', sans-serif;
   background: var(--bg-light);
@@ -39,23 +43,22 @@ body.dark {
   font-family: 'Montserrat', sans-serif;
 }
 
+/* Fond dynamique pour les particules */
 #particles-js {
-  position: absolute;
+  position: fixed;  /* Utiliser 'fixed' pour qu'il reste en place lors du défilement */
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+  width: 100%;  /* Prendre toute la largeur de la fenêtre */
+  height: 100vh;  /* Prendre toute la hauteur de la fenêtre */
+  z-index: -1;  /* Placer derrière le contenu de la page */
+  background-color: var(--particles-bg-light); /* Couleur de fond dynamique */
 }
 
 body.dark #particles-js {
-  background-color: var(--particles-bg-dark); /* Fond dynamique sombre en mode sombre */
+  background-color: var(--particles-bg-dark);  /* Fond sombre en mode dark */
 }
 
-body #particles-js {
-  background-color: var(--particles-bg-light); /* Fond dynamique bleu clair en mode clair */
-}
-
+/* Navigation */
 nav {
   background: var(--nav-light);
   display: flex;
@@ -94,6 +97,7 @@ body.dark nav a.active, body.dark nav a:hover {
   color: var(--hover-dark);
 }
 
+/* Header */
 header {
   text-align: center;
   padding: 60px 20px 20px;
@@ -120,6 +124,7 @@ body.dark header p {
   color: var(--accent-dark);
 }
 
+/* Theme Toggle */
 #themeToggle {
   position: fixed;
   top: 20px;
@@ -150,6 +155,7 @@ body.dark #themeToggle:hover {
   background: var(--hover-dark);
 }
 
+/* Back to Top */
 #backToTop {
   position: fixed;
   bottom: 40px;
@@ -184,12 +190,13 @@ body.dark #backToTop:hover {
   transform: scale(1.2);
 }
 
+/* Sections */
 section {
   background: var(--banner-light);
   padding: 30px;
   margin: 30px 0;
   border-radius: 14px;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
 }
 
 body.dark section {
@@ -214,13 +221,14 @@ ul {
 }
 
 a {
-  color: var(--link-light);
+  color: var(--hover-light);
 }
 
 body.dark a {
   color: var(--hover-dark);
 }
 
+/* Footer */
 footer {
   text-align: center;
   margin-top: 50px;
