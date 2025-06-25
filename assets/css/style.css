@@ -1,21 +1,21 @@
 :root {
   /* Mode Clair */
-  --bg-light: #f5e1f0;  /* Fond lavande pâle, doux et apaisant */
-  --text-light: #3c3c3c; /* Texte sombre mais doux, un gris foncé presque noir */
-  --card-light: #ffffff; /* Cartes blanches avec une teinte douce */
-  --banner-light: #e0bbd7; /* Bannière rose poudré pastel */
-  --accent-light: #d3a6e1;  /* Accent lavande clair, doux et futuriste */
-  --hover-light: #c36fd6;   /* Hover rose violet pastel plus intense */
-  --nav-light: #ffffff;  /* Nav claire en blanc */
+  --bg-light: #f8f0e3;  /* Beige rosé pâle, doux et chaleureux */
+  --text-light: #2a3d4d; /* Gris anthracite foncé pour un contraste tout en douceur */
+  --card-light: #ffffff; /* Cartes blanches et épurées */
+  --banner-light: #d8eaff; /* Bleu pastel très doux */
+  --accent-light: #b0e0e6;  /* Bleu pâle pour accents */
+  --hover-light: #a3c4d9;   /* Hover bleu ciel doux, lumineux mais doux */
+  --nav-light: #ffffff;  /* Nav en blanc propre */
   
   /* Mode Sombre */
   --bg-dark: #0a0a0a;   /* Fond sombre presque noir */
   --text-dark: #f8fafc;  /* Texte clair et lumineux sur fond sombre */
-  --card-dark: #333333;  /* Cartes sombres, pas noir total mais suffisant pour un contraste */
+  --card-dark: #333333;  /* Cartes sombres */
   --banner-dark: #1f2937;  /* Bannière sombre avec une touche de bleu foncé */
-  --accent-dark: #00e5ff;   /* Bleu néon éclatant, pour les accents */
-  --hover-dark: #00b8d4;    /* Hover bleu légèrement plus foncé pour le contraste */
-  --nav-dark: #212121;   /* Nav sombre mais avec un ton de gris plus doux */
+  --accent-dark: #00e5ff;   /* Bleu néon éclatant pour les accents */
+  --hover-dark: #00b8d4;    /* Hover bleu plus foncé */
+  --nav-dark: #212121;   /* Nav sombre mais douce */
 }
 
 body {
