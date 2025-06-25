@@ -37,6 +37,7 @@ body.dark {
   font-family: 'Montserrat', sans-serif;
 }
 
+/* Fond dynamique pour les particules */
 #particles-js {
   position: fixed;  
   top: 0;
@@ -45,14 +46,14 @@ body.dark {
   height: 100vh;
   z-index: -1;
   background-color: var(--particles-bg-light);
-  background-image: radial-gradient(circle, #40c4ff 1px, transparent 1px), radial-gradient(circle, #00b8d4 2px, transparent 2px);
+  background-image: radial-gradient(circle, #40c4ff 1px, transparent 1px);
   background-size: 20px 20px;
   animation: particlesAnimation 5s infinite ease-in-out;
 }
 
 body.dark #particles-js {
   background-color: var(--particles-bg-dark);
-  background-image: radial-gradient(circle, #ff4081 1px, transparent 1px), radial-gradient(circle, #e91e63 2px, transparent 2px);
+  background-image: radial-gradient(circle, #ff4081 1px, transparent 1px);
 }
 
 @keyframes particlesAnimation {
@@ -61,8 +62,8 @@ body.dark #particles-js {
     opacity: 0.5;
   }
   50% {
-    transform: scale(1.5);
-    opacity: 0.8;
+    transform: scale(1.2);
+    opacity: 0.7;
   }
   100% {
     transform: scale(1);
