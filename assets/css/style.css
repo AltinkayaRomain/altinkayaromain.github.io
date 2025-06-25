@@ -1,31 +1,25 @@
-/* Mode Clair */
 :root {
-  --bg-light: #e0f7fa;  /* Fond clair bleu pastel */
-  --text-light: #1e293b; /* Texte clair bleu-gris */
+  /* Mode Clair */
+  --bg-light: #c3e4fc;  /* Fond clair bleu très doux */
+  --text-light: #1e1e1e; /* Texte sombre mais lisible sur fond clair */
   --card-light: #ffffff;  /* Cartes blanches, épurées, nettes */
   --banner-light: #e3f2fd; /* Bannière bleue très pâle, douce et futuriste */
   --accent-light: #40c4ff;  /* Bleu clair néon, frais et futuriste */
   --hover-light: #00b8d4;   /* Hover bleu foncé, toujours lumineux mais subtilement plus intense */
   --nav-light: #ffffff;  /* Nav claire, épurée en blanc */
-  --particles-bg-light: #e0f7fa;  /* Fond dynamique bleu clair pour mode clair */
+  --particles-bg-light: #c3e4fc; /* Fond bleu clair pour les particules */
 
   /* Mode Sombre */
   --bg-dark: #0a0a0a;   /* Fond sombre presque noir */
   --text-dark: #f8fafc;  /* Texte clair et lumineux sur fond sombre */
   --card-dark: #333333;  /* Cartes sombres, pas noir total mais suffisant pour un contraste */
   --banner-dark: #1f2937;  /* Bannière sombre avec une touche de bleu foncé */
-  --accent-dark: #00e;  /* Accent sombre clair */
-  --particles-bg-dark: #1f2937;  /* Fond dynamique sombre pour mode sombre */
+  --accent-dark: #ff4081;  /* Accent rose vif, contrasté et moderne */
+  --hover-dark: #00b8d4;    /* Hover bleu légèrement plus foncé pour le contraste */
+  --nav-dark: #212121;   /* Nav sombre mais avec un ton de gris plus doux */
+  --particles-bg-dark: #1f2937; /* Fond pour les particules en mode sombre */
 }
 
-/* Assurer que html et body prennent toute la hauteur */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-/* Corps de la page */
 body {
   font-family: 'Poppins', sans-serif;
   background: var(--bg-light);
@@ -43,22 +37,40 @@ body.dark {
   font-family: 'Montserrat', sans-serif;
 }
 
-/* Fond dynamique pour les particules */
 #particles-js {
-  position: fixed;  /* Utiliser 'fixed' pour qu'il reste en place lors du défilement */
+  position: fixed;  
   top: 0;
   left: 0;
-  width: 100%;  /* Prendre toute la largeur de la fenêtre */
-  height: 100vh;  /* Prendre toute la hauteur de la fenêtre */
-  z-index: -1;  /* Placer derrière le contenu de la page */
-  background-color: var(--particles-bg-light); /* Couleur de fond dynamique */
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  background-color: var(--particles-bg-light);
+  background-image: radial-gradient(circle, #40c4ff 1px, transparent 1px), radial-gradient(circle, #00b8d4 2px, transparent 2px);
+  background-size: 20px 20px;
+  animation: particlesAnimation 5s infinite ease-in-out;
 }
 
 body.dark #particles-js {
-  background-color: var(--particles-bg-dark);  /* Fond sombre en mode dark */
+  background-color: var(--particles-bg-dark);
+  background-image: radial-gradient(circle, #ff4081 1px, transparent 1px), radial-gradient(circle, #e91e63 2px, transparent 2px);
 }
 
-/* Navigation */
+@keyframes particlesAnimation {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+/* Styles du menu */
 nav {
   background: var(--nav-light);
   display: flex;
@@ -124,7 +136,7 @@ body.dark header p {
   color: var(--accent-dark);
 }
 
-/* Theme Toggle */
+/* Bouton de changement de thème */
 #themeToggle {
   position: fixed;
   top: 20px;
@@ -155,7 +167,7 @@ body.dark #themeToggle:hover {
   background: var(--hover-dark);
 }
 
-/* Back to Top */
+/* Bouton de retour en haut */
 #backToTop {
   position: fixed;
   bottom: 40px;
@@ -190,7 +202,7 @@ body.dark #backToTop:hover {
   transform: scale(1.2);
 }
 
-/* Sections */
+/* Section */
 section {
   background: var(--banner-light);
   padding: 30px;
