@@ -1,229 +1,193 @@
-:root {
-  /* Mode Clair */
-  --bg-light: #f8f0e3;  /* Beige rosé pâle, doux et chaleureux */
-  --text-light: #2a3d4d; /* Gris anthracite foncé pour un contraste tout en douceur */
-  --card-light: #ffffff; /* Cartes blanches et épurées */
-  --banner-light: #d8eaff; /* Bleu pastel très doux */
-  --accent-light: #b0e0e6;  /* Bleu pâle pour accents */
-  --hover-light: #a3c4d9;   /* Hover bleu ciel doux, lumineux mais doux */
-  --nav-light: #ffffff;  /* Nav en blanc propre */
-  
-  /* Mode Sombre */
-  --bg-dark: #0a0a0a;   /* Fond sombre presque noir */
-  --text-dark: #f8fafc;  /* Texte clair et lumineux sur fond sombre */
-  --card-dark: #333333;  /* Cartes sombres */
-  --banner-dark: #1f2937;  /* Bannière sombre avec une touche de bleu foncé */
-  --accent-dark: #00e5ff;   /* Bleu néon éclatant pour les accents */
-  --hover-dark: #00b8d4;    /* Hover bleu plus foncé */
-  --nav-dark: #212121;   /* Nav sombre mais douce */
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio de Altinkaya Romain - Technicien Informatique spécialisé en systèmes et réseaux. Découvrez mes cours et tutoriels.">
+  <meta name="author" content="Altinkaya Romain">
+  <title>Altinkaya Romain - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Fond dynamique -->
+  <div id="particles-js"></div>
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background: var(--bg-light);
-  color: var(--text-light);
-  margin: 0;
-  padding: 0 20px;
-  max-width: 960px;
-  margin: auto;
-  transition: background 0.3s, color 0.3s, font-family 0.3s;
-}
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="active">Accueil</a>
+    <a href="about.html">Qui suis-je</a>
+    <a href="courses.html">Cours</a>
+    <a href="tutorials.html">Tutoriels</a>
+    <a href="skills.html">Compétences</a>
+    <a href="contact.html">Contact</a>
+  </nav>
 
-body.dark {
-  background: var(--bg-dark);
-  color: var(--text-dark);
-  font-family: 'Montserrat', sans-serif;
-}
+  <!-- Header -->
+  <header id="home">
+    <h1>Altinkaya Romain</h1>
+    <p>Technicien Informatique - CV & Tutoriels</p>
+  </header>
 
-#particles-js {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
+  <!-- Qui suis-je ? Section -->
+  <section id="about">
+    <a href="about.html">
+      <h2>Qui suis-je ?</h2>
+    </a>
+    <p>Je suis technicien informatique spécialisé en systèmes et réseaux. Passionné par le partage de connaissances, je crée des tutoriels pour aider les débutants et les professionnels à progresser.</p>
+  </section>
 
-body.dark #particles-js {
-  background-color: var(--bg-dark);
-}
+  <!-- Cours Section -->
+  <section id="courses">
+    <a href="courses.html">
+      <h2>Mes cours</h2>
+    </a>
+    <ul>
+      <li>📘 Introduction à la cybersécurité</li>
+      <li>📘 Supervision réseau avec Zabbix</li>
+      <li>📘 Windows Server & Active Directory avancé</li>
+      <li>📘 VPN & pare-feux (pfSense, OPNsense)</li>
+    </ul>
+  </section>
 
-body #particles-js {
-  background-color: var(--bg-light);
-}
+  <!-- Tutoriels Section -->
+  <section id="tutorials">
+    <a href="tutorials.html">
+      <h2>Mes tutoriels</h2>
+    </a>
+    <ul>
+      <li>Gestion des réseaux avec Cisco</li>
+      <li>Configuration des équipements (switch, routeur)</li>
+    </ul>
+  </section>
 
-nav {
-  background: var(--nav-light);
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 15px 0;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
+  <!-- Compétences Section -->
+  <section id="skills">
+    <a href="skills.html">
+      <h2>Mes Compétences</h2>
+    </a>
+    <ul>
+      <li>✅ Assistance technique et gestion des pannes utilisateurs</li>
+      <li>✅ Maintenance et dépannage des systèmes informatiques</li>
+      <li>✅ Administration et gestion des réseaux (LAN/WAN)</li>
+      <li>✅ Technologies de virtualisation (VMware, Hyper-V)</li>
+      <li>✅ Automatisation, scripting (PowerShell)</li>
+      <li>✅ Configuration et gestion des équipements réseaux (switch, routeurs)</li>
+      <li>✅ Veille technologique active et apprentissage continu</li>
+      <li>✅ Services de déploiement d'images système (ex. : FOG, Clonezilla, Ventoy)</li>
+      <li>✅ Outils de gestion de parc informatique (ex. : GLPI, N-Able)</li>
+      <li>✅ Création des comptes utilisateurs (ex. : Active Directory, 365 Administration, KoXo)</li>
+    </ul>
+  </section>
 
-body.dark nav {
-  background: var(--nav-dark);
-}
+  <!-- Contact Section -->
+  <section id="contact">
+    <a href="contact.html">
+      <h2>Contact</h2>
+    </a>
+    <p>Vous pouvez me contacter via mon <a href="mailto:altinkayaromain@outlook.fr">email</a> ou me rejoindre sur mes réseaux sociaux :</p>
+    <p><a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank">Mon LinkedIn</a></p>
+  </section>
 
-nav a {
-  color: var(--text-light);
-  text-decoration: none;
-  font-weight: 600;
-  transition: 0.3s;
-  padding-bottom: 2px;
-}
+  <!-- Footer -->
+  <footer>
+    <p>Site web développé avec ❤️ par Altinkaya Romain – 2025</p>
+  </footer>
 
-body.dark nav a {
-  color: var(--text-dark);
-}
+  <!-- Buttons -->
+  <button id="themeToggle">
+    <span id="themeText">🌙 Mode Sombre</span>
+  </button>
 
-nav a.active, nav a:hover {
-  border-bottom: 2px solid var(--accent-light);
-  color: var(--hover-light);
-}
+  <button id="backToTop" onclick="window.scrollTo(0, 0)">↑</button>
 
-body.dark nav a.active, body.dark nav a:hover {
-  color: var(--hover-dark);
-}
+  <!-- Script -->
+  <script src="assets/js/script.js"></script>
 
-header {
-  text-align: center;
-  padding: 60px 20px 20px;
-}
+  <!-- Initialisation du fond dynamique -->
+  <script>
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
+          "polygon": {
+            "nb_sides": 5
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 1,
+            "opacity_min": 0.1
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 40,
+            "size_min": 0.1
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 6,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
 
-header h1 {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
-  color: var(--accent-light);
-  text-shadow: 0 0 10px var(--accent-light);
-}
+</body>
+</html>
 
-body.dark header h1 {
-  color: var(--accent-dark);
-  text-shadow: 0 0 10px var(--accent-dark);
-}
-
-header p {
-  font-size: 1.2rem;
-  color: var(--accent-light);
-}
-
-body.dark header p {
-  color: var(--accent-dark);
-}
-
-#themeToggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: var(--accent-light);
-  border: none;
-  border-radius: 25px;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  color: var(--bg-light);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-body.dark #themeToggle {
-  background: var(--accent-dark);
-  color: var(--bg-dark);
-}
-
-#themeToggle:hover {
-  background: var(--hover-light);
-}
-
-body.dark #themeToggle:hover {
-  background: var(--hover-dark);
-}
-
-#backToTop {
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
-  background: var(--accent-light);
-  color: var(--bg-light);
-  border: none;
-  padding: 15px;
-  border-radius: 50%;
-  font-size: 30px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  opacity: 0.9;
-  transition: all 0.3s ease;
-  display: none;
-  transform: scale(1);
-}
-
-body.dark #backToTop {
-  background-color: var(--accent-dark);
-  color: var(--bg-dark);
-}
-
-#backToTop:hover {
-  opacity: 1;
-  transform: scale(1.2);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
-}
-
-body.dark #backToTop:hover {
-  opacity: 1;
-  transform: scale(1.2);
-}
-
-section {
-  background: var(--banner-light);
-  padding: 30px;
-  margin: 30px 0;
-  border-radius: 14px;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
-}
-
-body.dark section {
-  background: var(--banner-dark);
-}
-
-section a {
-  text-decoration: none;
-}
-
-section h2 {
-  color: var(--accent-light);
-  margin-top: 0;
-}
-
-body.dark section h2 {
-  color: var(--accent-dark);
-}
-
-ul {
-  padding-left: 20px;
-}
-
-a {
-  color: var(--hover-light);
-}
-
-body.dark a {
-  color: var(--hover-dark);
-}
-
-footer {
-  text-align: center;
-  margin-top: 50px;
-  font-size: 0.9rem;
-  color: var(--text-light);
-}
-
-body.dark footer {
-  color: var(--text-dark);
-}
