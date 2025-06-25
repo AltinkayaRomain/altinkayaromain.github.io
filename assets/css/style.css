@@ -1,21 +1,23 @@
 :root {
-  /* Mode Clair */
-  --bg-light: #f8f0e3;  /* Beige rosé pâle, doux et chaleureux */
-  --text-light: #2a3d4d; /* Gris anthracite foncé pour un contraste tout en douceur */
-  --card-light: #ffffff; /* Cartes blanches et épurées */
-  --banner-light: #d8eaff; /* Bleu pastel très doux */
-  --accent-light: #b0e0e6;  /* Bleu pâle pour accents */
-  --hover-light: #a3c4d9;   /* Hover bleu ciel doux, lumineux mais doux */
-  --nav-light: #ffffff;  /* Nav en blanc propre */
+  /* Mode Clair avec des couleurs pastels variées */
+  --bg-light: #f4f7fc;  /* Fond clair avec un ton froid, bleu pâle/gris très doux */
+  --text-light: #3b3b3b; /* Texte sombre mais lisible sur fond clair */
+  --card-light: #e6f7ff;  /* Carte bleue claire, pas trop intense, douce et aérienne */
+  --banner-light: #e0f7fa; /* Bannière bleu pastel clair avec une touche de vert */
+  --accent-light: #a7c5eb; /* Bleu lavande pastel, doux et subtil */
+  --hover-light: #7fa3d0;  /* Hover bleu plus intense mais toujours pastel */
+  --nav-light: #ffffff;    /* Nav claire en blanc épuré */
+  --link-light: #ffab91;   /* Lien en pêche pastel pour une touche chaleureuse */
+  --highlight-light: #d1c4e9; /* Violet pâle et subtil pour les surbrillances */
   
   /* Mode Sombre */
   --bg-dark: #0a0a0a;   /* Fond sombre presque noir */
   --text-dark: #f8fafc;  /* Texte clair et lumineux sur fond sombre */
-  --card-dark: #333333;  /* Cartes sombres */
+  --card-dark: #333333;  /* Cartes sombres, pas noir total mais suffisant pour un contraste */
   --banner-dark: #1f2937;  /* Bannière sombre avec une touche de bleu foncé */
-  --accent-dark: #00e5ff;   /* Bleu néon éclatant pour les accents */
-  --hover-dark: #00b8d4;    /* Hover bleu plus foncé */
-  --nav-dark: #212121;   /* Nav sombre mais douce */
+  --accent-dark: #00e5ff;  /* Bleu clair néon pour accents sombres */
+  --hover-dark: #00b8d4;    /* Hover bleu légèrement plus foncé pour le contraste */
+  --nav-dark: #212121;   /* Nav sombre mais avec un ton de gris plus doux */
 }
 
 body {
@@ -210,7 +212,7 @@ ul {
 }
 
 a {
-  color: var(--hover-light);
+  color: var(--link-light);
 }
 
 body.dark a {
