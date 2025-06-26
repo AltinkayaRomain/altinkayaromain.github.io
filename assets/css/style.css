@@ -93,9 +93,6 @@ body.dark nav a:hover {
 header {
   text-align: center;
   padding: 60px 20px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 500;
 }
 
 header h1 {
@@ -278,62 +275,40 @@ ul {
   padding-left: 20px;
 }
 
-/* === RESPONSIVE / MOBILE === */
+/* === Responsif === */
 @media (max-width: 600px) {
   body {
     padding: 10px;
     max-width: 100%;
   }
-
   nav {
     flex-direction: column;
     gap: 10px;
     padding: 10px 0;
   }
-
   nav a {
     font-size: 1.1rem;
     padding: 10px 0;
   }
-
-  /* --- HEADER MOBILE : compact + non sticky --- */
   header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-    position: static;
-    text-align: left;
-    background: var(--banner-light);
-    border-radius: 12px;
-    box-shadow: none;
+    padding: 40px 10px 20px;
   }
-
-  body.dark header {
-    background: var(--banner-dark);
-  }
-
   header h1 {
-    font-size: 1.3rem;
-    margin: 0;
+    font-size: 2rem;
   }
-
   header p {
-    display: none;
+    font-size: 1rem;
   }
-
   section {
     padding: 20px;
     margin: 20px 0;
   }
-
   #themeToggle {
     padding: 8px 15px;
     font-size: 14px;
     top: 15px;
     right: 15px;
   }
-
   #backToTop {
     bottom: 20px;
     right: 20px;
