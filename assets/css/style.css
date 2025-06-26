@@ -1,21 +1,21 @@
 :root {
   /* Mode Clair */
-  --bg-light: #6f8a6b;  /* Fond gris clair */
-  --text-light: #ffffff; /* Texte sombre mais lisible */
-  --card-light: #ffffff;  /* Cartes blanches */
-  --banner-light: #859b86; /* Bannière bleue pâle */
-  --accent-light: #ffffff; /* Bleu néon */
-  --hover-light: #ffffff; /* Hover bleu plus foncé */
-  --nav-light: #859b86; /* Nav claire, épurée en blanc */
+  --bg-light: #6f8a6b;
+  --text-light: #ffffff;
+  --card-light: #ffffff;
+  --banner-light: #859b86;
+  --accent-light: #ffffff;
+  --hover-light: #ffffff;
+  --nav-light: #859b86;
 
   /* Mode Sombre */
-  --bg-dark: #0a0a0a;   /* Fond noir profond */
-  --text-dark: #f8fafc;  /* Texte clair lumineux */
-  --card-dark: #1e1e1e;  /* Cartes sombres */
-  --banner-dark: #1f2937;  /* Bannière bleue foncée */
-  --accent-dark: #00e5ff;  /* Bleu néon électrique */
-  --hover-dark: #00b8d4;  /* Hover plus foncé pour le contraste */
-  --nav-dark: #212121;   /* Nav sombre avec un ton gris très foncé */
+  --bg-dark: #0a0a0a;
+  --text-dark: #f8fafc;
+  --card-dark: #1e1e1e;
+  --banner-dark: #1f2937;
+  --accent-dark: #00e5ff;
+  --hover-dark: #00b8d4;
+  --nav-dark: #212121;
 }
 
 body {
@@ -34,6 +34,7 @@ body.dark {
   font-family: 'Montserrat', sans-serif;
 }
 
+/* === Effet Particules === */
 #particles-js {
   position: absolute;
   top: 0;
@@ -41,16 +42,14 @@ body.dark {
   width: 100%;
   height: 100%;
   z-index: -1;
+  background-color: var(--bg-light);
 }
 
 body.dark #particles-js {
   background-color: var(--bg-dark);
 }
 
-body #particles-js {
-  background-color: var(--bg-light);
-}
-
+/* === Navigation === */
 nav {
   background: var(--nav-light);
   display: flex;
@@ -85,10 +84,12 @@ nav a.active, nav a:hover {
   color: var(--hover-light);
 }
 
-body.dark nav a.active, body.dark nav a:hover {
+body.dark nav a.active,
+body.dark nav a:hover {
   color: var(--hover-dark);
 }
 
+/* === En-tête === */
 header {
   text-align: center;
   padding: 60px 20px 20px;
@@ -115,6 +116,77 @@ body.dark header p {
   color: var(--accent-dark);
 }
 
+/* === Sections === */
+section {
+  background: var(--banner-light);
+  padding: 30px;
+  margin: 30px 0;
+  border-radius: 14px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s;
+}
+
+body.dark section {
+  background: var(--banner-dark);
+}
+
+section h2 {
+  color: var(--accent-light);
+  margin-top: 0;
+}
+
+body.dark section h2 {
+  color: var(--accent-dark);
+}
+
+section a {
+  text-decoration: none;
+}
+
+/* === Carte personnalisée === */
+.card {
+  background: var(--card-light);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s;
+}
+
+body.dark .card {
+  background: var(--card-dark);
+}
+
+/* === Boutons === */
+button,
+input[type="submit"] {
+  font-family: inherit;
+  background: var(--accent-light);
+  color: var(--bg-light);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark button,
+body.dark input[type="submit"] {
+  background: var(--accent-dark);
+  color: var(--bg-dark);
+}
+
+button:hover,
+input[type="submit"]:hover {
+  background: var(--hover-light);
+}
+
+body.dark button:hover,
+body.dark input[type="submit"]:hover {
+  background: var(--hover-dark);
+}
+
+/* === Toggle Thème === */
 #themeToggle {
   position: fixed;
   top: 20px;
@@ -146,6 +218,7 @@ body.dark #themeToggle:hover {
   background: var(--hover-dark);
 }
 
+/* === Bouton retour haut === */
 #backToTop {
   position: fixed;
   bottom: 40px;
@@ -175,50 +248,7 @@ body.dark #backToTop {
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
 }
 
-body.dark #backToTop:hover {
-  opacity: 1;
-  transform: scale(1.2);
-}
-
-section {
-  background: var(--banner-light);
-  padding: 30px;
-  margin: 30px 0;
-  border-radius: 14px;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s;
-}
-
-body.dark section {
-  background: var(--banner-dark);
-}
-
-section a {
-  text-decoration: none;
-}
-
-section h2 {
-  color: var(--accent-light);
-  margin-top: 0;
-}
-
-body.dark section h2 {
-  color: var(--accent-dark);
-}
-
-ul {
-  padding-left: 20px;
-}
-
-a {
-  color: var(--hover-light);
-  transition: color 0.3s;
-}
-
-body.dark a {
-  color: var(--hover-dark);
-}
-
+/* === Footer === */
 footer {
   text-align: center;
   margin-top: 50px;
@@ -231,8 +261,21 @@ body.dark footer {
   color: var(--text-dark);
 }
 
-/* === MEDIA QUERIES RESPONSIVES === */
+/* === Liens globaux === */
+a {
+  color: var(--hover-light);
+  transition: color 0.3s;
+}
 
+body.dark a {
+  color: var(--hover-dark);
+}
+
+ul {
+  padding-left: 20px;
+}
+
+/* === Responsif === */
 @media (max-width: 600px) {
   body {
     padding: 10px;
