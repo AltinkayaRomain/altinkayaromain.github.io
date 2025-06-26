@@ -1,12 +1,12 @@
 :root {
   /* Mode Clair */
-  --bg-light: #A27E86;  /* Fond gris clair */
-  --text-light: #FFE3DC; /* Texte sombre mais lisible */
+  --bg-light: #6f8a6b;  /* Fond gris clair */
+  --text-light: #ffffff; /* Texte sombre mais lisible */
   --card-light: #ffffff;  /* Cartes blanches */
-  --banner-light: #DBB4AD; /* Bannière bleue pâle */
-  --accent-light: #3A2D32; /* Bleu néon */
-  --hover-light: #FFE3DC; /* Hover bleu plus foncé */
-  --nav-light: #3A2D32; /* Nav claire, épurée en blanc */
+  --banner-light: #859b86; /* Bannière bleue pâle */
+  --accent-light: #ffffff; /* Bleu néon */
+  --hover-light: #ffffff; /* Hover bleu plus foncé */
+  --nav-light: #859b86; /* Nav claire, épurée en blanc */
 
   /* Mode Sombre */
   --bg-dark: #0a0a0a;   /* Fond noir profond */
