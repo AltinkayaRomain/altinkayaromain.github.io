@@ -316,3 +316,55 @@ ul {
     font-size: 24px;
   }
 }
+
+/* =================================
+   Grille de cartes pour les cours
+   ================================= */
+
+/* La grille qui contient toutes les cartes */
+.course-grid {
+    display: grid;
+    /* Crée des colonnes qui s'adaptent automatiquement */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem; /* Espace entre les cartes */
+    margin-top: 2rem;
+}
+
+/* Style de chaque carte */
+.course-card {
+    display: block; /* Pour que le lien <a> prenne toute la place */
+    background-color: var(--card-bg); /* S'adapte au mode sombre/clair */
+    border: 1px solid var(--border-color); /* S'adapte au mode sombre/clair */
+    border-radius: 8px;
+    padding: 2rem;
+    text-decoration: none; /* Enlève le soulignement bleu */
+    color: var(--text-color); /* S'adapte au mode sombre/clair */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Effet au survol de la souris */
+.course-card:hover {
+    transform: translateY(-5px); /* Fait "monter" la carte */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    color: var(--primary-color); /* Change la couleur du texte au survol */
+}
+
+/* L'icône en haut de la carte */
+.course-card .card-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color); /* Utilise ta couleur principale */
+    margin-bottom: 1rem;
+}
+
+/* Titre de la carte */
+.course-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Paragraphe de la carte */
+.course-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
