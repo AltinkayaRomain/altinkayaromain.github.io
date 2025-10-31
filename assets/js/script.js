@@ -65,3 +65,42 @@ window.addEventListener("scroll", () => {
     backToTopButton.style.display = "none";
   }
 });
+
+/* =================================
+   CHARGEMENT AUTOMATIQUE HEADER/FOOTER
+   ================================= */
+
+// Fonction pour charger un fichier HTML (un "partial")
+function loadPartial(url, elementId) {
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Réseau: Réponse non OK');
+      }
+      return response.text();
+    })
+    .then(data => {
+      // Injecte le HTML dans l'élément_cible
+      document.getElementById(elementId).innerHTML = data;
+    })
+    .catch(error => {
+      console.error('Erreur lors du chargement du partial:', url, error);
+      document.getElementById(elementId).innerHTML = `<p style="color:red;">Erreur: impossible de charger ${url}</p>`;
+    });
+}
+
+// Détecter le chemin correct des partials
+// Si l'URL contient '/courses/', on est dans un sous-dossier, il faut remonter (../)
+// Sinon, on est à la racine.
+const isSubdirectory = window.location.pathname.includes('/courses/');
+const partialsPath = isSubdirectory ? '../partials/' : 'partials/';
+
+// Quand le contenu de la page est chargé, on lance le chargement
+document.addEventListener('DOMContentLoaded', () => {
+  // Charge le header dans la div #header-placeholder
+  loadPartial(partialsPath + 'header.html', 'header-placeholder');
+  
+  // Charge le footer dans la div #footer-placeholder
+  // Tu peux décommenter la ligne ci-dessous si tu as un 'footer.html'
+  // loadPartial(partialsPath + 'footer.html', 'footer-placeholder');
+});
