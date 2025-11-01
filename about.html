@@ -1,91 +1,61 @@
-<div id="header-placeholder"></div>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>À propos de moi - Altinkaya Romain</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <style>
-    .cv-button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 24px;
-      background-color: var(--accent-light);
-      color: var(--bg-light);
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 8px;
-      transition: background-color 0.3s ease;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>À propos de moi - Altinkaya Romain</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Ce style est bon, on le garde ici pour l'instant.
+       Idéalement, il faudrait le déplacer dans style.css plus tard.
+    */
+    .cv-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: var(--accent-light);
+      color: var(--bg-light);
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
 
-    .cv-button:hover {
-      background-color: var(--hover-light);
-    }
+    .cv-button:hover {
+      background-color: var(--hover-light);
+    }
 
-    body.dark .cv-button {
-      background-color: var(--accent-dark);
-      color: var(--bg-dark);
-    }
+    body.dark .cv-button {
+      background-color: var(--accent-dark);
+      color: var(--bg-dark);
+    }
 
-    body.dark .cv-button:hover {
-      background-color: var(--hover-dark);
-    }
-
-    main {
-      max-width: 800px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-
-    embed {
-      width: 100%;
-      height: 600px;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      margin-top: 20px;
-    }
-
-    @media (max-width: 600px) {
-      embed {
-        height: 400px;
-      }
-    }
-  </style>
+    body.dark .cv-button:hover {
+      background-color: var(--hover-dark);
+    }
+  </style>
 </head>
 <body>
-  <header id="header"></header>
-  <nav id="nav"></nav>
+  
+    <div id="header-placeholder"></div>
 
-  <main>
-    <h2>À propos de moi</h2>
-    <p>Je suis un technicien informatique passionné, je cherche une alternance</p>
+  <main class="container">
+    <h2>À propos de moi</h2>
+    <p>Je suis un technicien informatique passionné, je cherche une alternance</p>
+                <a
+      href="assets/pdf/CVAltinkayaRomain.pdf"
+      class="cv-button"
+      target="_blank"
+      download
+      aria-label="Télécharger mon CV au format PDF"
+    >
+      📄 Télécharger mon CV
+    </a>
+  </main>
 
-    <!-- Intégration visuelle du CV -->
-    <embed
-      src="assets/pdf/CVAltinkayaRomain.pdf"
-      type="application/pdf"
-      aria-label="Visualisation du CV PDF"
-    />
+    <div id="footer-placeholder"></div>
 
-    <!-- Bouton téléchargement -->
-    <a
-      href="assets/pdf/CVAltinkayaRomain.pdf"
-      class="cv-button"
-      target="_blank"
-      download
-      aria-label="Télécharger mon CV au format PDF"
-    >
-      📄 Télécharger mon CV
-    </a>
-  </main>
+    <script src="assets/js/script.js?v=3"></script>
 
-  <footer id="footer"></footer>
-
-  <script src="assets/js/script.js"></script>
-  <script>
-    loadCommonParts(); // Charger les parties communes
-  </script>
 </body>
 </html>
