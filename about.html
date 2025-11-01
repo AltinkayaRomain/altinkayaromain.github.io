@@ -8,7 +8,7 @@
   <style>
     /*
       ================================
-      STYLE DU BOUTON CV (L'ORIGINAL)
+      STYLE DU BOUTON CV
       ================================
     */
     
@@ -20,14 +20,14 @@
 
     .cv-button {
       display: inline-block;
-      padding: 12px 24px; /* Le bon padding (ni trop gros, ni trop petit) */
+      padding: 12px 24px; 
       background-color: var(--accent-light);
       color: var(--bg-light);
       text-decoration: none;
       font-weight: bold;
       border-radius: 8px;
       transition: background-color 0.3s ease;
-      font-size: 1rem; /* Taille de police standard */
+      font-size: 1rem; 
     }
 
     .cv-button:hover {
@@ -53,24 +53,13 @@
       max-width: 800px;
       margin: 30px auto;
       border: 1px solid var(--border-color);
-      border-radius: 12px;
+      border-radius: 12px; /* Les coins arrondis seront visibles */
       background-color: var(--card-bg);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
+      overflow: hidden; /* Important pour les coins arrondis */
     }
 
-    /* Header SIMPLIFIÉ (juste le titre, plus de bouton) */
-    .cv-header {
-      padding: 14px 20px;
-      border-bottom: 1px solid var(--border-color);
-      background-color: var(--card-header-bg);
-    }
-    
-    .cv-header span {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-    }
+    /* Le CSS pour .cv-header a été supprimé car il n'existe plus */
 
     .cv-preview-wrapper {
       aspect-ratio: 210 / 297; /* Ratio A4 */
@@ -92,26 +81,10 @@
 
   <main class="container">
     <h2>À propos de moi</h2>
-    <p>Je suis un technicien informatique passionné, je cherche une alternance. Vous pouvez télécharger mon CV directement ou le consulter ci-dessous.</p>
-
-    <div class="cv-button-container">
-      <a
-        href="assets/pdf/CVAltinkayaRomain.pdf"
-        class="cv-button"
-        target="_blank"
-        download
-        aria-label="Télécharger mon CV au format PDF"
-    S  >
-        📄 Télécharger mon CV
-      </a>
-    </div>
+    <p>Je suis un technicien informatique passionné, je cherche une alternance. Vous pouvez consulter mon CV ci-dessous, ou le télécharger directement.</p>
 
     <div class="cv-container">
       
-      <div class="cv-header">
-        <span>Aperçu : CVAltinkayaRomain.pdf</span>
-      </div>
-
       <div class="cv-preview-wrapper">
         <iframe
           class="cv-preview-iframe"
@@ -123,7 +96,19 @@
       </div>
 
     </div>
-      </main>
+    <div class="cv-button-container">
+      <a
+        href="assets/pdf/CVAltinkayaRomain.pdf"
+        class="cv-button"
+        target="_blank"
+        download
+        aria-label="Télécharger mon CV au format PDF"
+      >
+        📄 Télécharger mon CV
+      </a>
+    </div>
+
+  </main>
 
     <div id="footer-placeholder"></div>
 
