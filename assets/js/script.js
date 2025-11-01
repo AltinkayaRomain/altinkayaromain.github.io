@@ -97,7 +97,7 @@ const partialsPath = isSubdirectory ? '../partials/' : 'partials/';
 
 // Quand le contenu de la page est chargé, on lance le chargement
 document.addEventListener('DOMContentLoaded', () => {
-s
+  
   // On ajoute un paramètre unique (l'heure actuelle) pour "casser" le cache
   const cacheBust = '?v=' + new Date().getTime();
 
