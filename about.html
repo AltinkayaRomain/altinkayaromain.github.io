@@ -6,9 +6,7 @@
   <title>À propos de moi - Altinkaya Romain</title>
   <link rel="stylesheet" href="assets/css/style.css" />
   <style>
-    /* Ce style est bon, on le garde ici pour l'instant.
-       Idéalement, il faudrait le déplacer dans style.css plus tard.
-    */
+    /* Style pour le bouton CV (inchangé) */
     .cv-button {
       display: inline-block;
       margin-top: 20px;
@@ -27,11 +25,27 @@
 
     body.dark .cv-button {
       background-color: var(--accent-dark);
-      color: var(--bg-dark);
+  S    color: var(--bg-dark);
     }
 
     body.dark .cv-button:hover {
       background-color: var(--hover-dark);
+    }
+
+    /* NOUVEAU : Style pour l'aperçu du CV (iframe) */
+    .cv-preview {
+      width: 100%;
+      height: 800px; /* Un peu plus grand, c'est plus lisible */
+      border: 1px solid var(--border-color); /* Utilise tes variables CSS */
+      border-radius: 8px; /* Coins arrondis */
+      margin-top: 25px;
+      background-color: #fff; /* Fond blanc pour le PDF */
+    }
+
+    @media (max-width: 600px) {
+      .cv-preview {
+        height: 500px; /* Adapté pour mobile */
+      }
     }
   </style>
 </head>
@@ -41,8 +55,9 @@
 
   <main class="container">
     <h2>À propos de moi</h2>
-    <p>Je suis un technicien informatique passionné, je cherche une alternance</p>
-                <a
+    <p>Je suis un technicien informatique passionné, je cherche une alternance.</p>
+
+        <a
       href="assets/pdf/CVAltinkayaRomain.pdf"
       class="cv-button"
       target="_blank"
@@ -51,6 +66,15 @@
     >
       📄 Télécharger mon CV
     </a>
+
+        <iframe
+      class="cv-preview"
+      src="assets/pdf/CVAltinkayaRomain.pdf"
+      title="Aperçu du CV de Romain Altinkaya"
+      frameborder="0"
+    >
+    </iframe>
+
   </main>
 
     <div id="footer-placeholder"></div>
