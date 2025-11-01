@@ -6,17 +6,51 @@
   <title>À propos de moi - Altinkaya Romain</title>
   <link rel="stylesheet" href="assets/css/style.css" />
   <style>
-    /* Style pour le bouton CV (inchangé) */
+    /*
+      ================================
+      NOUVEAU : STYLES POUR LE CV
+      ================================
+    */
+
+    /* Le conteneur principal de l'aperçu */
+    .cv-container {
+      max-width: 800px; /* Limite la largeur max */
+      margin: 30px auto; /* Centre le bloc */
+      border: 1px solid var(--border-color);
+      border-radius: 12px; /* Coins bien arrondis */
+      background-color: var(--card-bg); /* Fond de la carte */
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Ombre moderne */
+      overflow: hidden; /* Pour que l'iframe ne dépasse pas */
+    }
+
+    /* L'en-tête personnalisé au-dessus du PDF */
+    .cv-header {
+      display: flex;
+      justify-content: space-between; /* Met le titre à gauche, le bouton à droite */
+      align-items: center;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border-color);
+      background-color: var(--card-header-bg); /* Une couleur de fond légèrement différente si tu en as une */
+    }
+    
+    .cv-header span {
+      font-weight: 600; /* Titre du fichier en gras */
+      font-size: 0.9rem;
+      color: var(--text-secondary); /* Couleur discrète */
+    }
+
+    /* Le bouton de téléchargement (on réutilise ton style) */
     .cv-button {
       display: inline-block;
-      margin-top: 20px;
-      padding: 12px 24px;
+      /* On enlève la marge du haut car il est dans le header */
+      padding: 8px 16px; /* Un peu plus petit pour le header */
       background-color: var(--accent-light);
       color: var(--bg-light);
       text-decoration: none;
       font-weight: bold;
       border-radius: 8px;
       transition: background-color 0.3s ease;
+      font-size: 0.9rem;
     }
 
     .cv-button:hover {
@@ -25,28 +59,28 @@
 
     body.dark .cv-button {
       background-color: var(--accent-dark);
-  S    color: var(--bg-dark);
+      color: var(--bg-dark);
     }
 
     body.dark .cv-button:hover {
       background-color: var(--hover-dark);
     }
 
-    /* NOUVEAU : Style pour l'aperçu du CV (iframe) */
-    .cv-preview {
+    /* Le conteneur qui force les bonnes proportions */
+    .cv-preview-wrapper {
+      /* Force le ratio d'une page A4 (210x297mm) */
+      aspect-ratio: 210 / 297; 
       width: 100%;
-      height: 800px; /* Un peu plus grand, c'est plus lisible */
-      border: 1px solid var(--border-color); /* Utilise tes variables CSS */
-      border-radius: 8px; /* Coins arrondis */
-      margin-top: 25px;
-      background-color: #fff; /* Fond blanc pour le PDF */
+      overflow: hidden;
     }
 
-    @media (max-width: 600px) {
-      .cv-preview {
-        height: 500px; /* Adapté pour mobile */
-      }
-    }
+    /* L'aperçu PDF lui-même */
+    .cv-preview-iframe {
+      width: 100%;
+      height: 100%;
+      border: none; /* Aucune bordure sur l'iframe */
+    }
+
   </style>
 </head>
 <body>
@@ -55,27 +89,35 @@
 
   <main class="container">
     <h2>À propos de moi</h2>
-    <p>Je suis un technicien informatique passionné, je cherche une alternance.</p>
+    <p>Je suis un technicien informatique passionné, je cherche une alternance. Voici un aperçu de mon CV ci-dessous, ou téléchargez-le directement.</p>
 
-        <a
-      href="assets/pdf/CVAltinkayaRomain.pdf"
-      class="cv-button"
-      target="_blank"
-      download
-      aria-label="Télécharger mon CV au format PDF"
-    >
-      📄 Télécharger mon CV
-    </a>
+    <div class="cv-container">
+      
+      <div class="cv-header">
+        <span>Aperçu : CVAltinkayaRomain.pdf</span>
+        <a
+          href="assets/pdf/CVAltinkayaRomain.pdf"
+          class="cv-button"
+          target="_blank"
+          download
+          aria-label="Télécharger mon CV au format PDF"
+        >
+          📄 Télécharger
+        </a>
+      </div>
 
-        <iframe
-      class="cv-preview"
-      src="assets/pdf/CVAltinkayaRomain.pdf"
-      title="Aperçu du CV de Romain Altinkaya"
-      frameborder="0"
-    >
-    </iframe>
+      <div class="cv-preview-wrapper">
+            <iframe
+          class="cv-preview-iframe"
+          src="assets/pdf/CVAltinkayaRomain.pdf#toolbar=0&navpanes=0"
+          title="Aperçu du CV de Romain Altinkaya"
+          frameborder="0"
+        >
+        </iframe>
+      </div>
 
-  </main>
+    </div>
+      </main>
 
     <div id="footer-placeholder"></div>
 
