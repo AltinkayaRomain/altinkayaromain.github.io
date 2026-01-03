@@ -1,119 +1,98 @@
-// Initialisation de particles.js
-// On vérifie d'abord si l'élément 'particles-js' existe sur la page
-if (document.getElementById("particles-js")) {
-  particlesJS("particles-js", {
-    particles: {
-      number: {
-        value: 80,  // Nombre de particules
-        density: {
-          enable: true,
-          value_area: 800
-        }
-      },
-      color: {
-        value: "#ffffff"  // Couleur des particules
-      },
-      shape: {
-        type: "circle",  // Forme des particules
-      },
-      opacity: {
-        value: 0.5,  // Opacité des particules
-        random: true,
-      },
-      size: {
-        value: 3,  // Taille des particules
-        random: true,
-      },
-      move: {
-        enable: true,
-        speed: 2,  // Vitesse de déplacement des particules
-        direction: "none",
-        out_mode: "out"
-      }
-    },
-    interactivity: {
-      detect_on: "window",
-      events: {
-        onhover: {
-          enable: true,
-          mode: "repulse"
-        },
-        onclick: {
-          enable: true,
-          mode: "push"
-        }
-      }
-    },
-    retina_detect: true
-  });
-} // Fin du 'if' pour particles-js
-
-// Switch theme (Light/Dark mode)
+/**
+ * GESTION DU THEME (DARK/LIGHT)
+ * Bascule entre le mode sombre profond et un mode clair propre
+ */
 const themeToggleButton = document.getElementById("themeToggle");
-// On vérifie SI le bouton existe AVANT de lui attacher un 'listener'
+const body = document.body;
+
 if (themeToggleButton) {
-  themeToggleButton.addEventListener("click", function() {
-    document.body.classList.toggle("dark");
-    const themeText = document.getElementById("themeText");
-    // On vérifie aussi si le texte existe
-    if (themeText) {
-      if (document.body.classList.contains("dark")) {
-        themeText.textContent = "🌙 Mode Clair";
-      } else {
-        themeText.textContent = "🌙 Mode Sombre";
-      }
+    // On vérifie si l'utilisateur avait déjà choisi un thème
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+        body.classList.remove("dark"); // Par défaut on est en dark dans le CSS
+        updateThemeIcon(false);
     }
-  });
-} // Fin du 'if' pour themeToggle
 
-// Scroll back to top button
-const backToTopButton = document.getElementById("backToTop");
-// On vérifie SI le bouton existe AVANT de lui attacher un 'listener'
-if (backToTopButton) {
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 500) {
-      backToTopButton.style.display = "block";
-    } else {
-      backToTopButton.style.display = "none";
-    }
-  });
-} // Fin du 'if' pour backToTop
-
-/* =================================
-   CHARGEMENT AUTOMATIQUE HEADER/FOOTER
-   (Cette partie est déjà correcte)
-   ================================= */
-
-// Fonction pour charger un fichier HTML (un "partial")
-function loadPartial(url, elementId) {
-  fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Réseau: Réponse non OK');
-      }
-      return response.text();
-    })
-    .then(data => {
-      document.getElementById(elementId).innerHTML = data;
-    })
-    .catch(error => {
-      console.error('Erreur lors du chargement du partial:', url, error);
-      document.getElementById(elementId).innerHTML = `<p style="color:red;">Erreur: impossible de charger ${url}</p>`;
-    });
+    themeToggleButton.addEventListener("click", () => {
+        const isDark = body.classList.toggle("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        updateThemeIcon(isDark);
+    });
 }
 
-// Détecter le chemin correct des partials
-const isSubdirectory = window.location.pathname.includes('/courses/');
-const partialsPath = isSubdirectory ? '../partials/' : 'partials/';
+function updateThemeIcon(isDark) {
+    const icon = themeToggleButton.querySelector("i");
+    if (icon) {
+        icon.className = isDark ? "fas fa-moon" : "fas fa-sun";
+    }
+}
 
-// Quand le contenu de la page est chargé, on lance le chargement
+/**
+ * BOUTON RETOUR EN HAUT
+ */
+const backToTopButton = document.getElementById("backToTop");
+if (backToTopButton) {
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 400) {
+            backToTopButton.style.display = "flex";
+            backToTopButton.style.alignItems = "center";
+            backToTopButton.style.justifyContent = "center";
+        } else {
+            backToTopButton.style.display = "none";
+        }
+    });
+    
+    backToTopButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+/**
+ * CHARGEMENT DES PARTIALS (Header / Footer)
+ */
+function loadPartial(url, elementId) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error('Erreur de chargement');
+            return response.text();
+        })
+        .then(data => {
+            element.innerHTML = data;
+            // Optionnel : On peut relancer une petite animation ici
+        })
+        .catch(err => console.error(err));
+}
+
+// Détection auto du chemin (racine vs sous-dossiers)
+const isSub = window.location.pathname.includes('/courses/');
+const pPath = isSub ? '../partials/' : 'partials/';
+
 document.addEventListener('DOMContentLoaded', () => {
-  
-  const cacheBust = '?v=' + new Date().getTime();
-  
-  // Charge le header
-  loadPartial(partialsPath + 'header.html' + cacheBust, 'header-placeholder');
-  
-  // Charge le footer (si tu en as un)
-  // loadPartial(partialsPath + 'footer.html' + cacheBust, 'footer-placeholder');
+    const v = '?v=' + Date.now();
+    loadPartial(pPath + 'header.html' + v, 'header-placeholder');
+    // loadPartial(pPath + 'footer.html' + v, 'footer-placeholder');
 });
+
+/**
+ * INITIALISATION PARTICULES (Si l'élément existe)
+ */
+if (document.getElementById("particles-js")) {
+    particlesJS('particles-js', {
+        "particles": {
+            "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#00ffcc" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.2, "random": true },
+            "size": { "value": 1.5, "random": true },
+            "line_linked": { "enable": true, "distance": 150, "color": "#00ffcc", "opacity": 0.1, "width": 1 },
+            "move": { "enable": true, "speed": 1, "direction": "none", "out_mode": "out" }
+        },
+        "interactivity": {
+            "events": { "onhover": { "enable": true, "mode": "grab" } }
+        },
+        "retina_detect": true
+    });
+}
