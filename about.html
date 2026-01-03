@@ -1,118 +1,80 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>À propos de moi - Altinkaya Romain</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
-  
-    <style>
-    /*
-      ================================
-      STYLE DE TON BOUTON CV (L'ORIGINAL)
-      ================================
-    */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos - Altinkaya Romain</title>
     
-    /* Conteneur pour centrer le bouton */
-    .cv-button-container {
-      text-align: center;
-      margin: 30px 0; /* Espace au-dessus et en-dessous */
-    }
-
-    .cv-button {
-      display: inline-block;
-      padding: 12px 24px; /* Le style que tu préfères */
-      background-color: var(--accent-light);
-      color: var(--bg-light);
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 8px;
-      transition: background-color 0.3s ease;
-      font-size: 1rem; 
-    }
-
-    .cv-button:hover {
-      background-color: var(--hover-light);
-    }
-
-    body.dark .cv-button {
-      background-color: var(--accent-dark);
-      color: var(--bg-dark);
-    }
-
-    body.dark .cv-button:hover {
-      background-color: var(--hover-dark);
-    }
-
-    /*
-      ================================
-      STYLE DE L'APERÇU CV (LA CARTE MODERNE)
-      ================================
-    */
-
-    .cv-container {
-      max-width: 800px;
-      margin: 30px auto;
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      background-color: var(--card-bg);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
-    }
-
-    .cv-preview-wrapper {
-      aspect-ratio: 210 / 297; /* Ratio A4 */
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .cv-preview-iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-  </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
-  
-    <div id="header-placeholder"></div>
+    <div id="particles-js"></div>
+    <div id="header-placeholder"></div>
 
-  <main class="container">
-    <h2>À propos de moi</h2>
-    <p>Je suis un technicien informatique passionné, je cherche une alternance en tant qu'administrateur d'infrastructures sécurisées.
-    Vous pouvez consulter mon CV ci-dessous, ou le télécharger directement.</p>
+    <main class="container">
+        <header class="hero">
+            <h1>À Propos</h1>
+            <p class="terminal-text">_HUMAN_BEHIND_THE_SYSTEM</p>
+        </header>
 
-    <div class="cv-container">
-      
-      <div class="cv-preview-wrapper">
-        <iframe
-          class="cv-preview-iframe"
-          src="assets/pdf/CVAltinkayaRomain.pdf#toolbar=0&navpanes=0"
-          title="Aperçu du CV de Romain Altinkaya"
-          frameborder="0"
-        >
-        </iframe>
-      </div>
+        <div class="bento-grid">
+            
+            <section class="card card-large">
+                <div class="card-header">
+                    <i class="fas fa-id-card card-icon-main"></i>
+                    <h2>Mon Parcours</h2>
+                </div>
+                <p>Technicien informatique passionné, je me spécialise dans l'administration d'infrastructures sécurisées. Mon approche combine rigueur technique et curiosité pour les solutions Open Source.</p>
+                <p>Actuellement à la recherche d'une <strong>alternance en tant qu'administrateur d'infrastructures</strong>, je souhaite mettre mes compétences au service de projets ambitieux.</p>
+            </section>
 
-    </div>
-    <div class="cv-button-container">
-      <a
-        href="assets/pdf/CVAltinkayaRomain.pdf"
-        class="cv-button"
-        target="_blank"
-        download
-        aria-label="Télécharger mon CV au format PDF"
-      >
-        📄 Télécharger mon CV
-      </a>
-    </div>
+            <section class="card card-small">
+                <h3>CONTACT_QUICK</h3>
+                <div class="mini-list">
+                    <div class="list-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>France</p>
+                    </div>
+                    <div class="list-item">
+                        <i class="fas fa-language"></i>
+                        <p>Français / Anglais (Tech)</p>
+                    </div>
+                </div>
+            </section>
 
-  </main>
+            <section class="card card-large">
+                <div class="card-header">
+                    <i class="fas fa-file-pdf card-icon-main"></i>
+                    <h2>Curriculum Vitae</h2>
+                </div>
+                <p>Consultez mon parcours détaillé ci-dessous ou téléchargez le fichier directement pour votre dossier.</p>
+                
+                <div class="cv-actions">
+                    <a href="assets/pdf/CVAltinkayaRomain.pdf" class="btn-neon" target="_blank">
+                        <i class="fas fa-download"></i> Télécharger le CV (PDF)
+                    </a>
+                </div>
 
-    <div id="footer-placeholder"></div>
+                <div class="cv-preview">
+                    <iframe src="assets/pdf/CVAltinkayaRomain.pdf#toolbar=0" width="100%" height="500px"></iframe>
+                </div>
+            </section>
 
-    <script src="assets/js/script.js?v=3"></script>
+        </div>
+    </main>
 
+    <footer>
+        <p>© 2026 — Développé avec ❤️ par Altinkaya Romain</p>
+    </footer>
+
+    <button id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
