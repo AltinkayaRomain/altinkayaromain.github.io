@@ -1,370 +1,238 @@
+/* --- Variables & Thèmes --- */
 :root {
-  /* Mode Clair */
-  --bg-light: #6f8a6b;
-  --text-light: #ffffff;
-  --card-light: #ffffff;
-  --banner-light: #859b86;
-  --accent-light: #ffffff;
-  --hover-light: #ffffff;
-  --nav-light: #859b86;
+  /* Mode Clair (Inspiration Soft Tech) */
+  --bg-main: #f8fafc;
+  --bg-section: #ffffff;
+  --nav-bg: rgba(255, 255, 255, 0.8);
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --accent: #3b82f6; /* Bleu pro */
+  --accent-hover: #2563eb;
+  --card-bg: #ffffff;
+  --border: #e2e8f0;
+  --shadow: rgba(0, 0, 0, 0.05);
+}
 
-  /* Mode Sombre */
-  --bg-dark: #0a0a0a;
-  --text-dark: #f8fafc;
-  --card-dark: #1e1e1e;
-  --banner-dark: #1f2937;
-  --accent-dark: #00e5ff;
-  --hover-dark: #00b8d4;
-  --nav-dark: #212121;
+body.dark {
+  /* Mode Sombre (Inspiration Deep Night) */
+  --bg-main: #0f172a;
+  --bg-section: #1e293b;
+  --nav-bg: rgba(15, 23, 42, 0.8);
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --accent: #00e5ff; /* Cyan néon */
+  --accent-hover: #00b8d4;
+  --card-bg: #1e293b;
+  --border: #334155;
+  --shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* --- Base --- */
+* {
+  box-sizing: border-box;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: var(--bg-light);
-  color: var(--text-light);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 20px;
-  max-width: 960px;
-  transition: background 0.3s, color 0.3s, font-family 0.3s;
 }
 
-body.dark {
-  background: var(--bg-dark);
-  color: var(--text-dark);
-  font-family: 'Montserrat', sans-serif;
-}
-
-/* === Effet Particules === */
+/* --- Effet Particules --- */
 #particles-js {
-  position: absolute;
+  position: fixed; /* Fixé pour couvrir tout le défilement */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: -1;
-  background-color: var(--bg-light);
 }
 
-body.dark #particles-js {
-  background-color: var(--bg-dark);
-}
-
-/* === Navigation === */
+/* --- Navigation Moderne (Glassmorphism) --- */
 nav {
-  background: var(--nav-light);
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px); /* Effet flou derrière le menu */
   display: flex;
   justify-content: center;
-  gap: 20px;
-  padding: 15px 0;
+  gap: 25px;
+  padding: 20px 0;
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-body.dark nav {
-  background: var(--nav-dark);
+  border-bottom: 1px solid var(--border);
 }
 
 nav a {
-  color: var(--text-light);
+  color: var(--text-main);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 0.95rem;
   transition: 0.3s;
-  padding-bottom: 2px;
+  position: relative;
 }
 
-body.dark nav a {
-  color: var(--text-dark);
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: var(--accent);
+  transition: width 0.3s;
 }
 
-nav a.active, nav a:hover {
-  border-bottom: 2px solid var(--accent-light);
-  color: var(--hover-light);
+nav a:hover::after, nav a.active::after {
+  width: 100%;
 }
 
-body.dark nav a.active,
-body.dark nav a:hover {
-  color: var(--hover-dark);
+nav a:hover {
+  color: var(--accent);
 }
 
-/* === En-tête === */
+/* --- En-tête --- */
 header {
   text-align: center;
-  padding: 60px 20px 20px;
+  padding: 80px 20px 40px;
 }
 
 header h1 {
-  font-size: clamp(2rem, 6vw, 3rem);
-  margin-bottom: 0.5rem;
-  color: var(--accent-light);
-  text-shadow: 0 0 10px var(--accent-light);
-}
-
-body.dark header h1 {
-  color: var(--accent-dark);
-  text-shadow: 0 0 10px var(--accent-dark);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 10px;
+  background: linear-gradient(to right, var(--accent), #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 header p {
-  font-size: clamp(1rem, 3vw, 1.2rem);
-  color: var(--accent-light);
+  color: var(--text-muted);
+  font-size: 1.2rem;
 }
 
-body.dark header p {
-  color: var(--accent-dark);
-}
-
-/* === Sections === */
+/* --- Sections --- */
 section {
-  background: var(--banner-light);
-  padding: 30px;
-  margin: 30px 0;
-  border-radius: 14px;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s;
-}
-
-body.dark section {
-  background: var(--banner-dark);
+  background: var(--bg-section);
+  padding: 40px;
+  margin: 40px 0;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 25px var(--shadow);
 }
 
 section h2 {
-  color: var(--accent-light);
+  color: var(--accent);
   margin-top: 0;
-}
-
-body.dark section h2 {
-  color: var(--accent-dark);
-}
-
-section a {
-  text-decoration: none;
-}
-
-/* === Carte personnalisée === */
-.card {
-  background: var(--card-light);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s;
-}
-
-body.dark .card {
-  background: var(--card-dark);
-}
-
-/* === Boutons === */
-button,
-input[type="submit"] {
-  font-family: inherit;
-  background: var(--accent-light);
-  color: var(--bg-light);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s, color 0.3s;
-}
-
-body.dark button,
-body.dark input[type="submit"] {
-  background: var(--accent-dark);
-  color: var(--bg-dark);
-}
-
-button:hover,
-input[type="submit"]:hover {
-  background: var(--hover-light);
-}
-
-body.dark button:hover,
-body.dark input[type="submit"]:hover {
-  background: var(--hover-dark);
-}
-
-/* === Toggle Thème === */
-#themeToggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: var(--accent-light);
-  border: none;
-  border-radius: 25px;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  color: var(--bg-light);
+  font-size: 1.8rem;
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: background 0.3s, color 0.3s;
 }
 
-body.dark #themeToggle {
-  background: var(--accent-dark);
-  color: var(--bg-dark);
+/* --- Grille de Cartes (Cours & Compétences) --- */
+.course-grid, .skills-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
 }
 
-#themeToggle:hover {
-  background: var(--hover-light);
+.course-card, .skill-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 30px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px var(--shadow);
 }
 
-body.dark #themeToggle:hover {
-  background: var(--hover-dark);
+.course-card:hover, .skill-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--accent);
+  box-shadow: 0 20px 30px var(--shadow);
 }
 
-/* === Bouton retour haut === */
-#backToTop {
+.card-icon {
+  font-size: 2.5rem;
+  color: var(--accent);
+  margin-bottom: 15px;
+}
+
+/* --- Tags (Badges) --- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.tag {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--accent);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* --- Boutons & Toggles --- */
+#themeToggle, #backToTop {
   position: fixed;
-  bottom: 40px;
-  right: 40px;
-  background: var(--accent-light);
-  color: var(--bg-light);
+  background: var(--accent);
+  color: #fff;
   border: none;
-  padding: 15px;
-  border-radius: 50%;
-  font-size: 30px;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  opacity: 0.9;
-  transition: all 0.3s ease;
-  display: none;
-  transform: scale(1);
+  box-shadow: 0 4px 15px var(--shadow);
+  transition: 0.3s;
+  z-index: 1100;
 }
 
-body.dark #backToTop {
-  background-color: var(--accent-dark);
-  color: var(--bg-dark);
+#themeToggle {
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 600;
 }
 
-#backToTop:hover {
-  opacity: 1;
-  transform: scale(1.2);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+#backToTop {
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 20px;
+  display: none; /* Géré par JS */
 }
 
-/* === Footer === */
+#themeToggle:hover, #backToTop:hover {
+  transform: scale(1.1);
+  background: var(--accent-hover);
+}
+
+/* --- Footer --- */
 footer {
   text-align: center;
-  margin-top: 50px;
-  font-size: 0.9rem;
-  color: var(--text-light);
-  transition: color 0.3s;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
 }
 
-body.dark footer {
-  color: var(--text-dark);
-}
-
-/* === Liens globaux === */
-a {
-  color: var(--hover-light);
-  transition: color 0.3s;
-}
-
-body.dark a {
-  color: var(--hover-dark);
-}
-
-ul {
-  padding-left: 20px;
-}
-
-/* === Responsif === */
-@media (max-width: 600px) {
-  body {
-    padding: 10px;
-    max-width: 100%;
-  }
-  nav {
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px 0;
-  }
-  nav a {
-    font-size: 1.1rem;
-    padding: 10px 0;
-  }
-  header {
-    padding: 40px 10px 20px;
-  }
-  header h1 {
-    font-size: 2rem;
-  }
-  header p {
-    font-size: 1rem;
-  }
-  section {
-    padding: 20px;
-    margin: 20px 0;
-  }
-  #themeToggle {
-    padding: 8px 15px;
-    font-size: 14px;
-    top: 15px;
-    right: 15px;
-  }
-  #backToTop {
-    bottom: 20px;
-    right: 20px;
-    padding: 12px;
-    font-size: 24px;
-  }
-}
-
-/* =================================
-   Grille de cartes pour les cours
-   ================================= */
-
-/* La grille qui contient toutes les cartes */
-.course-grid {
-    display: grid;
-    /* Crée des colonnes qui s'adaptent automatiquement */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem; /* Espace entre les cartes */
-    margin-top: 2rem;
-}
-
-/* Style de chaque carte */
-.course-card {
-    display: block; /* Pour que le lien <a> prenne toute la place */
-    background-color: var(--card-bg); /* S'adapte au mode sombre/clair */
-    border: 1px solid var(--border-color); /* S'adapte au mode sombre/clair */
-    border-radius: 8px;
-    padding: 2rem;
-    text-decoration: none; /* Enlève le soulignement bleu */
-    color: var(--text-color); /* S'adapte au mode sombre/clair */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Effet au survol de la souris */
-.course-card:hover {
-    transform: translateY(-5px); /* Fait "monter" la carte */
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-    color: var(--primary-color); /* Change la couleur du texte au survol */
-}
-
-/* L'icône en haut de la carte */
-.course-card .card-icon {
-    font-size: 2.5rem;
-    color: var(--primary-color); /* Utilise ta couleur principale */
-    margin-bottom: 1rem;
-}
-
-/* Titre de la carte */
-.course-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Paragraphe de la carte */
-.course-card p {
-    font-size: 1rem;
-    line-height: 1.6;
+/* --- Mobile --- */
+@media (max-width: 768px) {
+  nav { gap: 15px; }
+  section { padding: 25px; }
 }
