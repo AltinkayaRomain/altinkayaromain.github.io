@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révisions - Virtualisation & Infra - Romain Altinkaya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div id="header-placeholder"></div>
+
+    <main class="container">
+        <header class="hero">
+            <h1>Virtualisation & Infrastructures</h1>
+            <p class="terminal-text">_TSSR_VIRTUALIZATION_CORE</p>
+        </header>
+
+        <div class="course-layout">
+            <aside class="course-sidebar">
+                <h3>Sommaire</h3>
+                <ul>
+                    <li><a href="#concepts">1. Concepts & Hyperviseurs</a></li>
+                    <li><a href="#proxmox">2. Proxmox & VMware</a></li>
+                    <li><a href="#storage">3. Stockage & Réseaux Virtuels</a></li>
+                    <li><a href="#hybride">4. Architecture Hybride</a></li>
+                </ul>
+            </aside>
+
+            <div class="course-content">
+                
+                <section id="concepts" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-microchip card-icon-main"></i>
+                        <h2>1. Concepts & Hyperviseurs</h2>
+                    </div>
+                    <p>Comprendre la différence fondamentale entre les types d'hyperviseurs :</p>
+                    <ul>
+                        <li><strong>Type 1 (Bare Metal) :</strong> Installé directement sur le matériel (ESXi, Proxmox, Hyper-V Server).</li>
+                        <li><strong>Type 2 (Hosted) :</strong> Installé sur un OS existant (VirtualBox, VMware Workstation).</li>
+                    </ul>
+                    <div class="note-box info">
+                        <i class="fas fa-lightbulb"></i>
+                        <p><strong>Examen :</strong> Savoir justifier le choix d'un Type 1 en production pour les performances et la sécurité.</p>
+                    </div>
+                </section>
+
+                <section id="proxmox" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-server card-icon-main"></i>
+                        <h2>2. Proxmox & VMware</h2>
+                    </div>
+                    <p>Gestion des machines virtuelles (VM) et des conteneurs (LXC).</p>
+                    <ul>
+                        <li><strong>Proxmox :</strong> Basé sur Debian, utilise KVM pour les VM et LXC pour les conteneurs.</li>
+                        <li><strong>VMware vSphere :</strong> Solution propriétaire leader, gestion via vCenter.</li>
+                    </ul>
+                </section>
+
+                <section id="storage" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-network-wired card-icon-main"></i>
+                        <h2>3. Stockage & Réseaux Virtuels</h2>
+                    </div>
+                    <p>Comment les VM communiquent et stockent leurs données.</p>
+                    <ul>
+                        <li><strong>Virtual Switching :</strong> Bridge (Pont), NAT, et isolation LAN.</li>
+                        <li><strong>Stockage :</strong> Provisionnement mince (Thin) vs Épais (Thick), snapshots et sauvegardes.</li>
+                    </ul>
+                </section>
+
+                <section id="hybride" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-sync card-icon-main"></i>
+                        <h2>4. Architecture Hybride</h2>
+                    </div>
+                    <p>L'interconnexion entre les mondes Windows et Linux (NTiers).</p>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Exemple : Bridge Réseau Proxmox (/etc/network/interfaces)</div>
+                        <code>
+auto vmbr0
+iface vmbr0 inet static
+    address 192.168.1.10/24
+    gateway 192.168.1.1
+    bridge-ports eth0
+                        </code>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <footer><p>© 2026 — Altinkaya Romain</p></footer>
+    <script src="../assets/js/script.js"></script> 
+</body>
+</html>
