@@ -1,4 +1,4 @@
-/* --- VARIABLES --- */
+/* --- 1. VARIABLES & RESET --- */
 :root {
     --bg: #030405;
     --card: #0a0c10;
@@ -25,7 +25,7 @@ body {
     line-height: 1.4;
 }
 
-/* --- LIENS GLOBAUX (Fix du bleu moche) --- */
+/* --- 2. LIENS & NAVIGATION --- */
 a {
     color: var(--accent) !important;
     text-decoration: none !important;
@@ -37,17 +37,6 @@ a:hover {
     text-shadow: 0 0 10px var(--accent-glow);
 }
 
-/* --- LE FIX DES PARTICULES --- */
-#particles-js {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-/* --- NAVIGATION --- */
 .floating-nav {
     position: fixed;
     top: 20px;
@@ -75,7 +64,13 @@ a:hover {
     color: var(--accent) !important; 
 }
 
-/* --- HEADER / LOGO --- */
+/* --- 3. STRUCTURE HERO & GRILLE --- */
+#particles-js {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+}
+
 .hero {
     padding: 100px 0 20px;
     text-align: center;
@@ -101,7 +96,6 @@ a:hover {
     opacity: 0.5;
 }
 
-/* --- GRILLE & CARTES --- */
 .container { 
     max-width: 1000px;
     margin: 0 auto; 
@@ -114,6 +108,7 @@ a:hover {
     gap: 15px;
 }
 
+/* --- 4. CARTES BENTO --- */
 .card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -131,35 +126,32 @@ a:hover {
 
 .card-large { grid-column: span 8; }
 .card-small { grid-column: span 4; }
+.card-full { grid-column: span 12; }
 
 @media (max-width: 800px) {
-    .card-large, .card-small { grid-column: span 12; }
+    .card-large, .card-small, .card-full { grid-column: span 12; }
 }
 
-/* --- TYPOGRAPHIE DES CARTES (Skills) --- */
-.card h2, .card h3 {
-    font-family: var(--font-head);
-    text-transform: uppercase;
-    margin: 0;
-}
-
-.card h2 { font-size: 1.3rem; }
-.card h3 { font-size: 1rem; color: var(--accent); }
-
-.card p {
-    color: var(--text-dim);
-    font-size: 0.9rem;
-    margin: 15px 0;
-}
-
-/* --- TAGS & BADGES (Essentiel pour Skills) --- */
-.tags {
+/* --- 5. COMPOSANTS INTERNES (Skills & About) --- */
+.card-header {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 15px;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
+.card h2 { font-family: var(--font-head); font-size: 1.3rem; text-transform: uppercase; margin: 0; }
+.card h3 { font-family: var(--font-head); font-size: 1rem; color: var(--accent); text-transform: uppercase; margin: 0; }
+.card p { color: var(--text-dim); font-size: 0.9rem; margin: 15px 0; }
+.card strong { color: var(--accent); font-weight: 600; }
+
+.card-icon-main {
+    font-size: 1.5rem;
+    color: var(--accent);
+    filter: drop-shadow(0 0 5px var(--accent-glow));
+}
+
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
 .tag {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border);
@@ -171,32 +163,38 @@ a:hover {
     transition: 0.3s;
 }
 
-.card:hover .tag {
-    border-color: rgba(0, 255, 204, 0.2);
-    color: var(--text);
-}
+.contact-info { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+.contact-item { display: flex; align-items: center; gap: 12px; color: var(--text-dim); font-size: 0.9rem; }
+.contact-item i { color: var(--accent); width: 20px; text-align: center; }
 
-/* --- SKILLS COMPLEMENTS --- */
-.card-header {
+/* --- 6. SECTION CV --- */
+.cv-actions {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 15px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-.card-icon-main {
-    font-size: 1.5rem;
-    color: var(--accent);
-    filter: drop-shadow(0 0 5px var(--accent-glow));
+.cv-wrapper {
+    background: #1a1a1a; 
+    padding: 2px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    filter: brightness(0.92); /* Adoucit le blanc pour le mode sombre */
+    transition: 0.3s ease;
 }
 
-.highlight-glpi p {
-    font-size: 0.9rem;
-    border-left: 2px solid var(--accent);
-    padding-left: 15px;
+.cv-wrapper:hover {
+    filter: brightness(1);
+    border-color: var(--accent);
 }
 
-/* --- FOOTER & BOUTONS --- */
+.cv-img { width: 100%; display: block; height: auto; }
+
+/* --- 7. FOOTER & UTILS --- */
 footer {
     width: 100%;
     text-align: center;
@@ -213,8 +211,7 @@ footer {
     background: #111;
     border: 1px solid var(--border);
     color: white;
-    width: 40px; 
-    height: 40px;
+    width: 40px; height: 40px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 1000;
@@ -224,95 +221,4 @@ footer {
     transition: 0.3s;
 }
 
-#backToTop:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-}
-
-/* --- SECTION ABOUT SPECIFIQUE --- */
-.cv-actions {
-    margin: 20px 0;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.cv-preview {
-    margin-top: 25px;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    background: #111; /* Fond sombre pour attendre le chargement du PDF */
-}
-
-/* On masque l'iframe sur mobile pour proposer uniquement le téléchargement */
-@media (max-width: 768px) {
-    .cv-preview {
-        display: none;
-    }
-}
-
-.card strong {
-    color: var(--accent);
-    font-weight: 600;
-}
-
-/* --- PAGE ABOUT SPECIFIQUE --- */
-
-/* Style de la carte contact */
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: var(--text-dim);
-    font-size: 0.9rem;
-}
-
-.contact-item i {
-    color: var(--accent);
-    width: 20px;
-    text-align: center;
-}
-
-/* Style de la section CV */
-.cv-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.cv-wrapper {
-    background: #1a1a1a; /* Fond gris très sombre pour adoucir le blanc */
-    padding: 2px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    overflow: hidden;
-    /* On baisse un tout petit peu la luminosité pour moins piquer les yeux */
-    filter: brightness(0.95);
-    transition: 0.3s ease;
-}
-
-.cv-wrapper:hover {
-    filter: brightness(1);
-    border-color: var(--accent);
-}
-
-.cv-img {
-    width: 100%;
-    display: block;
-    height: auto;
-}
-
-/* Animation pour le bouton de téléchargement */
-.btn-neon i {
-    margin-right: 8px;
-}
+#backToTop:hover { border-color: var(--accent); color: var(--accent); }
