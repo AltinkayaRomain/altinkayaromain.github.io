@@ -1,38 +1,12 @@
 /**
- * GESTION DU THEME (DARK/LIGHT)
- * Bascule entre le mode sombre profond et un mode clair propre
- */
-const themeToggleButton = document.getElementById("themeToggle");
-const body = document.body;
-
-if (themeToggleButton) {
-    // On vérifie si l'utilisateur avait déjà choisi un thème
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "light") {
-        body.classList.remove("dark"); // Par défaut on est en dark dans le CSS
-        updateThemeIcon(false);
-    }
-
-    themeToggleButton.addEventListener("click", () => {
-        const isDark = body.classList.toggle("dark");
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-        updateThemeIcon(isDark);
-    });
-}
-
-function updateThemeIcon(isDark) {
-    const icon = themeToggleButton.querySelector("i");
-    if (icon) {
-        icon.className = isDark ? "fas fa-moon" : "fas fa-sun";
-    }
-}
-
-/**
  * BOUTON RETOUR EN HAUT
+ * Gère l'affichage et le défilement fluide vers le haut
  */
 const backToTopButton = document.getElementById("backToTop");
+
 if (backToTopButton) {
     window.addEventListener("scroll", () => {
+        // Apparaît après 400px de scroll
         if (window.scrollY > 400) {
             backToTopButton.style.display = "flex";
             backToTopButton.style.alignItems = "center";
@@ -48,7 +22,8 @@ if (backToTopButton) {
 }
 
 /**
- * CHARGEMENT DES PARTIALS (Header / Footer)
+ * CHARGEMENT DES PARTIALS (Header)
+ * Permet d'insérer le menu de navigation sur toutes les pages
  */
 function loadPartial(url, elementId) {
     const element = document.getElementById(elementId);
@@ -56,28 +31,28 @@ function loadPartial(url, elementId) {
 
     fetch(url)
         .then(response => {
-            if (!response.ok) throw new Error('Erreur de chargement');
+            if (!response.ok) throw new Error('Erreur de chargement du partial');
             return response.text();
         })
         .then(data => {
             element.innerHTML = data;
-            // Optionnel : On peut relancer une petite animation ici
         })
         .catch(err => console.error(err));
 }
 
-// Détection auto du chemin (racine vs sous-dossiers)
+// Détection automatique du chemin pour les fichiers dans /courses/
 const isSub = window.location.pathname.includes('/courses/');
 const pPath = isSub ? '../partials/' : 'partials/';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Cache-bust pour éviter les problèmes de mise à jour du navigateur
     const v = '?v=' + Date.now();
     loadPartial(pPath + 'header.html' + v, 'header-placeholder');
-    // loadPartial(pPath + 'footer.html' + v, 'footer-placeholder');
 });
 
 /**
- * INITIALISATION PARTICULES (Si l'élément existe)
+ * INITIALISATION PARTICULES
+ * Configuration du fond dynamique cyan électrique
  */
 if (document.getElementById("particles-js")) {
     particlesJS('particles-js', {
@@ -87,11 +62,24 @@ if (document.getElementById("particles-js")) {
             "shape": { "type": "circle" },
             "opacity": { "value": 0.2, "random": true },
             "size": { "value": 1.5, "random": true },
-            "line_linked": { "enable": true, "distance": 150, "color": "#00ffcc", "opacity": 0.1, "width": 1 },
-            "move": { "enable": true, "speed": 1, "direction": "none", "out_mode": "out" }
+            "line_linked": { 
+                "enable": true, 
+                "distance": 150, 
+                "color": "#00ffcc", 
+                "opacity": 0.1, 
+                "width": 1 
+            },
+            "move": { 
+                "enable": true, 
+                "speed": 1, 
+                "direction": "none", 
+                "out_mode": "out" 
+            }
         },
         "interactivity": {
-            "events": { "onhover": { "enable": true, "mode": "grab" } }
+            "events": { 
+                "onhover": { "enable": true, "mode": "grab" } 
+            }
         },
         "retina_detect": true
     });
