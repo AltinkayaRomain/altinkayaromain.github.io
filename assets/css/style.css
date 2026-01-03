@@ -228,3 +228,30 @@ footer {
     border-color: var(--accent);
     color: var(--accent);
 }
+
+/* --- SECTION ABOUT SPECIFIQUE --- */
+.cv-actions {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.cv-preview {
+    margin-top: 25px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #111; /* Fond sombre pour attendre le chargement du PDF */
+}
+
+/* On masque l'iframe sur mobile pour proposer uniquement le téléchargement */
+@media (max-width: 768px) {
+    .cv-preview {
+        display: none;
+    }
+}
+
+.card strong {
+    color: var(--accent);
+    font-weight: 600;
+}
