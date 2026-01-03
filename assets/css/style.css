@@ -164,3 +164,31 @@ footer {
     border-color: var(--accent);
     color: var(--accent);
 }
+
+/* --- COMPLEMENTS SKILLS --- */
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.card-icon-main {
+    font-size: 1.5rem;
+    color: var(--accent);
+    filter: drop-shadow(0 0 5px var(--accent-glow));
+}
+
+/* Style spécifique pour la carte GLPI */
+.highlight-glpi p {
+    font-size: 0.9rem;
+    border-left: 2px solid var(--accent);
+    padding-left: 15px;
+    margin: 15px 0;
+}
+
+/* Animation douce pour les tags au survol de la carte */
+.card:hover .tag {
+    border-color: rgba(0, 255, 204, 0.2);
+    color: var(--text);
+}
