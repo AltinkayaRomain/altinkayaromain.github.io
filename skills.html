@@ -4,22 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compétences - Altinkaya Romain</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
+    <div id="particles-js"></div>
+
     <div id="header-placeholder"></div>
 
     <main class="container">
-        <header class="skills-header">
+        <header class="hero">
             <h1>Expertise Technique</h1>
-            <p class="subtitle">Technicien Systèmes et Réseaux passionné par l'Open Source et l'automatisation.</p>
+            <p class="terminal-text">_SYSTEM_RELIABILITY_&_AUTOMATION</p>
         </header>
 
-        <div class="skills-container">
-            <div class="skill-card">
-                <div class="card-icon"><i class="fas fa-server"></i></div>
-                <h3>Systèmes & Virtualisation</h3>
+        <div class="bento-grid">
+            
+            <div class="card card-large">
+                <div class="card-header">
+                    <i class="fas fa-server card-icon-main"></i>
+                    <h2>Systèmes & Virtualisation</h2>
+                </div>
                 <div class="tags">
                     <span class="tag">Windows Server</span>
                     <span class="tag">Active Directory</span>
@@ -31,9 +42,11 @@
                 </div>
             </div>
 
-            <div class="skill-card">
-                <div class="card-icon"><i class="fas fa-network-wired"></i></div>
-                <h3>Réseaux & Sécurité</h3>
+            <div class="card card-small">
+                <div class="card-header">
+                    <i class="fas fa-network-wired card-icon-main"></i>
+                    <h3>Réseaux & Sécurité</h3>
+                </div>
                 <div class="tags">
                     <span class="tag">LAN/WAN</span>
                     <span class="tag">Cisco</span>
@@ -43,9 +56,11 @@
                 </div>
             </div>
 
-            <div class="skill-card">
-                <div class="card-icon"><i class="fas fa-code"></i></div>
-                <h3>DevOps & Déploiement</h3>
+            <div class="card card-small">
+                <div class="card-header">
+                    <i class="fas fa-code card-icon-main"></i>
+                    <h3>DevOps & Déploiement</h3>
+                </div>
                 <div class="tags">
                     <span class="tag">PowerShell</span>
                     <span class="tag">Bash</span>
@@ -53,12 +68,14 @@
                     <span class="tag">Clonezilla</span>
                     <span class="tag">Ventoy</span>
                 </div>
-            </div>
+            </section>
 
-            <div class="skill-card highlight-card">
-                <div class="card-icon"><i class="fas fa-tools"></i></div>
-                <h3>Support & Management</h3>
-                <p>Migration GLPI (Win → Linux) réussie.</p>
+            <div class="card card-large highlight-glpi">
+                <div class="card-header">
+                    <i class="fas fa-tools card-icon-main"></i>
+                    <h2>Support & Management</h2>
+                </div>
+                <p>Migration réussie de l'infrastructure **GLPI** de Windows vers Linux, optimisant la stabilité et les performances du helpdesk.</p>
                 <div class="tags">
                     <span class="tag">GLPI</span>
                     <span class="tag">N-Able</span>
@@ -66,10 +83,16 @@
                     <span class="tag">Linux Admin</span>
                 </div>
             </div>
+
         </div>
     </main>
 
-    <div id="footer-placeholder"></div>
+    <footer>
+        <p>© 2026 — Développé avec ❤️ par Altinkaya Romain</p>
+    </footer>
+
+    <button id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
     <script src="assets/js/script.js"></script>
 </body>
 </html>
