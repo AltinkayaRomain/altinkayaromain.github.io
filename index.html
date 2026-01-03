@@ -1,174 +1,107 @@
-<div id="header-placeholder"></div>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portfolio de Altinkaya Romain - Technicien Informatique spécialisé en systèmes et réseaux. Découvrez mes cours et tutoriels.">
-  <meta name="author" content="Altinkaya Romain">
-  <title>Altinkaya Romain</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-  <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio de Altinkaya Romain - Technicien Informatique spécialisé en systèmes et réseaux.">
+    <title>Altinkaya Romain | Technicien Systèmes & Réseaux</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
-  <!-- Fond dynamique -->
-  <div id="particles-js"></div>
 
-  <!-- Header -->
-  <header id="home">
-    <h1>Altinkaya Romain</h1>
-    <p>Technicien Informatique</p>
-  </header>
+    <div id="particles-js"></div>
 
-  <!-- Qui suis-je ? Section -->
-  <section id="about">
-    <a href="about.html">
-      <h2>Qui suis-je ?</h2>
-    </a>
-    <p>Je suis technicien informatique spécialisé en systèmes et réseaux. Passionné par le partage de connaissances, je crée des tutoriels pour aider les débutants et les professionnels à progresser.</p>
-  </section>
+    <div id="header-placeholder"></div>
 
-  <!-- Cours Section -->
-  <section id="courses">
-    <a href="courses.html">
-      <h2>Mes cours</h2>
-    </a>
-    <ul>
-      <li>📘 Introduction à la cybersécurité</li>
-      <li>📘 Supervision réseau avec Zabbix</li>
-      <li>📘 Windows Server & Active Directory avancé</li>
-      <li>📘 VPN & pare-feux (pfSense, OPNsense)</li>
-    </ul>
-  </section>
+    <main class="container">
+        
+        <header class="hero">
+            <h1>Altinkaya Romain</h1>
+            <p class="terminal-text">_TECHNICIEN_SYSTEMES_&_RESEAUX</p>
+        </header>
 
-  <!-- Compétences Section -->
-  <section id="skills">
-    <a href="skills.html">
-      <h2>Mes Compétences</h2>
-    </a>
-    <ul>
-      <li>✅ Assistance technique et gestion des pannes utilisateurs</li>
-      <li>✅ Maintenance et dépannage des systèmes informatiques</li>
-      <li>✅ Administration et gestion des réseaux (LAN/WAN)</li>
-      <li>✅ Technologies de virtualisation (VMware, Hyper-V)</li>
-      <li>✅ Automatisation, scripting (PowerShell)</li>
-      <li>✅ Configuration et gestion des équipements réseaux (switch, routeurs)</li>
-      <li>✅ Veille technologique active et apprentissage continu</li>
-      <li>✅ Services de déploiement d'images système (ex. : FOG, Clonezilla, Ventoy)</li>
-      <li>✅ Outils de gestion de parc informatique (ex. : GLPI, N-Able)</li>
-      <li>✅ Création des comptes utilisateurs (ex. : Active Directory, 365 Administration, KoXo)</li>
-    </ul>
-  </section>
+        <section id="about" class="card">
+            <h2><i class="fas fa-user-astronaute"></i> Qui suis-je ?</h2>
+            <p>Je suis technicien informatique spécialisé en systèmes et réseaux. Passionné par le partage de connaissances, je crée des ressources techniques pour accompagner l'évolution des infrastructures et des professionnels.</p>
+            <a href="about.html" class="btn-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+        </section>
 
-  <!-- Contact Section -->
-  <section id="contact">
-    <a href="contact.html">
-      <h2>Contact</h2>
-    </a>
-    <p>Vous pouvez me contacter via mon <a href="mailto:altinkayaromain@outlook.fr">email</a> ou me rejoindre sur:</p>
-    <p><a href="https://www.linkedin.com/in/romain-altinkaya-2b24541ba/" target="_blank">Mon LinkedIn</a></p>
-  </section>
+        <section id="courses">
+            <h2><i class="fas fa-book-open"></i> Dernières Ressources</h2>
+            <div class="course-grid">
+                <div class="card">
+                    <i class="fas fa-shield-virus card-icon"></i>
+                    <h3>Cybersécurité</h3>
+                    <p>Introduction aux fondamentaux et bonnes pratiques.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-chart-line card-icon"></i>
+                    <h3>Supervision</h3>
+                    <p>Monitoring réseau avec Zabbix.</p>
+                </div>
+                <div class="card">
+                    <i class="fab fa-windows card-icon"></i>
+                    <h3>Windows Server</h3>
+                    <p>AD avancé & Services Réseaux.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="courses.html" class="btn-link">Voir tous les cours</a>
+            </div>
+        </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>Site web développé avec ❤️ par Altinkaya Romain – 2025</p>
-  </footer>
+        <section id="skills" class="card">
+            <h2><i class="fas fa-code"></i> Stack Technique</h2>
+            <div class="tags">
+                <span class="tag">Active Directory</span>
+                <span class="tag">VMware / Hyper-V</span>
+                <span class="tag">Proxmox</span>
+                <span class="tag">pfSense</span>
+                <span class="tag">PowerShell</span>
+                <span class="tag">Cisco (LAN/WAN)</span>
+                <span class="tag">GLPI / N-Able</span>
+                <span class="tag">WDS / FOG</span>
+            </div>
+            <a href="skills.html" class="btn-link" style="display: block; margin-top: 20px;">Détails des compétences</a>
+        </section>
 
-  <!-- Buttons -->
-  <button id="themeToggle">
-    <span id="themeText">🌙 Mode Sombre</span>
-  </button>
+    </main>
 
-  <button id="backToTop" onclick="window.scrollTo(0, 0)">↑</button>
+    <footer>
+        <p>© 2026 — Développé avec précision par Altinkaya Romain</p>
+    </footer>
 
-  <!-- Script -->
-  <script src="assets/js/script.js"></script>
+    <button id="themeToggle">🌙 Mode Sombre</button>
+    <button id="backToTop">↑</button>
 
-  <!-- Initialisation du fond dynamique -->
-  <script>
-    particlesJS('particles-js', {
-      "particles": {
-        "number": {
-          "value": 80,
-          "density": {
-            "enable": true,
-            "value_area": 800
-          }
-        },
-        "color": {
-          "value": "#ffffff"
-        },
-        "shape": {
-          "type": "circle",
-          "stroke": {
-            "width": 0,
-            "color": "#000000"
+    <script src="assets/js/script.js"></script>
+    <script>
+        /* Init Particles avec des couleurs adaptées au nouveau thème */
+        particlesJS('particles-js', {
+          "particles": {
+            "number": { "value": 50 },
+            "color": { "value": "#00d2ff" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.2 },
+            "size": { "value": 2 },
+            "line_linked": {
+              "enable": true,
+              "distance": 150,
+              "color": "#00d2ff",
+              "opacity": 0.1,
+              "width": 1
+            },
+            "move": { "enable": true, "speed": 2 }
           },
-          "polygon": {
-            "nb_sides": 5
+          "interactivity": {
+            "events": { "onhover": { "enable": true, "mode": "grab" } }
           }
-        },
-        "opacity": {
-          "value": 0.5,
-          "random": true,
-          "anim": {
-            "enable": true,
-            "speed": 1,
-            "opacity_min": 0.1
-          }
-        },
-        "size": {
-          "value": 3,
-          "random": true,
-          "anim": {
-            "enable": true,
-            "speed": 40,
-            "size_min": 0.1
-          }
-        },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#ffffff",
-          "opacity": 0.4,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 6,
-          "direction": "none",
-          "random": false,
-          "straight": false,
-          "out_mode": "out",
-          "bounce": false,
-          "attract": {
-            "enable": false,
-            "rotateX": 600,
-            "rotateY": 1200
-          }
-        }
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": {
-            "enable": true,
-            "mode": "repulse"
-          },
-          "onclick": {
-            "enable": true,
-            "mode": "push"
-          },
-          "resize": true
-        }
-      },
-      "retina_detect": true
-    });
-  </script>
-
+        });
+    </script>
 </body>
 </html>
-
