@@ -1,11 +1,11 @@
 /* --- VARIABLES ELITE --- */
 :root {
-    --bg: #030405; /* Noir plus profond */
-    --card: #0a0c10; /* Gris anthracite très sombre pour les cartes */
-    --accent: #00ffcc; /* Cyan Néon */
+    --bg: #030405;
+    --card: #0a0c10;
+    --accent: #00ffcc;
     --accent-glow: rgba(0, 255, 204, 0.15);
     --text: #ffffff;
-    --text-dim: #94a3b8; /* Gris bleuté plus moderne */
+    --text-dim: #94a3b8;
     --border: rgba(255, 255, 255, 0.06);
     --font-head: 'Syne', sans-serif;
     --font-body: 'Outfit', sans-serif;
@@ -24,212 +24,148 @@ body {
     font-family: var(--font-body);
     margin: 0;
     overflow-x: hidden;
-    line-height: 1.5;
+    line-height: 1.4; /* Texte plus serré */
 }
 
-/* --- NAVIGATION GLASSMORPHISM (FIXED) --- */
+/* --- NAVIGATION AFFINÉE --- */
 .floating-nav {
     position: fixed;
-    top: 25px;
+    top: 15px; /* Plus haut */
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(10, 12, 16, 0.8);
+    background: rgba(10, 12, 16, 0.85);
     backdrop-filter: blur(12px);
     border: 1px solid var(--border);
-    padding: 10px 25px;
+    padding: 8px 20px; /* Plus fin */
     border-radius: 100px;
     display: flex;
-    gap: 25px;
+    gap: 20px;
     z-index: 2000;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .floating-nav a {
     color: var(--text-dim) !important;
     text-decoration: none !important;
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: 0.7rem; /* Plus petit */
     text-transform: uppercase;
     letter-spacing: 1px;
-    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 0.2s;
 }
 
 .floating-nav a:hover, .floating-nav a.active {
     color: var(--accent) !important;
-    text-shadow: 0 0 10px var(--accent-glow);
 }
 
-/* --- HERO SECTION (Ajustée pour ne plus être "énorme") --- */
+/* --- HERO SECTION DRASTIQUEMENT RÉDUITE --- */
 .hero {
-    height: 45vh; /* Réduit pour laisser la place au contenu */
+    height: 25vh; /* Divisé par deux */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 80px;
+    padding-top: 40px;
     text-align: center;
 }
 
 .hero h1 {
     font-family: var(--font-head);
-    /* Taille réduite : plus élégant, moins envahissant */
-    font-size: clamp(2rem, 8vw, 4.5rem); 
-    line-height: 0.85;
+    /* On passe d'un max de 4.5rem à 2.2rem */
+    font-size: clamp(1.4rem, 5vw, 2.2rem); 
+    line-height: 1;
     margin: 0;
     text-transform: uppercase;
-    background: linear-gradient(180deg, #fff 30%, #444 100%);
+    background: linear-gradient(180deg, #fff 40%, #555 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
 }
 
 .terminal-text {
     font-family: var(--font-mono);
     color: var(--accent);
-    letter-spacing: 4px;
-    font-size: 0.75rem;
-    margin-top: 20px;
-    opacity: 0.7;
+    letter-spacing: 2px; /* Moins d'espace */
+    font-size: 0.65rem; /* Très discret */
+    margin-top: 10px;
+    opacity: 0.6;
 }
 
-/* --- LAYOUT BENTO & CONTAINER --- */
+/* --- LAYOUT BENTO COMPACT --- */
 .container { 
-    max-width: 1100px; 
+    max-width: 950px; /* Plus étroit */
     margin: 0 auto; 
-    padding: 0 20px 80px; 
+    padding: 0 15px 40px; 
 }
 
 .bento-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 20px;
+    gap: 15px; /* Gap réduit */
 }
 
 .card {
     background: var(--card);
     border: 1px solid var(--border);
-    padding: 30px;
-    border-radius: 24px;
-    transition: 0.4s cubic-bezier(0.2, 1, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding: 22px; /* Moins de padding interne */
+    border-radius: 18px; /* Moins de rondeur */
+    transition: 0.3s cubic-bezier(0.2, 1, 0.2, 1);
 }
 
 .card:hover {
     border-color: rgba(0, 255, 204, 0.3);
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-}
-
-/* Effet Scan Light */
-.card::after {
-    content: "";
-    position: absolute;
-    top: -50%; left: -60%; width: 20%; height: 200%;
-    background: rgba(0, 255, 204, 0.05);
-    transform: rotate(30deg);
-    pointer-events: none;
-}
-
-.card:hover::after {
-    left: 120%;
-    transition: 0.8s ease-in-out;
+    transform: translateY(-3px); /* Saut moins haut */
 }
 
 .card-large { grid-column: span 8; }
 .card-small { grid-column: span 4; }
 
-@media (max-width: 850px) {
+@media (max-width: 768px) {
     .card-large, .card-small { grid-column: span 12; }
-    .hero { height: 35vh; }
+    .hero { height: 20vh; }
 }
 
-/* --- TYPOGRAPHIE INTERNE --- */
+/* --- TYPOGRAPHIE INTERNE RÉDUITE --- */
 h2 {
     font-family: var(--font-head);
-    font-size: 2rem;
-    margin: 0 0 15px;
-    text-transform: uppercase;
+    font-size: 1.4rem; /* Réduit de 2rem */
+    margin: 0 0 10px;
 }
 
 h3 {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     color: var(--accent);
-    margin: 0 0 15px;
-    letter-spacing: 2px;
+    margin: 0 0 10px;
 }
 
 p {
     color: var(--text-dim);
-    font-size: 0.95rem;
-    margin-bottom: 20px;
+    font-size: 0.85rem; /* Texte plus fin */
+    margin-bottom: 15px;
 }
 
 /* --- BOUTONS & BADGES --- */
 .btn-neon {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 800;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    border-bottom: 2px solid var(--accent);
-    padding-bottom: 4px;
-    align-self: flex-start;
-    transition: 0.3s;
-}
-
-.btn-neon:hover {
-    letter-spacing: 2px;
-    background: rgba(0, 255, 204, 0.05);
+    font-size: 0.7rem;
+    padding-bottom: 3px;
 }
 
 .status-tag {
-    background: rgba(0, 255, 204, 0.1);
-    color: var(--accent);
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    display: inline-block;
-    margin-bottom: 15px;
-    border: 1px solid rgba(0, 255, 204, 0.2);
+    padding: 3px 8px;
+    font-size: 0.6rem;
+    margin-bottom: 10px;
 }
 
-.tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .tag {
-    background: #161a20;
-    border: 1px solid var(--border);
-    padding: 5px 12px;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    color: var(--text-dim);
+    padding: 4px 10px;
+    font-size: 0.7rem;
 }
 
-/* --- BOUTONS FIXES --- */
+/* --- BOUTONS FIXES RÉDUITS --- */
 #themeToggle, #backToTop {
-    position: fixed;
-    background: #111;
-    border: 1px solid var(--border);
-    color: white;
-    width: 45px; height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
+    width: 38px; height: 38px;
+    font-size: 0.9rem;
 }
 
-#themeToggle { bottom: 25px; right: 85px; }
-#backToTop { bottom: 25px; right: 25px; }
-
-#themeToggle:hover, #backToTop:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-}
+#themeToggle { bottom: 20px; right: 70px; }
+#backToTop { bottom: 20px; right: 20px; }
