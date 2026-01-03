@@ -255,3 +255,64 @@ footer {
     color: var(--accent);
     font-weight: 600;
 }
+
+/* --- PAGE ABOUT SPECIFIQUE --- */
+
+/* Style de la carte contact */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+}
+
+.contact-item i {
+    color: var(--accent);
+    width: 20px;
+    text-align: center;
+}
+
+/* Style de la section CV */
+.cv-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.cv-wrapper {
+    background: #1a1a1a; /* Fond gris très sombre pour adoucir le blanc */
+    padding: 2px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    /* On baisse un tout petit peu la luminosité pour moins piquer les yeux */
+    filter: brightness(0.95);
+    transition: 0.3s ease;
+}
+
+.cv-wrapper:hover {
+    filter: brightness(1);
+    border-color: var(--accent);
+}
+
+.cv-img {
+    width: 100%;
+    display: block;
+    height: auto;
+}
+
+/* Animation pour le bouton de téléchargement */
+.btn-neon i {
+    margin-right: 8px;
+}
