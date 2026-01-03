@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Altinkaya Romain | Expert IT</title>
+    <title>Altinkaya Romain | Expert Systèmes & Réseaux</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,95 +11,100 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
+<body>
 
     <div id="particles-js"></div>
 
-    <div id="header-placeholder"></div>
+    <nav class="floating-nav">
+        <a href="index.html" class="active">Accueil</a>
+        <a href="about.html">Profil</a>
+        <a href="courses.html">Cours</a>
+        <a href="skills.html">Compétences</a>
+    </nav>
 
     <main class="container">
         
         <header class="hero">
             <h1>Altinkaya Romain</h1>
-            <p class="terminal-text">_TECHNICIEN_SYSTEMES_&_RESEAUX</p>
+            <p class="terminal-text">_SYSTEM_ARCHITECT_&_NETWORK_EXPERT</p>
         </header>
 
-        <section id="about" class="card">
-            <h2><i class="fas fa-user-astronaute"></i> Qui suis-je ?</h2>
-            <p>Je suis technicien informatique spécialisé en systèmes et réseaux. Passionné par le partage de connaissances, je crée des ressources techniques pour accompagner l'évolution des infrastructures et des professionnels.</p>
-            <a href="about.html" class="btn-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
-        </section>
-
-        <section id="courses">
-            <h2><i class="fas fa-book-open"></i> Dernières Ressources</h2>
-            <div class="course-grid">
-                <div class="card">
-                    <i class="fas fa-shield-virus card-icon"></i>
-                    <h3>Cybersécurité</h3>
-                    <p>Introduction aux fondamentaux et bonnes pratiques.</p>
+        <div class="bento-grid">
+            
+            <section class="card card-large">
+                <div class="card-content">
+                    <span class="status-tag">Disponible</span>
+                    <h2>L'ARCHITECTE IT</h2>
+                    <p>Spécialiste du déploiement d'infrastructures critiques. Passionné par l'automatisation et la sécurisation des systèmes complexes.</p>
+                    <a href="about.html" class="btn-neon">Détails du profil <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <div class="card">
-                    <i class="fas fa-chart-line card-icon"></i>
-                    <h3>Supervision</h3>
-                    <p>Monitoring réseau avec Zabbix.</p>
-                </div>
-                <div class="card">
-                    <i class="fab fa-windows card-icon"></i>
-                    <h3>Windows Server</h3>
-                    <p>AD avancé & Services Réseaux.</p>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 20px;">
-                <a href="courses.html" class="btn-link">Voir tous les cours</a>
-            </div>
-        </section>
+            </section>
 
-        <section id="skills" class="card">
-            <h2><i class="fas fa-code"></i> Stack Technique</h2>
-            <div class="tags">
-                <span class="tag">Active Directory</span>
-                <span class="tag">VMware / Hyper-V</span>
-                <span class="tag">Proxmox</span>
-                <span class="tag">pfSense</span>
-                <span class="tag">PowerShell</span>
-                <span class="tag">Cisco (LAN/WAN)</span>
-                <span class="tag">GLPI / N-Able</span>
-                <span class="tag">WDS / FOG</span>
-            </div>
-            <a href="skills.html" class="btn-link" style="display: block; margin-top: 20px;">Détails des compétences</a>
-        </section>
+            <section class="card card-small">
+                <h3>TECH STACK</h3>
+                <div class="tags">
+                    <span class="tag">VMware</span>
+                    <span class="tag">Cisco</span>
+                    <span class="tag">Linux</span>
+                    <span class="tag">Proxmox</span>
+                </div>
+                <a href="skills.html" class="btn-neon-small">Explorer</a>
+            </section>
 
+            <section class="card card-large">
+                <h2>DERNIÈRES MISSIONS</h2>
+                <div class="mini-list">
+                    <div class="list-item">
+                        <i class="fas fa-shield-halved"></i>
+                        <div>
+                            <h4>Hardening Windows Server</h4>
+                            <p>Sécurisation Active Directory 2022</p>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <i class="fas fa-network-wired"></i>
+                        <div>
+                            <h4>Supervision Réseau</h4>
+                            <p>Architecture Zabbix & Grafana</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="courses.html" class="btn-neon">Voir les ressources</a>
+            </section>
+
+            <section class="card card-small highlight-glpi">
+                <h3>CONTACT</h3>
+                <p>Besoin d'une expertise technique ?</p>
+                <div class="social-links">
+                    <a href="mailto:altinkayaromain@outlook.fr"><i class="fas fa-envelope"></i></a>
+                    <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <a href="contact.html" class="btn-neon-small">Message</a>
+            </section>
+
+        </div>
     </main>
 
     <footer>
-        <p>© 2026 — Développé avec précision par Altinkaya Romain</p>
+        <p>© 2026 — Altinkaya Romain. Conçu pour la performance.</p>
     </footer>
 
-    <button id="themeToggle">🌙 Mode Sombre</button>
-    <button id="backToTop">↑</button>
+    <button id="themeToggle"><i class="fas fa-moon"></i></button>
+    <button id="backToTop"><i class="fas fa-arrow-up"></i></button>
 
     <script src="assets/js/script.js"></script>
     <script>
-        /* Init Particles avec des couleurs adaptées au nouveau thème */
         particlesJS('particles-js', {
           "particles": {
-            "number": { "value": 50 },
-            "color": { "value": "#00d2ff" },
-            "shape": { "type": "circle" },
-            "opacity": { "value": 0.2 },
-            "size": { "value": 2 },
-            "line_linked": {
-              "enable": true,
-              "distance": 150,
-              "color": "#00d2ff",
-              "opacity": 0.1,
-              "width": 1
-            },
-            "move": { "enable": true, "speed": 2 }
-          },
-          "interactivity": {
-            "events": { "onhover": { "enable": true, "mode": "grab" } }
+            "number": { "value": 40 },
+            "color": { "value": "#00ffcc" },
+            "opacity": { "value": 0.1 },
+            "size": { "value": 1 },
+            "line_linked": { "enable": true, "distance": 150, "color": "#00ffcc", "opacity": 0.05, "width": 1 },
+            "move": { "enable": true, "speed": 1 }
           }
         });
     </script>
