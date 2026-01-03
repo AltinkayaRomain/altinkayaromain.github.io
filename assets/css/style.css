@@ -11,7 +11,10 @@
     --font-mono: 'JetBrains Mono', monospace;
 }
 
-* { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+* { 
+    box-sizing: border-box; 
+    -webkit-font-smoothing: antialiased; 
+}
 
 body {
     background: var(--bg);
@@ -21,14 +24,26 @@ body {
     line-height: 1.4;
 }
 
-/* --- LE FIX DES PARTICULES (Ne pousse plus le contenu) --- */
+/* --- LIENS GLOBAUX (Fix du bleu foncé) --- */
+a {
+    color: var(--accent) !important;
+    text-decoration: none !important;
+    transition: 0.3s ease;
+}
+
+a:hover {
+    filter: brightness(1.2);
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+}
+
+/* --- LE FIX DES PARTICULES --- */
 #particles-js {
-    position: fixed; /* Il "flotte" derrière tout */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Passe derrière le texte */
+    z-index: -1;
 }
 
 /* --- NAVIGATION --- */
@@ -49,24 +64,24 @@ body {
 
 .floating-nav a {
     color: var(--text-dim) !important;
-    text-decoration: none !important;
     font-weight: 600;
     font-size: 0.7rem;
     text-transform: uppercase;
-    transition: 0.2s;
 }
 
-.floating-nav a:hover, .floating-nav a.active { color: var(--accent) !important; }
+.floating-nav a:hover, .floating-nav a.active { 
+    color: var(--accent) !important; 
+}
 
-/* --- HEADER / LOGO (Réduit de beaucoup !) --- */
+/* --- HEADER / LOGO --- */
 .hero {
-    padding: 100px 0 20px; /* Espace fixe en haut */
+    padding: 100px 0 20px;
     text-align: center;
 }
 
 .hero h1 {
     font-family: var(--font-head);
-    font-size: 1.8rem; /* Taille "Logo" très classe et petite */
+    font-size: 1.8rem;
     margin: 0;
     text-transform: uppercase;
     background: linear-gradient(180deg, #fff 40%, #555 100%);
@@ -86,9 +101,9 @@ body {
 
 /* --- GRILLE & CARTES --- */
 .container { 
-    max-width: 900px; /* Plus serré pour éviter le vide */
+    max-width: 900px;
     margin: 0 auto; 
-    padding: 0 20px 40px; 
+    padding: 0 20px 20px; 
 }
 
 .bento-grid {
@@ -117,17 +132,35 @@ body {
     .card-large, .card-small { grid-column: span 12; }
 }
 
-/* --- BOUTONS FIXES --- */
-#themeToggle, #backToTop {
+/* --- FOOTER CENTRÉ --- */
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+}
+
+/* --- BOUTONS FIXES (Uniquement retour en haut) --- */
+#backToTop {
     position: fixed;
     bottom: 20px;
+    right: 20px;
     background: #111;
     border: 1px solid var(--border);
     color: white;
-    width: 35px; height: 35px;
+    width: 35px; 
+    height: 35px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 1000;
+    display: none; /* Apparaît au scroll via JS */
+    align-items: center;
+    justify-content: center;
 }
-#themeToggle { right: 70px; }
-#backToTop { right: 20px; }
+
+#backToTop:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
