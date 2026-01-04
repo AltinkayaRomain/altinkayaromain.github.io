@@ -31,23 +31,45 @@ function loadPartial(url, elementId) {
 
     fetch(url)
         .then(response => {
-            if (!response.ok) throw new Error('Erreur de chargement du partial');
+            if (!response.ok) throw new Error('Erreur de chargement du partial : ' + url);
             return response.text();
         })
         .then(data => {
             element.innerHTML = data;
+            
+            // Une fois le HTML injecté, on met à jour la classe "active" du menu
+            highlightActiveLink();
         })
         .catch(err => console.error(err));
 }
 
-// Détection automatique du chemin pour les fichiers dans /courses/
-const isSub = window.location.pathname.includes('/courses/');
-const pPath = isSub ? '../partials/' : 'partials/';
+/**
+ * GESTION DU LIEN ACTIF
+ * Ajoute la classe .active sur le lien du menu correspondant à la page en cours
+ */
+function highlightActiveLink() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.floating-nav a');
+    
+    navLinks.forEach(link => {
+        // On compare le href du lien avec l'URL actuelle
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
 
+// CHARGEMENT DU HEADER
 document.addEventListener('DOMContentLoaded', () => {
     // Cache-bust pour éviter les problèmes de mise à jour du navigateur
     const v = '?v=' + Date.now();
-    loadPartial(pPath + 'header.html' + v, 'header-placeholder');
+    
+    // MODIFICATION IMPORTANTE : 
+    // On utilise '/' au début pour partir de la racine du site.
+    // Cela fonctionne partout, que tu sois dans /courses/ ou à la racine.
+    loadPartial('/partials/header.html' + v, 'header-placeholder');
 });
 
 /**
