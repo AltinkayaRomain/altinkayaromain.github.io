@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Révisions - Virtualisation & Infra - Romain Altinkaya</title>
+    <title>Révisions - Virtualisation - Romain Altinkaya</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css"> 
+    
+    <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
@@ -15,78 +20,78 @@
     <main class="container">
         <header class="hero">
             <h1>Virtualisation & Infrastructures</h1>
-            <p class="terminal-text">_TSSR_VIRTUALIZATION_CORE</p>
+            <p class="terminal-text">_TSSR_HYPERVISOR_MANAGEMENT</p>
         </header>
 
         <div class="course-layout">
+            
             <aside class="course-sidebar">
                 <h3>Sommaire</h3>
                 <ul>
-                    <li><a href="#concepts">1. Concepts & Hyperviseurs</a></li>
-                    <li><a href="#proxmox">2. Proxmox & VMware</a></li>
-                    <li><a href="#storage">3. Stockage & Réseaux Virtuels</a></li>
-                    <li><a href="#hybride">4. Architecture Hybride</a></li>
+                    <li><a href="#types"><i class="fas fa-chevron-right"></i> Hyperviseurs Type 1/2</a></li>
+                    <li><a href="#proxmox"><i class="fas fa-chevron-right"></i> Proxmox VE</a></li>
+                    <li><a href="#stockage"><i class="fas fa-chevron-right"></i> Stockage & Réseau</a></li>
+                    <li><a href="#save"><i class="fas fa-chevron-right"></i> Sauvegardes & Snapshots</a></li>
                 </ul>
             </aside>
 
             <div class="course-content">
                 
-                <section id="concepts" class="card">
+                <section id="types" class="card">
                     <div class="card-header">
-                        <i class="fas fa-microchip card-icon-main"></i>
-                        <h2>1. Concepts & Hyperviseurs</h2>
+                        <i class="fas fa-layer-group card-icon-main"></i>
+                        <h2>1. Concepts de Virtualisation</h2>
                     </div>
-                    <p>Comprendre la différence fondamentale entre les types d'hyperviseurs :</p>
+                    
                     <ul>
-                        <li><strong>Type 1 (Bare Metal) :</strong> Installé directement sur le matériel (ESXi, Proxmox, Hyper-V Server).</li>
-                        <li><strong>Type 2 (Hosted) :</strong> Installé sur un OS existant (VirtualBox, VMware Workstation).</li>
+                        <li><strong>Type 1 (Bare Metal) :</strong> Installé directement sur le matériel (ESXi, Proxmox). Meilleures perfs.</li>
+                        <li><strong>Type 2 (Hosted) :</strong> Installé sur un OS (VirtualBox, VMware Workstation). Pour le test/dev.</li>
                     </ul>
-                    <div class="note-box info">
-                        <i class="fas fa-lightbulb"></i>
-                        <p><strong>Examen :</strong> Savoir justifier le choix d'un Type 1 en production pour les performances et la sécurité.</p>
-                    </div>
                 </section>
 
                 <section id="proxmox" class="card">
                     <div class="card-header">
                         <i class="fas fa-server card-icon-main"></i>
-                        <h2>2. Proxmox & VMware</h2>
+                        <h2>2. Proxmox VE</h2>
                     </div>
-                    <p>Gestion des machines virtuelles (VM) et des conteneurs (LXC).</p>
-                    <ul>
-                        <li><strong>Proxmox :</strong> Basé sur Debian, utilise KVM pour les VM et LXC pour les conteneurs.</li>
-                        <li><strong>VMware vSphere :</strong> Solution propriétaire leader, gestion via vCenter.</li>
-                    </ul>
-                </section>
-
-                <section id="storage" class="card">
-                    <div class="card-header">
-                        <i class="fas fa-network-wired card-icon-main"></i>
-                        <h2>3. Stockage & Réseaux Virtuels</h2>
+                    <p>Solution Open Source basée sur Debian.</p>
+                    <div class="note-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Différence Clé :</strong> Proxmox gère les <strong>VM (KVM)</strong> (isolation totale) et les <strong>Conteneurs (LXC)</strong> (partage du noyau, plus léger).</p>
                     </div>
-                    <p>Comment les VM communiquent et stockent leurs données.</p>
-                    <ul>
-                        <li><strong>Virtual Switching :</strong> Bridge (Pont), NAT, et isolation LAN.</li>
-                        <li><strong>Stockage :</strong> Provisionnement mince (Thin) vs Épais (Thick), snapshots et sauvegardes.</li>
-                    </ul>
-                </section>
-
-                <section id="hybride" class="card">
-                    <div class="card-header">
-                        <i class="fas fa-sync card-icon-main"></i>
-                        <h2>4. Architecture Hybride</h2>
-                    </div>
-                    <p>L'interconnexion entre les mondes Windows et Linux (NTiers).</p>
                     <div class="terminal-block">
-                        <div class="terminal-header">Exemple : Bridge Réseau Proxmox (/etc/network/interfaces)</div>
+                        <div class="terminal-header">Shell Proxmox</div>
                         <code>
-auto vmbr0
-iface vmbr0 inet static
-    address 192.168.1.10/24
-    gateway 192.168.1.1
-    bridge-ports eth0
+# Lister les VM
+qm list
+
+# Entrer dans un conteneur LXC
+pct enter 101
                         </code>
                     </div>
+                </section>
+
+                <section id="stockage" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-hdd card-icon-main"></i>
+                        <h2>3. Stockage & Réseau Virtuel</h2>
+                    </div>
+                    <ul>
+                        <li><strong>Stockage :</strong> LVM-Thin (Provisionnement dynamique), ZFS, Ceph (Distribué).</li>
+                        <li><strong>Réseau :</strong> Linux Bridge (vmbr0) pour relier les VM à la carte physique.</li>
+                    </ul>
+                </section>
+
+                <section id="save" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-save card-icon-main"></i>
+                        <h2>4. Stratégie de Sauvegarde</h2>
+                    </div>
+                    <p>Ne pas confondre Snapshot et Backup.</p>
+                    <ul>
+                        <li><strong>Snapshot :</strong> "Photo" à un instant T. Utile avant une mise à jour. N'est PAS une sauvegarde (si le disque meurt, le snapshot aussi).</li>
+                        <li><strong>Backup :</strong> Copie complète de la VM exportée sur un autre support (NAS, Cloud).</li>
+                    </ul>
                 </section>
 
             </div>
@@ -94,6 +99,6 @@ iface vmbr0 inet static
     </main>
 
     <footer><p>© 2026 — Altinkaya Romain</p></footer>
-    <script src="../assets/js/script.js"></script> 
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>
