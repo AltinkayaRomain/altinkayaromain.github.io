@@ -1,7 +1,9 @@
+<!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Révisions - Romain Altinkaya</title>
+    <title>Révisions - Windows Server - Romain Altinkaya</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,46 +13,88 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
+<body>
+    <div id="particles-js"></div>
+    
+    <div id="header-placeholder"></div>
 
-<div class="course-layout">
-    <aside class="course-sidebar">
-        <h3>Sommaire</h3>
-        <ul>
-            <li><a href="#dns">1. Services DNS (Expert)</a></li>
-            <li><a href="#adds">2. ADDS & Rôles FSMO</a></li>
-            <li><a href="#gpo">3. GPO & Hiérarchie</a></li>
-            <li><a href="#mail">4. Messagerie & Exchange</a></li>
-            <li><a href="#rds">5. RDS & Déploiement</a></li>
-        </ul>
-    </aside>
+    <main class="container">
+        <header class="hero">
+            <h1>Windows Server & Services</h1>
+            <p class="terminal-text">_TSSR_FULL_REVISION_CORE</p>
+        </header>
 
-    <div class="course-content">
-        <section id="dns" class="card">
-            <h2>1. DNS (Le pilier de l'AD)</h2>
-            <p>Comprendre le mécanisme de résolution est vital pour le TSSR.</p>
-                        <ul>
-                <li><strong>Zones :</strong> Principale, Secondaire, Stub (Délégation).</li>
-                <li><strong>Enregistrements :</strong> A (IPv4), CNAME (Alias), MX (Mail), SRV (Localisation de services AD).</li>
-                <li><strong>Récursivité :</strong> Le serveur interroge les autres pour le client.</li>
-            </ul>
-        </section>
+        <div class="course-layout">
+            
+            <aside class="course-sidebar">
+                <h3>Sommaire</h3>
+                <ul>
+                    <li><a href="#dns"><i class="fas fa-chevron-right"></i> Services DNS</a></li>
+                    <li><a href="#adds"><i class="fas fa-chevron-right"></i> ADDS & FSMO</a></li>
+                    <li><a href="#mail"><i class="fas fa-chevron-right"></i> Messagerie</a></li>
+                    <li><a href="#gpo"><i class="fas fa-chevron-right"></i> GPO</a></li>
+                </ul>
+            </aside>
 
-        <section id="adds" class="card">
-            <h2>2. ADDS & Rôles FSMO</h2>
-            <p>Il ne suffit pas de savoir créer un utilisateur, il faut comprendre l'architecture.</p>
-                        <div class="note-box info">
-                <p><strong>Rappel Examen :</strong> Il existe 5 rôles FSMO. 2 sont au niveau Forêt (Schéma, Nommage) et 3 au niveau Domaine (PDC, RID, Infrastructure).</p>
+            <div class="course-content">
+                
+                <section id="dns" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-network-wired card-icon-main"></i>
+                        <h2>1. DNS (Le pilier de l'AD)</h2>
+                    </div>
+                    <p>Le DNS permet la résolution des noms en adresses IP. Sans lui, les clients ne peuvent pas localiser les contrôleurs de domaine.</p>
+                    
+                    <div class="note-box info">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Info Examen :</strong> Un serveur DNS Windows utilise des "Zones intégrées à l'AD" pour sécuriser et répliquer les données.</p>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell - Vérification DNS</div>
+                        <code>Resolve-DnsName -Name dc01.formation.local</code>
+                    </div>
+                </section>
+
+                <section id="adds" class="card">
+                    <div class="card-header">
+                        <i class="fab fa-windows card-icon-main"></i>
+                        <h2>2. ADDS & Rôles FSMO</h2>
+                    </div>
+                    <p>L'Active Directory centralise la gestion des utilisateurs. Il s'appuie sur 5 rôles uniques (FSMO).</p>
+                    
+                    <div class="note-box info">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Les 5 Rôles :</strong> Schéma, Nommage (Forêt) + PDC, RID, Infrastructure (Domaine).</p>
+                    </div>
+                </section>
+
+                <section id="mail" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-envelope card-icon-main"></i>
+                        <h2>3. Messagerie & Exchange</h2>
+                    </div>
+                    <p>Comprendre les flux de messagerie est essentiel.</p>
+                    <ul>
+                        <li><strong>SMTP (Port 25) :</strong> Transfert de serveur à serveur.</li>
+                        <li><strong>IMAP/POP :</strong> Réception client.</li>
+                    </ul>
+                </section>
+                
+                 <section id="gpo" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-file-contract card-icon-main"></i>
+                        <h2>4. GPO (Stratégies de groupe)</h2>
+                    </div>
+                    <p>L'application des GPO suit l'ordre <strong>LSDOU</strong> : Local, Site, Domaine, OU.</p>
+                </section>
+
             </div>
-        </section>
+        </div>
+    </main>
 
-        <section id="mail" class="card">
-            <h2>4. Messagerie & Exchange</h2>
-            <p>Introduction aux flux SMTP et à l'architecture Exchange Server.</p>
-            <ul>
-                <li><strong>Flux SMTP :</strong> Connecteurs de réception (Inbound) et d'envoi (Outbound).</li>
-                <li><strong>Bases de données :</strong> Stockage des boîtes aux lettres (DAG pour la haute disponibilité).</li>
-                <li><strong>Protocoles :</strong> SMTP (25), IMAP (143), HTTPS (Owa/Outlook Anywhere).</li>
-            </ul>
-        </section>
-    </div>
-</div>
+    <footer><p>© 2026 — Altinkaya Romain</p></footer>
+    
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
