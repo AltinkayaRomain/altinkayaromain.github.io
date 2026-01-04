@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Révisions - Windows Server - Romain Altinkaya</title>
+    <title>Révisions - Windows Server Expert - Romain Altinkaya</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,85 +15,245 @@
 </head>
 <body>
     <div id="particles-js"></div>
-    
     <div id="header-placeholder"></div>
 
     <main class="container">
         <header class="hero">
-            <h1>Windows Server & Services</h1>
-            <p class="terminal-text">_TSSR_FULL_REVISION_CORE</p>
+            <h1>Windows Server : Architecture & Services</h1>
+            <p class="terminal-text">_TSSR_FULL_STACK_ADMINISTRATION_V2.0</p>
         </header>
 
         <div class="course-layout">
             
             <aside class="course-sidebar">
-                <h3>Sommaire</h3>
+                <h3>Sommaire Expert</h3>
                 <ul>
-                    <li><a href="#dns"><i class="fas fa-chevron-right"></i> Services DNS</a></li>
-                    <li><a href="#adds"><i class="fas fa-chevron-right"></i> ADDS & FSMO</a></li>
-                    <li><a href="#mail"><i class="fas fa-chevron-right"></i> Messagerie</a></li>
-                    <li><a href="#gpo"><i class="fas fa-chevron-right"></i> GPO</a></li>
+                    <li><a href="#adds"><i class="fas fa-chevron-right"></i> ADDS & FSMO (Détails)</a></li>
+                    <li><a href="#dns"><i class="fas fa-chevron-right"></i> DNS : Zones & Enreg.</a></li>
+                    <li><a href="#dhcp"><i class="fas fa-chevron-right"></i> DHCP : Process DORA</a></li>
+                    <li><a href="#gpo"><i class="fas fa-chevron-right"></i> GPO : LSDOU & WMI</a></li>
+                    <li><a href="#fs"><i class="fas fa-chevron-right"></i> Fichiers (NTFS/DFS)</a></li>
+                    <li><a href="#powershell"><i class="fas fa-chevron-right"></i> PowerShell Admin</a></li>
                 </ul>
             </aside>
 
             <div class="course-content">
                 
-                <section id="dns" class="card">
-                    <div class="card-header">
-                        <i class="fas fa-network-wired card-icon-main"></i>
-                        <h2>1. DNS (Le pilier de l'AD)</h2>
-                    </div>
-                    <p>Le DNS permet la résolution des noms en adresses IP. Sans lui, les clients ne peuvent pas localiser les contrôleurs de domaine.</p>
-                    
-                    <div class="note-box info">
-                        <i class="fas fa-info-circle"></i>
-                        <p><strong>Info Examen :</strong> Un serveur DNS Windows utilise des "Zones intégrées à l'AD" pour sécuriser et répliquer les données.</p>
-                    </div>
-
-                    <div class="terminal-block">
-                        <div class="terminal-header">PowerShell - Vérification DNS</div>
-                        <code>Resolve-DnsName -Name dc01.formation.local</code>
-                    </div>
-                </section>
-
                 <section id="adds" class="card">
                     <div class="card-header">
                         <i class="fab fa-windows card-icon-main"></i>
-                        <h2>2. ADDS & Rôles FSMO</h2>
+                        <h2>1. Architecture ADDS & FSMO</h2>
                     </div>
-                    <p>L'Active Directory centralise la gestion des utilisateurs. Il s'appuie sur 5 rôles uniques (FSMO).</p>
                     
-                    <div class="note-box info">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p><strong>Les 5 Rôles :</strong> Schéma, Nommage (Forêt) + PDC, RID, Infrastructure (Domaine).</p>
+                    <p>L'Active Directory est une base de données (<strong>NTDS.DIT</strong>) accessible via le protocole <strong>LDAP (389)</strong>. Pour l'examen, il faut maîtriser la structure logique et physique.</p>
+
+                    
+
+                    <h3>A. Structure Logique</h3>
+                    <ul>
+                        <li><strong>Forêt :</strong> L'instance la plus haute. Frontière de sécurité ultime.</li>
+                        <li><strong>Arbre :</strong> Ensemble de domaines partageant un espace de nom (ex: <code>corp.local</code> et <code>dev.corp.local</code>).</li>
+                        <li><strong>Domaine :</strong> Frontière d'administration (les admins du domaine A n'ont pas de droits sur le domaine B par défaut).</li>
+                        <li><strong>OU (Unité d'Organisation) :</strong> Le SEUL conteneur sur lequel on peut lier une GPO.</li>
+                    </ul>
+
+                    <h3>B. Les 5 Rôles FSMO (Flexible Single Master Operations)</h3>
+                    <p>Dans un système multi-maître, certaines actions nécessitent un "Chef" unique pour éviter les conflits.</p>
+                    
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse; margin-top: 10px;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="text-align:left; padding: 5px;">Rôle</th>
+                                    <th style="text-align:left; padding: 5px;">Portée</th>
+                                    <th style="text-align:left; padding: 5px;">Fonction Critique</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Contrôleur de Schéma</td>
+                                    <td>Forêt (1 seul)</td>
+                                    <td>Modifie la structure de la base AD (ex: ajout attribut Exchange).</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Maître d'attribution de noms</td>
+                                    <td>Forêt (1 seul)</td>
+                                    <td>Gère l'ajout/suppression de domaines dans la forêt.</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">PDC Emulator</td>
+                                    <td>Domaine</td>
+                                    <td><strong>Le plus important :</strong> Source de temps (NTP), Verrouillage mdp, compatibilité.</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">RID Master</td>
+                                    <td>Domaine</td>
+                                    <td>Distribue les blocs d'ID (SID) pour créer des objets.</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Infrastructure Master</td>
+                                    <td>Domaine</td>
+                                    <td>Gère les références d'objets inter-domaines.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell - Trouver les maîtres FSMO</div>
+                        <code>Get-ADDomain | Select-Object PDCEmulator, RIDMaster, InfrastructureMaster
+Get-ADForest | Select-Object SchemaMaster, NamingMaster</code>
                     </div>
                 </section>
 
-                <section id="mail" class="card">
+                <section id="dns" class="card">
                     <div class="card-header">
-                        <i class="fas fa-envelope card-icon-main"></i>
-                        <h2>3. Messagerie & Exchange</h2>
+                        <i class="fas fa-network-wired card-icon-main"></i>
+                        <h2>2. Service DNS (Domain Name System)</h2>
                     </div>
-                    <p>Comprendre les flux de messagerie est essentiel.</p>
+                    <p>90% des pannes AD viennent du DNS. Le DNS traduit les noms en IP, mais localise surtout les services (LDAP, Kerberos).</p>
+                    
+                    
+
+                    <h3>A. Types de Zones</h3>
                     <ul>
-                        <li><strong>SMTP (Port 25) :</strong> Transfert de serveur à serveur.</li>
-                        <li><strong>IMAP/POP :</strong> Réception client.</li>
+                        <li><strong>Zone Principale :</strong> Copie en lecture/écriture.</li>
+                        <li><strong>Zone Secondaire :</strong> Copie en lecture seule (pour la redondance ou les sites distants).</li>
+                        <li><strong>Zone Stub :</strong> Contient uniquement les enregistrements NS (Name Server) d'un autre domaine.</li>
+                        <li><strong>Intégrée à Active Directory :</strong> Permet la réplication sécurisée et multi-maître entre tous les DC.</li>
+                    </ul>
+
+                    <h3>B. Enregistrements Critiques</h3>
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Question Examen :</strong> "Comment un PC trouve son contrôleur de domaine ?" <br>
+                        <strong>Réponse :</strong> Grâce aux enregistrements <strong>SRV (Service)</strong> dans le dossier <code>_msdcs</code> du DNS.</p>
+                    </div>
+
+                    <h3>C. Forwarders vs Root Hints</h3>
+                    <ul>
+                        <li><strong>Redirecteurs (Forwarders) :</strong> Si le serveur ne connaît pas la réponse, il demande à un DNS spécifique (ex: 8.8.8.8 ou FAI). C'est la méthode recommandée.</li>
+                        <li><strong>Racine (Root Hints) :</strong> Il demande directement aux 13 serveurs racines mondiaux (plus lent).</li>
                     </ul>
                 </section>
-                
-                 <section id="gpo" class="card">
+
+                <section id="dhcp" class="card">
                     <div class="card-header">
-                        <i class="fas fa-file-contract card-icon-main"></i>
-                        <h2>4. GPO (Stratégies de groupe)</h2>
+                        <i class="fas fa-project-diagram card-icon-main"></i>
+                        <h2>3. DHCP & Processus DORA</h2>
                     </div>
-                    <p>L'application des GPO suit l'ordre <strong>LSDOU</strong> : Local, Site, Domaine, OU.</p>
+                    <p>Distribution automatique des IP. Protocole UDP (Ports 67 Serveur / 68 Client).</p>
+
+                    <h3>A. Le Processus DORA (Oral Technique)</h3>
+                    <ol>
+                        <li><strong>D</strong>iscover (Broadcast) : Le client crie "Y'a quelqu'un ?"</li>
+                        <li><strong>O</strong>ffer (Unicast/Broadcast) : Le serveur répond "Tiens, une IP dispo".</li>
+                        <li><strong>R</strong>equest (Broadcast) : Le client dit "Ok je prends celle-là !".</li>
+                        <li><strong>A</strong>cknowledge (Unicast) : Le serveur valide et note le bail.</li>
+                    </ol>
+
+                    <h3>B. Sécurité & Options</h3>
+                    <ul>
+                        <li><strong>Réservation :</strong> Fixer une IP via l'adresse MAC.</li>
+                        <li><strong>Relais DHCP :</strong> Si le serveur est dans un autre sous-réseau, le routeur doit relayer les requêtes Broadcast (Helper Address).</li>
+                    </ul>
+                </section>
+
+                <section id="gpo" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-cogs card-icon-main"></i>
+                        <h2>4. GPO (Group Policy Objects)</h2>
+                    </div>
+                    
+                    <h3>A. Ordre d'application : L.S.D.O.U.</h3>
+                    <p>L'ordre est crucial pour le T-Shoot. La dernière appliquée écrase les précédentes.</p>
+                    <ol>
+                        <li><strong>L</strong>ocal (Le PC lui-même)</li>
+                        <li><strong>S</strong>ite (Géographique, défini dans AD Sites & Services)</li>
+                        <li><strong>D</strong>omaine</li>
+                        <li><strong>OU</strong> (Unités d'Organisation - Parents puis Enfants)</li>
+                    </ol>
+
+                    <div class="note-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <p><strong>Exception :</strong> L'option "Appliquer (Enforced)" gagne toujours, même sur une OU qui bloque l'héritage.</p>
+                    </div>
+
+                    <h3>B. Ciblage Avancé</h3>
+                    <ul>
+                        <li><strong>Filtre de Sécurité :</strong> "Qui" applique la GPO (Par défaut : Authenticated Users).</li>
+                        <li><strong>Filtre WMI :</strong> Ciblage technique (ex: Appliquer seulement si OS = Windows 11).</li>
+                        <li><strong>Item-Level Targeting (GPP) :</strong> Très précis (ex: Mapper le lecteur Z: seulement si l'utilisateur est dans le groupe "Compta").</li>
+                    </ul>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">CMD - T-Shoot GPO</div>
+                        <code># Forcer la mise à jour
+gpupdate /force
+
+# Voir quelles GPO sont appliquées (Génère un rapport HTML)
+gpresult /h rapport.html</code>
+                    </div>
+                </section>
+
+                <section id="fs" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-folder-open card-icon-main"></i>
+                        <h2>5. Serveur de Fichiers (FS / DFS)</h2>
+                    </div>
+                    
+                    <h3>A. NTFS vs Partage : La Règle d'Or</h3>
+                    <p>Quand on accède à un dossier via le réseau, deux portes s'imposent :</p>
+                    <ul>
+                        <li><strong>Droits de Partage :</strong> La porte d'entrée du réseau. Souvent mis en "Tout le monde : Modifier/Lecture".</li>
+                        <li><strong>Droits NTFS (Security) :</strong> La serrure du dossier. C'est ici qu'on gère la vraie sécurité (Héritage, Groupes).</li>
+                    </ul>
+                    <p style="color: var(--accent);"><strong>Règle : C'est toujours la permission la plus RESTRICTIVE qui s'applique.</strong></p>
+
+                    <h3>B. FSRM (Gestionnaire de ressources)</h3>
+                    <ul>
+                        <li><strong>Quotas :</strong> Limiter l'espace disque par utilisateur (ex: 500 Mo max).</li>
+                        <li><strong>Filtrage de fichiers :</strong> Interdire l'enregistrement de fichiers MP3 ou EXE sur le serveur.</li>
+                    </ul>
+
+                    <h3>C. DFS (Système de fichiers distribué)</h3>
+                    <ul>
+                        <li><strong>Namespace (Espace de nom) :</strong> Crée un point d'entrée unique (ex: \\corp.local\Public) masquant les vrais noms de serveurs.</li>
+                        <li><strong>Replication (DFSR) :</strong> Synchronise les dossiers entre deux serveurs pour la haute disponibilité.</li>
+                    </ul>
+                </section>
+
+                <section id="powershell" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-terminal card-icon-main"></i>
+                        <h2>6. Cheat Sheet PowerShell</h2>
+                    </div>
+                    <p>Commandes vitales à connaître par cœur pour l'épreuve pratique.</p>
+                    
+                    <div class="terminal-block">
+                        <div class="terminal-header">Administration Quotidienne</div>
+                        <code># Créer un utilisateur
+New-ADUser -Name "Jean" -SamAccountName "jean" -Path "OU=RH,DC=tuto,DC=local" -Enabled $true
+
+# Réinitialiser un mot de passe
+Set-ADAccountPassword -Identity "jean" -Reset -NewPassword (ConvertTo-SecureString "Mdp123!" -AsPlainText -Force)
+
+# Tester la connexion réseau (Mieux que Ping)
+Test-NetConnection -ComputerName "192.168.1.50" -Port 3389
+
+# Lister les services arrêtés
+Get-Service | Where-Object {$_.Status -eq "Stopped"}
+
+# Installer un rôle (ex: Serveur Web)
+Install-WindowsFeature -Name Web-Server -IncludeManagementTools</code>
+                    </div>
                 </section>
 
             </div>
         </div>
     </main>
 
-    <footer><p>© 2026 — Altinkaya Romain</p></footer>
+    <footer><p>© 2026 — Altinkaya Romain | Base de Connaissances TSSR</p></footer>
     
     <script src="../assets/js/script.js"></script>
 </body>
