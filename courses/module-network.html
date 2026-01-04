@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Révisions - Réseaux & Sécurité - Romain Altinkaya</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css"> 
+    
+    <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
@@ -14,109 +19,90 @@
 
     <main class="container">
         <header class="hero">
-            <h1>Réseaux & Sécurité</h1>
-            <p class="terminal-text">_TSSR_NETWORK_SECURITY_EXAM_PREP</p>
+            <h1>Réseaux & Sécurité Avancée</h1>
+            <p class="terminal-text">_TSSR_NETWORKING_CORE_LEVEL_3</p>
         </header>
 
         <div class="course-layout">
+            
             <aside class="course-sidebar">
                 <h3>Sommaire</h3>
                 <ul>
-                    <li><a href="#switching">1. Switching & VLAN (L2)</a></li>
-                    <li><a href="#routing">2. Routage IP (L3)</a></li>
-                    <li><a href="#firewall">3. Firewalling & NAT</a></li>
-                    <li><a href="#vpn">4. VPN & Sécurité distant</a></li>
-                    <li><a href="#voip-wifi">5. VoIP & WiFi</a></li>
+                    <li><a href="#osi"><i class="fas fa-chevron-right"></i> Modèle OSI & TCP/IP</a></li>
+                    <li><a href="#l2"><i class="fas fa-chevron-right"></i> Switching (VLAN/STP)</a></li>
+                    <li><a href="#l3"><i class="fas fa-chevron-right"></i> Routage (OSPF/Static)</a></li>
+                    <li><a href="#sec"><i class="fas fa-chevron-right"></i> Pare-feu & VPN</a></li>
                 </ul>
             </aside>
 
             <div class="course-content">
                 
-                <section id="switching" class="card">
+                <section id="osi" class="card">
                     <div class="card-header">
-                        <i class="fas fa-microchip card-icon-main"></i>
-                        <h2>1. Switching, VLAN & Trunking</h2>
+                        <i class="fas fa-layer-group card-icon-main"></i>
+                        <h2>1. Modèle OSI & Encapsulation</h2>
                     </div>
-                    <p>Le commutateur gère la couche 2 du modèle OSI. Concepts clés pour l'examen :</p>
+                    <p>Fondamental pour le diagnostic (Troubleshooting). Une panne se situe toujours sur une couche précise.</p>
+                    
+                    
+                    <div class="note-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <p><strong>Astuce Examen :</strong> "Layer 8" désigne l'utilisateur (l'humain) qui est souvent la cause du problème.</p>
+                    </div>
+                </section>
+
+                <section id="l2" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-network-wired card-icon-main"></i>
+                        <h2>2. Switching L2 (VLAN, Trunk, STP)</h2>
+                    </div>
+                    <p>La segmentation est la base de la sécurité réseau.</p>
                     <ul>
-                        <li><strong>VLAN (802.1Q) :</strong> Segmentation du domaine de diffusion. Un VLAN = Un sous-réseau IP.</li>
-                        <li><strong>Trunking :</strong> Passage de plusieurs VLANs sur un seul lien physique entre deux switchs.</li>
-                        <li><strong>Inter-VLAN Routing :</strong> Utilisation d'un routeur (Router-on-a-stick) ou d'un switch N3 pour faire communiquer les VLANs.</li>
+                        <li><strong>VLAN (802.1Q) :</strong> Isole les domaines de diffusion.</li>
+                        <li><strong>Trunk :</strong> Transporte plusieurs VLANs entre switchs.</li>
+                        <li><strong>STP (Spanning Tree) :</strong> Empêche les boucles de commutation (Broadcast Storm).</li>
                     </ul>
+
                     <div class="terminal-block">
-                        <div class="terminal-header">Cisco IOS - Configuration VLAN & Trunk</div>
+                        <div class="terminal-header">Cisco IOS - Config Trunk & Native VLAN</div>
                         <code>
-Switch# vlan 10
-Switch(config-vlan)# name COMPTABILITE
-Switch# interface gigabitEthernet 0/1
-Switch(config-if)# switchport mode access
-Switch(config-if)# switchport access vlan 10
-# Configuration Trunk
-Switch# interface gigabitEthernet 0/24
+Switch(config)# int gi0/1
 Switch(config-if)# switchport mode trunk
+Switch(config-if)# switchport trunk native vlan 99
+Switch(config-if)# switchport trunk allowed vlan 10,20,99
                         </code>
                     </div>
                 </section>
 
-                <section id="routing" class="card">
+                <section id="l3" class="card">
                     <div class="card-header">
                         <i class="fas fa-route card-icon-main"></i>
-                        <h2>2. Routage Statique & Dynamique</h2>
+                        <h2>3. Routage L3 (Interconnexion)</h2>
                     </div>
-                    <p>Le routage permet l'interconnexion de réseaux différents (Couche 3).</p>
+                    <p>Le routeur prend ses décisions via la table de routage (Adresse IP Destination).</p>
                     <ul>
-                        <li><strong>Routage Statique :</strong> Défini manuellement. Idéal pour les petits réseaux ou la route par défaut (<code>0.0.0.0 0.0.0.0</code>).</li>
-                        <li><strong>Routage Dynamique :</strong> Protocoles (RIP, OSPF) permettant aux routeurs d'échanger leurs tables de routage automatiquement.</li>
-                    </ul>
-                    <div class="note-box info">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <p><strong>Rappel OSI :</strong> Un routeur prend ses décisions basées sur l'adresse IP de destination, contrairement au switch qui utilise l'adresse MAC.</p>
-                    </div>
-                </section>
-
-                <section id="firewall" class="card">
-                    <div class="card-header">
-                        <i class="fas fa-shield-halved card-icon-main"></i>
-                        <h2>3. Sécurité Réseau & Firewalling</h2>
-                    </div>
-                    <p>Mise en œuvre sur pfSense ou Cisco ASA.</p>
-                    <ul>
-                        <li><strong>Règles de filtrage :</strong> Source, Destination, Port, Protocole (TCP/UDP/ICMP).</li>
-                        <li><strong>NAT / PAT :</strong> Translation d'adresses pour permettre à un parc privé d'accéder à Internet via une seule IP publique.</li>
-                        <li><strong>DMZ :</strong> Zone isolée pour les serveurs exposés (Web, Mail).</li>
+                        <li><strong>Router-on-a-Stick :</strong> Routage inter-VLAN via une sous-interface.</li>
+                        <li><strong>OSPF :</strong> Protocole dynamique à état de liens (Link-State). Utilise l'algo Dijkstra.</li>
                     </ul>
                 </section>
 
-                <section id="vpn" class="card">
+                <section id="sec" class="card">
                     <div class="card-header">
-                        <i class="fas fa-lock card-icon-main"></i>
-                        <h2>4. VPN (IPsec & OpenVPN)</h2>
+                        <i class="fas fa-shield-alt card-icon-main"></i>
+                        <h2>4. Pare-feu & VPN (pfSense)</h2>
                     </div>
-                    <p>Garantir la confidentialité des données sur un réseau non sécurisé.</p>
-                    <ul>
-                        <li><strong>Site-à-Site :</strong> Relie deux agences physiques.</li>
-                        <li><strong>Accès Distant (Nomade) :</strong> Permet à un collaborateur de rejoindre le LAN de l'entreprise.</li>
-                        <li><strong>Protocoles :</strong> IPsec (Robuste, tunnel L3) ou OpenVPN/SSL (Flexible, port 443).</li>
-                    </ul>
-                </section>
-
-                <section id="voip-wifi" class="card">
-                    <div class="card-header">
-                        <i class="fas fa-phone-volume card-icon-main"></i>
-                        <h2>5. Téléphonie IP & WiFi</h2>
+                    <p>Sécurisation de la bordure (Edge) du réseau.</p>
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Règle d'Or :</strong> Toujours appliquer le principe du "Implicit Deny" (Tout interdire sauf ce qui est explicitement autorisé).</p>
                     </div>
-                    <p>Convergence des services sur l'infrastructure IP.</p>
-                    <ul>
-                        <li><strong>VoIP :</strong> Protocoles SIP (Signalisation) et RTP (Transport de la voix). Importance de la QoS pour prioriser la voix.</li>
-                        <li><strong>WiFi :</strong> Standards 802.11, sécurité WPA2/WPA3 (AES). Gestion des canaux pour éviter les interférences.</li>
-                    </ul>
                 </section>
 
             </div>
         </div>
     </main>
 
-    <footer><p>© 2026 — Altinkaya Romain | Préparation Titre TSSR</p></footer>
-    <script src="../assets/js/script.js"></script> 
+    <footer><p>© 2026 — Altinkaya Romain</p></footer>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>
