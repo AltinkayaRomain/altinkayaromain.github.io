@@ -1,1 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révisions - Linux & Bash - Romain Altinkaya</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div id="header-placeholder"></div>
 
+    <main class="container">
+        <header class="hero">
+            <h1>Linux & Scripting Bash</h1>
+            <p class="terminal-text">_TSSR_LINUX_ADMIN_ROOT</p>
+        </header>
+
+        <div class="course-layout">
+            
+            <aside class="course-sidebar">
+                <h3>Sommaire</h3>
+                <ul>
+                    <li><a href="#base"><i class="fas fa-chevron-right"></i> Commandes de Base</a></li>
+                    <li><a href="#users"><i class="fas fa-chevron-right"></i> Droits & Utilisateurs</a></li>
+                    <li><a href="#bash"><i class="fas fa-chevron-right"></i> Scripting Bash</a></li>
+                    <li><a href="#lamp"><i class="fas fa-chevron-right"></i> Services & LAMP</a></li>
+                </ul>
+            </aside>
+
+            <div class="course-content">
+                
+                <section id="base" class="card">
+                    <div class="card-header">
+                        <i class="fab fa-linux card-icon-main"></i>
+                        <h2>1. Commandes Fondamentales</h2>
+                    </div>
+                    <p>La navigation et la gestion de fichiers sont le quotidien de l'admin.</p>
+                    
+                    <div class="terminal-block">
+                        <div class="terminal-header">Terminal - Navigation</div>
+                        <code>
+# Lister avec détails et fichiers cachés
+ls -la
+
+# Rechercher un fichier
+find / -name "config.xml"
+
+# Rechercher du texte DANS un fichier
+grep -r "error" /var/log/syslog
+                        </code>
+                    </div>
+                </section>
+
+                <section id="users" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-key card-icon-main"></i>
+                        <h2>2. Gestion des Droits (CHMOD)</h2>
+                    </div>
+                    <p>Comprendre la notation octale (777, 755, 644) est impératif.</p>
+                    <ul>
+                        <li><strong>r (Read) :</strong> 4</li>
+                        <li><strong>w (Write) :</strong> 2</li>
+                        <li><strong>x (Execute) :</strong> 1</li>
+                    </ul>
+                    <div class="note-box">
+                        <i class="fas fa-lock"></i>
+                        <p><strong>Sécurité :</strong> Ne jamais mettre un <code>chmod 777</code> en production. Préférez <code>chown</code> pour changer le propriétaire.</p>
+                    </div>
+                </section>
+
+                <section id="bash" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-code card-icon-main"></i>
+                        <h2>3. Scripting Bash</h2>
+                    </div>
+                    <p>Automatisation des tâches récurrentes (Sauvegardes, création users).</p>
+                    <div class="terminal-block">
+                        <div class="terminal-header">script_backup.sh</div>
+                        <code>
+#!/bin/bash
+# Variable
+DATE=$(date +%F)
+BACKUP_DIR="/backup"
+
+# Condition
+if [ -d "$BACKUP_DIR" ]; then
+    echo "Dossier trouvé, début de la sauvegarde..."
+    tar -czf backup-$DATE.tar.gz /var/www/html
+else
+    echo "Erreur : Dossier backup introuvable."
+fi
+                        </code>
+                    </div>
+                </section>
+
+                <section id="lamp" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-server card-icon-main"></i>
+                        <h2>4. Services (Systemd & LAMP)</h2>
+                    </div>
+                    <p>Gestion des démons et serveurs web.</p>
+                    <ul>
+                        <li><strong>Systemctl :</strong> start, stop, enable, status.</li>
+                        <li><strong>LAMP :</strong> Linux, Apache (Web), MariaDB (SQL), PHP.</li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <footer><p>© 2026 — Altinkaya Romain</p></footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
