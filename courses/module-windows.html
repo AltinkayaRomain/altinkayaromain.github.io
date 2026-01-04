@@ -1,133 +1,42 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Révisions - Windows Server & Services - Romain Altinkaya</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css"> 
-    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-</head>
-<body>
-    <div id="particles-js"></div>
-    <div id="header-placeholder"></div>
+<div class="course-layout">
+    <aside class="course-sidebar">
+        <h3>Sommaire</h3>
+        <ul>
+            <li><a href="#dns">1. Services DNS (Expert)</a></li>
+            <li><a href="#adds">2. ADDS & Rôles FSMO</a></li>
+            <li><a href="#gpo">3. GPO & Hiérarchie</a></li>
+            <li><a href="#mail">4. Messagerie & Exchange</a></li>
+            <li><a href="#rds">5. RDS & Déploiement</a></li>
+        </ul>
+    </aside>
 
-    <main class="container">
-        <header class="hero">
-            <h1>Windows Server : Services Critiques</h1>
-            <p class="terminal-text">_TSSR_FULL_REVISION_PACK_V1.1</p>
-        </header>
+    <div class="course-content">
+        <section id="dns" class="card">
+            <h2>1. DNS (Le pilier de l'AD)</h2>
+            <p>Comprendre le mécanisme de résolution est vital pour le TSSR.</p>
+                        <ul>
+                <li><strong>Zones :</strong> Principale, Secondaire, Stub (Délégation).</li>
+                <li><strong>Enregistrements :</strong> A (IPv4), CNAME (Alias), MX (Mail), SRV (Localisation de services AD).</li>
+                <li><strong>Récursivité :</strong> Le serveur interroge les autres pour le client.</li>
+            </ul>
+        </section>
 
-        <div class="course-layout">
-            <aside class="course-sidebar">
-                <h3>Sommaire</h3>
-                <ul>
-                    <li><a href="#dns">1. DNS (Le pilier)</a></li>
-                    <li><a href="#adds">2. ADDS & Rôles FSMO</a></li>
-                    <li><a href="#gpo">3. GPO & Hiérarchie</a></li>
-                    <li><a href="#rds">4. Architecture RDS</a></li>
-                    <li><a href="#mail">5. Messagerie Exchange</a></li>
-                    <li><a href="#deploy">6. WDS / MDT / WSUS</a></li>
-                </ul>
-            </aside>
-
-            <div class="course-content">
-                
-                <section id="dns" class="card">
-                    <div class="card-header">
-                        <i class="fas fa-network-wired card-icon-main"></i>
-                        <h2>1. DNS (Domain Name System)</h2>
-                    </div>
-                    <p>Sans DNS, pas d'Active Directory. Il transforme les noms d'hôtes en adresses IP (et inversement).</p>
-                    
-                    
-
-                    <h3>Concepts à maîtriser :</h3>
-                    <ul>
-                        <li><strong>Zones de recherche directe :</strong> Nom → IP.</li>
-                        <li><strong>Zones de recherche inversée :</strong> IP → Nom (Enregistrements PTR).</li>
-                        <li><strong>Types d'enregistrements :</strong> A (IPv4), AAAA (IPv6), CNAME (Alias), MX (Mail), SRV (Services AD).</li>
-                        <li><strong>Zones intégrées à l'AD :</strong> Réplication sécurisée avec les autres DC.</li>
-                    </ul>
-                    <div class="terminal-block">
-                        <div class="terminal-header">PowerShell - Test de résolution DNS</div>
-                        <code>Resolve-DnsName -Name dc01.formation.local</code>
-                    </div>
-                </section>
-
-                <section id="adds" class="card">
-                    <div class="card-header">
-                        <i class="fab fa-windows card-icon-main"></i>
-                        <h2>2. ADDS & Maîtres d'opérations (FSMO)</h2>
-                    </div>
-                    <p>L'Active Directory n'est pas totalement multi-maître ; certains rôles sont uniques dans la forêt ou le domaine.</p>
-                    
-                    
-
-                    <h3>Les 5 rôles FSMO :</h3>
-                    <div class="note-box info">
-                        <p><strong>Niveau Forêt :</strong> 1. Contrôleur de schéma | 2. Maître de nommage de domaine.</p>
-                        <p><strong>Niveau Domaine :</strong> 3. PDC Émulateur (Temps/Mots de passe) | 4. Maître RID (ID uniques) | 5. Maître d'infrastructure.</p>
-                    </div>
-                </section>
-
-                <section id="gpo" class="card">
-                    <div class="card-header">
-                        <i class="fas fa-file-contract card-icon-main"></i>
-                        <h2>3. Stratégies de Groupe (GPO)</h2>
-                    </div>
-                    <p>Permet la configuration centralisée des postes et utilisateurs.</p>
-                    <ul>
-                        <li><strong>Ordre d'application (LSDOU) :</strong> Local → Site → Domaine → Unité d'Organisation (OU). La dernière appliquée gagne.</li>
-                        <li><strong>Exceptions :</strong> "Appliquer" (Force la GPO) et "Bloquer l'héritage".</li>
-                        <li><strong>Loopback Processing :</strong> Applique des paramètres utilisateur en fonction de l'ordinateur sur lequel il se connecte (Utile pour le RDS).</li>
-                    </ul>
-                </section>
-
-                <section id="rds" class="card">
-                    <div class="card-header">
-                        <i class="fas fa-server card-icon-main"></i>
-                        <h2>4. Architecture RDS (Remote Desktop Services)</h2>
-                    </div>
-                    <p>Pour l'examen, sachez différencier les rôles :</p>
-                    <ul>
-                        <li><strong>Broker (Agent de connexion) :</strong> Répartit les sessions sur les serveurs.</li>
-                        <li><strong>Passerelle (Gateway) :</strong> Permet l'accès sécurisé depuis Internet via HTTPS (443).</li>
-                        <li><strong>Hôte de session :</strong> Le serveur qui exécute réellement les applications.</li>
-                    </ul>
-                </section>
-
-                <section id="mail" class="card">
-                    <div class="card-header">
-                        <i class="fas fa-envelope-open-text card-icon-main"></i>
-                        <h2>5. Messagerie & Flux SMTP (Exchange)</h2>
-                    </div>
-                    <p>Exchange Server s'appuie sur l'AD pour sa base d'utilisateurs.</p>
-                    <ul>
-                        <li><strong>Connecteurs :</strong> Réception (Inbound) et Envoi (Outbound).</li>
-                        <li><strong>Protocoles :</strong> SMTP (25/587) pour le transport, IMAP (143/993) pour la consultation.</li>
-                        <li><strong>DAG (Database Availability Group) :</strong> Haute disponibilité des bases de données mails.</li>
-                    </ul>
-                </section>
-
-                <section id="deploy" class="card">
-                    <div class="card-header">
-                        <i class="fas fa-upload card-icon-main"></i>
-                        <h2>6. Industrialisation : WDS, MDT & WSUS</h2>
-                    </div>
-                    <p>Comment gérer un parc de 500 machines sans les toucher une par une.</p>
-                    <ul>
-                        <li><strong>WDS :</strong> Envoie l'image système via le réseau (PXE).</li>
-                        <li><strong>MDT :</strong> Personnalise l'installation (Applications, drivers, scripts).</li>
-                        <li><strong>WSUS :</strong> Serveur de mise à jour local pour économiser la bande passante et valider les patchs avant déploiement.</li>
-                    </ul>
-                </section>
-
+        <section id="adds" class="card">
+            <h2>2. ADDS & Rôles FSMO</h2>
+            <p>Il ne suffit pas de savoir créer un utilisateur, il faut comprendre l'architecture.</p>
+                        <div class="note-box info">
+                <p><strong>Rappel Examen :</strong> Il existe 5 rôles FSMO. 2 sont au niveau Forêt (Schéma, Nommage) et 3 au niveau Domaine (PDC, RID, Infrastructure).</p>
             </div>
-        </div>
-    </main>
+        </section>
 
-    <footer><p>© 2026 — Altinkaya Romain | Préparation TSSR</p></footer>
-    <script src="../assets/js/script.js"></script> 
-</body>
-</html>
+        <section id="mail" class="card">
+            <h2>4. Messagerie & Exchange</h2>
+            <p>Introduction aux flux SMTP et à l'architecture Exchange Server.</p>
+            <ul>
+                <li><strong>Flux SMTP :</strong> Connecteurs de réception (Inbound) et d'envoi (Outbound).</li>
+                <li><strong>Bases de données :</strong> Stockage des boîtes aux lettres (DAG pour la haute disponibilité).</li>
+                <li><strong>Protocoles :</strong> SMTP (25), IMAP (143), HTTPS (Owa/Outlook Anywhere).</li>
+            </ul>
+        </section>
+    </div>
+</div>
