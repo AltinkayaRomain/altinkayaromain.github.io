@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Révisions - Réseaux & Sécurité - Romain Altinkaya</title>
+    <title>Révisions - Réseaux Expert - Romain Altinkaya</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,19 +19,21 @@
 
     <main class="container">
         <header class="hero">
-            <h1>Réseaux & Sécurité Avancée</h1>
-            <p class="terminal-text">_TSSR_NETWORKING_CORE_LEVEL_3</p>
+            <h1>Architecture Réseaux CISCO & Sécurité</h1>
+            <p class="terminal-text">_TSSR_CCNA_LEVEL_NETWORKING</p>
         </header>
 
         <div class="course-layout">
             
             <aside class="course-sidebar">
-                <h3>Sommaire</h3>
+                <h3>Sommaire Expert</h3>
                 <ul>
-                    <li><a href="#osi"><i class="fas fa-chevron-right"></i> Modèle OSI & TCP/IP</a></li>
-                    <li><a href="#l2"><i class="fas fa-chevron-right"></i> Switching (VLAN/STP)</a></li>
-                    <li><a href="#l3"><i class="fas fa-chevron-right"></i> Routage (OSPF/Static)</a></li>
-                    <li><a href="#sec"><i class="fas fa-chevron-right"></i> Pare-feu & VPN</a></li>
+                    <li><a href="#osi"><i class="fas fa-chevron-right"></i> OSI : Encapsulation</a></li>
+                    <li><a href="#l2"><i class="fas fa-chevron-right"></i> Switching : VLAN & STP</a></li>
+                    <li><a href="#l3"><i class="fas fa-chevron-right"></i> Routage : OSPF & RoaS</a></li>
+                    <li><a href="#tcp"><i class="fas fa-chevron-right"></i> Transport : TCP vs UDP</a></li>
+                    <li><a href="#sec"><i class="fas fa-chevron-right"></i> Sécurité : ACL & NAT</a></li>
+                    <li><a href="#cisco"><i class="fas fa-chevron-right"></i> Cheat Sheet Cisco</a></li>
                 </ul>
             </aside>
 
@@ -42,59 +44,167 @@
                         <i class="fas fa-layer-group card-icon-main"></i>
                         <h2>1. Modèle OSI & Encapsulation</h2>
                     </div>
-                    <p>Fondamental pour le diagnostic (Troubleshooting). Une panne se situe toujours sur une couche précise.</p>
+                    <p>Pour dépanner un réseau, il faut suivre le trajet de la donnée. À chaque couche, une information est ajoutée (en-tête).</p>
+
                     
-                    
-                    <div class="note-box">
-                        <i class="fas fa-lightbulb"></i>
-                        <p><strong>Astuce Examen :</strong> "Layer 8" désigne l'utilisateur (l'humain) qui est souvent la cause du problème.</p>
+
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse; margin-top: 10px;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="text-align:left;">Couche</th>
+                                    <th style="text-align:left;">Unité (PDU)</th>
+                                    <th style="text-align:left;">Équipement / Concept</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="color: var(--accent);">4. Transport</td>
+                                    <td>Segment</td>
+                                    <td>Ports (TCP/UDP), Pare-feu</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: var(--accent);">3. Réseau</td>
+                                    <td>Paquet</td>
+                                    <td><strong>Routeur</strong>, Adresse IP, ICMP</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: var(--accent);">2. Liaison</td>
+                                    <td>Trame</td>
+                                    <td><strong>Switch</strong>, Adresse MAC, VLAN</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: var(--accent);">1. Physique</td>
+                                    <td>Bit</td>
+                                    <td>Câble RJ45, Fibre, Hub, WiFi</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </section>
 
                 <section id="l2" class="card">
                     <div class="card-header">
                         <i class="fas fa-network-wired card-icon-main"></i>
-                        <h2>2. Switching L2 (VLAN, Trunk, STP)</h2>
+                        <h2>2. Switching Avancé (L2)</h2>
                     </div>
-                    <p>La segmentation est la base de la sécurité réseau.</p>
-                    <ul>
-                        <li><strong>VLAN (802.1Q) :</strong> Isole les domaines de diffusion.</li>
-                        <li><strong>Trunk :</strong> Transporte plusieurs VLANs entre switchs.</li>
-                        <li><strong>STP (Spanning Tree) :</strong> Empêche les boucles de commutation (Broadcast Storm).</li>
-                    </ul>
+                    
+                    <h3>A. VLANs & Tagging (802.1Q)</h3>
+                    <p>Un VLAN découpe un switch physique en plusieurs switchs logiques.
+                    <br><strong>Problème :</strong> Comment faire passer plusieurs VLANs dans un seul câble entre deux switchs ?
+                    <br><strong>Solution :</strong> Le <strong>Trunk</strong> (802.1Q). Il ajoute une "étiquette" (Tag) de 4 octets dans l'en-tête de la trame Ethernet pour dire "Je viens du VLAN 10".</p>
+                    
+                    
 
-                    <div class="terminal-block">
-                        <div class="terminal-header">Cisco IOS - Config Trunk & Native VLAN</div>
-                        <code>
-Switch(config)# int gi0/1
-Switch(config-if)# switchport mode trunk
-Switch(config-if)# switchport trunk native vlan 99
-Switch(config-if)# switchport trunk allowed vlan 10,20,99
-                        </code>
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Native VLAN :</strong> C'est le seul VLAN qui passe dans le Trunk SANS étiquette. Par sécurité, changez-le (ne laissez pas le VLAN 1 par défaut) pour éviter le "VLAN Hopping".</p>
                     </div>
+
+                    <h3>B. Spanning Tree Protocol (STP)</h3>
+                    <p>Si vous bouclez deux câbles entre deux switchs pour la redondance, vous créez une <strong>Tempête de Broadcast</strong> (le réseau tombe en 2 secondes).
+                    <br><strong>Rôle du STP :</strong> Détecter la boucle et bloquer logiquement un port.</p>
+                    <ul>
+                        <li><strong>Root Bridge :</strong> Le chef du réseau L2 (celui qui a la plus petite priorité ou adresse MAC).</li>
+                        <li><strong>BPDU :</strong> Les paquets de "bonjour" que s'envoient les switchs pour surveiller la topologie.</li>
+                    </ul>
                 </section>
 
                 <section id="l3" class="card">
                     <div class="card-header">
                         <i class="fas fa-route card-icon-main"></i>
-                        <h2>3. Routage L3 (Interconnexion)</h2>
+                        <h2>3. Routage & Interconnexion</h2>
                     </div>
-                    <p>Le routeur prend ses décisions via la table de routage (Adresse IP Destination).</p>
+                    
+                    <h3>A. Router-on-a-Stick (Inter-VLAN)</h3>
+                    <p>Les VLANs sont isolés. Pour qu'ils se parlent, il faut un routeur. On utilise une seule interface physique découpée en <strong>sous-interfaces logiques</strong>.</p>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Config Cisco - RoaS</div>
+                        <code>Router(config)# interface g0/0.10
+Router(config-subif)# encapsulation dot1Q 10
+Router(config-subif)# ip address 192.168.10.254 255.255.255.0</code>
+                    </div>
+
+                    <h3>B. Routage Dynamique OSPF</h3>
+                    <p>Plutôt que d'écrire 50 routes statiques, OSPF apprend le réseau tout seul.
+                    <br><strong>Concepts Clés :</strong></p>
                     <ul>
-                        <li><strong>Router-on-a-Stick :</strong> Routage inter-VLAN via une sous-interface.</li>
-                        <li><strong>OSPF :</strong> Protocole dynamique à état de liens (Link-State). Utilise l'algo Dijkstra.</li>
+                        <li><strong>Link-State :</strong> Chaque routeur connait la carte complète du réseau.</li>
+                        <li><strong>Coût :</strong> OSPF choisit le chemin le plus RAPIDE (Bande passante), pas le plus court (comme RIP).</li>
+                        <li><strong>Area 0 (Backbone) :</strong> Obligatoire. Toutes les autres aires doivent y être connectées.</li>
+                        <li><strong>Wildcard Mask :</strong> L'inverse du masque de sous-réseau (ex: /24 = 0.0.0.255).</li>
+                    </ul>
+                </section>
+
+                <section id="tcp" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-exchange-alt card-icon-main"></i>
+                        <h2>4. Transport : TCP vs UDP</h2>
+                    </div>
+                    
+                    <h3>A. Le "Three-Way Handshake" TCP</h3>
+                    <p>Avant d'envoyer des données, TCP vérifie que l'autre est prêt. C'est une connexion <strong>FIABLE</strong>.</p>
+                    
+                    <ol>
+                        <li><strong>SYN :</strong> "Bonjour, je veux te parler."</li>
+                        <li><strong>SYN-ACK :</strong> "Bonjour, j'ai bien reçu, je suis d'accord."</li>
+                        <li><strong>ACK :</strong> "Parfait, j'envoie les données."</li>
+                    </ol>
+
+                    <h3>B. Comparatif Express</h3>
+                    <ul>
+                        <li><strong>TCP :</strong> Lent mais sûr. Réordonne les paquets, renvoie les perdus (Web, Mail, Transfert Fichier).</li>
+                        <li><strong>UDP :</strong> Rapide mais "bête". Si un paquet est perdu, tant pis (Streaming, VoIP, DNS, Jeux en ligne).</li>
                     </ul>
                 </section>
 
                 <section id="sec" class="card">
                     <div class="card-header">
                         <i class="fas fa-shield-alt card-icon-main"></i>
-                        <h2>4. Pare-feu & VPN (pfSense)</h2>
+                        <h2>5. Sécurité : ACL & NAT</h2>
                     </div>
-                    <p>Sécurisation de la bordure (Edge) du réseau.</p>
+
+                    <h3>A. ACL (Access Control Lists)</h3>
+                    <p>Le pare-feu du routeur. Lit les règles de haut en bas.</p>
+                    <ul>
+                        <li><strong>Standard (1-99) :</strong> Filtre uniquement sur l'IP SOURCE. (À placer le plus près possible de la destination).</li>
+                        <li><strong>Etendue (100-199) :</strong> Filtre sur Source, Destination, Protocole et Port. (À placer le plus près possible de la source).</li>
+                    </ul>
                     <div class="note-box">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p><strong>Règle d'Or :</strong> Toujours appliquer le principe du "Implicit Deny" (Tout interdire sauf ce qui est explicitement autorisé).</p>
+                        <i class="fas fa-lock"></i>
+                        <p><strong>Implicit Deny :</strong> Il y a toujours un "Deny All" invisible à la fin d'une ACL. Si vous n'autorisez rien explicitement, tout est bloqué.</p>
+                    </div>
+
+                    <h3>B. NAT (Network Address Translation)</h3>
+                    <ul>
+                        <li><strong>NAT Dynamique (PAT) :</strong> "Many-to-One". Tout le bureau sort sur Internet avec l'unique IP Publique de la Box. Utilise les ports pour différencier les PC.</li>
+                        <li><strong>NAT Statique :</strong> "One-to-One". Pour publier un serveur Web (DMZ) accessible depuis l'extérieur.</li>
+                    </ul>
+                </section>
+
+                <section id="cisco" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-terminal card-icon-main"></i>
+                        <h2>6. Commandes de Survie Cisco</h2>
+                    </div>
+                    <p>À connaître par cœur pour l'examen pratique.</p>
+                    
+                    <div class="terminal-block">
+                        <div class="terminal-header">Diagnostic & Infos</div>
+                        <code># Voir les IP et l'état des ports (UP/UP ?)
+show ip interface brief
+
+# Voir la table de routage (C=Connecté, S=Statique, O=OSPF)
+show ip route
+
+# Voir les VLANs existants
+show vlan brief
+
+# Voir la configuration en cours (RAM)
+show running-config
+
+# SAUVEGARDER (Ne jamais oublier !)
+copy running-config startup-config</code>
                     </div>
                 </section>
 
@@ -102,7 +212,7 @@ Switch(config-if)# switchport trunk allowed vlan 10,20,99
         </div>
     </main>
 
-    <footer><p>© 2026 — Altinkaya Romain</p></footer>
+    <footer><p>© 2026 — Altinkaya Romain | Expert Réseaux</p></footer>
     <script src="../assets/js/script.js"></script>
 </body>
 </html>
