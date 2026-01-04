@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révisions - Méthodes & Projets - Romain Altinkaya</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div id="header-placeholder"></div>
+
+    <main class="container">
+        <header class="hero">
+            <h1>Méthodes, T-Shoot & Gestion</h1>
+            <p class="terminal-text">_TSSR_SOFT_SKILLS_AND_PROCESS</p>
+        </header>
+
+        <div class="course-layout">
+            
+            <aside class="course-sidebar">
+                <h3>Sommaire</h3>
+                <ul>
+                    <li><a href="#tshoot"><i class="fas fa-chevron-right"></i> Diagnostic (T-Shoot)</a></li>
+                    <li><a href="#agile"><i class="fas fa-chevron-right"></i> Gestion Agile / Scrum</a></li>
+                    <li><a href="#itil"><i class="fas fa-chevron-right"></i> ITIL & Ticketting</a></li>
+                    <li><a href="#veille"><i class="fas fa-chevron-right"></i> Veille & IA</a></li>
+                </ul>
+            </aside>
+
+            <div class="course-content">
+                
+                <section id="tshoot" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-stethoscope card-icon-main"></i>
+                        <h2>1. Méthodologie de Diagnostic</h2>
+                    </div>
+                    <p>Ne jamais foncer tête baissée. Suivre la méthode CompTIA en 6 étapes :</p>
+                    <ol style="margin-left: 20px; color: var(--text-dim);">
+                        <li><strong>Identifier</strong> les symptômes (Interroger l'utilisateur).</li>
+                        <li>Établir une <strong>théorie</strong> de cause probable.</li>
+                        <li><strong>Tester</strong> la théorie (Confirmer la cause).</li>
+                        <li>Établir un <strong>plan d'action</strong> et résoudre.</li>
+                        <li><strong>Vérifier</strong> le fonctionnement total du système.</li>
+                        <li><strong>Documenter</strong> la solution (Base de connaissances).</li>
+                    </ol>
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Examen :</strong> Le jury vérifiera toujours si vous avez vérifié que tout fonctionne APRES la réparation.</p>
+                    </div>
+                </section>
+
+                <section id="agile" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-tasks card-icon-main"></i>
+                        <h2>2. Gestion de Projet (Agile)</h2>
+                    </div>
+                    <p>Comprendre comment s'organise une équipe moderne.</p>
+                    <ul>
+                        <li><strong>Scrum :</strong> Cadre de travail itératif.</li>
+                        <li><strong>Sprint :</strong> Cycle court de développement (2 à 4 semaines).</li>
+                        <li><strong>Kanban :</strong> Visualisation des tâches (À faire / En cours / Fait) - Ex: Trello, Jira.</li>
+                    </ul>
+                </section>
+
+                <section id="itil" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-ticket-alt card-icon-main"></i>
+                        <h2>3. ITIL & Gestion de Parc</h2>
+                    </div>
+                    <p>La distinction fondamentale pour le support utilisateur (Helpdesk) :</p>
+                    <ul>
+                        <li><strong>Incident :</strong> Quelque chose est cassé (Interruption de service). <br><em>Ex: "Mon Outlook ne s'ouvre plus."</em></li>
+                        <li><strong>Demande de Service :</strong> Besoin d'une nouvelle ressource. <br><em>Ex: "J'ai besoin d'une licence Adobe."</em></li>
+                    </ul>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Outil GLPI - Exemple de cycle de vie</div>
+                        <code>Nouveau > Attribué (Tech) > En cours > Résolu > Clos</code>
+                    </div>
+                </section>
+
+                <section id="veille" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-robot card-icon-main"></i>
+                        <h2>4. Veille Techno & IA</h2>
+                    </div>
+                    <p>Le TSSR doit rester à jour. Utilisation éthique de l'IA (ChatGPT, Copilot) pour :</p>
+                    <ul>
+                        <li>Générer des scripts de base (PowerShell/Bash).</li>
+                        <li>Analyser des logs d'erreur complexes.</li>
+                        <li>Rédiger de la documentation utilisateur.</li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <footer><p>© 2026 — Altinkaya Romain</p></footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
