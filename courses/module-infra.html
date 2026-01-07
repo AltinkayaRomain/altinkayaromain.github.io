@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Révisions - Virtualisation - Romain Altinkaya</title>
+    <title>Révisions - Virtualisation Expert - Romain Altinkaya</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,79 +19,158 @@
 
     <main class="container">
         <header class="hero">
-            <h1>Virtualisation & Infrastructures</h1>
-            <p class="terminal-text">_TSSR_HYPERVISOR_MANAGEMENT</p>
+            <h1>Virtualisation & Cloud Privé</h1>
+            <p class="terminal-text">_TSSR_HYPERVISOR_RING_0_ACCESS</p>
         </header>
 
         <div class="course-layout">
             
             <aside class="course-sidebar">
-                <h3>Sommaire</h3>
+                <h3>Sommaire Expert</h3>
                 <ul>
-                    <li><a href="#types"><i class="fas fa-chevron-right"></i> Hyperviseurs Type 1/2</a></li>
-                    <li><a href="#proxmox"><i class="fas fa-chevron-right"></i> Proxmox VE</a></li>
-                    <li><a href="#stockage"><i class="fas fa-chevron-right"></i> Stockage & Réseau</a></li>
-                    <li><a href="#save"><i class="fas fa-chevron-right"></i> Sauvegardes & Snapshots</a></li>
+                    <li><a href="#theory"><i class="fas fa-chevron-right"></i> Théorie (Ring 0 & CPU)</a></li>
+                    <li><a href="#hyper"><i class="fas fa-chevron-right"></i> Hyperviseurs (T1 vs T2)</a></li>
+                    <li><a href="#proxmox"><i class="fas fa-chevron-right"></i> Proxmox VE & LXC</a></li>
+                    <li><a href="#network"><i class="fas fa-chevron-right"></i> vSwitch & VLANs</a></li>
+                    <li><a href="#storage"><i class="fas fa-chevron-right"></i> Stockage (ZFS/SAN)</a></li>
+                    <li><a href="#cluster"><i class="fas fa-chevron-right"></i> Cluster HA & Quorum</a></li>
                 </ul>
             </aside>
 
             <div class="course-content">
                 
-                <section id="types" class="card">
+                <section id="theory" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-microchip card-icon-main"></i>
+                        <h2>1. Théorie : CPU & Isolation</h2>
+                    </div>
+                    <p>La virtualisation repose sur le partage des ressources matérielles via des anneaux de protection CPU.</p>
+                    
+                    <h3>A. Les "Protection Rings"</h3>
+                    <ul>
+                        <li><strong>Ring 0 (Kernel Mode) :</strong> Accès direct au matériel. C'est ici que vit l'Hyperviseur (Type 1).</li>
+                        <li><strong>Ring 3 (User Mode) :</strong> Espace utilisateur standard (Applications).</li>
+                    </ul>
+                    
+                    <div class="note-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Paravirtualisation (VirtIO) :</strong> Contrairement à l'émulation complète (lente), la VM "sait" qu'elle est virtuelle et utilise des drivers spécifiques pour parler directement à l'hyperviseur.</p>
+                    </div>
+                </section>
+
+                <section id="hyper" class="card">
                     <div class="card-header">
                         <i class="fas fa-layer-group card-icon-main"></i>
-                        <h2>1. Concepts de Virtualisation</h2>
+                        <h2>2. Types d'Hyperviseurs</h2>
                     </div>
-                    
-                    <ul>
-                        <li><strong>Type 1 (Bare Metal) :</strong> Installé directement sur le matériel (ESXi, Proxmox). Meilleures perfs.</li>
-                        <li><strong>Type 2 (Hosted) :</strong> Installé sur un OS (VirtualBox, VMware Workstation). Pour le test/dev.</li>
-                    </ul>
+                    <p>Comparatif pour l'examen TSSR :</p>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="text-align:left; padding:5px;">Type</th>
+                                    <th style="text-align:left; padding:5px;">Installation</th>
+                                    <th style="text-align:left; padding:5px;">Exemples</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="color: var(--accent); padding:5px;">Type 1 (Bare Metal)</td>
+                                    <td>Directement sur le "fer". Perf Max.</td>
+                                    <td><strong>ESXi, Proxmox, Hyper-V Server</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="color: var(--accent); padding:5px;">Type 2 (Hosted)</td>
+                                    <td>Sur un OS (Win/Linux). Latence élevée.</td>
+                                    <td><strong>VirtualBox, VMware Workstation</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
 
                 <section id="proxmox" class="card">
                     <div class="card-header">
                         <i class="fas fa-server card-icon-main"></i>
-                        <h2>2. Proxmox VE</h2>
+                        <h2>3. Proxmox VE</h2>
                     </div>
-                    <p>Solution Open Source basée sur Debian.</p>
-                    <div class="note-box">
-                        <i class="fas fa-info-circle"></i>
-                        <p><strong>Différence Clé :</strong> Proxmox gère les <strong>VM (KVM)</strong> (isolation totale) et les <strong>Conteneurs (LXC)</strong> (partage du noyau, plus léger).</p>
-                    </div>
+                    <p>Solution basée sur Debian. Gère deux types de virtualisation :</p>
+                    <ul>
+                        <li><strong>KVM (Kernel-based Virtual Machine) :</strong> Isolation totale (OS complet, Kernel dédié). Lourd mais compatible tout OS.</li>
+                        <li><strong>LXC (Linux Containers) :</strong> Isolation légère (Partage le Kernel de l'hôte). Démarrage instantané.</li>
+                    </ul>
                     <div class="terminal-block">
                         <div class="terminal-header">Shell Proxmox</div>
-                        <code>
-# Lister les VM
-qm list
+                        <code># Lister les VM et Conteneurs
+qm list      # Pour les VM (KVM)
+pct list     # Pour les Conteneurs (LXC)
 
-# Entrer dans un conteneur LXC
-pct enter 101
-                        </code>
+# Entrer dans un conteneur
+pct enter 101</code>
+                    </div>
+                </section>
+
+                <section id="network" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-network-wired card-icon-main"></i>
+                        <h2>4. vSwitch & VLANs</h2>
+                    </div>
+                    <p>Comment connecter les VM au réseau physique via le <strong>Linux Bridge (vmbr0)</strong>.</p>
+                    
+                    <h3>Gestion des Tags VLAN (802.1Q)</h3>
+                    
+                    <ul>
+                        <li><strong>EST (External Switch Tagging) :</strong> Le switch physique fait tout.</li>
+                        <li><strong>VST (Virtual Switch Tagging) :</strong> Le vSwitch tague. La VM est en "Access".</li>
+                        <li><strong>VGT (Virtual Guest Tagging) :</strong> La VM gère elle-même son Trunk.</li>
+                    </ul>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/network/interfaces (Proxmox)</div>
+                        <code>auto vmbr0
+iface vmbr0 inet static
+    address 192.168.1.10/24
+    gateway 192.168.1.254
+    bridge-ports eno1
+    bridge-stp off
+    bridge-fd 0
+    # Le bridge transporte les VLANs vers les VM</code>
                     </div>
                 </section>
 
                 <section id="stockage" class="card">
                     <div class="card-header">
                         <i class="fas fa-hdd card-icon-main"></i>
-                        <h2>3. Stockage & Réseau Virtuel</h2>
+                        <h2>5. Stockage : ZFS & SAN</h2>
                     </div>
+                    <h3>Technologies Locales</h3>
                     <ul>
-                        <li><strong>Stockage :</strong> LVM-Thin (Provisionnement dynamique), ZFS, Ceph (Distribué).</li>
-                        <li><strong>Réseau :</strong> Linux Bridge (vmbr0) pour relier les VM à la carte physique.</li>
+                        <li><strong>LVM-Thin :</strong> Permet l'Over-Provisioning (Allouer plus que disponible).</li>
+                        <li><strong>ZFS :</strong> Système de fichiers avancé avec RAID logiciel et Snapshots instantanés. <br><em>Attention : Très gourmand en RAM (1Go RAM pour 1To disque).</em></li>
+                    </ul>
+                    
+                    <h3>Stockage Distribué (Cluster)</h3>
+                    
+                    <ul>
+                        <li><strong>SAN (iSCSI) :</strong> Accès bloc (Rapide). Le serveur voit un disque dur local.</li>
+                        <li><strong>NAS (NFS) :</strong> Accès fichier (Plus lent). Partage via le réseau.</li>
                     </ul>
                 </section>
 
-                <section id="save" class="card">
+                <section id="cluster" class="card">
                     <div class="card-header">
-                        <i class="fas fa-save card-icon-main"></i>
-                        <h2>4. Stratégie de Sauvegarde</h2>
+                        <i class="fas fa-project-diagram card-icon-main"></i>
+                        <h2>6. Haute Disponibilité (HA)</h2>
                     </div>
-                    <p>Ne pas confondre Snapshot et Backup.</p>
-                    <ul>
-                        <li><strong>Snapshot :</strong> "Photo" à un instant T. Utile avant une mise à jour. N'est PAS une sauvegarde (si le disque meurt, le snapshot aussi).</li>
-                        <li><strong>Backup :</strong> Copie complète de la VM exportée sur un autre support (NAS, Cloud).</li>
-                    </ul>
+                    <p>Regrouper plusieurs nœuds pour survivre à une panne.</p>
+                    
+                    <h3>Le Quorum (Vote)</h3>
+                    <p>Règle : <code>(Nombre de nœuds / 2) + 1</code>. Pour un cluster de 3 nœuds, il faut 2 votes pour fonctionner. Si 2 nœuds tombent, le dernier se bloque (Read-only) pour éviter la corruption de données (Split-Brain).</p>
+                    
+                    <div class="note-box">
+                        <i class="fas fa-skull"></i>
+                        <p><strong>Fencing (STONITH) :</strong> "Shoot The Other Node In The Head". Mécanisme de sécurité qui éteint électriquement un nœud qui ne répond plus pour l'empêcher d'écrire sur le disque partagé.</p>
+                    </div>
                 </section>
 
             </div>
