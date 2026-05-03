@@ -1,254 +1,289 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Administration Linux (Debian/RHEL)</title>
-  <link rel="stylesheet" href="../assets/css/style.css" />
-  <style>
-    /* ── Surcharges locales pour les nouvelles sections ── */
-    .section-new {
-      border-left: 3px solid var(--accent, #00ff88);
-      padding-left: 1rem;
-      margin-bottom: 2rem;
-    }
-    .badge-new {
-      display: inline-block;
-      font-size: .65rem;
-      background: var(--accent, #00ff88);
-      color: #000;
-      padding: 2px 6px;
-      border-radius: 3px;
-      margin-left: .5rem;
-      vertical-align: middle;
-      font-family: monospace;
-      letter-spacing: .05em;
-    }
-    table { width:100%; border-collapse:collapse; margin:1rem 0; }
-    th, td { border:1px solid rgba(255,255,255,.15); padding:.5rem .75rem; text-align:left; font-size:.9rem; }
-    th { background:rgba(255,255,255,.07); }
-    code { font-family: 'Courier New', monospace; font-size:.88rem; }
-    .perm-grid {
-      display:grid;
-      grid-template-columns: repeat(3,1fr);
-      gap:.5rem;
-      margin:1rem 0;
-    }
-    .perm-cell {
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:4px;
-      padding:.6rem;
-      text-align:center;
-      font-family:monospace;
-    }
-    .perm-cell span { display:block; font-size:1.4rem; margin-bottom:.25rem; }
-    .tip {
-      background:rgba(0,255,136,.07);
-      border:1px solid rgba(0,255,136,.25);
-      border-radius:4px;
-      padding:.75rem 1rem;
-      margin:1rem 0;
-      font-size:.9rem;
-    }
-    .warn {
-      background:rgba(255,200,0,.07);
-      border:1px solid rgba(255,200,0,.3);
-      border-radius:4px;
-      padding:.75rem 1rem;
-      margin:1rem 0;
-      font-size:.9rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révisions - Linux Expert - Romain Altinkaya</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
+    <div id="particles-js"></div>
+    <div id="header-placeholder"></div>
  
-<main>
+    <main class="container">
+        <header class="hero">
+            <h1>Administration Linux (Debian/RHEL)</h1>
+            <p class="terminal-text">_TSSR_ROOT_ACCESS_GRANTED</p>
+        </header>
  
-  <h1># Administration Linux (Debian/RHEL)</h1>
-  <p>\_TSSR\_ROOT\_ACCESS\_GRANTED</p>
+        <div class="course-layout">
  
-  <!-- ══════════════════════════════════════════════
-       SOMMAIRE
-  ══════════════════════════════════════════════ -->
-  <nav>
-    <h3>Sommaire Expert</h3>
-    <ul>
-      <li><a href="#base">Commandes de base & Navigation</a> <span class="badge-new">+</span></li>
-      <li><a href="#users">Utilisateurs & Groupes</a> <span class="badge-new">+</span></li>
-      <li><a href="#chmod">chmod — Droits en détail</a> <span class="badge-new">+</span></li>
-      <li><a href="#chown">chown / chgrp</a> <span class="badge-new">+</span></li>
-      <li><a href="#arbo">Arborescence FHS & Recherche</a></li>
-      <li><a href="#perms">Droits Spéciaux (SUID/SGID/Sticky) & ACL</a></li>
-      <li><a href="#lvm">Disques & LVM</a></li>
-      <li><a href="#archives">Archives & Paquets</a> <span class="badge-new">+</span></li>
-      <li><a href="#process">Processus & Systemd</a></li>
-      <li><a href="#network">Réseau & SSH</a></li>
-      <li><a href="#bash">Scripting Bash</a></li>
-    </ul>
-  </nav>
+            <aside class="course-sidebar">
+                <h3>Sommaire Expert</h3>
+                <ul>
+                    <li><a href="#base"><i class="fas fa-chevron-right"></i> Commandes de base</a></li>
+                    <li><a href="#users"><i class="fas fa-chevron-right"></i> Utilisateurs & Groupes</a></li>
+                    <li><a href="#chmod"><i class="fas fa-chevron-right"></i> chmod — Droits</a></li>
+                    <li><a href="#chown"><i class="fas fa-chevron-right"></i> chown / chgrp</a></li>
+                    <li><a href="#arbo"><i class="fas fa-chevron-right"></i> Arborescence FHS</a></li>
+                    <li><a href="#perms"><i class="fas fa-chevron-right"></i> SUID / SGID / ACL</a></li>
+                    <li><a href="#lvm"><i class="fas fa-chevron-right"></i> Disques & LVM</a></li>
+                    <li><a href="#archives"><i class="fas fa-chevron-right"></i> Archives & Paquets</a></li>
+                    <li><a href="#process"><i class="fas fa-chevron-right"></i> Processus & Systemd</a></li>
+                    <li><a href="#network"><i class="fas fa-chevron-right"></i> Réseau & SSH</a></li>
+                    <li><a href="#bash"><i class="fas fa-chevron-right"></i> Scripting Bash</a></li>
+                </ul>
+            </aside>
  
-  <!-- ══════════════════════════════════════════════
-       0. COMMANDES DE BASE
-  ══════════════════════════════════════════════ -->
-  <section id="base" class="section-new">
-    <h2>0. Commandes de base &amp; Navigation <span class="badge-new">NOUVEAU</span></h2>
-    <p>Avant tout le reste : se déplacer et manipuler des fichiers sans hésitation.</p>
+            <div class="course-content">
  
-    <h3>A. Navigation</h3>
-    <table>
-      <tr><th>Commande</th><th>Effet</th><th>Exemple</th></tr>
-      <tr><td><code>pwd</code></td><td>Affiche le dossier courant</td><td><code>pwd</code> → <code>/home/romain</code></td></tr>
-      <tr><td><code>ls</code></td><td>Liste le contenu</td><td><code>ls -la</code> (détails + cachés)</td></tr>
-      <tr><td><code>cd</code></td><td>Change de dossier</td><td><code>cd /etc</code> — <code>cd ..</code> — <code>cd ~</code></td></tr>
-      <tr><td><code>tree</code></td><td>Arborescence visuelle</td><td><code>tree -L 2 /var</code></td></tr>
-    </table>
+                <!-- ═══════════════════════════════════════
+                     0. COMMANDES DE BASE
+                ═══════════════════════════════════════ -->
+                <section id="base" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-terminal card-icon-main"></i>
+                        <h2>0. Commandes de base &amp; Navigation</h2>
+                    </div>
+                    <p>Avant tout le reste : se déplacer et manipuler des fichiers sans hésitation.</p>
  
-    <h3>B. Manipulation de fichiers</h3>
-    <table>
-      <tr><th>Commande</th><th>Effet</th><th>Exemple</th></tr>
-      <tr><td><code>touch</code></td><td>Crée un fichier vide (ou màj horodatage)</td><td><code>touch rapport.txt</code></td></tr>
-      <tr><td><code>mkdir</code></td><td>Crée un dossier</td><td><code>mkdir -p /data/logs/2026</code></td></tr>
-      <tr><td><code>cp</code></td><td>Copie</td><td><code>cp -r /src /dst</code></td></tr>
-      <tr><td><code>mv</code></td><td>Déplace ou renomme</td><td><code>mv ancien.txt nouveau.txt</code></td></tr>
-      <tr><td><code>rm</code></td><td>Supprime</td><td><code>rm -rf /tmp/test</code> ⚠️ irréversible</td></tr>
-      <tr><td><code>cat</code></td><td>Affiche un fichier</td><td><code>cat /etc/hostname</code></td></tr>
-      <tr><td><code>less</code></td><td>Lecture paginée</td><td><code>less /var/log/syslog</code></td></tr>
-      <tr><td><code>nano / vim</code></td><td>Éditeurs texte</td><td><code>nano /etc/hosts</code></td></tr>
-    </table>
+                    <h3>A. Navigation</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th>Commande</th><th>Effet</th><th>Exemple</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);"><code>pwd</code></td><td>Affiche le dossier courant</td><td><code>pwd</code> → <code>/home/romain</code></td></tr>
+                                <tr><td style="color:var(--accent);"><code>ls</code></td><td>Liste le contenu</td><td><code>ls -la</code> (détails + cachés)</td></tr>
+                                <tr><td style="color:var(--accent);"><code>cd</code></td><td>Change de dossier</td><td><code>cd /etc</code> · <code>cd ..</code> · <code>cd ~</code></td></tr>
+                                <tr><td style="color:var(--accent);"><code>tree</code></td><td>Arborescence visuelle</td><td><code>tree -L 2 /var</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
  
-    <div class="tip">💡 <strong>Astuce examen :</strong> <code>ls -la</code> est la commande la plus utilisée pour vérifier les droits. Apprenez à lire sa sortie en une seconde.</div>
+                    <h3>B. Manipulation de fichiers</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th>Commande</th><th>Effet</th><th>Exemple</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);"><code>touch</code></td><td>Crée un fichier vide</td><td><code>touch rapport.txt</code></td></tr>
+                                <tr><td style="color:var(--accent);"><code>mkdir</code></td><td>Crée un dossier</td><td><code>mkdir -p /data/logs/2026</code></td></tr>
+                                <tr><td style="color:var(--accent);"><code>cp</code></td><td>Copie</td><td><code>cp -r /src /dst</code></td></tr>
+                                <tr><td style="color:var(--accent);"><code>mv</code></td><td>Déplace ou renomme</td><td><code>mv ancien.txt nouveau.txt</code></td></tr>
+                                <tr><td style="color:var(--accent);"><code>rm</code></td><td>Supprime ⚠️ irréversible</td><td><code>rm -rf /tmp/test</code></td></tr>
+                                <tr><td style="color:var(--accent);"><code>cat</code></td><td>Affiche un fichier</td><td><code>cat /etc/hostname</code></td></tr>
+                                <tr><td style="color:var(--accent);"><code>less</code></td><td>Lecture paginée</td><td><code>less /var/log/syslog</code></td></tr>
+                                <tr><td style="color:var(--accent);"><code>nano / vim</code></td><td>Éditeurs texte</td><td><code>nano /etc/hosts</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
  
-    <h3>C. Lire la sortie de <code>ls -la</code></h3>
-    <pre><code>drwxr-xr-x  2 romain admins 4096 mai  3 10:00 dossier/
--rw-r--r--  1 romain admins  512 mai  3 10:00 fichier.txt
-│└────────┘    └────┘ └────┘      └──────────┘ └────────┘
-│ droits        user   group       date          nom
-│
-│ 1er car. : d=dossier  -=fichier  l=lien symbolique
-│ Ensuite  : rwx = User | rwx = Group | rwx = Others</code></pre>
-  </section>
+                    <h3>C. Lire la sortie de <code>ls -la</code></h3>
+                    <div class="note-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Décryptage d'une ligne :</strong><br>
+                        <code>-rw-r--r-- 1 romain admins 512 mai 3 10:00 fichier.txt</code><br><br>
+                        <strong>1er caractère :</strong> <code>d</code>=dossier · <code>-</code>=fichier · <code>l</code>=lien symbolique<br>
+                        <strong>Droits :</strong> <code>rw-</code> User | <code>r--</code> Group | <code>r--</code> Others<br>
+                        <strong>Ensuite :</strong> nb liens · propriétaire · groupe · taille · date · nom</p>
+                    </div>
  
-  <!-- ══════════════════════════════════════════════
-       1. UTILISATEURS & GROUPES
-  ══════════════════════════════════════════════ -->
-  <section id="users" class="section-new">
-    <h2>1. Utilisateurs &amp; Groupes <span class="badge-new">NOUVEAU</span></h2>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Exemples pratiques</div>
+                        <code># Lister avec détails et fichiers cachés
+ls -la /home/romain
  
-    <h3>A. Les fichiers système clés</h3>
-    <table>
-      <tr><th>Fichier</th><th>Contenu</th></tr>
-      <tr><td><code>/etc/passwd</code></td><td>Liste des users : <code>login:x:UID:GID:commentaire:home:shell</code></td></tr>
-      <tr><td><code>/etc/shadow</code></td><td>Mots de passe hashés (lisible que par root)</td></tr>
-      <tr><td><code>/etc/group</code></td><td>Liste des groupes : <code>nom:x:GID:membres</code></td></tr>
-    </table>
+# Chercher un fichier par nom
+find / -name "sshd_config" 2>/dev/null
  
-    <pre><code># /etc/passwd — exemple de ligne
-romain:x:1001:1001:Romain Altinkaya:/home/romain:/bin/bash
-#      │  │    │   └─ commentaire    └─ home       └─ shell
-#      │  │    └─ GID primaire
-#      │  └─ UID
-#      └─ mot de passe (x = stocké dans /etc/shadow)</code></pre>
+# Afficher les 20 dernières lignes d'un log en direct
+tail -f -n 20 /var/log/syslog</code>
+                    </div>
+                </section>
  
-    <h3>B. Gestion des utilisateurs</h3>
-    <pre><code># Créer un utilisateur (avec home + shell bash)
+                <!-- ═══════════════════════════════════════
+                     1. UTILISATEURS & GROUPES
+                ═══════════════════════════════════════ -->
+                <section id="users" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-users card-icon-main"></i>
+                        <h2>1. Utilisateurs &amp; Groupes</h2>
+                    </div>
+ 
+                    <h3>A. Les fichiers système clés</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th>Fichier</th><th>Contenu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);"><code>/etc/passwd</code></td><td><code>login:x:UID:GID:commentaire:home:shell</code></td></tr>
+                                <tr><td style="color:var(--accent);"><code>/etc/shadow</code></td><td>Mots de passe hashés (lisible par root uniquement)</td></tr>
+                                <tr><td style="color:var(--accent);"><code>/etc/group</code></td><td>Liste des groupes : <code>nom:x:GID:membres</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+ 
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/passwd — exemple de ligne</div>
+                        <code>romain:x:1001:1001:Romain Altinkaya:/home/romain:/bin/bash
+#      │  │    │   └─ commentaire    └─ répertoire home  └─ shell
+#      │  │    └─ GID (groupe primaire)
+#      │  └─ UID (identifiant unique)
+#      └─ "x" = mot de passe stocké dans /etc/shadow</code>
+                    </div>
+ 
+                    <h3>B. Gestion des utilisateurs</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">useradd / usermod / userdel</div>
+                        <code># Créer un utilisateur (avec home + shell bash)
 useradd -m -s /bin/bash jean
  
 # Définir / changer le mot de passe
 passwd jean
  
-# Modifier un utilisateur existant
-usermod -aG sudo jean          # Ajouter jean au groupe sudo (sans le retirer des autres)
-usermod -s /bin/sh jean        # Changer le shell
-usermod -l nouveau_login jean  # Renommer le login
+# Ajouter jean au groupe sudo (sans le retirer des autres)
+usermod -aG sudo jean
  
-# Supprimer un utilisateur (et son home)
+# Changer le shell
+usermod -s /bin/sh jean
+ 
+# Supprimer un utilisateur ET son dossier home
 userdel -r jean
  
-# Afficher les groupes d'un user
+# Afficher les groupes et l'UID/GID d'un user
 groups jean
-id jean</code></pre>
+id jean</code>
+                    </div>
  
-    <h3>C. Gestion des groupes</h3>
-    <pre><code># Créer un groupe
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Piège examen :</strong> <code>usermod -G admins jean</code> (sans <code>-a</code>) <strong>écrase</strong> tous les groupes de jean. Toujours utiliser <code>-aG</code> pour <em>ajouter</em> sans supprimer les groupes existants.</p>
+                    </div>
+ 
+                    <h3>C. Gestion des groupes</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">groupadd / groupdel</div>
+                        <code># Créer un groupe
 groupadd admins
  
 # Ajouter un user à un groupe (méthode propre)
 usermod -aG admins jean
  
-# Supprimer un groupe
-groupdel admins
- 
 # Voir tous les membres d'un groupe
-getent group admins</code></pre>
+getent group admins
  
-    <div class="warn">⚠️ <strong>Piège examen :</strong> <code>usermod -G admins jean</code> (sans le <code>-a</code>) <strong>écrase</strong> tous les groupes de jean et ne lui laisse que "admins". Toujours utiliser <code>-aG</code> pour <em>ajouter</em>.</div>
+# Supprimer un groupe
+groupdel admins</code>
+                    </div>
  
-    <h3>D. Devenir root / changer d'identité</h3>
-    <pre><code>sudo commande          # Exécuter UNE commande en root
-sudo -i                # Ouvrir un shell root complet
-su - jean              # Changer de session vers l'user jean (avec son environnement)
-whoami                 # Vérifier qui on est actuellement</code></pre>
-  </section>
+                    <h3>D. Changer d'identité</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">sudo / su</div>
+                        <code>sudo commande     # Exécuter UNE commande en root
+sudo -i           # Ouvrir un shell root complet
+su - jean         # Changer vers l'user jean (avec son environnement)
+whoami            # Vérifier qui on est actuellement</code>
+                    </div>
+                </section>
  
-  <!-- ══════════════════════════════════════════════
-       2. CHMOD
-  ══════════════════════════════════════════════ -->
-  <section id="chmod" class="section-new">
-    <h2>2. chmod — Modifier les droits <span class="badge-new">NOUVEAU</span></h2>
+                <!-- ═══════════════════════════════════════
+                     2. CHMOD
+                ═══════════════════════════════════════ -->
+                <section id="chmod" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-lock card-icon-main"></i>
+                        <h2>2. chmod — Modifier les droits</h2>
+                    </div>
  
-    <h3>A. Les 3 valeurs à connaître par cœur</h3>
-    <div class="perm-grid">
-      <div class="perm-cell"><span>r</span>Lecture<br/><strong>4</strong></div>
-      <div class="perm-cell"><span>w</span>Écriture<br/><strong>2</strong></div>
-      <div class="perm-cell"><span>x</span>Exécution<br/><strong>1</strong></div>
-    </div>
-    <p>On additionne les valeurs : <code>rwx = 4+2+1 = 7</code> · <code>rw- = 4+2 = 6</code> · <code>r-x = 4+1 = 5</code> · <code>r-- = 4</code></p>
+                    <h3>A. Les 3 valeurs à connaître par cœur</h3>
+                    <div class="note-box">
+                        <i class="fas fa-calculator"></i>
+                        <p>
+                            <strong>r (Lecture) = 4</strong> &nbsp;·&nbsp; <strong>w (Écriture) = 2</strong> &nbsp;·&nbsp; <strong>x (Exécution) = 1</strong><br><br>
+                            On additionne : <code>rwx = 4+2+1 = <strong>7</strong></code> &nbsp;·&nbsp; <code>rw- = 4+2 = <strong>6</strong></code> &nbsp;·&nbsp; <code>r-x = 4+1 = <strong>5</strong></code> &nbsp;·&nbsp; <code>r-- = <strong>4</strong></code> &nbsp;·&nbsp; <code>--- = <strong>0</strong></code><br><br>
+                            Le chiffre octal se compose de <strong>3 positions : User | Group | Others</strong><br>
+                            Exemple : <code>755</code> = <code>rwx</code> pour User, <code>r-x</code> pour Group, <code>r-x</code> pour Others
+                        </p>
+                    </div>
  
-    <h3>B. La notation octale (3 chiffres = User | Group | Others)</h3>
-    <table>
-      <tr><th>Octal</th><th>Notation symbolique</th><th>Signification</th><th>Cas d'usage typique</th></tr>
-      <tr><td><code>777</code></td><td><code>rwxrwxrwx</code></td><td>Tout le monde fait tout</td><td>⚠️ À éviter en prod</td></tr>
-      <tr><td><code>755</code></td><td><code>rwxr-xr-x</code></td><td>Owner: tout / Others: lire+exécuter</td><td>Scripts, dossiers web publics</td></tr>
-      <tr><td><code>644</code></td><td><code>rw-r--r--</code></td><td>Owner: lire+écrire / Others: lire</td><td>Fichiers de config, pages HTML</td></tr>
-      <tr><td><code>600</code></td><td><code>rw-------</code></td><td>Owner seulement, pas d'exécution</td><td>Clés SSH (<code>~/.ssh/id_rsa</code>)</td></tr>
-      <tr><td><code>700</code></td><td><code>rwx------</code></td><td>Owner seul, exécution incluse</td><td>Scripts privés</td></tr>
-      <tr><td><code>640</code></td><td><code>rw-r-----</code></td><td>Owner: rw / Group: r / Others: rien</td><td>Logs applicatifs</td></tr>
-    </table>
+                    <h3>B. Tableau de référence rapide</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th>Octal</th><th>Symbolique</th><th>Signification</th><th>Cas d'usage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);"><code>777</code></td><td><code>rwxrwxrwx</code></td><td>Tout le monde fait tout</td><td>⚠️ À éviter en prod</td></tr>
+                                <tr><td style="color:var(--accent);"><code>755</code></td><td><code>rwxr-xr-x</code></td><td>Owner: tout / Others: lire+exécuter</td><td>Scripts, dossiers web publics</td></tr>
+                                <tr><td style="color:var(--accent);"><code>644</code></td><td><code>rw-r--r--</code></td><td>Owner: lire+écrire / Others: lire</td><td>Fichiers de config, pages HTML</td></tr>
+                                <tr><td style="color:var(--accent);"><code>600</code></td><td><code>rw-------</code></td><td>Owner seulement, pas d'exécution</td><td>Clés SSH (<code>~/.ssh/id_rsa</code>)</td></tr>
+                                <tr><td style="color:var(--accent);"><code>700</code></td><td><code>rwx------</code></td><td>Owner seul, exécution incluse</td><td>Scripts privés</td></tr>
+                                <tr><td style="color:var(--accent);"><code>640</code></td><td><code>rw-r-----</code></td><td>Owner: rw / Group: r / Others: rien</td><td>Logs applicatifs</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
  
-    <h3>C. Commandes chmod</h3>
-    <pre><code># ── Notation OCTALE ──────────────────────────────────
-chmod 755 script.sh          # rwxr-xr-x
-chmod 644 index.html         # rw-r--r--
-chmod -R 750 /var/www/html   # Récursif sur tout le dossier
+                    <h3>C. Notation octale vs symbolique</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">chmod — exemples pratiques</div>
+                        <code># ── NOTATION OCTALE ─────────────────────────────
+chmod 755 script.sh           # rwxr-xr-x
+chmod 644 index.html          # rw-r--r--
+chmod -R 750 /var/www/html    # Récursif sur tout le dossier
  
-# ── Notation SYMBOLIQUE ───────────────────────────────
+# ── NOTATION SYMBOLIQUE ──────────────────────────
 # Syntaxe : [u/g/o/a] [+/-/=] [r/w/x]
-chmod u+x script.sh          # Ajouter l'exécution pour le propriétaire
-chmod g-w fichier.txt        # Retirer l'écriture au groupe
-chmod o= fichier.txt         # Others : aucun droit (vide)
-chmod a+r rapport.txt        # Tout le monde peut lire (a = all)
-chmod u=rw,g=r,o= secret.txt # Définir précisément chaque catégorie</code></pre>
+chmod u+x script.sh           # Ajouter l'exécution pour le propriétaire
+chmod g-w fichier.txt         # Retirer l'écriture au groupe
+chmod o= fichier.txt          # Others : aucun droit
+chmod a+r rapport.txt         # Tout le monde peut lire (a = all)
+chmod u=rw,g=r,o= secret.txt  # Définir chaque catégorie précisément
  
-    <div class="tip">💡 <strong>Mémo examen :</strong> Pour les scripts shell, pensez toujours <code>chmod +x</code> (raccourci pour <code>a+x</code>). Pour les clés SSH : <code>chmod 600 id_rsa</code> — SSH refusera de fonctionner sinon !</div>
- 
-    <h3>D. Vérifier les droits après modification</h3>
-    <pre><code>ls -l script.sh
+# ── VÉRIFIER après modification ──────────────────
+ls -l script.sh
 # -rwxr-xr-x 1 romain admins 512 mai 3 10:00 script.sh
-#  └──┘└──┘└──┘
-#  user group others
  
-stat fichier.txt   # Affichage détaillé (droits en octal + symbolique)</code></pre>
-  </section>
+stat fichier.txt  # Affichage octal + symbolique</code>
+                    </div>
  
-  <!-- ══════════════════════════════════════════════
-       3. CHOWN / CHGRP
-  ══════════════════════════════════════════════ -->
-  <section id="chown" class="section-new">
-    <h2>3. chown &amp; chgrp — Changer propriétaire <span class="badge-new">NOUVEAU</span></h2>
+                    <div class="note-box">
+                        <i class="fas fa-key"></i>
+                        <p><strong>Examen pratique :</strong> Pour les clés SSH, <code>chmod 600 id_rsa</code> est <strong>obligatoire</strong> — SSH refusera de fonctionner si la clé est lisible par d'autres. Pour rendre un script exécutable : <code>chmod +x script.sh</code>.</p>
+                    </div>
+                </section>
  
-    <h3>A. chown</h3>
-    <pre><code># Changer le propriétaire
+                <!-- ═══════════════════════════════════════
+                     3. CHOWN / CHGRP
+                ═══════════════════════════════════════ -->
+                <section id="chown" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-user-shield card-icon-main"></i>
+                        <h2>3. chown &amp; chgrp — Changer le propriétaire</h2>
+                    </div>
+ 
+                    <h3>A. chown</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">chown — syntaxe et exemples</div>
+                        <code># Changer uniquement le propriétaire
 chown jean fichier.txt
  
 # Changer propriétaire ET groupe en une commande (syntaxe user:group)
@@ -257,130 +292,200 @@ chown jean:admins fichier.txt
 # Changer uniquement le groupe (avec chown)
 chown :admins fichier.txt
  
-# Récursif sur tout un dossier
+# Récursif sur tout un dossier (très courant en prod)
 chown -R www-data:www-data /var/www/html
  
 # Vérifier
 ls -l fichier.txt
-# -rw-r--r-- 1 jean admins 512 mai 3 10:00 fichier.txt</code></pre>
+# -rw-r--r-- 1 jean admins 512 mai 3 10:00 fichier.txt</code>
+                    </div>
  
-    <h3>B. chgrp</h3>
-    <pre><code># Changer uniquement le groupe
-chgrp admins fichier.txt
-chgrp -R developers /opt/projet   # Récursif</code></pre>
+                    <h3>B. chgrp</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">chgrp — changer uniquement le groupe</div>
+                        <code>chgrp admins fichier.txt
+chgrp -R developers /opt/projet   # Récursif</code>
+                    </div>
  
-    <div class="warn">⚠️ <strong>Règle importante :</strong> Seul <strong>root</strong> peut changer le propriétaire d'un fichier. Un user peut changer le groupe d'un fichier qu'il possède, à condition d'<em>appartenir</em> au groupe cible.</div>
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Règle importante :</strong> Seul <strong>root</strong> peut changer le propriétaire d'un fichier. Un user peut changer le groupe d'un fichier qu'il possède, à condition d'<em>appartenir</em> au groupe cible.</p>
+                    </div>
  
-    <h3>C. Cas pratique complet — Déploiement d'un site web</h3>
-    <pre><code># Scenario : déployer un site dans /var/www/monsite
-# L'user "romain" doit pouvoir éditer, Apache (www-data) doit lire
- 
-# 1. Créer le dossier
+                    <h3>C. Cas pratique complet — Déploiement web</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Scénario : site Apache avec user "romain" + Apache (www-data)</div>
+                        <code># 1. Créer le dossier du site
 mkdir -p /var/www/monsite
  
-# 2. Attribuer le bon propriétaire et groupe
+# 2. Attribuer : romain propriétaire, www-data groupe
 chown -R romain:www-data /var/www/monsite
  
-# 3. Appliquer les droits
-chmod -R 750 /var/www/monsite   # romain:rwx / www-data:r-x / others:---
-chmod -R 640 /var/www/monsite/*.html  # Fichiers : romain:rw / www-data:r
+# 3. romain peut tout faire, Apache peut lire/naviguer, Others : rien
+chmod -R 750 /var/www/monsite
  
 # 4. Vérifier
-ls -la /var/www/monsite</code></pre>
-  </section>
+ls -la /var/www/monsite
+# drwxr-x--- 2 romain www-data 4096 mai 3 10:00 monsite</code>
+                    </div>
+                </section>
  
-  <!-- ══════════════════════════════════════════════
-       4. ARBORESCENCE FHS (existant)
-  ══════════════════════════════════════════════ -->
-  <section id="arbo">
-    <h2>4. Arborescence FHS (File Hierarchy Standard)</h2>
-    <p>Sous Linux, "Tout est fichier". Comprendre où ranger les choses est la base.</p>
-    <ul>
-      <li><strong>/etc</strong> : Fichiers de configuration (ex: <code>/etc/network/interfaces</code>, <code>/etc/passwd</code>).</li>
-      <li><strong>/var</strong> : Données variables (Logs dans <code>/var/log</code>, Site Web dans <code>/var/www</code>).</li>
-      <li><strong>/dev</strong> : Périphériques matériels (Disques <code>sda</code>, terminaux <code>tty</code>).</li>
-      <li><strong>/proc</strong> : Système de fichiers virtuel (Info Noyau, CPU, RAM). N'existe qu'en RAM.</li>
-      <li><strong>/home</strong> : Dossiers personnels des utilisateurs.</li>
-      <li><strong>/tmp</strong> : Fichiers temporaires (vidé au reboot, Sticky Bit actif).</li>
-      <li><strong>/bin, /sbin</strong> : Binaires essentiels du système.</li>
-      <li><strong>/opt</strong> : Logiciels tiers installés manuellement.</li>
-    </ul>
-    <pre><code># Trouver les fichiers modifiés il y a moins de 24h
+                <!-- ═══════════════════════════════════════
+                     4. ARBORESCENCE FHS
+                ═══════════════════════════════════════ -->
+                <section id="arbo" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-folder-tree card-icon-main"></i>
+                        <h2>4. Arborescence FHS (File Hierarchy Standard)</h2>
+                    </div>
+                    <p>Sous Linux, "Tout est fichier". Comprendre où ranger les choses est la base.</p>
+                    <ul>
+                        <li><strong>/etc :</strong> Fichiers de configuration (ex: <code>/etc/network/interfaces</code>, <code>/etc/passwd</code>).</li>
+                        <li><strong>/var :</strong> Données variables (Logs dans <code>/var/log</code>, Site Web dans <code>/var/www</code>).</li>
+                        <li><strong>/dev :</strong> Périphériques matériels (Disques <code>sda</code>, terminaux <code>tty</code>).</li>
+                        <li><strong>/proc :</strong> Système de fichiers virtuel (Info Noyau, CPU, RAM). N'existe qu'en RAM.</li>
+                        <li><strong>/home :</strong> Dossiers personnels des utilisateurs.</li>
+                        <li><strong>/tmp :</strong> Fichiers temporaires (vidé au reboot, Sticky Bit actif).</li>
+                        <li><strong>/opt :</strong> Logiciels tiers installés manuellement.</li>
+                        <li><strong>/bin, /sbin :</strong> Binaires essentiels du système.</li>
+                    </ul>
+ 
+                    <div class="terminal-block">
+                        <div class="terminal-header">Commandes de recherche</div>
+                        <code># Trouver les fichiers modifiés il y a moins de 24h
 find /home -mtime -1
+ 
 # Chercher "ERROR" dans tous les logs (insensible à la casse)
 grep -ri "error" /var/log/
+ 
 # Trouver tous les fichiers avec le SUID activé (audit sécurité)
-find / -perm -4000 -type f 2>/dev/null</code></pre>
-  </section>
+find / -perm -4000 -type f 2>/dev/null</code>
+                    </div>
+                </section>
  
-  <!-- ══════════════════════════════════════════════
-       5. DROITS SPÉCIAUX & ACL (existant enrichi)
-  ══════════════════════════════════════════════ -->
-  <section id="perms">
-    <h2>5. Droits Spéciaux (SUID / SGID / Sticky) &amp; ACL</h2>
+                <!-- ═══════════════════════════════════════
+                     5. DROITS SPÉCIAUX & ACL
+                ═══════════════════════════════════════ -->
+                <section id="perms" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-key card-icon-main"></i>
+                        <h2>5. Droits Spéciaux : SUID, SGID, Sticky &amp; ACL</h2>
+                    </div>
  
-    <h3>A. Droits Standards — Rappel octal</h3>
-    <p>User (u) / Group (g) / Others (o). Lecture (4) + Écriture (2) + Exécution (1).</p>
+                    <h3>A. Droits Spéciaux (Le piège de l'examen)</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th>Nom</th><th>Code</th><th>Effet</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="color:var(--accent);">SUID (Set User ID)</td>
+                                    <td>u+s (4000)</td>
+                                    <td>Exécute avec les droits du <strong>propriétaire</strong> (ex: <code>passwd</code>).</td>
+                                </tr>
+                                <tr>
+                                    <td style="color:var(--accent);">SGID (Set Group ID)</td>
+                                    <td>g+s (2000)</td>
+                                    <td>Dans un dossier : les fichiers créés héritent du <strong>groupe</strong> parent (Collaboratif).</td>
+                                </tr>
+                                <tr>
+                                    <td style="color:var(--accent);">Sticky Bit</td>
+                                    <td>+t (1000)</td>
+                                    <td>Seul le propriétaire peut supprimer son fichier (utilisé sur <code>/tmp</code>).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
  
-    <h3>B. Droits Spéciaux (Le piège de l'examen)</h3>
-    <table>
-      <tr><th>Nom</th><th>Code</th><th>Effet</th></tr>
-      <tr><td>SUID (Set User ID)</td><td><code>u+s (4000)</code></td><td>Exécute avec les droits du <strong>propriétaire</strong> (ex: <code>passwd</code>).</td></tr>
-      <tr><td>SGID (Set Group ID)</td><td><code>g+s (2000)</code></td><td>Dans un dossier : les fichiers créés héritent du <strong>groupe</strong> parent.</td></tr>
-      <tr><td>Sticky Bit</td><td><code>+t (1000)</code></td><td>Seul le propriétaire peut supprimer son fichier (utilisé sur <code>/tmp</code>).</td></tr>
-    </table>
-    <pre><code># Appliquer un Sticky Bit sur un dossier partagé
+                    <div class="terminal-block">
+                        <div class="terminal-header">Appliquer les droits spéciaux</div>
+                        <code># Sticky Bit sur un dossier partagé
 chmod +t /partage
-chmod 1777 /partage   # Équivalent octal
+chmod 1777 /partage          # Équivalent octal
  
-# Appliquer SUID sur un binaire
+# SUID sur un binaire
 chmod u+s /usr/bin/monprog
-chmod 4755 /usr/bin/monprog   # Équivalent octal</code></pre>
+chmod 4755 /usr/bin/monprog  # Équivalent octal</code>
+                    </div>
  
-    <h3>C. ACL (Access Control Lists)</h3>
-    <p>Quand UGO ne suffit pas (ex: donner des droits à 2 utilisateurs spécifiques).</p>
-    <pre><code># Donner rwx à l'utilisateur "jean" sur un fichier
+                    <h3>B. ACL (Access Control Lists)</h3>
+                    <p>Quand UGO ne suffit pas (ex: donner des droits à 2 utilisateurs spécifiques).</p>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Gestion des ACL</div>
+                        <code># Donner rwx à l'utilisateur "jean" sur un fichier
 setfacl -m u:jean:rwx fichier.txt
+ 
 # Donner r-x au groupe "devs"
 setfacl -m g:devs:rx fichier.txt
+ 
 # Voir les ACL
 getfacl fichier.txt
-# Supprimer les ACL
-setfacl -b fichier.txt</code></pre>
-  </section>
  
-  <!-- ══════════════════════════════════════════════
-       6. LVM (existant)
-  ══════════════════════════════════════════════ -->
-  <section id="lvm">
-    <h2>6. Stockage &amp; LVM (Logical Volume Manager)</h2>
-    <p>LVM permet de redimensionner des partitions à chaud. C'est indispensable en entreprise.</p>
-    <p><strong>Hiérarchie LVM :</strong><br/>
-    1. <strong>PV (Physical Volume) :</strong> Le disque dur brut (<code>/dev/sdb</code>).<br/>
-    2. <strong>VG (Volume Group) :</strong> Le "sac" de stockage global.<br/>
-    3. <strong>LV (Logical Volume) :</strong> La partition virtuelle qu'on formate et monte.</p>
-    <pre><code># 1. Créer le Volume Physique
+# Supprimer toutes les ACL
+setfacl -b fichier.txt</code>
+                    </div>
+                </section>
+ 
+                <!-- ═══════════════════════════════════════
+                     6. LVM
+                ═══════════════════════════════════════ -->
+                <section id="lvm" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-hdd card-icon-main"></i>
+                        <h2>6. Stockage &amp; LVM (Logical Volume Manager)</h2>
+                    </div>
+                    <p>LVM permet de redimensionner des partitions à chaud. C'est indispensable en entreprise.</p>
+ 
+                    <div class="note-box">
+                        <i class="fas fa-layer-group"></i>
+                        <p><strong>Hiérarchie LVM :</strong><br>
+                        1. <strong>PV (Physical Volume) :</strong> Le disque dur brut (<code>/dev/sdb</code>).<br>
+                        2. <strong>VG (Volume Group) :</strong> Le "sac" de stockage global.<br>
+                        3. <strong>LV (Logical Volume) :</strong> La partition virtuelle qu'on formate et monte.</p>
+                    </div>
+ 
+                    <div class="terminal-block">
+                        <div class="terminal-header">Création LVM Complète</div>
+                        <code># 1. Créer le Volume Physique
 pvcreate /dev/sdb
+ 
 # 2. Créer le Groupe de Volume "data_vg"
 vgcreate data_vg /dev/sdb
+ 
 # 3. Créer un Volume Logique de 10Go
 lvcreate -n backups_lv -L 10G data_vg
+ 
 # 4. Formater (EXT4) et Monter
 mkfs.ext4 /dev/data_vg/backups_lv
 mount /dev/data_vg/backups_lv /mnt/backups
-# 5. Rendre le montage permanent (/etc/fstab)
-echo "/dev/data_vg/backups_lv /mnt/backups ext4 defaults 0 2" >> /etc/fstab</code></pre>
-  </section>
  
-  <!-- ══════════════════════════════════════════════
-       7. ARCHIVES & PAQUETS
-  ══════════════════════════════════════════════ -->
-  <section id="archives" class="section-new">
-    <h2>7. Archives &amp; Gestion des paquets <span class="badge-new">NOUVEAU</span></h2>
+# 5. Rendre le montage permanent
+echo "/dev/data_vg/backups_lv /mnt/backups ext4 defaults 0 2" >> /etc/fstab</code>
+                    </div>
+                </section>
  
-    <h3>A. tar — Archiver et compresser</h3>
-    <p>Mémo des options : <strong>c</strong>réer · e<strong>x</strong>traire · <strong>v</strong>erbeux · <strong>f</strong>ichier · <strong>z</strong>gzip · <strong>j</strong>bzip2</p>
-    <pre><code># Créer une archive .tar.gz
+                <!-- ═══════════════════════════════════════
+                     7. ARCHIVES & PAQUETS
+                ═══════════════════════════════════════ -->
+                <section id="archives" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-box-archive card-icon-main"></i>
+                        <h2>7. Archives &amp; Gestion des paquets</h2>
+                    </div>
+ 
+                    <h3>A. tar — Archiver et compresser</h3>
+                    <div class="note-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <p><strong>Mémo des options tar :</strong>&nbsp;
+                        <code>c</code>réer &nbsp;·&nbsp; e<code>x</code>traire &nbsp;·&nbsp; <code>v</code>erbeux &nbsp;·&nbsp; <code>f</code>ichier &nbsp;·&nbsp; <code>z</code>=gzip &nbsp;·&nbsp; <code>j</code>=bzip2</p>
+                    </div>
+ 
+                    <div class="terminal-block">
+                        <div class="terminal-header">tar — exemples pratiques</div>
+                        <code># Créer une archive .tar.gz
 tar -czf archive.tar.gz /home/romain/
  
 # Extraire une archive
@@ -393,19 +498,22 @@ tar -xzf archive.tar.gz -C /tmp/restauration/
 tar -tzf archive.tar.gz
  
 # Archive bzip2 (meilleure compression, plus lent)
-tar -cjf archive.tar.bz2 /opt/projet/</code></pre>
+tar -cjf archive.tar.bz2 /opt/projet/</code>
+                    </div>
  
-    <h3>B. apt — Gestion des paquets (Debian/Ubuntu)</h3>
-    <pre><code># Mettre à jour la liste des paquets
+                    <h3>B. apt — Gestion des paquets (Debian/Ubuntu)</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">apt — commandes essentielles</div>
+                        <code># Mettre à jour la liste des paquets (toujours avant install)
 apt update
  
 # Mettre à jour tous les paquets installés
 apt upgrade
  
-# Installer un paquet
+# Installer un ou plusieurs paquets
 apt install vim htop net-tools
  
-# Supprimer un paquet (garder la config)
+# Supprimer (garder la config)
 apt remove vim
  
 # Supprimer paquet + fichiers de config
@@ -417,38 +525,53 @@ apt search nom_paquet
 # Infos sur un paquet
 apt show vim
  
-# Nettoyer le cache de téléchargement
-apt autoremove && apt clean</code></pre>
+# Nettoyer le cache
+apt autoremove && apt clean</code>
+                    </div>
  
-    <div class="tip">💡 <strong>Examen pratique :</strong> Toujours faire <code>apt update</code> avant <code>apt install</code> sinon les dépendances peuvent échouer.</div>
-  </section>
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Examen pratique :</strong> Toujours faire <code>apt update</code> avant <code>apt install</code> — sinon les dépendances peuvent échouer ou vous installez une version obsolète.</p>
+                    </div>
+                </section>
  
-  <!-- ══════════════════════════════════════════════
-       8. PROCESSUS & SYSTEMD (existant)
-  ══════════════════════════════════════════════ -->
-  <section id="process">
-    <h2>8. Processus &amp; Services</h2>
+                <!-- ═══════════════════════════════════════
+                     8. PROCESSUS & SYSTEMD
+                ═══════════════════════════════════════ -->
+                <section id="process" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-microchip card-icon-main"></i>
+                        <h2>8. Processus &amp; Services</h2>
+                    </div>
  
-    <h3>A. Gestion des Processus</h3>
-    <pre><code># Lister les processus
-ps aux                     # Tous les processus
-ps aux | grep apache2      # Filtrer
-top                        # Vue dynamique
-htop                       # Vue dynamique (plus lisible, à installer)
+                    <h3>A. Gestion des Processus</h3>
+                    <ul>
+                        <li><strong>PID :</strong> Process ID (Identifiant unique).</li>
+                        <li><strong>Signaux :</strong>
+                            <ul>
+                                <li><code>SIGTERM (15)</code> : "Ferme-toi proprement s'il te plaît" (Défaut).</li>
+                                <li><code>SIGKILL (9)</code> : "Meurs tout de suite" (Arrêt forcé, perte de données possible).</li>
+                            </ul>
+                        </li>
+                    </ul>
  
-# Tuer un processus
-kill 1234                  # SIGTERM (propre) — remplacer 1234 par le PID
-kill -9 1234               # SIGKILL (forcé)
-killall apache2            # Tuer par nom</code></pre>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Gestion des processus</div>
+                        <code>ps aux                      # Lister tous les processus
+ps aux | grep apache2       # Filtrer par nom
+top                         # Vue dynamique
+htop                        # Vue dynamique (plus lisible)
  
-    <ul>
-      <li><strong>PID :</strong> Process ID (Identifiant unique).</li>
-      <li><code>SIGTERM (15)</code> : "Ferme-toi proprement s'il te plaît".</li>
-      <li><code>SIGKILL (9)</code> : "Meurs tout de suite" (perte de données possible).</li>
-    </ul>
+kill 1234                   # SIGTERM (propre)
+kill -9 1234                # SIGKILL (forcé)
+killall apache2             # Tuer par nom</code>
+                    </div>
  
-    <h3>B. Systemd (Systemctl)</h3>
-    <pre><code># Démarrer / arrêter / redémarrer un service
+                    <h3>B. Systemd (Systemctl)</h3>
+                    <p>Le gestionnaire de démarrage moderne (PID 1).</p>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Gestion Services & Logs</div>
+                        <code># Démarrer / arrêter / redémarrer
 systemctl start apache2
 systemctl stop apache2
 systemctl restart apache2
@@ -463,51 +586,70 @@ systemctl status apache2
  
 # Analyser pourquoi un service a planté (CRUCIAL)
 journalctl -xe
-journalctl -u apache2 -f   # Logs en direct</code></pre>
-  </section>
+journalctl -u apache2 -f   # Logs en direct</code>
+                    </div>
+                </section>
  
-  <!-- ══════════════════════════════════════════════
-       9. RÉSEAU & SSH (existant)
-  ══════════════════════════════════════════════ -->
-  <section id="network">
-    <h2>9. Réseau &amp; Sécurité SSH</h2>
+                <!-- ═══════════════════════════════════════
+                     9. RÉSEAU & SSH
+                ═══════════════════════════════════════ -->
+                <section id="network" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-network-wired card-icon-main"></i>
+                        <h2>9. Réseau &amp; Sécurité SSH</h2>
+                    </div>
  
-    <h3>A. Configuration IP (Moderne)</h3>
-    <p>On n'utilise plus <code>ifconfig</code> (obsolète), mais la suite <code>ip</code>.</p>
-    <pre><code>ip a                        # Voir les IP (ip addr show)
-ip route                    # Voir la passerelle
-ss -lntp                    # Voir les ports ouverts (remplace netstat)
-ping -c 4 8.8.8.8           # Test connectivité
-traceroute 8.8.8.8          # Tracer le chemin réseau
-nslookup google.com         # Test DNS
-dig google.com              # Test DNS détaillé</code></pre>
+                    <h3>A. Configuration IP (Moderne)</h3>
+                    <p>On n'utilise plus <code>ifconfig</code> (obsolète), mais la suite <code>ip</code>.</p>
+                    <ul>
+                        <li>Voir les IP : <code>ip a</code> (ou <code>ip addr show</code>)</li>
+                        <li>Voir la passerelle : <code>ip route</code></li>
+                        <li>Voir les ports ouverts : <code>ss -lntp</code> (Remplace netstat)</li>
+                    </ul>
  
-    <h3>B. Sécuriser SSH (/etc/ssh/sshd_config)</h3>
-    <p>Avant de mettre un serveur en prod, changez ces 3 lignes :</p>
-    <pre><code>PermitRootLogin no          # Interdire root direct
+                    <h3>B. Sécuriser SSH (/etc/ssh/sshd_config)</h3>
+                    <p>Avant de mettre un serveur en prod, changez ces 3 lignes :</p>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Config SSH Sécurisée</div>
+                        <code>PermitRootLogin no         # Interdire root direct
 PasswordAuthentication no  # Clés SSH uniquement
-Port 2222                   # Changer le port par défaut (Anti-bot)
+Port 2222                  # Changer le port par défaut (Anti-bot)
  
 # Après modification, recharger SSH
-systemctl reload sshd</code></pre>
+systemctl reload sshd</code>
+                    </div>
  
-    <h3>C. Générer et déployer une clé SSH</h3>
-    <pre><code># Sur le client : générer la paire de clés
+                    <h3>C. Générer et déployer une clé SSH</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Authentification par clé</div>
+                        <code># Sur le client : générer la paire de clés
 ssh-keygen -t ed25519 -C "romain@monpc"
  
 # Copier la clé publique sur le serveur
 ssh-copy-id -i ~/.ssh/id_ed25519.pub user@serveur
  
-# Se connecter
-ssh -i ~/.ssh/id_ed25519 user@serveur -p 2222</code></pre>
-  </section>
+# Se connecter avec la clé
+ssh -i ~/.ssh/id_ed25519 user@serveur -p 2222
  
-  <!-- ══════════════════════════════════════════════
-       10. SCRIPTING BASH (existant)
-  ══════════════════════════════════════════════ -->
-  <section id="bash">
-    <h2>10. Scripting Bash Automatisé</h2>
-    <pre><code>#!/bin/bash
+# Droits obligatoires sur la clé privée !
+chmod 600 ~/.ssh/id_ed25519</code>
+                    </div>
+                </section>
+ 
+                <!-- ═══════════════════════════════════════
+                     10. SCRIPTING BASH
+                ═══════════════════════════════════════ -->
+                <section id="bash" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-code card-icon-main"></i>
+                        <h2>10. Scripting Bash Automatisé</h2>
+                    </div>
+                    <p>Savoir automatiser une sauvegarde est un TP classique.</p>
+ 
+                    <div class="terminal-block">
+                        <div class="terminal-header">backup.sh (Boucle & Condition)</div>
+                        <code>#!/bin/bash
+ 
 # Variables
 DEST="/var/backups"
 DATE=$(date +%Y-%m-%d)
@@ -515,34 +657,42 @@ USERS=("jean" "paul" "admin")
  
 # Vérifier si le dossier existe
 if [ ! -d "$DEST" ]; then
-  mkdir -p "$DEST"
+    mkdir -p "$DEST"
 fi
  
 # Boucle sur les utilisateurs
 for USER in "${USERS[@]}"; do
-  echo "Sauvegarde de $USER..."
-  tar -czf "$DEST/$USER-$DATE.tar.gz" "/home/$USER" 2>/dev/null
+    echo "Sauvegarde de $USER..."
+    tar -czf "$DEST/$USER-$DATE.tar.gz" "/home/$USER" 2>/dev/null
 done
  
-echo "Sauvegarde terminée !"</code></pre>
+echo "Sauvegarde terminée !"</code>
+                    </div>
  
-    <h3>Aide-mémoire tests Bash</h3>
-    <table>
-      <tr><th>Test</th><th>Signification</th></tr>
-      <tr><td><code>-f fichier</code></td><td>Le fichier existe et est un fichier régulier</td></tr>
-      <tr><td><code>-d dossier</code></td><td>Le dossier existe</td></tr>
-      <tr><td><code>-z "$var"</code></td><td>La variable est vide</td></tr>
-      <tr><td><code>-n "$var"</code></td><td>La variable n'est pas vide</td></tr>
-      <tr><td><code>$? -eq 0</code></td><td>La dernière commande a réussi</td></tr>
-    </table>
-  </section>
+                    <h3>Aide-mémoire tests Bash</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th>Test</th><th>Signification</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);"><code>-f fichier</code></td><td>Le fichier existe et est un fichier régulier</td></tr>
+                                <tr><td style="color:var(--accent);"><code>-d dossier</code></td><td>Le dossier existe</td></tr>
+                                <tr><td style="color:var(--accent);"><code>-z "$var"</code></td><td>La variable est vide</td></tr>
+                                <tr><td style="color:var(--accent);"><code>-n "$var"</code></td><td>La variable n'est pas vide</td></tr>
+                                <tr><td style="color:var(--accent);"><code>$? -eq 0</code></td><td>La dernière commande a réussi (code retour = 0)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
  
-</main>
+            </div>
+        </div>
+    </main>
  
-<footer>
-  <p>© 2026 — Altinkaya Romain | SysAdmin Linux</p>
-</footer>
- 
+    <footer><p>© 2026 — Altinkaya Romain | SysAdmin Linux</p></footer>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>
- 
