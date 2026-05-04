@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révisions - Sécurité & Hardening - Romain Altinkaya</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div id="header-placeholder"></div>
+
+    <main class="container">
+        <header class="hero">
+            <h1>Sécurité Systèmes & Hardening</h1>
+            <p class="terminal-text">_TSSR_SECURITY_HARDENING_OPERATIONS</p>
+        </header>
+
+        <div class="course-layout">
+
+            <aside class="course-sidebar">
+                <h3>Sommaire Expert</h3>
+                <ul>
+                    <li><a href="#concepts"><i class="fas fa-chevron-right"></i> Concepts fondamentaux</a></li>
+                    <li><a href="#hardening-windows"><i class="fas fa-chevron-right"></i> Hardening Windows Server</a></li>
+                    <li><a href="#hardening-linux"><i class="fas fa-chevron-right"></i> Hardening Linux</a></li>
+                    <li><a href="#firewall"><i class="fas fa-chevron-right"></i> Pare-feu & Filtrage</a></li>
+                    <li><a href="#audit"><i class="fas fa-chevron-right"></i> Audit & Journalisation</a></li>
+                    <li><a href="#attaques"><i class="fas fa-chevron-right"></i> Attaques courantes</a></li>
+                    <li><a href="#cheatsheet"><i class="fas fa-chevron-right"></i> Cheat Sheet Sécurité</a></li>
+                </ul>
+            </aside>
+
+            <div class="course-content">
+
+                <!-- ═══════════════════════════════════════
+                     1. CONCEPTS FONDAMENTAUX
+                ═══════════════════════════════════════ -->
+                <section id="concepts" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-shield-halved card-icon-main"></i>
+                        <h2>1. Concepts Fondamentaux</h2>
+                    </div>
+                    <p>La sécurité informatique repose sur trois piliers fondamentaux, regroupés sous l'acronyme <strong>CIA</strong> (ou <strong>DIC</strong> en français).</p>
+
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse; margin-top: 10px;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="text-align:left; padding: 5px;">Pilier</th>
+                                    <th style="text-align:left; padding: 5px;">Définition</th>
+                                    <th style="text-align:left; padding: 5px;">Exemple de menace</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Confidentialité</td>
+                                    <td>L'information n'est accessible qu'aux personnes autorisées</td>
+                                    <td>Fuite de données, écoute réseau</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Intégrité</td>
+                                    <td>L'information n'est pas altérée sans autorisation</td>
+                                    <td>Modification de fichiers, injection SQL</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Disponibilité</td>
+                                    <td>Les services sont accessibles quand nécessaire</td>
+                                    <td>Attaque DDoS, ransomware</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>A. Principe du Moindre Privilège</h3>
+                    <p>Chaque utilisateur, service ou processus ne doit avoir que les droits <strong>strictement nécessaires</strong> à son activité. C'est la règle n°1 du hardening.</p>
+                    <ul>
+                        <li>Ne jamais travailler en <code>root</code> / <code>Administrator</code> au quotidien.</li>
+                        <li>Créer des comptes de service dédiés avec des droits limités.</li>
+                        <li>Désactiver les comptes inutilisés (invité, administrateur local par défaut).</li>
+                    </ul>
+
+                    <h3>B. Défense en Profondeur</h3>
+                    <p>Multiplier les couches de sécurité : si une couche tombe, la suivante résiste. Pare-feu périmétrique → Segmentation réseau → Durcissement OS → Antivirus → Journalisation.</p>
+
+                    <div class="note-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <p><strong>Référentiel CIS Benchmark :</strong> Le Centre pour la Sécurité Internet publie des guides de configuration pour chaque OS (Windows Server, Linux, Cisco...). C'est la référence utilisée en entreprise pour auditer le niveau de durcissement.</p>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     2. HARDENING WINDOWS SERVER
+                ═══════════════════════════════════════ -->
+                <section id="hardening-windows" class="card">
+                    <div class="card-header">
+                        <i class="fab fa-windows card-icon-main"></i>
+                        <h2>2. Hardening Windows Server & Active Directory</h2>
+                    </div>
+                    <p>Sécuriser un Active Directory est un projet à part entière. Voici les axes prioritaires pour un technicien TSSR.</p>
+
+                    <h3>A. Politique de Mots de Passe (Fine-Grained Password Policy)</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse; margin-top: 10px;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="text-align:left; padding: 5px;">Paramètre</th>
+                                    <th style="text-align:left; padding: 5px;">Valeur recommandée</th>
+                                    <th style="text-align:left; padding: 5px;">Pourquoi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Longueur minimale</td>
+                                    <td>12 caractères</td>
+                                    <td>Résistance aux attaques brute-force</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Complexité</td>
+                                    <td>Activée</td>
+                                    <td>Majuscule + chiffre + symbole obligatoires</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Durée max</td>
+                                    <td>90 jours</td>
+                                    <td>Limite la durée d'exposition en cas de fuite</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Historique</td>
+                                    <td>24 mots de passe</td>
+                                    <td>Empêche la réutilisation</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Verrouillage</td>
+                                    <td>5 tentatives / 30 min</td>
+                                    <td>Bloque les attaques par dictionnaire</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>B. GPO de Durcissement — Les incontournables</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Chemins GPO critiques (Computer Configuration)</div>
+                        <code># Désactiver le compte Administrateur local intégré
+Computer Config > Windows Settings > Security Settings
+  > Local Policies > Security Options
+  > "Accounts: Administrator account status" → Disabled
+
+# Renommer le compte Administrateur
+  > "Accounts: Rename administrator account" → ex: "sysadmin_corp"
+
+# Interdire les connexions anonymes (Null Sessions)
+  > "Network access: Do not allow anonymous enumeration of SAM accounts" → Enabled
+
+# Forcer le verrouillage de session (écran de veille)
+User Config > Admin Templates > Control Panel > Personalization
+  > "Password protect the screen saver" → Enabled
+  > "Screen saver timeout" → 600 secondes (10 min)
+
+# Désactiver les périphériques amovibles (USB)
+Computer Config > Admin Templates > System > Removable Storage Access
+  > "All Removable Storage classes: Deny all access" → Enabled</code>
+                    </div>
+
+                    <h3>C. Sécurisation des comptes à privilèges</h3>
+                    <ul>
+                        <li><strong>Tier Model (Microsoft) :</strong> Séparer les comptes admin en 3 niveaux — Tier 0 (DC), Tier 1 (Serveurs), Tier 2 (Postes). Un admin Tier 2 ne peut pas administrer un DC.</li>
+                        <li><strong>Protected Users :</strong> Groupe AD spécial qui empêche la mise en cache des credentials et force Kerberos.</li>
+                        <li><strong>LAPS (Local Admin Password Solution) :</strong> Génère un mot de passe administrateur local unique et aléatoire pour chaque poste, stocké dans l'AD.</li>
+                    </ul>
+
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Piège examen :</strong> Le compte <strong>KRBTGT</strong> est le compte de service Kerberos. Si un attaquant le compromet, il peut créer des <strong>Golden Tickets</strong> — des tickets Kerberos valables 10 ans donnant accès à tout l'AD. Il faut réinitialiser son mot de passe <strong>deux fois</strong> (pour invalider tous les tickets existants).</p>
+                    </div>
+
+                    <h3>D. Windows Defender & Antivirus</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — Windows Defender</div>
+                        <code># Vérifier l'état de Windows Defender
+Get-MpComputerStatus | Select-Object AMRunningMode, RealTimeProtectionEnabled
+
+# Lancer un scan rapide
+Start-MpScan -ScanType QuickScan
+
+# Mettre à jour les définitions
+Update-MpSignature
+
+# Voir les menaces détectées
+Get-MpThreatDetection</code>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     3. HARDENING LINUX
+                ═══════════════════════════════════════ -->
+                <section id="hardening-linux" class="card">
+                    <div class="card-header">
+                        <i class="fab fa-linux card-icon-main"></i>
+                        <h2>3. Hardening Linux (Debian / RHEL)</h2>
+                    </div>
+                    <p>Un serveur Linux fraîchement installé est loin d'être sécurisé par défaut. Voici la checklist de durcissement post-installation.</p>
+
+                    <h3>A. Checklist post-installation</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">1 — Mises à jour & paquets inutiles</div>
+                        <code># Mettre à jour IMMÉDIATEMENT après installation
+apt update && apt upgrade -y
+
+# Lister les paquets installés
+dpkg --list
+
+# Supprimer les services inutiles (ex: telnet, rsh, ftp)
+apt purge telnet rsh-client ftp -y
+
+# Vérifier les services actifs au démarrage
+systemctl list-unit-files --type=service --state=enabled</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">2 — Sécuriser SSH (/etc/ssh/sshd_config)</div>
+                        <code">PermitRootLogin no              # Interdire root en SSH
+PasswordAuthentication no       # Clés uniquement
+Port 2222                       # Changer le port (anti-scan)
+MaxAuthTries 3                  # Limiter les tentatives
+ClientAliveInterval 300         # Timeout session inactive (5 min)
+AllowUsers romain               # Whitelist des users autorisés
+Protocol 2                      # Forcer SSHv2 uniquement
+
+# Appliquer les changements
+systemctl reload sshd</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">3 — Fail2Ban (bloquer les brute-force)</div>
+                        <code># Installer
+apt install fail2ban -y
+
+# Créer la config locale (ne jamais modifier jail.conf directement)
+cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+
+# Exemple de config SSH dans jail.local
+[sshd]
+enabled  = true
+port     = 2222
+maxretry = 3
+bantime  = 3600      # Banni 1 heure
+findtime = 600       # Fenêtre de détection 10 min
+
+# Voir les IPs bannies
+fail2ban-client status sshd</code>
+                    </div>
+
+                    <h3>B. Permissions et SUID dangereux</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Audit des droits sensibles</div>
+                        <code"># Trouver tous les fichiers SUID (à auditer régulièrement)
+find / -perm -4000 -type f 2>/dev/null
+
+# Trouver les fichiers sans propriétaire (orphelins — suspect)
+find / -nouser -o -nogroup 2>/dev/null
+
+# Trouver les fichiers world-writable (écriture pour tout le monde)
+find / -perm -0002 -type f 2>/dev/null | grep -v /proc
+
+# Vérifier les fichiers de config critiques
+ls -la /etc/passwd /etc/shadow /etc/sudoers
+# /etc/shadow doit être : -rw-r----- root shadow</code>
+                    </div>
+
+                    <h3>C. Sudo — Principe du moindre privilège</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/sudoers — Exemples de configuration</div>
+                        <code"># Toujours éditer avec visudo (vérifie la syntaxe)
+visudo
+
+# Autoriser romain à redémarrer Apache uniquement
+romain ALL=(ALL) /usr/bin/systemctl restart apache2
+
+# Autoriser le groupe "admins" sans mot de passe (avec précaution)
+%admins ALL=(ALL) NOPASSWD: ALL
+
+# Voir ce qu'un utilisateur peut faire
+sudo -l -U romain</code>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Danger :</strong> Une ligne <code>romain ALL=(ALL) NOPASSWD: ALL</code> dans sudoers donne les pleins pouvoirs sans mot de passe. À n'utiliser que pour des comptes de service très spécifiques, jamais pour un humain.</p>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     4. PARE-FEU & FILTRAGE
+                ═══════════════════════════════════════ -->
+                <section id="firewall" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-fire-flame-curved card-icon-main"></i>
+                        <h2>4. Pare-feu & Filtrage réseau</h2>
+                    </div>
+
+                    <h3>A. iptables / nftables (Linux)</h3>
+                    <p>Le pare-feu natif Linux. Les règles sont lues de haut en bas — la première qui correspond s'applique.</p>
+                    <div class="terminal-block">
+                        <div class="terminal-header">iptables — Règles essentielles</div>
+                        <code"># Voir les règles actuelles
+iptables -L -n -v
+
+# Politique par défaut : tout bloquer en entrée
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+
+# Autoriser les connexions établies (ne pas casser les sessions actives)
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Autoriser SSH (port custom 2222)
+iptables -A INPUT -p tcp --dport 2222 -j ACCEPT
+
+# Autoriser HTTP/HTTPS
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+# Autoriser le loopback (obligatoire)
+iptables -A INPUT -i lo -j ACCEPT
+
+# Sauvegarder les règles (Debian)
+iptables-save > /etc/iptables/rules.v4</code>
+                    </div>
+
+                    <h3>B. UFW — Interface simplifiée (Ubuntu/Debian)</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">UFW — Uncomplicated Firewall</div>
+                        <code"># Activer UFW
+ufw enable
+
+# Politique par défaut
+ufw default deny incoming
+ufw default allow outgoing
+
+# Autoriser SSH sur port custom
+ufw allow 2222/tcp
+
+# Autoriser depuis une IP spécifique seulement
+ufw allow from 192.168.1.10 to any port 22
+
+# Voir les règles
+ufw status verbose</code>
+                    </div>
+
+                    <h3>C. Pare-feu Windows (Netsh / PowerShell)</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — Windows Firewall</div>
+                        <code"># Voir les règles actives
+Get-NetFirewallRule | Where-Object { $_.Enabled -eq 'True' } | Select-Object DisplayName, Direction, Action
+
+# Bloquer une application
+New-NetFirewallRule -DisplayName "Bloquer Telnet" -Direction Inbound -Protocol TCP -LocalPort 23 -Action Block
+
+# Autoriser un port entrant
+New-NetFirewallRule -DisplayName "Autoriser HTTPS" -Direction Inbound -Protocol TCP -LocalPort 443 -Action Allow
+
+# Activer le pare-feu sur tous les profils
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True</code>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Zones de pare-feu Windows :</strong> <strong>Domaine</strong> (réseau AD), <strong>Privé</strong> (réseau maison/bureau de confiance), <strong>Public</strong> (WiFi public — règles les plus restrictives). Bien vérifier sur quel profil s'applique une règle.</p>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     5. AUDIT & JOURNALISATION
+                ═══════════════════════════════════════ -->
+                <section id="audit" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-magnifying-glass card-icon-main"></i>
+                        <h2>5. Audit & Journalisation</h2>
+                    </div>
+                    <p>Un système non journalisé est un système non auditable. Les logs sont la première source d'investigation après un incident.</p>
+
+                    <h3>A. Journaux Windows — Événements critiques</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse; margin-top: 10px;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="text-align:left; padding: 5px;">Event ID</th>
+                                    <th style="text-align:left; padding: 5px;">Signification</th>
+                                    <th style="text-align:left; padding: 5px;">Source</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">4624</td>
+                                    <td>Connexion réussie</td>
+                                    <td>Security</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">4625</td>
+                                    <td>Échec de connexion — <strong>à surveiller absolument</strong></td>
+                                    <td>Security</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">4648</td>
+                                    <td>Connexion avec credentials explicites (Pass-the-Hash)</td>
+                                    <td>Security</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">4672</td>
+                                    <td>Connexion avec privilèges spéciaux (admin)</td>
+                                    <td>Security</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">4720</td>
+                                    <td>Création d'un compte utilisateur</td>
+                                    <td>Security</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">4732</td>
+                                    <td>Ajout d'un membre à un groupe à privilèges</td>
+                                    <td>Security</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">7045</td>
+                                    <td>Nouveau service installé — suspect si inattendu</td>
+                                    <td>System</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — Requêter les logs Windows</div>
+                        <code"># Voir les 20 derniers échecs de connexion (Event 4625)
+Get-WinEvent -LogName Security | Where-Object { $_.Id -eq 4625 } | Select-Object -First 20 TimeCreated, Message
+
+# Voir les créations de comptes (Event 4720)
+Get-WinEvent -LogName Security | Where-Object { $_.Id -eq 4720 }
+
+# Exporter les logs de sécurité
+wevtutil epl Security C:\Backup\security_logs.evtx</code>
+                    </div>
+
+                    <h3>B. Journaux Linux — Fichiers essentiels</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse; margin-top: 10px;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="text-align:left; padding: 5px;">Fichier / Commande</th>
+                                    <th style="text-align:left; padding: 5px;">Contenu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);"><code>/var/log/auth.log</code></td>
+                                    <td>Authentifications SSH, sudo, connexions locales</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);"><code>/var/log/syslog</code></td>
+                                    <td>Journal système général</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);"><code>/var/log/fail2ban.log</code></td>
+                                    <td>IPs bannies par Fail2Ban</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);"><code>journalctl -xe</code></td>
+                                    <td>Logs systemd temps réel avec détails erreurs</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);"><code>last / lastb</code></td>
+                                    <td><code>last</code> : dernières connexions réussies · <code>lastb</code> : échecs</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Linux — Analyser les tentatives d'intrusion</div>
+                        <code"># Voir les tentatives SSH échouées
+grep "Failed password" /var/log/auth.log | tail -20
+
+# Voir les connexions SSH réussies
+grep "Accepted" /var/log/auth.log
+
+# Compter les IPs qui ont tenté de se connecter
+grep "Failed password" /var/log/auth.log | awk '{print $11}' | sort | uniq -c | sort -rn | head -10
+
+# Voir qui s'est connecté récemment
+last -20</code>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     6. ATTAQUES COURANTES
+                ═══════════════════════════════════════ -->
+                <section id="attaques" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-skull-crossbones card-icon-main"></i>
+                        <h2>6. Attaques courantes à connaître</h2>
+                    </div>
+                    <p>Un technicien TSSR doit connaître les vecteurs d'attaque pour mieux défendre. Pas pour attaquer, mais pour comprendre ce qu'il faut bloquer.</p>
+
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse; margin-top: 10px;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="text-align:left; padding: 5px;">Attaque</th>
+                                    <th style="text-align:left; padding: 5px;">Mécanisme</th>
+                                    <th style="text-align:left; padding: 5px;">Contre-mesure</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Brute Force</td>
+                                    <td>Essayer toutes les combinaisons de mdp</td>
+                                    <td>Fail2Ban, verrouillage de compte, MFA</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Pass-the-Hash</td>
+                                    <td>Réutiliser le hash NTLM sans connaître le mdp</td>
+                                    <td>LAPS, Protected Users, désactiver NTLM</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Golden Ticket</td>
+                                    <td>Forger un ticket Kerberos via le hash KRBTGT</td>
+                                    <td>Réinitialiser KRBTGT 2x, surveiller event 4769</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">VLAN Hopping</td>
+                                    <td>Accéder à un VLAN non autorisé via le native VLAN</td>
+                                    <td>Changer le native VLAN, désactiver DTP</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">ARP Spoofing</td>
+                                    <td>Empoisonner la table ARP pour intercepter le trafic</td>
+                                    <td>Dynamic ARP Inspection (DAI) sur les switchs</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Ransomware</td>
+                                    <td>Chiffrer les fichiers et demander une rançon</td>
+                                    <td>Sauvegardes 3-2-1, segmentation réseau, MFA</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 5px; color: var(--accent);">Phishing</td>
+                                    <td>Tromper un utilisateur pour voler ses credentials</td>
+                                    <td>Sensibilisation, MFA, filtre anti-spam</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Règle 3-2-1 des sauvegardes :</strong> <strong>3</strong> copies des données · sur <strong>2</strong> supports différents · dont <strong>1</strong> hors site (ou hors ligne). C'est la seule vraie protection contre un ransomware.</p>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     7. CHEAT SHEET SÉCURITÉ
+                ═══════════════════════════════════════ -->
+                <section id="cheatsheet" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-terminal card-icon-main"></i>
+                        <h2>7. Cheat Sheet Sécurité</h2>
+                    </div>
+                    <p>Commandes à connaître par cœur pour l'épreuve pratique.</p>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Windows — Audit rapide post-incident</div>
+                        <code"># Qui est connecté en ce moment ?
+query session
+query user
+
+# Voir les connexions réseau actives (chercher des ports suspects)
+netstat -ano
+Get-NetTCPConnection | Where-Object { $_.State -eq 'Established' }
+
+# Lister les services installés (chercher des nouveaux)
+Get-Service | Sort-Object Status
+
+# Lister les tâches planifiées (vecteur de persistance malware)
+Get-ScheduledTask | Where-Object { $_.State -ne 'Disabled' }
+
+# Voir les partages réseau ouverts
+net share
+Get-SmbShare</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Linux — Audit rapide post-incident</div>
+                        <code"># Qui est connecté ?
+who
+w
+
+# Connexions réseau établies (chercher des IPs inconnues)
+ss -antp
+
+# Processus en cours (chercher des processus suspects)
+ps aux --sort=-%cpu | head -20
+
+# Fichiers modifiés dans les dernières 24h (sur tout le système)
+find / -mtime -1 -type f 2>/dev/null | grep -v /proc | grep -v /sys
+
+# Crontabs de tous les utilisateurs (persistance malware)
+for user in $(cut -f1 -d: /etc/passwd); do crontab -u $user -l 2>/dev/null; done
+
+# Ports en écoute
+ss -lntp</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Ports bien connus à connaître par cœur</div>
+                        <code"># Ports critiques en sécurité
+21   FTP       (non chiffré — à bannir)
+22   SSH       (chiffré — port à changer)
+23   Telnet    (non chiffré — à bannir absolument)
+25   SMTP      (mail sortant)
+53   DNS       (UDP + TCP)
+80   HTTP      (non chiffré)
+88   Kerberos  (authentification AD)
+135  RPC       (Windows — souvent ciblé)
+139/445 SMB   (partage fichiers Windows — WannaCry)
+389  LDAP      (AD non chiffré)
+443  HTTPS     (chiffré TLS)
+636  LDAPS     (AD chiffré — préférer à 389)
+3389 RDP       (Bureau à distance — cible privilégiée, changer le port)</code>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <footer><p>© 2026 — Altinkaya Romain | Sécurité & Hardening</p></footer>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
