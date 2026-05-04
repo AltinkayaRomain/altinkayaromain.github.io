@@ -12,6 +12,200 @@
     
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+    <style>
+        /* ── Skill bars ── */
+        .skill-list { display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
+
+        .skill-row { display: flex; flex-direction: column; gap: 6px; }
+
+        .skill-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .skill-name {
+            font-size: 0.82rem;
+            font-family: var(--font-mono);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .skill-name i { color: var(--accent); font-size: 0.75rem; opacity: 0.8; }
+        .skill-pct {
+            font-size: 0.65rem;
+            font-family: var(--font-mono);
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+        .skill-track {
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .skill-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #00e5b0, #00c8ff);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .skill-fill.animated { transform: scaleX(1); }
+
+        /* ── Timeline ── */
+        .timeline { position: relative; padding-left: 24px; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 6px; top: 6px; bottom: 6px;
+            width: 1px;
+            background: linear-gradient(180deg, var(--accent), transparent);
+            opacity: 0.3;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 28px;
+        }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -21px;
+            top: 5px;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px rgba(0,229,176,0.5);
+            border: 2px solid var(--bg, #020305);
+        }
+        .timeline-date {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--accent);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .timeline-title {
+            font-family: var(--font-head);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin: 0 0 4px;
+        }
+        .timeline-sub {
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        .timeline-desc {
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* ── Cert items ── */
+        .cert-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+        .cert-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 14px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+        .cert-row:hover {
+            border-color: rgba(0,229,176,0.2);
+            background: rgba(0,229,176,0.03);
+        }
+        .cert-ico {
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            background: rgba(0,229,176,0.07);
+            border: 1px solid rgba(0,229,176,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .cert-body { flex: 1; }
+        .cert-body strong { display: block; font-size: 0.85rem; margin-bottom: 2px; }
+        .cert-body small {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--text-dim);
+            letter-spacing: 0.5px;
+        }
+        .cert-badge {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            padding: 3px 9px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .badge-ok  { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25); color: #22c55e; }
+        .badge-wip { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.25); color: #fbbf24; }
+
+        /* ── Langues ── */
+        .lang-list { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+        .lang-item {}
+        .lang-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        .lang-name { font-size: 0.85rem; font-weight: 600; }
+        .lang-level {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+        .lang-dots {
+            display: flex;
+            gap: 5px;
+        }
+        .lang-dot {
+            width: 28px; height: 4px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.06);
+        }
+        .lang-dot.filled {
+            background: linear-gradient(90deg, #00e5b0, #00c8ff);
+        }
+
+        /* ── Contact items ── */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+        .contact-item:last-child { border-bottom: none; }
+        .contact-item i { color: var(--accent); width: 16px; text-align: center; }
+
+        /* ── CV card ── */
+        .cv-preview {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .cv-preview p { margin: 0; flex: 1; min-width: 200px; }
+    </style>
 </head>
 <body>
     <div id="particles-js"></div>
@@ -24,79 +218,320 @@
         </header>
 
         <div class="bento-grid">
-            
+
+            <!-- ── SYSTÈMES & VIRTUALISATION ── -->
             <div class="card card-large">
                 <div class="card-header">
                     <i class="fas fa-server card-icon-main"></i>
                     <h2>Systèmes & Virtualisation</h2>
                 </div>
-                <div class="tags">
-                    <span class="tag">Windows Server</span><span class="tag">Active Directory</span>
-                    <span class="tag">Proxmox</span><span class="tag">VMware</span>
-                    <span class="tag">Hyper-V</span><span class="tag">O365</span><span class="tag">KoXo</span>
+                <p>Administration de serveurs Windows et Linux en environnement de production. Déploiement et gestion de plateformes de virtualisation pour infrastructures critiques.</p>
+                <div class="skill-list">
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fab fa-windows"></i> Windows Server / Active Directory</span>
+                            <span class="skill-pct">85%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.85"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fas fa-cube"></i> Proxmox VE</span>
+                            <span class="skill-pct">80%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.80"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fas fa-server"></i> VMware ESXi</span>
+                            <span class="skill-pct">70%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.70"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fab fa-linux"></i> Linux (Debian / RHEL)</span>
+                            <span class="skill-pct">75%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.75"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fas fa-box"></i> Hyper-V</span>
+                            <span class="skill-pct">60%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.60"></div></div>
+                    </div>
                 </div>
             </div>
 
+            <!-- ── RÉSEAUX ── -->
             <div class="card card-small">
                 <div class="card-header">
                     <i class="fas fa-network-wired card-icon-main"></i>
-                    <h3>Réseaux</h3>
+                    <h2>Réseaux</h2>
                 </div>
-                <div class="tags">
-                    <span class="tag">LAN/WAN</span><span class="tag">Cisco</span>
-                    <span class="tag">pfSense</span><span class="tag">Firewalling</span>
+                <p>Configuration et sécurisation d'architectures réseau d'entreprise.</p>
+                <div class="skill-list">
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fas fa-network-wired"></i> Cisco (IOS)</span>
+                            <span class="skill-pct">70%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.70"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fas fa-shield-halved"></i> pfSense / Firewall</span>
+                            <span class="skill-pct">75%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.75"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fas fa-sitemap"></i> VLAN / VPN</span>
+                            <span class="skill-pct">70%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.70"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fas fa-globe"></i> LAN / WAN / DNS / DHCP</span>
+                            <span class="skill-pct">80%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.80"></div></div>
+                    </div>
                 </div>
             </div>
 
+            <!-- ── SCRIPTING & SUPERVISION ── -->
             <div class="card card-small">
                 <div class="card-header">
-                    <i class="fas fa-code card-icon-main"></i>
-                    <h3>DevOps</h3>
+                    <i class="fas fa-terminal card-icon-main"></i>
+                    <h2>Scripting & Supervision</h2>
                 </div>
-                <div class="tags">
-                    <span class="tag">PowerShell</span><span class="tag">Bash</span>
-                    <span class="tag">FOG</span><span class="tag">Clonezilla</span>
+                <p>Automatisation des tâches répétitives et monitoring d'infrastructure.</p>
+                <div class="skill-list">
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fas fa-terminal"></i> Bash</span>
+                            <span class="skill-pct">75%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.75"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fab fa-windows"></i> PowerShell</span>
+                            <span class="skill-pct">70%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.70"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fas fa-chart-line"></i> Zabbix / Grafana</span>
+                            <span class="skill-pct">65%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.65"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fas fa-tools"></i> GLPI / N-Able</span>
+                            <span class="skill-pct">80%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.80"></div></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="card card-large highlight-glpi">
+            <!-- ── PARCOURS / TIMELINE ── -->
+            <div class="card card-large">
+                <div class="card-header">
+                    <i class="fas fa-road card-icon-main"></i>
+                    <h2>Parcours</h2>
+                </div>
+                <div class="timeline">
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024 — Présent</div>
+                        <div class="timeline-title">Titre TSSR — Technicien Supérieur Systèmes & Réseaux</div>
+                        <div class="timeline-sub">Formation RNCP Niveau 5</div>
+                        <p class="timeline-desc">Administration d'infrastructures Windows/Linux, virtualisation, réseaux d'entreprise, sécurité et scripting. Projets pratiques en conditions réelles.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023 — 2024</div>
+                        <div class="timeline-title">Technicien Support Informatique</div>
+                        <div class="timeline-sub">Expérience professionnelle</div>
+                        <p class="timeline-desc">Support utilisateurs N1/N2, administration Active Directory, migration de GLPI de Windows vers Linux, déploiement postes via FOG.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2022 — 2023</div>
+                        <div class="timeline-title">Bac Pro SN — Systèmes Numériques</div>
+                        <div class="timeline-sub">Diplôme d'État</div>
+                        <p class="timeline-desc">Bases réseaux, câblage, maintenance matérielle et logicielle. Premiers travaux pratiques sur équipements Cisco et serveurs.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ── CERTIFICATIONS ── -->
+            <div class="card card-small">
+                <div class="card-header">
+                    <i class="fas fa-certificate card-icon-main"></i>
+                    <h2>Certifications</h2>
+                </div>
+                <div class="cert-grid">
+                    <div class="cert-row">
+                        <div class="cert-ico"><i class="fas fa-network-wired"></i></div>
+                        <div class="cert-body">
+                            <strong>Cisco CCNA</strong>
+                            <small>Réseaux & Routage · Cisco</small>
+                        </div>
+                        <span class="cert-badge badge-wip">En cours</span>
+                    </div>
+                    <div class="cert-row">
+                        <div class="cert-ico"><i class="fab fa-linux"></i></div>
+                        <div class="cert-body">
+                            <strong>LPI Linux Essentials</strong>
+                            <small>Administration Linux · LPI</small>
+                        </div>
+                        <span class="cert-badge badge-ok">Obtenu</span>
+                    </div>
+                    <div class="cert-row">
+                        <div class="cert-ico"><i class="fas fa-shield-halved"></i></div>
+                        <div class="cert-body">
+                            <strong>TSSR — RNCP Niv. 5</strong>
+                            <small>Titre professionnel · État</small>
+                        </div>
+                        <span class="cert-badge badge-wip">En cours</span>
+                    </div>
+                    <div class="cert-row">
+                        <div class="cert-ico"><i class="fas fa-cloud"></i></div>
+                        <div class="cert-body">
+                            <strong>Microsoft AZ-900</strong>
+                            <small>Azure Fundamentals · Microsoft</small>
+                        </div>
+                        <span class="cert-badge badge-wip">Prévu</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── SUPPORT & OUTILS ── -->
+            <div class="card card-small">
                 <div class="card-header">
                     <i class="fas fa-tools card-icon-main"></i>
-                    <h2>Support & Management</h2>
+                    <h2>Support & Outils</h2>
                 </div>
-                <p>Migration réussie de l'infrastructure <strong>GLPI</strong> de Windows vers Linux.</p>
-                <div class="tags">
-                    <span class="tag">GLPI</span><span class="tag">N-Able</span>
-                    <span class="tag">Linux Admin</span>
+                <p>Gestion des incidents, déploiement et migration de parcs informatiques.</p>
+                <div class="skill-list">
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fas fa-ticket"></i> GLPI (ticketing)</span>
+                            <span class="skill-pct">85%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.85"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fas fa-clone"></i> FOG / Clonezilla</span>
+                            <span class="skill-pct">75%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.75"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta">
+                            <span class="skill-name"><i class="fas fa-headset"></i> Support N1 / N2</span>
+                            <span class="skill-pct">90%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="--w:0.90"></div></div>
+                    </div>
                 </div>
             </div>
 
-            <section class="card card-large">
+            <!-- ── LANGUES ── -->
+            <div class="card card-small">
                 <div class="card-header">
-                    <i class="fas fa-id-card card-icon-main"></i>
-                    <h2>Mon Parcours</h2>
+                    <i class="fas fa-language card-icon-main"></i>
+                    <h2>Langues</h2>
                 </div>
-                <p>Technicien informatique passionné, je me spécialise dans l'administration d'infrastructures sécurisées. Mon approche combine rigueur technique et curiosité pour les solutions Open Source.</p>
-                <p>Actuellement à la recherche d'une <strong>alternance en tant qu'administrateur d'infrastructures</strong>, je souhaite mettre mes compétences au service de projets ambitieux.</p>
-            </section>
+                <div class="lang-list">
+                    <div class="lang-item">
+                        <div class="lang-header">
+                            <span class="lang-name">🇫🇷 Français</span>
+                            <span class="lang-level">Natif</span>
+                        </div>
+                        <div class="lang-dots">
+                            <div class="lang-dot filled"></div>
+                            <div class="lang-dot filled"></div>
+                            <div class="lang-dot filled"></div>
+                            <div class="lang-dot filled"></div>
+                            <div class="lang-dot filled"></div>
+                        </div>
+                    </div>
+                    <div class="lang-item">
+                        <div class="lang-header">
+                            <span class="lang-name">🇬🇧 Anglais</span>
+                            <span class="lang-level">Professionnel</span>
+                        </div>
+                        <div class="lang-dots">
+                            <div class="lang-dot filled"></div>
+                            <div class="lang-dot filled"></div>
+                            <div class="lang-dot filled"></div>
+                            <div class="lang-dot filled"></div>
+                            <div class="lang-dot"></div>
+                        </div>
+                    </div>
+                    <div class="lang-item">
+                        <div class="lang-header">
+                            <span class="lang-name">🇹🇷 Turc</span>
+                            <span class="lang-level">Notions</span>
+                        </div>
+                        <div class="lang-dots">
+                            <div class="lang-dot filled"></div>
+                            <div class="lang-dot filled"></div>
+                            <div class="lang-dot"></div>
+                            <div class="lang-dot"></div>
+                            <div class="lang-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <section class="card card-small">
-                <h3>CONTACT_QUICK</h3>
+            <!-- ── CONTACT ── -->
+            <div class="card card-small">
+                <div class="card-header">
+                    <i class="fas fa-satellite-dish card-icon-main"></i>
+                    <h2>Contact</h2>
+                </div>
                 <div class="contact-info">
-                    <div class="contact-item"><i class="fas fa-location-dot"></i> <span>France</span></div>
-                    <div class="contact-item"><i class="fas fa-language"></i> <span>Français / Anglais</span></div>
-                    <div class="contact-item"><i class="fas fa-envelope"></i> <span>Email direct</span></div>
+                    <div class="contact-item">
+                        <i class="fas fa-location-dot"></i>
+                        <span>Lyon, France</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:altinkayaromain@outlook.fr" style="color: var(--text-dim) !important; font-size: 0.82rem;">altinkayaromain@outlook.fr</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <a href="https://linkedin.com/in/romain-altinkaya" target="_blank" style="color: var(--text-dim) !important; font-size: 0.82rem;">linkedin.com/in/romain-altinkaya</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <a href="https://github.com/AltinkayaRomain" target="_blank" style="color: var(--text-dim) !important; font-size: 0.82rem;">github.com/AltinkayaRomain</a>
+                    </div>
                 </div>
-            </section>
+            </div>
 
-            <section class="card card-full cv-card">
+            <!-- ── CV ── -->
+            <section class="card card-full">
                 <div class="card-header">
                     <i class="fas fa-file-pdf card-icon-main"></i>
                     <h2>Curriculum Vitae</h2>
                 </div>
-                
-                <div class="cv-actions">
-                    <p>Mon parcours détaillé est disponible au format PDF.</p>
+                <div class="cv-preview">
+                    <p>Mon parcours complet, mes expériences et mes compétences détaillées sont disponibles au format PDF. N'hésitez pas à le télécharger pour en savoir plus.</p>
                     <a href="assets/pdf/CVAltinkayaRomain.pdf" class="btn-neon" download>
                         <i class="fas fa-download"></i> Télécharger le CV (PDF)
                     </a>
@@ -113,5 +548,21 @@
     <button id="backToTop"><i class="fas fa-arrow-up"></i></button>
 
     <script src="assets/js/script.js"></script>
+    <script>
+        // Animation des barres au scroll
+        const fills = document.querySelectorAll('.skill-fill');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const w = getComputedStyle(el).getPropertyValue('--w') || '0.5';
+                    el.style.transform = `scaleX(${w})`;
+                    el.classList.add('animated');
+                    observer.unobserve(el);
+                }
+            });
+        }, { threshold: 0.3 });
+        fills.forEach(f => observer.observe(f));
+    </script>
 </body>
 </html>
