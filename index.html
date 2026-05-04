@@ -11,73 +11,534 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        /* ── Styles spécifiques à la home ── */
+
+        .status-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34,197,94,0.08);
+            border: 1px solid rgba(34,197,94,0.25);
+            color: #22c55e;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: 100px;
+            margin-bottom: 18px;
+        }
+        .status-tag::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #22c55e;
+            animation: blink 1.8s infinite;
+        }
+        @keyframes blink {
+            0%,100% { opacity: 1; }
+            50%      { opacity: 0.3; }
+        }
+
+        /* Card profil grande */
+        .card-large .card-content h2 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            margin: 0 0 14px;
+            letter-spacing: -1px;
+        }
+        .card-large .card-content p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            max-width: 520px;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        /* Stats strip */
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            margin-top: 28px;
+            border-top: 1px solid var(--border);
+            padding-top: 22px;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 0 10px;
+            border-right: 1px solid var(--border);
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-num {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            background: var(--accent-grad, linear-gradient(135deg, #00e5b0, #00c8ff));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 0.68rem;
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Tech Stack améliorée */
+        .tech-category {
+            margin-bottom: 16px;
+        }
+        .tech-category-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted, #3d4f63);
+            margin-bottom: 8px;
+        }
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .tech-tag {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.07);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .tech-tag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(0,229,176,0.05);
+        }
+        .tech-tag i { font-size: 0.7rem; opacity: 0.7; }
+
+        /* Missions */
+        .mission-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .mission-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .mission-icon {
+            width: 40px; height: 40px;
+            border-radius: 12px;
+            background: rgba(0,229,176,0.07);
+            border: 1px solid rgba(0,229,176,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--accent);
+            font-size: 1rem;
+        }
+        .mission-info h4 {
+            margin: 0 0 4px;
+            font-family: var(--font-head);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .mission-info p {
+            margin: 0 0 6px;
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+        .mission-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .badge-done {
+            background: rgba(34,197,94,0.08);
+            border: 1px solid rgba(34,197,94,0.2);
+            color: #22c55e;
+        }
+        .badge-wip {
+            background: rgba(251,191,36,0.08);
+            border: 1px solid rgba(251,191,36,0.2);
+            color: #fbbf24;
+        }
+
+        /* Certifications */
+        .cert-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .cert-item:last-child { border-bottom: none; }
+        .cert-icon {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            background: rgba(0,229,176,0.06);
+            border: 1px solid rgba(0,229,176,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .cert-info { flex: 1; }
+        .cert-info span {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .cert-info small {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--text-dim);
+            letter-spacing: 0.5px;
+        }
+        .cert-status {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .cert-obtained {
+            background: rgba(34,197,94,0.08);
+            border: 1px solid rgba(34,197,94,0.2);
+            color: #22c55e;
+        }
+        .cert-progress {
+            background: rgba(251,191,36,0.08);
+            border: 1px solid rgba(251,191,36,0.2);
+            color: #fbbf24;
+        }
+
+        /* Contact */
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 16px 0;
+        }
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            font-size: 0.82rem;
+            color: var(--text-dim) !important;
+            transition: all 0.2s ease;
+        }
+        .contact-link:hover {
+            border-color: var(--accent);
+            color: var(--accent) !important;
+            background: rgba(0,229,176,0.05);
+            transform: translateX(4px);
+            text-shadow: none;
+        }
+        .contact-link i {
+            width: 16px;
+            text-align: center;
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        /* Btn small */
+        .btn-neon-small {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            background: rgba(0,229,176,0.04);
+            border: 1px solid rgba(0,229,176,0.25);
+            border-radius: 8px;
+            color: var(--accent) !important;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            margin-top: 14px;
+        }
+        .btn-neon-small:hover {
+            background: rgba(0,229,176,0.1);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            text-shadow: none;
+        }
+
+        /* Card disponibilité */
+        .availability-bar {
+            margin-top: 16px;
+        }
+        .avail-label {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+        .avail-track {
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .avail-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: var(--accent-grad, linear-gradient(90deg, #00e5b0, #00c8ff));
+            width: 80%;
+            position: relative;
+        }
+        .avail-fill::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 0; bottom: 0;
+            width: 20px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4));
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer {
+            0%   { opacity: 0; transform: translateX(-10px); }
+            50%  { opacity: 1; }
+            100% { opacity: 0; transform: translateX(10px); }
+        }
+    </style>
     
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
-
     <div id="particles-js"></div>
-
     <div id="header-placeholder"></div>
 
     <main class="container">
-        
+
         <header class="hero">
             <h1>Altinkaya Romain</h1>
             <p class="terminal-text">Technicien supérieur systèmes et réseaux</p>
         </header>
 
         <div class="bento-grid">
-            
+
+            <!-- ── CARD PROFIL PRINCIPALE ── -->
             <section class="card card-large">
                 <div class="card-content">
-                    <span class="status-tag">Disponible</span>
+                    <span class="status-tag">Disponible — Alternance 2026</span>
                     <h2>L'ARCHITECTE IT</h2>
-                    <p>Spécialiste du déploiement d'infrastructures critiques. Passionné par l'automatisation et la sécurisation des systèmes complexes.</p>
-                    <a href="skills.html" class="btn-neon">Détails du profil <i class="fas fa-arrow-right"></i></a>
+                    <p>Spécialiste du déploiement et de la sécurisation d'infrastructures critiques. Passionné par l'automatisation, la supervision réseau et le hardening système. En préparation du titre TSSR, je cherche à mettre mes compétences au service d'une équipe ambitieuse.</p>
+                    <div class="hero-actions">
+                        <a href="skills.html" class="btn-neon">Voir le profil complet <i class="fas fa-arrow-right"></i></a>
+                        <a href="courses.html" class="btn-neon">Mes ressources <i class="fas fa-book"></i></a>
+                    </div>
+                    <div class="stats-strip">
+                        <div class="stat-item">
+                            <span class="stat-num">5+</span>
+                            <span class="stat-label">Projets</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">3</span>
+                            <span class="stat-label">Certifs</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">2</span>
+                            <span class="stat-label">Années XP</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
+            <!-- ── TECH STACK ── -->
             <section class="card card-small">
-                <h3>TECH STACK</h3>
-                <div class="tags">
-                    <span class="tag">VMware</span>
-                    <span class="tag">Cisco</span>
-                    <span class="tag">Linux</span>
-                    <span class="tag">Proxmox</span>
+                <div class="card-header">
+                    <i class="fas fa-layer-group card-icon-main"></i>
+                    <h2>Tech Stack</h2>
                 </div>
-                <a href="skills.html" class="btn-neon-small">Explorer</a>
+
+                <div class="tech-category">
+                    <div class="tech-category-label">Virtualisation</div>
+                    <div class="tech-tags">
+                        <span class="tech-tag"><i class="fas fa-server"></i> VMware</span>
+                        <span class="tech-tag"><i class="fas fa-cube"></i> Proxmox</span>
+                        <span class="tech-tag"><i class="fas fa-box"></i> VirtualBox</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <div class="tech-category-label">Réseau</div>
+                    <div class="tech-tags">
+                        <span class="tech-tag"><i class="fas fa-network-wired"></i> Cisco</span>
+                        <span class="tech-tag"><i class="fas fa-shield-halved"></i> pfSense</span>
+                        <span class="tech-tag"><i class="fas fa-wifi"></i> VLAN</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <div class="tech-category-label">Systèmes</div>
+                    <div class="tech-tags">
+                        <span class="tech-tag"><i class="fab fa-linux"></i> Linux</span>
+                        <span class="tech-tag"><i class="fab fa-windows"></i> Windows Server</span>
+                        <span class="tech-tag"><i class="fas fa-terminal"></i> Bash</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <div class="tech-category-label">Supervision</div>
+                    <div class="tech-tags">
+                        <span class="tech-tag"><i class="fas fa-chart-line"></i> Zabbix</span>
+                        <span class="tech-tag"><i class="fas fa-chart-bar"></i> Grafana</span>
+                    </div>
+                </div>
+
+                <a href="skills.html" class="btn-neon-small">Tout voir <i class="fas fa-arrow-right"></i></a>
             </section>
 
+            <!-- ── DERNIÈRES MISSIONS ── -->
             <section class="card card-large">
-                <h2>DERNIÈRES MISSIONS</h2>
-                <div class="mini-list">
-                    <div class="list-item">
-                        <i class="fas fa-shield-halved"></i>
-                        <div>
-                            <h4>Hardening Windows Server</h4>
-                            <p>Sécurisation Active Directory 2022</p>
-                        </div>
-                    </div>
-                    <div class="list-item">
-                        <i class="fas fa-network-wired"></i>
-                        <div>
-                            <h4>Supervision Réseau</h4>
-                            <p>Architecture Zabbix & Grafana</p>
-                        </div>
+                <div class="card-header">
+                    <i class="fas fa-briefcase card-icon-main"></i>
+                    <h2>Dernières Missions</h2>
+                </div>
+
+                <div class="mission-item">
+                    <div class="mission-icon"><i class="fas fa-shield-halved"></i></div>
+                    <div class="mission-info">
+                        <h4>Hardening Windows Server</h4>
+                        <p>Sécurisation d'un Active Directory 2022 : stratégies GPO, durcissement des comptes, audit des droits et mise en conformité CIS Benchmark.</p>
+                        <span class="mission-badge badge-done"><i class="fas fa-check"></i> Terminé</span>
                     </div>
                 </div>
-                <a href="courses.html" class="btn-neon">Voir les ressources</a>
+
+                <div class="mission-item">
+                    <div class="mission-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="mission-info">
+                        <h4>Supervision Réseau</h4>
+                        <p>Déploiement d'une architecture de monitoring complète avec Zabbix pour la collecte de métriques et Grafana pour les dashboards temps réel.</p>
+                        <span class="mission-badge badge-done"><i class="fas fa-check"></i> Terminé</span>
+                    </div>
+                </div>
+
+                <div class="mission-item">
+                    <div class="mission-icon"><i class="fas fa-cube"></i></div>
+                    <div class="mission-info">
+                        <h4>Infrastructure Proxmox</h4>
+                        <p>Mise en place d'un cluster de virtualisation Proxmox avec haute disponibilité, snapshots automatisés et gestion des VMs via API.</p>
+                        <span class="mission-badge badge-wip"><i class="fas fa-spinner"></i> En cours</span>
+                    </div>
+                </div>
+
+                <a href="courses.html" class="btn-neon" style="margin-top: 8px;">Voir les ressources <i class="fas fa-arrow-right"></i></a>
             </section>
 
-            <section class="card card-small highlight-glpi">
-                <h3>CONTACT</h3>
-                <p>Besoin d'une expertise technique ?</p>
-                <div class="social-links">
-                    <a href="mailto:altinkayaromain@outlook.fr"><i class="fas fa-envelope"></i></a>
-                    <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <!-- ── CERTIFICATIONS ── -->
+            <section class="card card-small">
+                <div class="card-header">
+                    <i class="fas fa-certificate card-icon-main"></i>
+                    <h2>Certifications</h2>
                 </div>
-                <a href="mailto:altinkayaromain@outlook.fr" class="btn-neon-small">Message</a>
+
+                <div class="cert-item">
+                    <div class="cert-icon"><i class="fas fa-network-wired"></i></div>
+                    <div class="cert-info">
+                        <span>Cisco CCNA</span>
+                        <small>Réseaux & Routage</small>
+                    </div>
+                    <span class="cert-status cert-progress">En cours</span>
+                </div>
+
+                <div class="cert-item">
+                    <div class="cert-icon"><i class="fab fa-linux"></i></div>
+                    <div class="cert-info">
+                        <span>Linux LPI Essentials</span>
+                        <small>Administration Linux</small>
+                    </div>
+                    <span class="cert-status cert-obtained">Obtenu</span>
+                </div>
+
+                <div class="cert-item">
+                    <div class="cert-icon"><i class="fab fa-windows"></i></div>
+                    <div class="cert-info">
+                        <span>TSSR</span>
+                        <small>Titre RNCP Niv. 5</small>
+                    </div>
+                    <span class="cert-status cert-progress">En cours</span>
+                </div>
+
+                <a href="skills.html" class="btn-neon-small">Profil complet <i class="fas fa-arrow-right"></i></a>
+            </section>
+
+            <!-- ── CONTACT ── -->
+            <section class="card card-full">
+                <div class="card-header">
+                    <i class="fas fa-satellite-dish card-icon-main"></i>
+                    <h2>Contact & Disponibilité</h2>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start;">
+                    <div>
+                        <p style="margin-top:0;">Disponible pour une alternance ou un poste en systèmes & réseaux. N'hésitez pas à me contacter pour discuter d'une opportunité.</p>
+                        <div class="contact-links">
+                            <a href="mailto:altinkayaromain@outlook.fr" class="contact-link">
+                                <i class="fas fa-envelope"></i>
+                                altinkayaromain@outlook.fr
+                            </a>
+                            <a href="https://linkedin.com/in/romain-altinkaya" target="_blank" class="contact-link">
+                                <i class="fab fa-linkedin"></i>
+                                linkedin.com/in/romain-altinkaya
+                            </a>
+                            <a href="https://github.com/AltinkayaRomain" target="_blank" class="contact-link">
+                                <i class="fab fa-github"></i>
+                                github.com/AltinkayaRomain
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px;">Disponibilité</div>
+                        <div class="availability-bar">
+                            <div class="avail-label">
+                                <span>Alternance 2026</span>
+                                <span style="color: #22c55e;">Disponible</span>
+                            </div>
+                            <div class="avail-track"><div class="avail-fill"></div></div>
+                        </div>
+                        <div class="availability-bar" style="margin-top: 12px;">
+                            <div class="avail-label">
+                                <span>Localisation</span>
+                                <span>Lyon & remote</span>
+                            </div>
+                            <div class="avail-track"><div class="avail-fill" style="width: 100%; animation: none;"></div></div>
+                        </div>
+                        <a href="mailto:altinkayaromain@outlook.fr" class="btn-neon" style="margin-top: 20px; display: inline-flex;">
+                            M'envoyer un message <i class="fas fa-paper-plane"></i>
+                        </a>
+                    </div>
+                </div>
             </section>
 
         </div>
@@ -88,7 +549,6 @@
     </footer>
 
     <button id="backToTop"><i class="fas fa-arrow-up"></i></button>
-
     <script src="assets/js/script.js"></script>
 </body>
 </html>
