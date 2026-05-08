@@ -1,30 +1,24 @@
-/* --- script.js CORRIGÉ --- */
+/* --- script.js --- */
 
 // 1. Détection automatique : Suis-je dans un sous-dossier ?
 function getBasePath() {
-    // Si l'URL contient "/courses/", on considère qu'on est dans un sous-dossier
     if (window.location.pathname.includes('/courses/')) {
-        return '..'; // On doit remonter d'un cran
+        return '..';
     }
-    return ''; // Sinon, on est à la racine, pas de préfixe
+    return '';
 }
 
 // 2. Chargement du Header avec le bon chemin
 document.addEventListener('DOMContentLoaded', () => {
     const basePath = getBasePath();
-    const headerPath = basePath + '/partials/header.html'; // Construit le chemin correct
-    
-    // On ajoute un timestamp (?v=...) pour forcer le navigateur à recharger si on modifie le fichier
+    const headerPath = basePath + '/partials/header.html';
     loadPartial(headerPath + '?v=' + Date.now(), 'header-placeholder');
-    
-    // Initialisation du bouton retour haut
     initBackToTop();
 });
 
 function loadPartial(url, elementId) {
     const element = document.getElementById(elementId);
-    if (!element) return; // Si la div n'existe pas sur la page, on s'arrête
-
+    if (!element) return;
     fetch(url)
         .then(response => {
             if (!response.ok) throw new Error(`Erreur chargement ${url}`);
@@ -32,7 +26,7 @@ function loadPartial(url, elementId) {
         })
         .then(data => {
             element.innerHTML = data;
-            highlightActiveLink(); // On active le lien du menu après le chargement
+            highlightActiveLink();
         })
         .catch(err => console.error("Problème menu :", err));
 }
@@ -41,10 +35,9 @@ function loadPartial(url, elementId) {
 function highlightActiveLink() {
     const currentPath = window.location.pathname;
     const navLinks = document.querySelectorAll('.floating-nav a');
-    
+
     navLinks.forEach(link => {
-        // Astuce : on vérifie si le lien correspond à la fin de l'URL actuelle
-        const href = link.getAttribute('href').replace(/^\//, ''); // Enlève le slash du début pour comparer
+        const href = link.getAttribute('href').replace(/^\//, '');
         if (currentPath.endsWith(href) || (href === 'index.html' && currentPath.endsWith('/'))) {
             link.classList.add('active');
         } else {
@@ -53,11 +46,10 @@ function highlightActiveLink() {
     });
 }
 
-// 4. Bouton Retour Haut (Encapsulé proprement)
+// 4. Bouton Retour Haut
 function initBackToTop() {
     const btn = document.getElementById("backToTop");
     if (!btn) return;
-
     window.addEventListener("scroll", () => {
         if (window.scrollY > 400) {
             btn.style.display = "flex";
@@ -67,15 +59,13 @@ function initBackToTop() {
             btn.style.display = "none";
         }
     });
-    
     btn.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
 
-// 5. Particules (Code standard)
+// 5. Particules
 if (document.getElementById("particles-js")) {
-    // ... (Garde ton code particlesJS existant ici, il est correct) ...
     particlesJS('particles-js', {
         "particles": {
             "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
