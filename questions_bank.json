@@ -1,0 +1,1928 @@
+{
+  "questions": [
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Quelle commande affiche le dossier courant ?",
+      "answers": [
+        "ls",
+        "pwd",
+        "cd",
+        "dir"
+      ],
+      "correct": 1,
+      "explanation": "pwd (Print Working Directory) affiche le chemin absolu du dossier courant."
+    },
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Quelle option de ls affiche les détails ET les fichiers cachés ?",
+      "answers": [
+        "ls -a",
+        "ls -l",
+        "ls -la",
+        "ls -r"
+      ],
+      "correct": 2,
+      "explanation": "ls -la combine -l (format long avec permissions) et -a (fichiers cachés commençant par un point)."
+    },
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Comment créer un dossier et tous ses parents manquants ?",
+      "answers": [
+        "mkdir dossier",
+        "mkdir -p /a/b/c",
+        "mkdir -r dossier",
+        "touch dossier"
+      ],
+      "correct": 1,
+      "explanation": "mkdir -p crée le dossier et tous les parents manquants sans erreur si le dossier existe déjà."
+    },
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Quelle commande affiche le contenu d'un fichier texte ?",
+      "answers": [
+        "open fichier",
+        "read fichier",
+        "cat fichier",
+        "show fichier"
+      ],
+      "correct": 2,
+      "explanation": "cat affiche le contenu d'un fichier dans le terminal. Pour les grands fichiers, préférer less."
+    },
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Comment copier récursivement un dossier entier ?",
+      "answers": [
+        "cp dossier/ dest/",
+        "cp -r dossier/ dest/",
+        "cp -a dossier/",
+        "mv dossier/ dest/"
+      ],
+      "correct": 1,
+      "explanation": "cp -r (recursive) copie un dossier et tout son contenu. Sans -r, cp ne fonctionne que sur les fichiers."
+    },
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Comment remonter d'un niveau dans l'arborescence ?",
+      "answers": [
+        "cd /",
+        "cd ~",
+        "cd ..",
+        "cd -"
+      ],
+      "correct": 2,
+      "explanation": "cd .. remonte d'un niveau. cd ~ va au home, cd / va à la racine, cd - revient au dossier précédent."
+    },
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Quelle commande suit un fichier log en temps réel ?",
+      "answers": [
+        "cat -f log",
+        "tail -f log",
+        "head -f log",
+        "less log"
+      ],
+      "correct": 1,
+      "explanation": "tail -f (follow) affiche les dernières lignes et continue d'afficher les nouvelles en temps réel."
+    },
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Quel fichier contient la liste des utilisateurs Linux ?",
+      "answers": [
+        "/etc/users",
+        "/etc/passwd",
+        "/etc/accounts",
+        "/var/users"
+      ],
+      "correct": 1,
+      "explanation": "/etc/passwd contient login:x:UID:GID:commentaire:home:shell. Les mots de passe hashés sont dans /etc/shadow."
+    },
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Comment installer un paquet avec apt ?",
+      "answers": [
+        "apt download vim",
+        "apt get vim",
+        "apt install vim",
+        "apt add vim"
+      ],
+      "correct": 2,
+      "explanation": "apt install nom_paquet installe un paquet. Toujours faire apt update avant pour avoir la liste à jour."
+    },
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Comment renommer un fichier sous Linux ?",
+      "answers": [
+        "rename ancien nouveau",
+        "cp ancien nouveau",
+        "mv ancien nouveau",
+        "rn ancien nouveau"
+      ],
+      "correct": 2,
+      "explanation": "mv sert à déplacer ET renommer. Même dossier source/destination = renommage."
+    },
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Quel éditeur de texte CLI est le plus simple pour débuter ?",
+      "answers": [
+        "vim",
+        "emacs",
+        "nano",
+        "ed"
+      ],
+      "correct": 2,
+      "explanation": "nano affiche les raccourcis en bas de l'écran. vim est plus puissant mais demande un apprentissage."
+    },
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Comment mettre à jour tous les paquets sur Debian ?",
+      "answers": [
+        "apt update",
+        "apt upgrade",
+        "apt update && apt upgrade",
+        "apt refresh"
+      ],
+      "correct": 2,
+      "explanation": "apt update met à jour la liste, apt upgrade installe les nouvelles versions. Les deux ensemble = mise à jour complète."
+    },
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Comment supprimer un fichier sous Linux ?",
+      "answers": [
+        "del fichier",
+        "remove fichier",
+        "rm fichier",
+        "erase fichier"
+      ],
+      "correct": 2,
+      "explanation": "rm supprime définitivement. Avec -r pour les dossiers, -f pour forcer. Pas de corbeille en CLI."
+    },
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Quelle commande affiche le manuel d'une commande ?",
+      "answers": [
+        "help cmd",
+        "info cmd",
+        "man cmd",
+        "doc cmd"
+      ],
+      "correct": 2,
+      "explanation": "man affiche la documentation complète. Utilisez les flèches pour naviguer et q pour quitter."
+    },
+    {
+      "module": "linux",
+      "difficulty": "débutant",
+      "question": "Comment afficher qui est connecté sur le système ?",
+      "answers": [
+        "users",
+        "who",
+        "connected",
+        "list-users"
+      ],
+      "correct": 1,
+      "explanation": "who affiche les utilisateurs connectés. La commande w donne plus de détails (charge CPU, processus)."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Quelle valeur octale chmod correspond à rwxr-xr-x ?",
+      "answers": [
+        "744",
+        "755",
+        "775",
+        "777"
+      ],
+      "correct": 1,
+      "explanation": "rwx=7 (owner), r-x=5 (group), r-x=5 (others) = 755. Valeur standard pour les scripts et dossiers web."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Quelle commande change propriétaire ET groupe en une fois ?",
+      "answers": [
+        "chown jean fichier",
+        "chgrp jean fichier",
+        "chown jean:admins fichier",
+        "chmod jean:admins fichier"
+      ],
+      "correct": 2,
+      "explanation": "chown user:group fichier change les deux simultanément. chown :group change uniquement le groupe."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Quelle est la différence entre usermod -G et usermod -aG ?",
+      "answers": [
+        "-G ajoute -aG remplace",
+        "Aucune différence",
+        "-G remplace tous les groupes -aG ajoute sans supprimer",
+        "usermod -G n'existe pas"
+      ],
+      "correct": 2,
+      "explanation": "usermod -G REMPLACE tous les groupes secondaires. usermod -aG AJOUTE sans toucher aux existants. Oublier le -a est le piège classique d'examen."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Comment trouver les fichiers modifiés dans les 24 dernières heures ?",
+      "answers": [
+        "find /home -mtime 1",
+        "find /home -mtime -1",
+        "find /home -modified 24",
+        "ls -lt /home"
+      ],
+      "correct": 1,
+      "explanation": "find -mtime -1 trouve les fichiers modifiés il y a MOINS de 1 jour. -mtime 1 = entre 24h et 48h."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Comment créer une archive tar.gz du dossier /home/romain ?",
+      "answers": [
+        "tar -xzf archive.tar.gz /home/romain",
+        "tar -czf archive.tar.gz /home/romain",
+        "zip archive.tar.gz /home/romain",
+        "tar -czv /home/romain archive.tar.gz"
+      ],
+      "correct": 1,
+      "explanation": "tar -czf : c=créer, z=gzip, f=fichier. L'ordre : options, nom archive, source. -x est pour extraire."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Comment voir les ports en écoute sur Linux (remplaçant de netstat) ?",
+      "answers": [
+        "netstat -lntp",
+        "ss -lntp",
+        "ifconfig -ports",
+        "ip ports -l"
+      ],
+      "correct": 1,
+      "explanation": "ss (socket statistics) remplace netstat. -l=listening, -n=numérique, -t=TCP, -p=processus."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Quel signal envoie kill -9 ?",
+      "answers": [
+        "SIGTERM",
+        "SIGHUP",
+        "SIGKILL",
+        "SIGSTOP"
+      ],
+      "correct": 2,
+      "explanation": "kill -9 envoie SIGKILL qui tue immédiatement sans laisser le temps de nettoyer. Préférer SIGTERM (15) d'abord."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Comment rendre un script bash exécutable ?",
+      "answers": [
+        "chmod 644 script.sh",
+        "chmod +x script.sh",
+        "chmod 400 script.sh",
+        "bash -x script.sh"
+      ],
+      "correct": 1,
+      "explanation": "chmod +x ajoute le bit d'exécution pour tous. Sans ce bit, ./script.sh retourne Permission denied."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Quelle ligne doit commencer tout script Bash ?",
+      "answers": [
+        "#!/bin/sh",
+        "#!/bin/bash",
+        "#bash",
+        "// bash"
+      ],
+      "correct": 1,
+      "explanation": "Le shebang #!/bin/bash indique l'interpréteur à utiliser. Doit être la toute première ligne."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Comment chercher ERROR dans un log sans tenir compte de la casse ?",
+      "answers": [
+        "grep ERROR log",
+        "grep -i error log",
+        "grep -v error log",
+        "find error log"
+      ],
+      "correct": 1,
+      "explanation": "grep -i (insensitive) ignore la casse. grep -v inverse (lignes sans le motif). grep -r cherche récursivement."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Comment supprimer un utilisateur ET son répertoire home ?",
+      "answers": [
+        "userdel jean",
+        "userdel -r jean",
+        "usermod -d jean",
+        "rmuser jean"
+      ],
+      "correct": 1,
+      "explanation": "userdel -r supprime l'utilisateur ET son home. Sans -r, le répertoire home reste sur le disque."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Quelle commande affiche l'UID GID et groupes d'un utilisateur ?",
+      "answers": [
+        "whoami",
+        "groups jean",
+        "id jean",
+        "userinfo jean"
+      ],
+      "correct": 2,
+      "explanation": "id jean affiche l'UID, GID principal et tous les groupes secondaires. Commande de diagnostic la plus complète."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Que fait chmod o= sur un fichier ?",
+      "answers": [
+        "Donne tous les droits aux others",
+        "Retire tous les droits aux others",
+        "Copie les droits du owner",
+        "Supprime le fichier"
+      ],
+      "correct": 1,
+      "explanation": "chmod o= signifie others = rien du tout. La notation = remplace les droits existants par ceux spécifiés."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Comment éditer le fichier sudoers de façon sécurisée ?",
+      "answers": [
+        "nano /etc/sudoers",
+        "vi /etc/sudoers",
+        "visudo",
+        "sudo edit /etc/sudoers"
+      ],
+      "correct": 2,
+      "explanation": "visudo vérifie la syntaxe avant de sauvegarder. Une erreur dans sudoers peut bloquer l'accès root définitivement."
+    },
+    {
+      "module": "linux",
+      "difficulty": "intermédiaire",
+      "question": "Quelle commande affiche la hiérarchie des processus en cours ?",
+      "answers": [
+        "ps aux",
+        "top",
+        "pstree",
+        "ps -e"
+      ],
+      "correct": 2,
+      "explanation": "pstree affiche les processus sous forme d'arbre hiérarchique montrant les relations parent-enfant."
+    },
+    {
+      "module": "linux",
+      "difficulty": "expert",
+      "question": "Qu'est-ce que le SUID bit et quel risque représente-t-il ?",
+      "answers": [
+        "Il chiffre le fichier",
+        "Il force l'exécution avec les droits du propriétaire - risque d'escalade de privilèges",
+        "Il rend le fichier immuable",
+        "Il partage le fichier réseau"
+      ],
+      "correct": 1,
+      "explanation": "SUID fait s'exécuter un binaire avec les droits de son propriétaire. Ex: passwd a le SUID root. Un SUID sur un binaire custom est une faille d'escalade de privilèges."
+    },
+    {
+      "module": "linux",
+      "difficulty": "expert",
+      "question": "Quelle commande liste tous les fichiers SUID du système ?",
+      "answers": [
+        "find / -perm -4000 -type f 2>/dev/null",
+        "ls -la / | grep s",
+        "find / -suid 2>/dev/null",
+        "grep -r SUID /etc"
+      ],
+      "correct": 0,
+      "explanation": "find / -perm -4000 : le tiret signifie au moins ce bit activé. -type f = fichiers uniquement. 2>/dev/null supprime les erreurs."
+    },
+    {
+      "module": "linux",
+      "difficulty": "expert",
+      "question": "Dans /etc/passwd que signifie le x dans le champ mot de passe ?",
+      "answers": [
+        "Le mot de passe est x",
+        "Le compte est désactivé",
+        "Le hash est stocké dans /etc/shadow",
+        "Pas de mot de passe"
+      ],
+      "correct": 2,
+      "explanation": "Le x indique que le hash est dans /etc/shadow lisible uniquement par root. Historiquement les hashs étaient dans /etc/passwd accessible à tous."
+    },
+    {
+      "module": "linux",
+      "difficulty": "expert",
+      "question": "Quelle est la différence entre un hard link et un symlink ?",
+      "answers": [
+        "Hard link pointe vers l'inode symlink vers le chemin - supprimer l'original casse le symlink pas le hard link",
+        "Aucune différence",
+        "Hard link fonctionne entre partitions",
+        "Symlink est plus rapide"
+      ],
+      "correct": 0,
+      "explanation": "Hard link = même inode (mêmes données). Symlink = pointe vers un chemin : si l'original disparaît, le symlink est cassé. Hard links impossibles entre partitions différentes."
+    },
+    {
+      "module": "linux",
+      "difficulty": "expert",
+      "question": "Qu'est-ce que le Sticky Bit sur /tmp ?",
+      "answers": [
+        "Seul root peut écrire",
+        "Tout le monde crée des fichiers mais seul le propriétaire peut supprimer les siens",
+        "Fichiers chargés en RAM",
+        "Fichiers non modifiables"
+      ],
+      "correct": 1,
+      "explanation": "Le Sticky Bit (chmod +t) permet à tous de créer des fichiers mais seul le propriétaire ou root peut supprimer le sien. Essentiel pour /tmp partagé."
+    },
+    {
+      "module": "linux",
+      "difficulty": "expert",
+      "question": "Comment analyser les 10 IPs avec le plus de tentatives SSH échouées ?",
+      "answers": [
+        "lastb | head -10",
+        "grep 'Failed password' /var/log/auth.log | awk '{print $11}' | sort | uniq -c | sort -rn | head -10",
+        "fail2ban-client status sshd",
+        "ss -antp | grep :22"
+      ],
+      "correct": 1,
+      "explanation": "Pipeline classique : grep filtre, awk extrait l'IP, sort trie, uniq -c compte, sort -rn trie par nombre décroissant, head -10 garde les 10 premières."
+    },
+    {
+      "module": "linux",
+      "difficulty": "expert",
+      "question": "Comment créer un volume logique LVM de 20Go nommé data_lv dans vg_srv ?",
+      "answers": [
+        "lvcreate -n data_lv -L 20G vg_srv",
+        "lvcreate -name data_lv -size 20G vg_srv",
+        "lvmcreate -n data_lv 20G vg_srv",
+        "vgcreate data_lv 20G vg_srv"
+      ],
+      "correct": 0,
+      "explanation": "lvcreate : -n=nom du LV, -L=taille avec unité, dernier argument=nom du VG. Ensuite mkfs.ext4 pour formater et mount pour monter."
+    },
+    {
+      "module": "linux",
+      "difficulty": "expert",
+      "question": "Comment configurer Fail2Ban pour bannir après 3 échecs SSH en 10 min pendant 1h ?",
+      "answers": [
+        "Dans jail.local : maxretry=3 findtime=600 bantime=3600",
+        "Dans sshd_config : MaxAuthTries=3",
+        "Dans fail2ban.conf : retries=3 window=10m",
+        "Dans /etc/hosts.deny"
+      ],
+      "correct": 0,
+      "explanation": "jail.local : maxretry=tentatives, findtime=fenêtre en secondes (600=10min), bantime=durée ban (3600=1h). Ne jamais modifier jail.conf directement."
+    },
+    {
+      "module": "linux",
+      "difficulty": "expert",
+      "question": "Comment appliquer des ACL pour donner rwx à l'user dev sans changer les droits UGO ?",
+      "answers": [
+        "chmod u+dev:rwx fichier",
+        "setfacl -m u:dev:rwx fichier",
+        "chown dev fichier",
+        "addacl dev rwx fichier"
+      ],
+      "correct": 1,
+      "explanation": "setfacl -m (modify) u:user:permissions applique une ACL sans toucher aux droits UNIX. Un + dans ls -la indique des ACL."
+    },
+    {
+      "module": "linux",
+      "difficulty": "expert",
+      "question": "Que fait journalctl -u apache2 -f --since 1 hour ago ?",
+      "answers": [
+        "Démarre Apache2",
+        "Affiche les logs Apache2 en temps réel depuis la dernière heure",
+        "Cherche les erreurs dans tous les logs",
+        "Redémarre Apache2"
+      ],
+      "correct": 1,
+      "explanation": "journalctl : -u filtre par unité systemd, -f suit en temps réel, --since filtre par date. Essentiel pour diagnostiquer un service."
+    },
+    {
+      "module": "windows",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce que l'Active Directory ?",
+      "answers": [
+        "Un antivirus Microsoft",
+        "Une base de données centralisée pour gérer utilisateurs PCs et ressources d'un domaine",
+        "Un système de fichiers Windows",
+        "Un protocole réseau"
+      ],
+      "correct": 1,
+      "explanation": "L'Active Directory centralise l'authentification et l'autorisation de tous les objets (users, PCs, groupes, GPO) d'un domaine Windows."
+    },
+    {
+      "module": "windows",
+      "difficulty": "débutant",
+      "question": "Quel protocole utilise AD pour l'authentification moderne ?",
+      "answers": [
+        "NTLM",
+        "LDAP",
+        "Kerberos",
+        "RADIUS"
+      ],
+      "correct": 2,
+      "explanation": "Kerberos est le protocole d'authentification par défaut depuis Windows 2000. NTLM est l'ancien protocole, utilisé en fallback."
+    },
+    {
+      "module": "windows",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce qu'une GPO ?",
+      "answers": [
+        "Un groupe de sécurité",
+        "Un objet de stratégie de groupe pour configurer postes et utilisateurs en masse",
+        "Un type de partition NTFS",
+        "Un protocole de sauvegarde"
+      ],
+      "correct": 1,
+      "explanation": "Une GPO applique des configurations (sécurité, logiciels, paramètres) à des objets AD liés à une OU, un site ou un domaine."
+    },
+    {
+      "module": "windows",
+      "difficulty": "débutant",
+      "question": "Que signifie DORA dans le processus DHCP ?",
+      "answers": [
+        "Download Open Run Apply",
+        "Discover Offer Request Acknowledge",
+        "Deploy Operate Release Accept",
+        "Data Options Relay Assign"
+      ],
+      "correct": 1,
+      "explanation": "DORA : Discover (client cherche), Offer (serveur propose), Request (client accepte), Acknowledge (serveur valide le bail)."
+    },
+    {
+      "module": "windows",
+      "difficulty": "débutant",
+      "question": "Quelle commande force la mise à jour des GPO sur un poste Windows ?",
+      "answers": [
+        "Update-GPO",
+        "gpupdate /force",
+        "Get-GPO -Update",
+        "Invoke-GPUpdate"
+      ],
+      "correct": 1,
+      "explanation": "gpupdate /force réapplique toutes les GPO immédiatement. Sans /force, seules les GPO modifiées sont réappliquées."
+    },
+    {
+      "module": "windows",
+      "difficulty": "débutant",
+      "question": "Quelle est la règle d'or sur les permissions NTFS vs partage réseau ?",
+      "answers": [
+        "Les droits partage priment",
+        "Les droits NTFS priment",
+        "La permission la plus restrictive s'applique",
+        "Les deux s'additionnent"
+      ],
+      "correct": 2,
+      "explanation": "Accès réseau = intersection des deux types de droits : la permission la plus restrictive gagne. Partage=Lecture + NTFS=Contrôle Total = Lecture."
+    },
+    {
+      "module": "windows",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce qu'une OU dans Active Directory ?",
+      "answers": [
+        "Un groupe de sécurité",
+        "Un conteneur AD sur lequel on peut lier des GPO et déléguer l'administration",
+        "Un type de compte",
+        "Une partition du domaine"
+      ],
+      "correct": 1,
+      "explanation": "L'OU est le seul conteneur AD sur lequel on peut appliquer des GPO et déléguer des droits d'administration."
+    },
+    {
+      "module": "windows",
+      "difficulty": "débutant",
+      "question": "Quel port utilise LDAP non chiffré ?",
+      "answers": [
+        "443",
+        "389",
+        "636",
+        "88"
+      ],
+      "correct": 1,
+      "explanation": "LDAP = port 389 (non chiffré). LDAPS = port 636 (chiffré). En production, toujours préférer LDAPS."
+    },
+    {
+      "module": "windows",
+      "difficulty": "débutant",
+      "question": "Quelle commande PowerShell crée un utilisateur AD ?",
+      "answers": [
+        "Add-ADUser",
+        "New-ADUser",
+        "Create-ADUser",
+        "Set-ADUser"
+      ],
+      "correct": 1,
+      "explanation": "New-ADUser crée un compte AD. Paramètres essentiels : -Name, -SamAccountName, -Path (OU), -Enabled, -AccountPassword."
+    },
+    {
+      "module": "windows",
+      "difficulty": "débutant",
+      "question": "Où sont stockés les profils utilisateurs sous Windows ?",
+      "answers": [
+        "C:\\Users\\",
+        "C:\\Documents and Settings\\",
+        "C:\\Profiles\\",
+        "D:\\Users\\"
+      ],
+      "correct": 0,
+      "explanation": "C:\\Users\\ contient les profils de tous les utilisateurs locaux. En AD, les profils itinérants peuvent être centralisés."
+    },
+    {
+      "module": "windows",
+      "difficulty": "débutant",
+      "question": "Quel port utilise Kerberos ?",
+      "answers": [
+        "389",
+        "443",
+        "88",
+        "636"
+      ],
+      "correct": 2,
+      "explanation": "Kerberos utilise le port 88. LDAP=389, LDAPS=636, HTTPS=443. Le port 88 doit être ouvert entre les clients et les DC."
+    },
+    {
+      "module": "windows",
+      "difficulty": "débutant",
+      "question": "Que fait la commande gpresult /r ?",
+      "answers": [
+        "Réinitialise les GPO",
+        "Affiche un résumé des GPO appliquées sur le poste courant",
+        "Génère un rapport HTML",
+        "Recharge les GPO"
+      ],
+      "correct": 1,
+      "explanation": "gpresult /r affiche un résumé texte des GPO appliquées. gpresult /h rapport.html génère un rapport HTML complet plus détaillé."
+    },
+    {
+      "module": "windows",
+      "difficulty": "intermédiaire",
+      "question": "Combien de rôles FSMO existent et comment sont-ils répartis ?",
+      "answers": [
+        "3 rôles tous forêt",
+        "5 rôles : 2 forêt 3 domaine",
+        "5 rôles tous domaine",
+        "7 rôles"
+      ],
+      "correct": 1,
+      "explanation": "5 rôles FSMO : Contrôleur de Schéma + Maître Attribution de Noms (forêt) + PDC Emulator + RID Master + Infrastructure Master (domaine)."
+    },
+    {
+      "module": "windows",
+      "difficulty": "intermédiaire",
+      "question": "Quel rôle FSMO est le plus critique au quotidien ?",
+      "answers": [
+        "Contrôleur de schéma",
+        "PDC Emulator : gère NTP verrouillages de comptes et changements de mots de passe",
+        "RID Master",
+        "Infrastructure Master"
+      ],
+      "correct": 1,
+      "explanation": "PDC Emulator : source de temps NTP, gère les verrouillages en temps réel, reçoit les changements de mots de passe en priorité."
+    },
+    {
+      "module": "windows",
+      "difficulty": "intermédiaire",
+      "question": "Quel est l'ordre d'application des GPO LSDOU ?",
+      "answers": [
+        "Local > Site > Domaine > OU",
+        "OU > Domaine > Site > Local",
+        "Site > Local > Domaine > OU",
+        "Domaine > OU > Site > Local"
+      ],
+      "correct": 0,
+      "explanation": "LSDOU : Local, Site, Domaine, OU (parents puis enfants). La dernière GPO appliquée l'emporte sauf option Enforced."
+    },
+    {
+      "module": "windows",
+      "difficulty": "intermédiaire",
+      "question": "Comment générer un rapport HTML des GPO appliquées ?",
+      "answers": [
+        "Get-GPO -All | Export-CSV",
+        "gpresult /h rapport.html",
+        "gpreport /html",
+        "Get-GPResultantSetOfPolicy"
+      ],
+      "correct": 1,
+      "explanation": "gpresult /h rapport.html génère un rapport HTML complet des GPO appliquées et refusées. Essentiel pour le dépannage GPO."
+    },
+    {
+      "module": "windows",
+      "difficulty": "intermédiaire",
+      "question": "Quelle est la différence entre zone DNS principale et zone intégrée AD ?",
+      "answers": [
+        "Aucune",
+        "La zone intégrée AD est répliquée sur tous les DC automatiquement la principale est sur un seul serveur",
+        "La principale est plus rapide",
+        "La zone intégrée ne supporte pas SRV"
+      ],
+      "correct": 1,
+      "explanation": "Zone intégrée AD : données DNS stockées dans l'AD, réplication multi-maître sécurisée entre tous les DC."
+    },
+    {
+      "module": "windows",
+      "difficulty": "intermédiaire",
+      "question": "Qu'est-ce que le FSRM ?",
+      "answers": [
+        "Un rôle de réplication",
+        "File Server Resource Manager : quotas disque et filtrage des types de fichiers",
+        "Un protocole de temps",
+        "Un outil de défragmentation"
+      ],
+      "correct": 1,
+      "explanation": "FSRM permet de définir des quotas par utilisateur/dossier et d'interdire certains types de fichiers sur le serveur."
+    },
+    {
+      "module": "windows",
+      "difficulty": "intermédiaire",
+      "question": "Comment réinitialiser un mot de passe AD en PowerShell ?",
+      "answers": [
+        "Reset-ADPassword -Identity jean",
+        "Set-ADAccountPassword -Identity jean -Reset -NewPassword (ConvertTo-SecureString 'Mdp1!' -AsPlainText -Force)",
+        "New-ADPassword -User jean",
+        "Change-ADUserPassword jean Mdp1!"
+      ],
+      "correct": 1,
+      "explanation": "Set-ADAccountPassword avec -Reset et ConvertTo-SecureString est la méthode correcte. Le mot de passe doit être un SecureString."
+    },
+    {
+      "module": "windows",
+      "difficulty": "intermédiaire",
+      "question": "Quelle commande PowerShell teste la connectivité sur un port précis ?",
+      "answers": [
+        "ping -port 3389 serveur",
+        "Test-NetConnection -ComputerName serveur -Port 3389",
+        "netstat -an | grep 3389",
+        "nc serveur 3389"
+      ],
+      "correct": 1,
+      "explanation": "Test-NetConnection teste la connectivité TCP sur un port précis. Équivalent PowerShell de telnet host port."
+    },
+    {
+      "module": "windows",
+      "difficulty": "intermédiaire",
+      "question": "Qu'est-ce que DFS Namespace ?",
+      "answers": [
+        "Un système de fichiers chiffré",
+        "Un point d'entrée unique masquant les vrais chemins des serveurs ex: \\\\corp.local\\Public",
+        "Un protocole de sauvegarde",
+        "Un système de quota"
+      ],
+      "correct": 1,
+      "explanation": "DFS Namespace crée un chemin UNC virtuel unique pointant vers des dossiers sur différents serveurs."
+    },
+    {
+      "module": "windows",
+      "difficulty": "intermédiaire",
+      "question": "Que fait l'option Enforced sur une GPO ?",
+      "answers": [
+        "Elle s'applique en premier",
+        "Elle ne peut pas être bloquée par une OU enfant et s'applique toujours",
+        "Elle s'applique uniquement aux admins",
+        "Elle désactive la GPO"
+      ],
+      "correct": 1,
+      "explanation": "Enforced garantit que la GPO s'applique même si une OU enfant a l'option Block Inheritance. Priorité absolue."
+    },
+    {
+      "module": "windows",
+      "difficulty": "intermédiaire",
+      "question": "Qu'est-ce que le processus DORA en détail ?",
+      "answers": [
+        "Le client envoie une requête unicast",
+        "Discover=broadcast client / Offer=réponse serveur / Request=confirmation client / Ack=validation serveur",
+        "Tout en unicast",
+        "Tout en multicast"
+      ],
+      "correct": 1,
+      "explanation": "D=Discover (broadcast client), O=Offer (serveur propose une IP), R=Request (client accepte la proposition), A=Acknowledge (serveur valide le bail et ses options)."
+    },
+    {
+      "module": "windows",
+      "difficulty": "expert",
+      "question": "Qu'est-ce qu'un Golden Ticket Kerberos et comment le prévenir ?",
+      "answers": [
+        "Un ticket valide 8h",
+        "Un TGT forgé depuis le hash KRBTGT donnant accès illimité - prévention : double rotation KRBTGT + surveiller event 4769",
+        "Un certificat SSL expiré",
+        "Un token OAuth compromis"
+      ],
+      "correct": 1,
+      "explanation": "Le Golden Ticket exploite le hash KRBTGT pour forger des TGT valables 10 ans. Réinitialiser KRBTGT DEUX fois (intervalles de 10h), surveiller event 4769."
+    },
+    {
+      "module": "windows",
+      "difficulty": "expert",
+      "question": "Qu'est-ce que LAPS et quel problème résout-il ?",
+      "answers": [
+        "Un antivirus",
+        "Local Administrator Password Solution : génère un mdp admin local unique par poste stocké dans l'AD - évite le Pass-the-Hash latéral",
+        "Un outil de déploiement",
+        "Un protocole de chiffrement"
+      ],
+      "correct": 1,
+      "explanation": "LAPS résout le mot de passe admin local identique sur tous les postes. Il génère un mdp aléatoire unique par machine renouvelé automatiquement."
+    },
+    {
+      "module": "windows",
+      "difficulty": "expert",
+      "question": "Quel Event ID indique l'ajout d'un membre à un groupe à privilèges ?",
+      "answers": [
+        "4624",
+        "4625",
+        "4732",
+        "4720"
+      ],
+      "correct": 2,
+      "explanation": "Event 4732 = ajout à un groupe de sécurité local. Event 4728 = ajout à un groupe global. À surveiller pour Domain Admins et Enterprise Admins."
+    },
+    {
+      "module": "windows",
+      "difficulty": "expert",
+      "question": "Qu'apporte le groupe Protected Users dans AD ?",
+      "answers": [
+        "Des droits admin réduits",
+        "Désactive le cache credentials force Kerberos AES interdit NTLM limite le TGT à 4h",
+        "Chiffre les données des membres",
+        "Bloque les connexions externes"
+      ],
+      "correct": 1,
+      "explanation": "Protected Users (Windows 2012R2+) : pas de cache credentials, NTLM interdit, WDigest interdit, TGT limité à 4h. À utiliser pour tous les comptes admins."
+    },
+    {
+      "module": "windows",
+      "difficulty": "expert",
+      "question": "Comment trouver les DC portant les rôles FSMO en PowerShell ?",
+      "answers": [
+        "Get-ADDomain | Select-Object PDCEmulator RIDMaster InfrastructureMaster",
+        "netdom query fsmo uniquement",
+        "Get-ADForest uniquement",
+        "dcdiag /roles"
+      ],
+      "correct": 0,
+      "explanation": "Get-ADDomain donne les 3 rôles domaine (PDC, RID, Infrastructure). Get-ADForest | Select SchemaMaster, NamingMaster pour les 2 rôles forêt."
+    },
+    {
+      "module": "windows",
+      "difficulty": "expert",
+      "question": "Qu'est-ce que l'Item-Level Targeting dans les GPO Preferences ?",
+      "answers": [
+        "Un ciblage par IP uniquement",
+        "Un ciblage conditionnel selon OS groupe AD batterie subnet etc appliquant un paramètre selon des conditions précises",
+        "Un filtre WMI avancé",
+        "Une restriction par certificat"
+      ],
+      "correct": 1,
+      "explanation": "Item-Level Targeting dans GPP permet d'appliquer un paramètre uniquement si une condition est vraie : groupe AD, OS, présence batterie, sous-réseau IP. Plus flexible que les filtres WMI."
+    },
+    {
+      "module": "windows",
+      "difficulty": "expert",
+      "question": "Comment lister les tâches planifiées actives en PowerShell ?",
+      "answers": [
+        "Get-ScheduledTask -All",
+        "Get-ScheduledTask | Where-Object {$_.State -ne 'Disabled'}",
+        "taskschd.msc",
+        "schtasks /query"
+      ],
+      "correct": 1,
+      "explanation": "Get-ScheduledTask filtré sur State != Disabled liste les tâches actives. Les malwares créent souvent des tâches planifiées pour la persistance."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "débutant",
+      "question": "Combien de couches comporte le modèle OSI ?",
+      "answers": [
+        "4",
+        "5",
+        "7",
+        "9"
+      ],
+      "correct": 2,
+      "explanation": "Le modèle OSI comporte 7 couches : Physique (1) Liaison (2) Réseau (3) Transport (4) Session (5) Présentation (6) Application (7)."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "débutant",
+      "question": "A quelle couche OSI opère un switch standard ?",
+      "answers": [
+        "Couche 1 Physique",
+        "Couche 2 Liaison",
+        "Couche 3 Réseau",
+        "Couche 4 Transport"
+      ],
+      "correct": 1,
+      "explanation": "Un switch opère en couche 2 (Liaison) et utilise les adresses MAC. Un routeur opère en couche 3 (IP)."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "débutant",
+      "question": "Quelle est la différence entre TCP et UDP ?",
+      "answers": [
+        "TCP sans connexion UDP avec connexion",
+        "TCP fiable avec accusés de réception UDP rapide sans garantie",
+        "TCP plus rapide",
+        "UDP chiffré"
+      ],
+      "correct": 1,
+      "explanation": "TCP garantit la livraison (handshake, accusés de réception, retransmission). UDP envoie sans vérification. TCP pour Web/Mail, UDP pour streaming/DNS/VoIP."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce qu'un VLAN ?",
+      "answers": [
+        "Un réseau WiFi sécurisé",
+        "Une segmentation logique d'un switch en plusieurs réseaux isolés",
+        "Un protocole de routage",
+        "Un type de câble"
+      ],
+      "correct": 1,
+      "explanation": "Un VLAN découpe logiquement un switch en réseaux isolés. Les ports du même VLAN communiquent mais pas avec les autres sans routeur."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "débutant",
+      "question": "Quel port utilise HTTPS ?",
+      "answers": [
+        "80",
+        "8080",
+        "443",
+        "8443"
+      ],
+      "correct": 2,
+      "explanation": "HTTPS utilise le port 443. HTTP utilise le port 80. HTTPS chiffre les communications via TLS."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce que le NAT ?",
+      "answers": [
+        "Un protocole de chiffrement",
+        "La traduction d'adresses IP privées en adresse publique pour accéder à Internet",
+        "Un protocole de routage dynamique",
+        "Un système d'attribution d'IP"
+      ],
+      "correct": 1,
+      "explanation": "Le NAT permet à plusieurs machines avec des IP privées de partager une seule IP publique. Votre box internet fait du NAT."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "débutant",
+      "question": "Quelle commande Cisco affiche l'état de toutes les interfaces ?",
+      "answers": [
+        "show interfaces",
+        "show ip interface brief",
+        "display interfaces",
+        "get-interface all"
+      ],
+      "correct": 1,
+      "explanation": "show ip interface brief affiche un tableau condensé de toutes les interfaces avec IP, statut et protocole."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "débutant",
+      "question": "Quel est le rôle de STP (Spanning Tree Protocol) ?",
+      "answers": [
+        "Chiffrer le trafic",
+        "Prévenir les boucles réseau en désactivant logiquement des liens redondants",
+        "Gérer les VLANs",
+        "Compresser le trafic"
+      ],
+      "correct": 1,
+      "explanation": "STP évite les tempêtes de broadcast causées par les boucles. Sans STP deux câbles entre deux switchs font tomber le réseau en secondes."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "débutant",
+      "question": "Quelle plage d'IP est réservée aux réseaux privés classe C ?",
+      "answers": [
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16",
+        "169.254.0.0/16"
+      ],
+      "correct": 2,
+      "explanation": "Plages RFC 1918 : 10.0.0.0/8 (A), 172.16.0.0/12 (B), 192.168.0.0/16 (C). 169.254.x.x = APIPA."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce que le protocole OSPF ?",
+      "answers": [
+        "Un protocole de transfert de fichiers",
+        "Un protocole de routage dynamique à état de liens",
+        "Un protocole de gestion des VLANs",
+        "Un protocole de sécurité WiFi"
+      ],
+      "correct": 1,
+      "explanation": "OSPF est un protocole de routage dynamique Link-State. Chaque routeur connaît la topologie complète et choisit le chemin le plus rapide."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "débutant",
+      "question": "Quel port utilise SSH ?",
+      "answers": [
+        "21",
+        "22",
+        "23",
+        "25"
+      ],
+      "correct": 1,
+      "explanation": "SSH utilise le port 22 par défaut. Port 21 = FTP, port 23 = Telnet (non chiffré à bannir), port 25 = SMTP."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce que le Three-Way Handshake TCP ?",
+      "answers": [
+        "Un processus d'authentification",
+        "L'établissement d'une connexion en 3 étapes : SYN > SYN-ACK > ACK",
+        "Un protocole de chiffrement",
+        "La fermeture d'une connexion"
+      ],
+      "correct": 1,
+      "explanation": "SYN (client demande), SYN-ACK (serveur accepte), ACK (client confirme). Ces 3 échanges établissent la connexion avant tout envoi de données."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "intermédiaire",
+      "question": "Quelle est la différence entre port trunk et port access ?",
+      "answers": [
+        "Le trunk est plus rapide",
+        "Access = un seul VLAN sans étiquette Trunk = plusieurs VLANs avec étiquetage 802.1Q",
+        "Le trunk est chiffré",
+        "Aucune différence"
+      ],
+      "correct": 1,
+      "explanation": "Port access : terminal (PC) sur un seul VLAN, trames non étiquetées. Port trunk : entre switchs, transporte plusieurs VLANs avec tag 802.1Q."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "intermédiaire",
+      "question": "Pourquoi faut-il changer le Native VLAN d'un trunk ?",
+      "answers": [
+        "Pour accélérer le réseau",
+        "Le Native VLAN passe sans étiquette 802.1Q - laisser le VLAN 1 par défaut est vulnérable au VLAN Hopping",
+        "Pour économiser la bande passante",
+        "Pour la compatibilité IPv6"
+      ],
+      "correct": 1,
+      "explanation": "Le Native VLAN traverse le trunk sans étiquette. Par défaut VLAN 1. L'attaque VLAN Hopping exploite cette propriété."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "intermédiaire",
+      "question": "Quelle métrique utilise OSPF pour choisir le meilleur chemin ?",
+      "answers": [
+        "Le nombre de sauts",
+        "La bande passante (coût = référence/bande passante)",
+        "La latence",
+        "Le nombre de routeurs"
+      ],
+      "correct": 1,
+      "explanation": "Coût OSPF = référence (100Mbps) / bande passante. Contrairement à RIP qui compte les sauts, OSPF favorise les liens rapides."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "intermédiaire",
+      "question": "Quelle est la différence entre ACL standard et ACL étendue Cisco ?",
+      "answers": [
+        "Standard est plus sécurisée",
+        "Standard (1-99) filtre sur IP source seulement Etendue (100-199) filtre source+destination+protocole+port",
+        "Standard pour entrant étendue pour sortant",
+        "Aucune différence"
+      ],
+      "correct": 1,
+      "explanation": "ACL standard (1-99) : IP source seulement → placer près de la DESTINATION. ACL étendue (100-199) : filtre complet → placer près de la SOURCE."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "intermédiaire",
+      "question": "Qu'est-ce que le PAT (Port Address Translation) ?",
+      "answers": [
+        "Un protocole d'authentification",
+        "NAT Many-to-One : plusieurs machines partagent une IP publique différenciées par les ports",
+        "NAT One-to-One pour serveur",
+        "Un protocole de translation MAC"
+      ],
+      "correct": 1,
+      "explanation": "PAT permet à tout un réseau de sortir avec une seule IP publique. Le routeur maintient une table IP_privée:port vers IP_publique:port_unique."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "intermédiaire",
+      "question": "Comment configurer Router-on-a-Stick pour l'inter-VLAN sur Cisco ?",
+      "answers": [
+        "Une interface physique par VLAN",
+        "Sous-interfaces logiques (g0/0.10) avec encapsulation dot1Q par VLAN",
+        "Switch en mode routage uniquement",
+        "Switch L3 uniquement"
+      ],
+      "correct": 1,
+      "explanation": "RoaS : une interface physique trunk découpée en sous-interfaces. Chaque sous-interface a une IP de passerelle et la commande encapsulation dot1Q [vlan-id]."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "intermédiaire",
+      "question": "Qu'est-ce que l'Implicit Deny dans une ACL Cisco ?",
+      "answers": [
+        "Une règle qui autorise tout le reste",
+        "Un deny any any implicite invisible à la fin bloquant tout trafic non correspondant",
+        "Un mécanisme de redirection",
+        "Un logging automatique"
+      ],
+      "correct": 1,
+      "explanation": "Toute ACL Cisco se termine par un deny any any invisible. Si aucune règle ne correspond, le paquet est bloqué."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "intermédiaire",
+      "question": "Quelle commande Cisco sauvegarde la configuration en NVRAM ?",
+      "answers": [
+        "save running-config",
+        "copy running-config startup-config",
+        "commit config",
+        "store active-config"
+      ],
+      "correct": 1,
+      "explanation": "copy running-config startup-config sauvegarde la config RAM vers la NVRAM. Sans ça, un redémarrage perd toutes les modifications."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "intermédiaire",
+      "question": "Comment voir la table de routage sur un routeur Cisco ?",
+      "answers": [
+        "show routing",
+        "show ip route",
+        "display route",
+        "get-route all"
+      ],
+      "correct": 1,
+      "explanation": "show ip route affiche la table. C=Connecté, S=Statique, O=OSPF, R=RIP, B=BGP. Les chiffres entre crochets = distance administrative / métrique."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "intermédiaire",
+      "question": "Qu'est-ce que le DHCP Snooping ?",
+      "answers": [
+        "Surveillance des baux pour facturation",
+        "Mécanisme bloquant les serveurs DHCP non autorisés sur les ports non fiables d'un switch",
+        "Chiffrement des échanges DHCP",
+        "Redondance DHCP"
+      ],
+      "correct": 1,
+      "explanation": "DHCP Snooping distingue ports trusted (vrai serveur DHCP) et untrusted (clients). Un serveur DHCP pirate sur un port untrusted est automatiquement bloqué."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "expert",
+      "question": "Qu'est-ce que le Wildcard Mask dans OSPF ?",
+      "answers": [
+        "L'inverse du masque : 255.255.255.0 devient 0.0.0.255",
+        "Un masque de chiffrement",
+        "La plage d'IP attribuées",
+        "Le masque de destination"
+      ],
+      "correct": 0,
+      "explanation": "Wildcard = 255.255.255.255 - masque. Pour /24 : 0.0.0.255. OSPF : network 192.168.10.0 0.0.0.255 area 0 annonce tout le /24."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "expert",
+      "question": "Comment fonctionne l'élection du Root Bridge dans STP ?",
+      "answers": [
+        "Le switch avec le plus de ports",
+        "Le switch avec la plus petite Bridge ID (priorité + MAC) est élu Root Bridge",
+        "Le premier switch allumé",
+        "L'admin désigne uniquement"
+      ],
+      "correct": 1,
+      "explanation": "Bridge ID = Priorité (32768 par défaut) + MAC. La plus petite Bridge ID gagne. Bonne pratique : fixer la priorité du switch core à 4096."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "expert",
+      "question": "Qu'est-ce que l'attaque ARP Spoofing et comment s'en protéger ?",
+      "answers": [
+        "Usurper une MAC pour le WiFi - WPA3",
+        "Empoisonner le cache ARP pour rediriger le trafic (MITM) - protection : Dynamic ARP Inspection (DAI)",
+        "Bloquer les requêtes ARP - firewall",
+        "Saturer le réseau - QoS"
+      ],
+      "correct": 1,
+      "explanation": "ARP Spoofing envoie de fausses réponses ARP pour associer l'IP victime à la MAC de l'attaquant (MITM). DAI vérifie les associations IP/MAC contre DHCP Snooping."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "expert",
+      "question": "Quelle est la différence entre OSPF Area 0 et les autres aires ?",
+      "answers": [
+        "Area 0 est la seule possible",
+        "Area 0 (backbone) est obligatoire et toutes les autres aires doivent y être connectées via un ABR",
+        "Area 0 est réservée à Internet",
+        "Area 0 utilise MD5"
+      ],
+      "correct": 1,
+      "explanation": "L'Area 0 (backbone) est le coeur d'OSPF. Toutes les autres aires doivent y être connectées via un ABR pour éviter les boucles de routage."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "expert",
+      "question": "Qu'est-ce que Dynamic ARP Inspection (DAI) ?",
+      "answers": [
+        "Accélérer la résolution ARP",
+        "Valider IP/MAC contre la table DHCP Snooping et bloquer les fausses réponses ARP",
+        "Chiffrer le trafic ARP",
+        "Limiter la bande passante par VLAN"
+      ],
+      "correct": 1,
+      "explanation": "DAI inspecte les paquets ARP sur les ports untrusted et vérifie contre DHCP Snooping. Paquets non conformes droppés. Nécessite DHCP Snooping activé."
+    },
+    {
+      "module": "reseau",
+      "difficulty": "expert",
+      "question": "Sur quelle couche OSI opère un routeur ?",
+      "answers": [
+        "Couche 1",
+        "Couche 2",
+        "Couche 3",
+        "Couche 4"
+      ],
+      "correct": 2,
+      "explanation": "Le routeur opère en couche 3 (Réseau) et utilise les adresses IP pour acheminer les paquets entre réseaux différents."
+    },
+    {
+      "module": "securite",
+      "difficulty": "débutant",
+      "question": "Que signifie CIA en sécurité informatique ?",
+      "answers": [
+        "Computer Intelligence Agency",
+        "Confidentialité Intégrité Disponibilité",
+        "Chiffrement Identification Authentification",
+        "Contrôle Inspection Audit"
+      ],
+      "correct": 1,
+      "explanation": "CIA : Confidentialité (seuls les autorisés accèdent), Intégrité (données non altérées), Disponibilité (services accessibles). Le triptyque fondamental."
+    },
+    {
+      "module": "securite",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce que le principe du moindre privilège ?",
+      "answers": [
+        "Donner tous les droits à tous",
+        "Accorder uniquement les droits strictement nécessaires à chaque utilisateur",
+        "Limiter l'accès physique",
+        "Chiffrer tous les fichiers"
+      ],
+      "correct": 1,
+      "explanation": "Le moindre privilège est la règle n°1 du hardening : seuls les droits nécessaires au travail. Limite les dégâts en cas de compromission."
+    },
+    {
+      "module": "securite",
+      "difficulty": "débutant",
+      "question": "Quel Event ID Windows correspond à un échec de connexion ?",
+      "answers": [
+        "4624",
+        "4625",
+        "4648",
+        "4720"
+      ],
+      "correct": 1,
+      "explanation": "4624 = connexion réussie, 4625 = échec de connexion. Des centaines de 4625 depuis une même IP indiquent une attaque brute-force."
+    },
+    {
+      "module": "securite",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce que Fail2Ban ?",
+      "answers": [
+        "Un antivirus Linux",
+        "Un outil qui bannit automatiquement les IPs avec trop d'échecs d'authentification",
+        "Un pare-feu applicatif",
+        "Un outil de chiffrement"
+      ],
+      "correct": 1,
+      "explanation": "Fail2Ban analyse les logs et bannit via iptables les IPs dépassant un seuil d'échecs. Indispensable sur tout serveur exposé à Internet."
+    },
+    {
+      "module": "securite",
+      "difficulty": "débutant",
+      "question": "Quel est le port RDP par défaut ?",
+      "answers": [
+        "22",
+        "3389",
+        "80",
+        "443"
+      ],
+      "correct": 1,
+      "explanation": "RDP (Remote Desktop) utilise le port 3389. Cible de choix pour les ransomwares. Bonne pratique : changer le port, activer MFA, restreindre par IP."
+    },
+    {
+      "module": "securite",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce qu'une attaque phishing ?",
+      "answers": [
+        "Une attaque qui sature le réseau",
+        "Tromper un utilisateur pour voler ses identifiants via faux email ou site",
+        "Une attaque DNS",
+        "Un virus qui chiffre les fichiers"
+      ],
+      "correct": 1,
+      "explanation": "Le phishing imite des emails légitimes pour voler des identifiants. Vecteur d'attaque le plus courant. Contre-mesures : sensibilisation, MFA, filtre anti-spam."
+    },
+    {
+      "module": "securite",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce que la règle 3-2-1 pour les sauvegardes ?",
+      "answers": [
+        "3 sauvegardes 2 fois par jour 1 serveur",
+        "3 copies sur 2 supports différents dont 1 hors site ou hors ligne",
+        "3 disques 2 RAID 1 cloud",
+        "3 complètes 2 incrémentales 1 différentielle"
+      ],
+      "correct": 1,
+      "explanation": "Règle 3-2-1 : 3 copies, sur 2 types de supports différents, dont 1 hors site ou déconnectée. Seule vraie protection contre un ransomware."
+    },
+    {
+      "module": "securite",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce que le MFA ?",
+      "answers": [
+        "Un antivirus multi-couches",
+        "Authentification nécessitant au moins 2 facteurs : savoir + avoir + être",
+        "Un protocole réseau sécurisé",
+        "Un chiffrement à deux clés"
+      ],
+      "correct": 1,
+      "explanation": "MFA combine au moins 2 facteurs : mot de passe (savoir), téléphone/token (avoir), biométrie (être). Même si le mdp est volé, l'attaquant est bloqué."
+    },
+    {
+      "module": "securite",
+      "difficulty": "débutant",
+      "question": "Quel fichier Linux contient les tentatives SSH échouées ?",
+      "answers": [
+        "/var/log/syslog",
+        "/var/log/auth.log",
+        "/var/log/fail2ban.log",
+        "/etc/ssh/failed.log"
+      ],
+      "correct": 1,
+      "explanation": "/var/log/auth.log contient toutes les authentifications. lastb affiche aussi les dernières tentatives échouées."
+    },
+    {
+      "module": "securite",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce qu'un ransomware ?",
+      "answers": [
+        "Un logiciel de surveillance",
+        "Un malware qui chiffre les fichiers et demande une rançon",
+        "Un virus qui vole les mots de passe",
+        "Un outil d'administration"
+      ],
+      "correct": 1,
+      "explanation": "Les ransomwares chiffrent les fichiers et exigent une rançon. Contre-mesures : sauvegardes 3-2-1, segmentation réseau, MFA, mises à jour."
+    },
+    {
+      "module": "securite",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce que la défense en profondeur ?",
+      "answers": [
+        "Un pare-feu très puissant",
+        "Multiplier les couches de sécurité pour qu'une couche compromise ne compromette pas tout",
+        "Chiffrer toutes les communications",
+        "Isoler physiquement les serveurs"
+      ],
+      "correct": 1,
+      "explanation": "Défense en profondeur : pare-feu + segmentation réseau + hardening OS + antivirus + journalisation. Si une couche tombe, la suivante résiste."
+    },
+    {
+      "module": "securite",
+      "difficulty": "débutant",
+      "question": "Quel port Telnet utilise-t-il et pourquoi faut-il le bannir ?",
+      "answers": [
+        "22 - SSH trop sécurisé",
+        "23 - Telnet transmet tout en clair y compris les mots de passe",
+        "80 - HTTP non chiffré",
+        "21 - FTP dangereux"
+      ],
+      "correct": 1,
+      "explanation": "Telnet (port 23) transmet tout en clair, visible avec Wireshark. Remplacé par SSH (port 22) qui chiffre tout. Bloquer le port 23 sur tout pare-feu."
+    },
+    {
+      "module": "securite",
+      "difficulty": "intermédiaire",
+      "question": "Qu'est-ce qu'une attaque Pass-the-Hash ?",
+      "answers": [
+        "Deviner les mots de passe",
+        "Réutiliser le hash NTLM pour s'authentifier sans connaître le mot de passe en clair",
+        "Intercepter les échanges HTTPS",
+        "Attaquer les serveurs de hachage"
+      ],
+      "correct": 1,
+      "explanation": "Pass-the-Hash vole le hash NTLM (via Mimikatz) et l'utilise directement pour s'authentifier. Contre-mesures : LAPS, Protected Users, désactiver NTLM."
+    },
+    {
+      "module": "securite",
+      "difficulty": "intermédiaire",
+      "question": "Quelle commande configure la politique par défaut d'iptables pour bloquer le trafic entrant ?",
+      "answers": [
+        "iptables -P INPUT REJECT",
+        "iptables -P INPUT DROP",
+        "iptables --default INPUT=DROP",
+        "iptables -A INPUT -j DROP"
+      ],
+      "correct": 1,
+      "explanation": "iptables -P INPUT DROP définit la politique par défaut DROP. DROP = silencieux (stealth), REJECT = envoie une erreur ICMP."
+    },
+    {
+      "module": "securite",
+      "difficulty": "intermédiaire",
+      "question": "Qu'est-ce que le CIS Benchmark ?",
+      "answers": [
+        "Un scanner de vulnérabilités",
+        "Des guides de durcissement publiés par le Center for Internet Security référence pour auditer les systèmes",
+        "Un protocole de chiffrement",
+        "Une certification cybersécurité"
+      ],
+      "correct": 1,
+      "explanation": "Le CIS publie des guides détaillés pour durcir chaque OS et équipement. Niveau L1 (base) et L2 (renforcé). Référence pour les audits de conformité."
+    },
+    {
+      "module": "securite",
+      "difficulty": "intermédiaire",
+      "question": "Quelle est la configuration SSH minimale pour un serveur exposé ?",
+      "answers": [
+        "Changer le port uniquement",
+        "PermitRootLogin no + PasswordAuthentication no + Port non standard + MaxAuthTries 3",
+        "Désactiver SSH et utiliser Telnet",
+        "Activer le mot de passe root"
+      ],
+      "correct": 1,
+      "explanation": "Config minimale SSH : interdire root, forcer les clés, changer le port, limiter les tentatives. AllowUsers pour whitelister les comptes autorisés."
+    },
+    {
+      "module": "securite",
+      "difficulty": "intermédiaire",
+      "question": "Quelle commande affiche les dernières connexions échouées sur Linux ?",
+      "answers": [
+        "last -f",
+        "lastb",
+        "who -bad",
+        "faillog"
+      ],
+      "correct": 1,
+      "explanation": "lastb lit /var/log/btmp et affiche les tentatives échouées avec date, IP et login. last affiche les connexions réussies."
+    },
+    {
+      "module": "securite",
+      "difficulty": "intermédiaire",
+      "question": "Comment auditer les fichiers SUID sur un système Linux ?",
+      "answers": [
+        "ls -la / | grep s",
+        "find / -perm -4000 -type f 2>/dev/null",
+        "cat /etc/suid",
+        "getfacl -suid /"
+      ],
+      "correct": 1,
+      "explanation": "find / -perm -4000 -type f trouve tous les fichiers avec le SUID activé. Un SUID sur un binaire custom est une alerte sécurité immédiate."
+    },
+    {
+      "module": "securite",
+      "difficulty": "intermédiaire",
+      "question": "Qu'est-ce que le VLAN Hopping ?",
+      "answers": [
+        "Accéder à des VLANs non autorisés via le Native VLAN ou DTP - prévention : changer le native VLAN et désactiver DTP",
+        "Rediriger le trafic entre VLANs",
+        "Saturer le switch",
+        "Attaquer le routeur"
+      ],
+      "correct": 0,
+      "explanation": "VLAN Hopping exploite le Native VLAN ou DTP pour accéder à des VLANs non autorisés. Prévention : native VLAN inutilisé, DTP désactivé."
+    },
+    {
+      "module": "securite",
+      "difficulty": "intermédiaire",
+      "question": "Quelle est la différence entre iptables DROP et REJECT ?",
+      "answers": [
+        "DROP plus rapide REJECT plus sécurisé",
+        "DROP abandonne silencieusement (stealth) REJECT envoie une erreur ICMP - DROP préféré en entrée",
+        "REJECT permanent DROP temporaire",
+        "Aucune différence"
+      ],
+      "correct": 1,
+      "explanation": "DROP = paquet disparu sans réponse. REJECT = ICMP port-unreachable envoyé. DROP préféré en INPUT (ne révèle pas la topologie)."
+    },
+    {
+      "module": "securite",
+      "difficulty": "intermédiaire",
+      "question": "Qu'est-ce que le principe de la segmentation réseau ?",
+      "answers": [
+        "Diviser un câble en plusieurs segments",
+        "Isoler les différentes zones du réseau (DMZ, LAN, serveurs) pour limiter la propagation en cas de compromission",
+        "Chiffrer chaque segment",
+        "Redonder chaque lien réseau"
+      ],
+      "correct": 1,
+      "explanation": "La segmentation réseau isole les zones (DMZ, LAN, serveurs, IoT) via des VLANs et pare-feux. Si une zone est compromise, l'attaquant ne peut pas pivoter facilement vers les autres."
+    },
+    {
+      "module": "securite",
+      "difficulty": "expert",
+      "question": "Qu'est-ce que le compte KRBTGT et pourquoi réinitialiser deux fois ?",
+      "answers": [
+        "Compte Exchange - 2x pour réplication",
+        "Compte Kerberos dont le hash sert à forger des Golden Tickets - 2x car les tickets ont une durée de vie de 10h max",
+        "Compte admin par défaut - 2x pour sécurité",
+        "Compte DNS - 2x pour vider le cache"
+      ],
+      "correct": 1,
+      "explanation": "KRBTGT est le compte de service Kerberos. Son hash chiffre tous les TGT. Réinitialiser 2x (délai 10h) pour invalider les tickets existants."
+    },
+    {
+      "module": "securite",
+      "difficulty": "expert",
+      "question": "Qu'est-ce que Dynamic ARP Inspection (DAI) ?",
+      "answers": [
+        "Accélérer la résolution ARP",
+        "Valider IP/MAC contre DHCP Snooping et bloquer les fausses réponses ARP (anti ARP Spoofing)",
+        "Chiffrer le trafic ARP",
+        "Limiter la bande passante"
+      ],
+      "correct": 1,
+      "explanation": "DAI inspecte les paquets ARP sur les ports untrusted et vérifie contre DHCP Snooping. Nécessite DHCP Snooping activé au préalable."
+    },
+    {
+      "module": "securite",
+      "difficulty": "expert",
+      "question": "Qu'est-ce que le Tier Model Microsoft ?",
+      "answers": [
+        "Un modèle de découpage réseau en DMZ",
+        "Séparation des privilèges admin en 3 niveaux (DC Serveurs Postes) empêchant les mouvements latéraux",
+        "Un modèle de sauvegarde",
+        "Un modèle de chiffrement"
+      ],
+      "correct": 1,
+      "explanation": "Tier 0=AD/DC, Tier 1=Serveurs, Tier 2=Postes. Un admin Tier 2 ne peut pas administrer un DC. Limite drastiquement la surface d'attaque."
+    },
+    {
+      "module": "securite",
+      "difficulty": "expert",
+      "question": "Quels Event IDs surveiller pour détecter un Pass-the-Hash ?",
+      "answers": [
+        "4624 uniquement",
+        "4624 type 3 (réseau) + 4648 (credentials explicites) sans 4625 préalables",
+        "4625 en masse",
+        "7045 nouveau service"
+      ],
+      "correct": 1,
+      "explanation": "Pass-the-Hash génère des 4624 type Logon 3 sans tentatives échouées préalables. Connexion réseau réussie sans échecs depuis une IP inhabituelle = suspect."
+    },
+    {
+      "module": "securite",
+      "difficulty": "expert",
+      "question": "Comment trouver les crontabs de tous les utilisateurs sur un système compromis ?",
+      "answers": [
+        "cat /etc/crontab",
+        "for user in $(cut -f1 -d: /etc/passwd); do crontab -u $user -l 2>/dev/null; done",
+        "ls -la /var/spool/cron",
+        "crontab -l -all"
+      ],
+      "correct": 1,
+      "explanation": "La boucle for itère sur tous les utilisateurs. Les malwares utilisent les crontabs pour la persistance. Vérifier aussi /etc/cron.d/."
+    },
+    {
+      "module": "securite",
+      "difficulty": "expert",
+      "question": "Comment configurer un timeout de session inactive SSH ?",
+      "answers": [
+        "SessionTimeout 300",
+        "ClientAliveInterval 300 + ClientAliveCountMax 0",
+        "IdleTimeout 5min",
+        "SSHTimeout 300"
+      ],
+      "correct": 1,
+      "explanation": "ClientAliveInterval 300 envoie un keepalive toutes les 300s. ClientAliveCountMax 0 ferme la session sans attendre de réponse."
+    },
+    {
+      "module": "infra",
+      "difficulty": "débutant",
+      "question": "Quelle est la différence entre hyperviseur type 1 et type 2 ?",
+      "answers": [
+        "Type 1 est plus récent",
+        "Type 1 bare-metal sur le matériel (production) type 2 dans un OS hôte (lab/dev)",
+        "Type 1 est plus lent",
+        "Aucune différence"
+      ],
+      "correct": 1,
+      "explanation": "Type 1 (bare-metal) : ESXi, Proxmox, Hyper-V directement sur le matériel. Type 2 : VirtualBox, VMware Workstation dans Windows/Linux pour les labs."
+    },
+    {
+      "module": "infra",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce que Proxmox VE ?",
+      "answers": [
+        "Un OS Windows Server",
+        "Un hyperviseur open-source type 1 basé sur Debian supportant KVM et LXC",
+        "Un outil de sauvegarde",
+        "Un logiciel de monitoring"
+      ],
+      "correct": 1,
+      "explanation": "Proxmox VE est un hyperviseur open-source gratuit supportant les VMs KVM et les conteneurs LXC. Interface web, clustering, HA intégrés."
+    },
+    {
+      "module": "infra",
+      "difficulty": "débutant",
+      "question": "Quelle est la différence entre une VM et un conteneur ?",
+      "answers": [
+        "Aucune différence",
+        "VM = OS complet virtualisé conteneur = partage le kernel de l'hôte plus léger et plus rapide",
+        "Conteneur plus sécurisé",
+        "VM toujours plus lente"
+      ],
+      "correct": 1,
+      "explanation": "VM : virtualise CPU/RAM/disque + OS complet. Conteneur (LXC/Docker) : partage le kernel, démarrage en secondes, empreinte minimale."
+    },
+    {
+      "module": "infra",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce que le vMotion dans VMware ?",
+      "answers": [
+        "Un protocole de sauvegarde",
+        "Migration à chaud d'une VM d'un hôte ESXi à un autre sans interruption de service",
+        "Un système de snapshots",
+        "Un protocole de réplication"
+      ],
+      "correct": 1,
+      "explanation": "vMotion déplace une VM en cours d'exécution vers un autre ESXi sans interruption (zéro downtime). Indispensable pour la maintenance."
+    },
+    {
+      "module": "infra",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce qu'un snapshot dans un hyperviseur ?",
+      "answers": [
+        "Une photo du datacenter",
+        "Un point de restauration capturant l'état exact d'une VM à un instant T",
+        "Une copie sur un autre serveur",
+        "Une sauvegarde complète"
+      ],
+      "correct": 1,
+      "explanation": "Un snapshot capture l'état exact d'une VM : RAM, disques, configuration. Permet de revenir en arrière rapidement. Différent d'une sauvegarde."
+    },
+    {
+      "module": "infra",
+      "difficulty": "débutant",
+      "question": "Que signifie HA (High Availability) dans un cluster ?",
+      "answers": [
+        "High Acceleration",
+        "Redémarrage automatique des VMs sur un autre noeud en cas de panne d'un hôte",
+        "Doublement de la bande passante",
+        "Gestion des VMs gourmandes"
+      ],
+      "correct": 1,
+      "explanation": "La haute disponibilité surveille les noeuds. Si un serveur tombe, les VMs sont automatiquement redémarrées sur les autres noeuds."
+    },
+    {
+      "module": "infra",
+      "difficulty": "débutant",
+      "question": "Quel est l'outil de monitoring open-source populaire combiné à Grafana ?",
+      "answers": [
+        "Nagios uniquement",
+        "Zabbix (collecte métriques) + Grafana (visualisation) - stack populaire en entreprise",
+        "Wireshark",
+        "GLPI"
+      ],
+      "correct": 1,
+      "explanation": "Zabbix collecte les métriques (CPU, RAM, réseau) et déclenche des alertes. Grafana crée des tableaux de bord visuels. Stack très utilisée en entreprise."
+    },
+    {
+      "module": "infra",
+      "difficulty": "débutant",
+      "question": "Quelle commande vérifie l'espace disque disponible sur Linux ?",
+      "answers": [
+        "ls -la /",
+        "df -h",
+        "du -sh /",
+        "fdisk -l"
+      ],
+      "correct": 1,
+      "explanation": "df -h (disk free, human-readable) affiche espace total/utilisé/disponible de chaque partition montée."
+    },
+    {
+      "module": "infra",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce que GLPI ?",
+      "answers": [
+        "Un hyperviseur",
+        "Un logiciel de gestion de parc informatique et ticketing ITSM open-source",
+        "Un protocole réseau",
+        "Un système de sauvegarde"
+      ],
+      "correct": 1,
+      "explanation": "GLPI gère l'inventaire matériel/logiciel, les tickets d'incidents, les demandes de service. Très utilisé dans les DSI françaises."
+    },
+    {
+      "module": "infra",
+      "difficulty": "débutant",
+      "question": "Quelle est la différence entre NAS et SAN ?",
+      "answers": [
+        "NAS est plus rapide",
+        "NAS = partage de fichiers sur réseau (SMB/NFS) SAN = stockage bloc sur réseau dédié (iSCSI/FC)",
+        "SAN est moins cher",
+        "Aucune différence"
+      ],
+      "correct": 1,
+      "explanation": "NAS = partage fichiers. SAN = stockage bloc vu comme disque local. SAN pour performances élevées (VMs), NAS pour partages fichiers collaboratifs."
+    },
+    {
+      "module": "infra",
+      "difficulty": "débutant",
+      "question": "Qu'est-ce que FOG Project ?",
+      "answers": [
+        "Un hyperviseur open-source",
+        "Un serveur de déploiement de postes par clonage réseau (PXE) - alternative open-source à SCCM",
+        "Un système de monitoring",
+        "Un outil de ticketing"
+      ],
+      "correct": 1,
+      "explanation": "FOG Project permet de déployer des images Windows/Linux sur des postes via le réseau (PXE boot). Centralise les images, automatise le déploiement de masse."
+    },
+    {
+      "module": "infra",
+      "difficulty": "intermédiaire",
+      "question": "Comment créer un Volume Group LVM nommé vg_data depuis /dev/sdb ?",
+      "answers": [
+        "lvcreate vg_data /dev/sdb",
+        "vgcreate vg_data /dev/sdb",
+        "mkfs -vg vg_data /dev/sdb",
+        "fdisk -vg vg_data /dev/sdb"
+      ],
+      "correct": 1,
+      "explanation": "Processus LVM : 1) pvcreate /dev/sdb 2) vgcreate vg_data /dev/sdb 3) lvcreate -n lv_name -L 10G vg_data 4) mkfs.ext4 5) mount."
+    },
+    {
+      "module": "infra",
+      "difficulty": "intermédiaire",
+      "question": "Quelle commande étend un volume logique LVM de 10Go supplémentaires ?",
+      "answers": [
+        "lvcreate -L +10G /dev/vg/lv",
+        "lvextend -L +10G /dev/vg/lv",
+        "vgextend +10G /dev/vg/lv",
+        "lvresize +10G /dev/vg/lv"
+      ],
+      "correct": 1,
+      "explanation": "lvextend -L +10G étend le LV. Ensuite resize2fs (ext4) ou xfs_growfs (XFS) pour étendre le FS. Avec -r dans lvextend, le resize FS est automatique."
+    },
+    {
+      "module": "infra",
+      "difficulty": "intermédiaire",
+      "question": "Qu'est-ce que le DRS (Distributed Resource Scheduler) dans VMware ?",
+      "answers": [
+        "Un système de sauvegarde",
+        "Équilibre automatiquement la charge CPU/RAM entre les hôtes d'un cluster via vMotion",
+        "Un protocole de réplication",
+        "Un système d'authentification"
+      ],
+      "correct": 1,
+      "explanation": "DRS surveille les ressources de tous les hôtes et migre automatiquement les VMs via vMotion pour équilibrer la charge."
+    },
+    {
+      "module": "infra",
+      "difficulty": "intermédiaire",
+      "question": "Quelle est la différence entre sauvegarde complète incrémentale et différentielle ?",
+      "answers": [
+        "Aucune différence",
+        "Complète=tout Incrémentale=depuis la dernière sauvegarde Différentielle=depuis la dernière COMPLETE",
+        "Complète=disque entier Incrémentale=fichiers modifiés Différentielle=nouveaux fichiers",
+        "Incrémentale et différentielle identiques"
+      ],
+      "correct": 1,
+      "explanation": "Complète : tout (lente). Incrémentale : changements depuis la dernière sauvegarde quelconque (restauration lente en chaîne). Différentielle : changements depuis la dernière complète (compromis)."
+    },
+    {
+      "module": "infra",
+      "difficulty": "intermédiaire",
+      "question": "Qu'est-ce que le protocole iSCSI ?",
+      "answers": [
+        "Sauvegarde via Internet",
+        "Encapsule les commandes SCSI dans TCP/IP pour accès stockage bloc sur réseau Ethernet",
+        "Partage de fichiers NAS",
+        "Virtualisation réseau"
+      ],
+      "correct": 1,
+      "explanation": "iSCSI encapsule SCSI dans TCP/IP, permettant un SAN sur réseau Ethernet standard. Plus économique que Fibre Channel."
+    },
+    {
+      "module": "infra",
+      "difficulty": "intermédiaire",
+      "question": "Qu'est-ce que Ceph dans un cluster Proxmox ?",
+      "answers": [
+        "Un protocole de sauvegarde",
+        "Système de stockage distribué répliquant les données sur plusieurs noeuds sans SAN externe",
+        "Un hyperviseur alternatif",
+        "Un système de monitoring"
+      ],
+      "correct": 1,
+      "explanation": "Ceph distribue et réplique les données sur les disques locaux des noeuds. Élimine le besoin d'un SAN externe. Résilience configurable."
+    },
+    {
+      "module": "infra",
+      "difficulty": "intermédiaire",
+      "question": "Comment rendre un montage LVM persistant au démarrage ?",
+      "answers": [
+        "systemctl enable mount",
+        "Ajouter une ligne dans /etc/fstab : /dev/vg/lv /point ext4 defaults 0 2",
+        "mount --persistent",
+        "lvcreate --persistent"
+      ],
+      "correct": 1,
+      "explanation": "Format fstab : device point_montage fs_type options dump fsck. Tester avec mount -a avant de redémarrer pour valider la syntaxe."
+    },
+    {
+      "module": "infra",
+      "difficulty": "expert",
+      "question": "Qu'est-ce que le split-brain dans un cluster HA ?",
+      "answers": [
+        "Un problème de performances",
+        "Deux noeuds se croient tous deux maîtres suite à perte de communication - prévention : quorum + fencing (STONITH)",
+        "Un conflit de VLAN",
+        "Une corruption de données"
+      ],
+      "correct": 1,
+      "explanation": "Split-brain : noeuds perdent contact, chacun pense que l'autre est mort et prend le contrôle des VMs -> corruption. Prévention : quorum + STONITH."
+    },
+    {
+      "module": "infra",
+      "difficulty": "expert",
+      "question": "Quelle est la différence entre RTO et RPO ?",
+      "answers": [
+        "RTO=données perdues RPO=temps reprise",
+        "RPO=perte de données max acceptable RTO=durée indisponibilité max acceptable",
+        "Identiques",
+        "RTO=coût RPO=perte de données"
+      ],
+      "correct": 1,
+      "explanation": "RPO (Recovery Point Objective) : jusqu'à quand perdre des données. RTO (Recovery Time Objective) : combien de temps hors service. Guident les choix HA/DR."
+    },
+    {
+      "module": "infra",
+      "difficulty": "expert",
+      "question": "Quelle est la différence entre thick et thin provisioning ?",
+      "answers": [
+        "Thick=compressé Thin=non compressé",
+        "Thick=espace alloué immédiatement en totalité Thin=espace alloué à la demande (risque over-commit)",
+        "Thick=chiffré Thin=non chiffré",
+        "Aucune différence de performances"
+      ],
+      "correct": 1,
+      "explanation": "Thick : tout l'espace réservé immédiatement, performances prévisibles. Thin : espace grandit selon usage réel, économie d'espace mais risque de saturation."
+    },
+    {
+      "module": "infra",
+      "difficulty": "expert",
+      "question": "Qu'est-ce que le Jumbo Frame et quand l'activer ?",
+      "answers": [
+        "Un type de câble réseau",
+        "Trames Ethernet MTU 9000 (vs 1500 standard) - à activer sur réseaux de stockage iSCSI/NFS/vMotion pour réduire CPU et améliorer le débit",
+        "Un protocole de compression",
+        "Un type de VLAN"
+      ],
+      "correct": 1,
+      "explanation": "Jumbo Frames (MTU 9000) réduisent le nombre de trames -> moins de CPU, meilleur débit. À activer sur TOUT le chemin sinon fragmentation silencieuse."
+    },
+    {
+      "module": "infra",
+      "difficulty": "expert",
+      "question": "Comment automatiser la création de VMs identiques sur Proxmox ?",
+      "answers": [
+        "Créer manuellement chaque VM",
+        "Créer un template puis cloner via API REST Proxmox / pvesh / Terraform",
+        "Copier les fichiers .qcow2 manuellement",
+        "vMotion en boucle"
+      ],
+      "correct": 1,
+      "explanation": "Workflow : 1) VM de base + cloud-init 2) Convertir en template 3) Cloner (full ou linked clone). Automatisation : API REST, pvesh, Terraform provider Proxmox, Ansible."
+    }
+  ]
+}
