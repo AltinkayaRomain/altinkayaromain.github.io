@@ -13,11 +13,13 @@
     <style>
         .module-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:10px}
         .module-btn{background:rgba(255,255,255,.02);border:1px solid var(--border,rgba(255,255,255,.06));border-radius:14px;padding:16px 12px;cursor:pointer;transition:all .25s ease;text-align:center;color:var(--text-dim,#7a8fa6)}
-        .module-btn:hover{border-color:rgba(0,229,176,.35);background:rgba(0,229,176,.05);color:var(--text,#f0f4f8);transform:translateY(-3px)}
+        .module-btn:hover{border-color:rgba(0,229,176,.35);background:rgba(0,229,176,.05);transform:translateY(-3px)}
+        .module-btn:hover span{color:#f0f4f8}
+        .module-btn:hover small{color:#a0b4c8;opacity:1}
         .module-btn.active{border-color:var(--accent,#00e5b0);background:rgba(0,229,176,.08);color:var(--accent,#00e5b0)}
         .module-btn i{display:block;font-size:1.5rem;margin-bottom:8px;color:var(--accent,#00e5b0)}
-        .module-btn span{display:block;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-        .module-btn small{font-family:var(--font-mono);font-size:.58rem;opacity:.5;letter-spacing:1px}
+        .module-btn span{display:block;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#7a8fa6;transition:color .25s ease}
+        .module-btn small{font-family:var(--font-mono);font-size:.58rem;opacity:.6;letter-spacing:1px;display:block;color:#7a8fa6;transition:color .25s ease}
         .difficulty-row{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
         .diff-btn{flex:1;padding:10px;border-radius:10px;border:1px solid var(--border,rgba(255,255,255,.06));background:rgba(255,255,255,.02);cursor:pointer;font-family:var(--font-mono);font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--text-dim,#7a8fa6);transition:all .2s ease;text-align:center}
         .diff-btn:hover{border-color:rgba(0,229,176,.3);color:var(--text)}
