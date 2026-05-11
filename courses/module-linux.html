@@ -38,11 +38,13 @@
                     <li><a href="#network"><i class="fas fa-chevron-right"></i> Réseau &amp; SSH</a></li>
                     <li><a href="#bash"><i class="fas fa-chevron-right"></i> Scripting Bash</a></li>
                     <li><a href="#interfaces"><i class="fas fa-chevron-right"></i> Config interfaces</a></li>
-                    <li><a href="#dhcp"><i class="fas fa-chevron-right"></i> Serveur DHCP (ISC)</a></li>
+                    <li><a href="#dhcp"><i class="fas fa-chevron-right"></i> Serveur DHCP (Kea)</a></li>
                     <li><a href="#dns"><i class="fas fa-chevron-right"></i> Serveur DNS (Bind9)</a></li>
                     <li><a href="#nat"><i class="fas fa-chevron-right"></i> Routage &amp; NAT</a></li>
+                    <li><a href="#apache"><i class="fas fa-chevron-right"></i> Serveur Web Apache</a></li>
                     <li><a href="#samba"><i class="fas fa-chevron-right"></i> Samba (partage &amp; AD)</a></li>
                     <li><a href="#cheatsheet"><i class="fas fa-chevron-right"></i> Cheat Sheet Services</a></li>
+                    <li><a href="#examen"><i class="fas fa-chevron-right"></i> 🎯 Mémo Examen</a></li>
                 </ul>
             </aside>
 
@@ -648,73 +650,102 @@ nmcli connection reload</code>
                 <section id="dhcp" class="card">
                     <div class="card-header">
                         <i class="fas fa-server card-icon-main"></i>
-                        <h2>12. Serveur DHCP (ISC DHCP)</h2>
+                        <h2>12. Serveur DHCP — Kea</h2>
                     </div>
-                    <p>Le serveur DHCP distribue automatiquement les paramètres réseau aux clients. Protocole UDP, ports <strong>67</strong> (serveur) et <strong>68</strong> (client).</p>
+                    <p>Kea est le successeur moderne de ISC DHCP Server, développé par l'ISC. Plus rapide, configurable en JSON, avec API REST intégrée. Protocole UDP, ports <strong>67</strong> (serveur) et <strong>68</strong> (client).</p>
 
                     <h3>A. Installation</h3>
                     <div class="terminal-block">
-                        <div class="terminal-header">Installation &amp; activation</div>
+                        <div class="terminal-header">Installation Kea DHCP</div>
                         <code># Debian/Ubuntu
-apt install isc-dhcp-server -y
+apt install kea -y
 
-# RHEL/Rocky
-dnf install dhcp-server -y
+# RHEL/Rocky (via repo ISC)
+dnf install isc-kea -y
 
-systemctl enable --now isc-dhcp-server</code>
+# Services Kea
+systemctl enable --now kea-dhcp4-server   # IPv4
+systemctl enable --now kea-dhcp6-server   # IPv6 (optionnel)</code>
                     </div>
 
                     <h3>B. Configuration principale</h3>
                     <div class="terminal-block">
-                        <div class="terminal-header">/etc/dhcp/dhcpd.conf</div>
-                        <code># ── Paramètres globaux ──────────────────────────────
-default-lease-time 86400;       # Bail par défaut : 24h
-max-lease-time 172800;          # Bail maximum : 48h
-authoritative;                  # Ce serveur fait autorité sur le réseau
+                        <div class="terminal-header">/etc/kea/kea-dhcp4.conf</div>
+                        <code>{
+"Dhcp4": {
+    "interfaces-config": {
+        "interfaces": ["eth0"]          // Interface d'écoute
+    },
+    "lease-database": {
+        "type": "memfile",
+        "persist": true,
+        "name": "/var/lib/kea/dhcp4.leases"
+    },
+    "valid-lifetime": 86400,            // Bail : 24h
+    "max-valid-lifetime": 172800,       // Bail max : 48h
 
-option domain-name-servers 192.168.1.1, 8.8.8.8;
-option domain-name "mondomaine.local";
+    "option-data": [
+        {
+            "name": "domain-name-servers",
+            "data": "192.168.1.1, 8.8.8.8"
+        },
+        {
+            "name": "domain-name",
+            "data": "mondomaine.local"
+        }
+    ],
 
-# ── Déclaration du sous-réseau ────────────────────
-subnet 192.168.1.0 netmask 255.255.255.0 {
-    range 192.168.1.100 192.168.1.200;      # Plage dynamique
-    option routers 192.168.1.254;           # Passerelle
-    option subnet-mask 255.255.255.0;
-    option broadcast-address 192.168.1.255;
+    "subnet4": [{
+        "subnet": "192.168.1.0/24",
+        "pools": [{"pool": "192.168.1.100 - 192.168.1.200"}],
+        "option-data": [
+            {"name": "routers", "data": "192.168.1.254"},
+            {"name": "broadcast-address", "data": "192.168.1.255"}
+        ],
+
+        // ── Réservation par adresse MAC ──────────────
+        "reservations": [
+            {
+                "hw-address": "aa:bb:cc:dd:ee:ff",
+                "ip-address": "192.168.1.10",
+                "hostname": "serveur-web"
+            }
+        ]
+    }],
+
+    "loggers": [{
+        "name": "kea-dhcp4",
+        "output_options": [{"output": "/var/log/kea/kea-dhcp4.log"}],
+        "severity": "INFO"
+    }]
 }
-
-# ── Réservation par adresse MAC ───────────────────
-host serveur-web {
-    hardware ethernet AA:BB:CC:DD:EE:FF;
-    fixed-address 192.168.1.10;
-    option host-name "serveur-web";
 }</code>
                     </div>
 
-                    <h3>C. Interface d'écoute &amp; surveillance</h3>
+                    <h3>C. Vérification et surveillance</h3>
                     <div class="terminal-block">
-                        <div class="terminal-header">/etc/default/isc-dhcp-server + vérification</div>
-                        <code># Spécifier l'interface d'écoute (Debian)
-INTERFACESv4="eth0"
-INTERFACESv6=""
-
-# Vérifier la syntaxe de la config
-dhcpd -t -cf /etc/dhcp/dhcpd.conf
+                        <div class="terminal-header">Commandes Kea</div>
+                        <code># Vérifier la syntaxe de la config
+kea-dhcp4 -t /etc/kea/kea-dhcp4.conf
 
 # Voir les baux actifs
-cat /var/lib/dhcp/dhcpd.leases
+cat /var/lib/kea/dhcp4.leases
 
 # Logs en temps réel
-journalctl -u isc-dhcp-server -f
+journalctl -u kea-dhcp4-server -f
+tail -f /var/log/kea/kea-dhcp4.log
 
-# Tester depuis un client
-dhclient -r eth0    # Libérer le bail
-dhclient eth0       # Demander un nouveau bail</code>
+# Statut du service
+systemctl status kea-dhcp4-server
+
+# Recharger la config sans redémarrer (API REST)
+curl -X POST http://127.0.0.1:8000/ \
+  -d '{"command":"config-reload","service":["dhcp4"]}'</code>
                     </div>
 
                     <div class="note-box">
                         <i class="fas fa-exclamation-triangle"></i>
-                        <p><strong>Piège examen :</strong> Si le serveur DHCP est sur un sous-réseau différent des clients, il faut configurer un <strong>relais DHCP</strong> sur le routeur (Helper Address) ou installer <code>isc-dhcp-relay</code>. Les requêtes DHCP sont des broadcasts qui ne traversent pas les routeurs.</p>
+                        <p><strong>Piège examen :</strong> Si le serveur DHCP est sur un sous-réseau différent des clients, il faut configurer un <strong>relais DHCP</strong> sur le routeur (Helper Address). Les requêtes DHCP sont des broadcasts qui ne traversent pas les routeurs par défaut.</p>
                     </div>
                 </section>
 
@@ -968,6 +999,161 @@ iptables -t nat -L -n -v       # Table NAT</code>
                     </div>
                 </section>
 
+                <section id="apache" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-globe card-icon-main"></i>
+                        <h2>15. Serveur Web — Apache2</h2>
+                    </div>
+                    <p>Apache est le serveur web le plus utilisé sur Linux. Il supporte les VirtualHosts (plusieurs sites sur un même serveur), HTTPS via Let's Encrypt, les modules et le .htaccess.</p>
+
+                    <h3>A. Installation et structure</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Installation Apache2</div>
+                        <code># Debian/Ubuntu
+apt install apache2 -y
+systemctl enable --now apache2
+
+# RHEL/Rocky
+dnf install httpd -y
+systemctl enable --now httpd
+
+# Structure des dossiers (Debian)
+/etc/apache2/
+├── apache2.conf          # Config principale
+├── ports.conf            # Ports d'écoute (80, 443)
+├── sites-available/      # Sites disponibles (désactivés)
+├── sites-enabled/        # Sites actifs (liens symboliques)
+├── mods-available/       # Modules disponibles
+└── mods-enabled/         # Modules actifs
+
+# Activer/désactiver un site
+a2ensite monsite.conf
+a2dissite monsite.conf
+
+# Activer/désactiver un module
+a2enmod rewrite ssl headers
+a2dismod status
+
+# Vérifier la config et redémarrer
+apachectl configtest
+systemctl reload apache2</code>
+                    </div>
+
+                    <h3>B. VirtualHost HTTP simple</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/apache2/sites-available/monsite.conf</div>
+                        <code>&lt;VirtualHost *:80&gt;
+    ServerName monsite.local
+    ServerAlias www.monsite.local
+    DocumentRoot /var/www/monsite
+    ServerAdmin admin@monsite.local
+
+    # Logs spécifiques au site
+    ErrorLog ${APACHE_LOG_DIR}/monsite_error.log
+    CustomLog ${APACHE_LOG_DIR}/monsite_access.log combined
+
+    # Options du dossier
+    &lt;Directory /var/www/monsite&gt;
+        Options -Indexes +FollowSymLinks
+        AllowOverride All          # Autoriser le .htaccess
+        Require all granted
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;</code>
+                    </div>
+
+                    <h3>C. VirtualHost HTTPS avec SSL</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/apache2/sites-available/monsite-ssl.conf</div>
+                        <code>&lt;VirtualHost *:443&gt;
+    ServerName monsite.local
+    DocumentRoot /var/www/monsite
+
+    # Activation SSL
+    SSLEngine on
+    SSLCertificateFile    /etc/ssl/certs/monsite.crt
+    SSLCertificateKeyFile /etc/ssl/private/monsite.key
+
+    # Sécurité SSL (désactiver les vieux protocoles)
+    SSLProtocol all -SSLv3 -TLSv1 -TLSv1.1
+    SSLCipherSuite HIGH:!aNULL:!MD5
+
+    ErrorLog ${APACHE_LOG_DIR}/monsite_ssl_error.log
+    CustomLog ${APACHE_LOG_DIR}/monsite_ssl_access.log combined
+&lt;/VirtualHost&gt;
+
+# Rediriger HTTP vers HTTPS
+&lt;VirtualHost *:80&gt;
+    ServerName monsite.local
+    Redirect permanent / https://monsite.local/
+&lt;/VirtualHost&gt;</code>
+                    </div>
+
+                    <h3>D. Générer un certificat auto-signé (test/lab)</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Certificat SSL auto-signé</div>
+                        <code># Générer le certificat et la clé (valable 365 jours)
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout /etc/ssl/private/monsite.key \
+    -out /etc/ssl/certs/monsite.crt \
+    -subj "/C=FR/ST=IDF/L=Paris/O=MonOrg/CN=monsite.local"
+
+# Activer le module SSL
+a2enmod ssl
+a2ensite monsite-ssl.conf
+systemctl reload apache2</code>
+                    </div>
+
+                    <h3>E. Fichier .htaccess</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">/var/www/monsite/.htaccess</div>
+                        <code># Activer le moteur de réécriture
+Options +FollowSymLinks
+RewriteEngine On
+
+# Rediriger toutes les requêtes vers index.php (framework PHP)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+# Interdire l'accès à un dossier
+&lt;Directory /var/www/monsite/private&gt;
+    Require all denied
+&lt;/Directory&gt;
+
+# Protéger par mot de passe
+AuthType Basic
+AuthName "Zone Restreinte"
+AuthUserFile /etc/apache2/.htpasswd
+Require valid-user</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Commandes Apache utiles</div>
+                        <code># Créer un utilisateur .htpasswd
+htpasswd -c /etc/apache2/.htpasswd alice   # -c = créer le fichier
+htpasswd /etc/apache2/.htpasswd bob        # Ajouter un user
+
+# Voir les sites et modules actifs
+apachectl -S            # Virtual hosts
+apache2ctl -M           # Modules chargés
+
+# Logs Apache
+tail -f /var/log/apache2/error.log
+tail -f /var/log/apache2/access.log
+
+# Test de performance
+ab -n 1000 -c 10 http://monsite.local/  # Apache Bench</code>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Pièges examen :</strong><br>
+                        — <code>AllowOverride All</code> est indispensable pour que le <code>.htaccess</code> soit pris en compte.<br>
+                        — Ne pas oublier <code>a2enmod rewrite</code> avant d'utiliser <code>RewriteEngine On</code>.<br>
+                        — Toujours faire <code>apachectl configtest</code> avant de recharger pour éviter une coupure de service.</p>
+                    </div>
+                </section>
+
                 <section id="samba" class="card">
                     <div class="card-header">
                         <i class="fas fa-folder-open card-icon-main"></i>
@@ -1131,7 +1317,7 @@ smbpasswd -e alice      # Activer</code>
 
                     <div class="terminal-block">
                         <div class="terminal-header">DHCP — Vérification rapide</div>
-                        <code">dhcpd -t -cf /etc/dhcp/dhcpd.conf    # Syntaxe config
+                        <code>dhcpd -t -cf /etc/dhcp/dhcpd.conf    # Syntaxe config
 cat /var/lib/dhcp/dhcpd.leases       # Baux actifs
 journalctl -u isc-dhcp-server -f     # Logs en direct
 dhclient -r eth0 && dhclient eth0    # Renouveler depuis un client
@@ -1140,7 +1326,7 @@ tcpdump -i eth0 -n port 67           # Capturer trafic DHCP</code>
 
                     <div class="terminal-block">
                         <div class="terminal-header">DNS Bind9 — Vérification rapide</div>
-                        <code">named-checkconf                        # Config globale
+                        <code>named-checkconf                        # Config globale
 named-checkzone mondomaine.local \
     /etc/bind/zones/db.mondomaine.local  # Zone spécifique
 rndc reload                            # Recharger les zones sans redémarrer
@@ -1152,7 +1338,7 @@ tcpdump -i eth0 -n port 53             # Capturer requêtes DNS</code>
 
                     <div class="terminal-block">
                         <div class="terminal-header">iptables — Vue rapide</div>
-                        <code">iptables -L -n -v --line-numbers       # Toutes les règles
+                        <code>iptables -L -n -v --line-numbers       # Toutes les règles
 iptables -t nat -L -n -v               # Table NAT
 iptables -D INPUT 3                    # Supprimer règle n°3
 iptables -F                            # Vider toutes les règles (ATTENTION)
@@ -1161,7 +1347,7 @@ iptables-save > /etc/iptables/rules.v4 # Sauvegarder</code>
 
                     <div class="terminal-block">
                         <div class="terminal-header">Samba — Vérification rapide</div>
-                        <code">testparm                               # Tester smb.conf
+                        <code>testparm                               # Tester smb.conf
 smbstatus                              # Connexions actives
 smbclient -L localhost -N              # Lister les partages
 pdbedit -L                             # Lister les users Samba
@@ -1181,6 +1367,100 @@ tail -f /var/log/samba/log.smbd        # Logs Samba</code>
                                 <tr><td style="color:var(--accent);padding:8px">Netplan</td><td style="padding:8px"><code>/etc/netplan/*.yaml</code></td><td style="padding:8px"><code>netplan try</code></td></tr>
                                 <tr><td style="color:var(--accent);padding:8px">DNS résolution</td><td style="padding:8px"><code>/etc/resolv.conf</code></td><td style="padding:8px"><code>resolvectl status</code></td></tr>
                                 <tr><td style="color:var(--accent);padding:8px">Hosts locaux</td><td style="padding:8px"><code>/etc/hosts</code></td><td style="padding:8px"><code>getent hosts nom</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="examen" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-graduation-cap card-icon-main"></i>
+                        <h2>🎯 Mémo Examen — Le plus important à retenir</h2>
+                    </div>
+                    <p>Les points qui tombent le plus souvent en épreuve pratique TSSR. À connaître par cœur.</p>
+
+                    <h3>A. Droits et permissions — Les pièges classiques</h3>
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>
+                        <strong>usermod -G</strong> écrase tous les groupes → toujours <strong>-aG</strong><br>
+                        <strong>chmod 600</strong> sur les clés SSH → obligatoire, SSH refuse sinon<br>
+                        <strong>chown</strong> seul root peut changer le propriétaire<br>
+                        <strong>SUID 4000 / SGID 2000 / Sticky 1000</strong> → ex: <code>chmod 1777 /tmp</code>
+                        </p>
+                    </div>
+
+                    <h3>B. Commandes indispensables à mémoriser</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:8px">Action</th><th style="padding:8px">Commande</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:8px">Créer user + home + bash</td><td style="padding:8px"><code>useradd -m -s /bin/bash jean && passwd jean</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Ajouter à un groupe</td><td style="padding:8px"><code>usermod -aG sudo jean</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Droits web Apache</td><td style="padding:8px"><code>chown -R www-data:www-data /var/www/site && chmod -R 750 /var/www/site</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Voir ports en écoute</td><td style="padding:8px"><code>ss -tlnp</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Logs service en direct</td><td style="padding:8px"><code>journalctl -u nomservice -f</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Activer service au boot</td><td style="padding:8px"><code>systemctl enable --now nomservice</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Tester config Apache</td><td style="padding:8px"><code>apachectl configtest</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Tester config DNS</td><td style="padding:8px"><code>named-checkconf && named-checkzone zone fichier</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Tester config DHCP Kea</td><td style="padding:8px"><code>kea-dhcp4 -t /etc/kea/kea-dhcp4.conf</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Tester config Samba</td><td style="padding:8px"><code>testparm</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Activer forwarding IP</td><td style="padding:8px"><code>echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf && sysctl -p</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Chercher un fichier SUID</td><td style="padding:8px"><code>find / -perm -4000 -type f 2>/dev/null</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>C. Ordre logique d'installation d'un service</h3>
+                    <div class="note-box">
+                        <i class="fas fa-list-ol"></i>
+                        <p>
+                        <strong>1.</strong> <code>apt update && apt install nompaquet -y</code><br>
+                        <strong>2.</strong> Éditer le fichier de configuration principal<br>
+                        <strong>3.</strong> Tester la syntaxe (<code>configtest</code>, <code>named-checkconf</code>...)<br>
+                        <strong>4.</strong> <code>systemctl restart nomservice</code><br>
+                        <strong>5.</strong> <code>systemctl enable nomservice</code> (démarrage auto)<br>
+                        <strong>6.</strong> Vérifier avec <code>systemctl status</code> et <code>journalctl -xe</code><br>
+                        <strong>7.</strong> Tester depuis un client (ping, dig, smbclient, curl...)
+                        </p>
+                    </div>
+
+                    <h3>D. Ports à connaître par cœur</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:8px">Port</th><th style="padding:8px">Service</th><th style="padding:8px">Protocole</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:8px">22</td><td style="padding:8px">SSH</td><td style="padding:8px">TCP</td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">53</td><td style="padding:8px">DNS</td><td style="padding:8px">UDP + TCP</td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">67/68</td><td style="padding:8px">DHCP serveur/client</td><td style="padding:8px">UDP</td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">80</td><td style="padding:8px">HTTP (Apache)</td><td style="padding:8px">TCP</td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">443</td><td style="padding:8px">HTTPS (Apache SSL)</td><td style="padding:8px">TCP</td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">137/138/139</td><td style="padding:8px">NetBIOS (Samba)</td><td style="padding:8px">UDP/TCP</td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">445</td><td style="padding:8px">SMB/CIFS (Samba)</td><td style="padding:8px">TCP</td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">389</td><td style="padding:8px">LDAP (Samba AD)</td><td style="padding:8px">TCP</td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">636</td><td style="padding:8px">LDAPS (Samba AD chiffré)</td><td style="padding:8px">TCP</td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">88</td><td style="padding:8px">Kerberos (Samba AD)</td><td style="padding:8px">TCP/UDP</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>E. Les fichiers de config à connaître absolument</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:8px">Service</th><th style="padding:8px">Fichier clé</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:8px">Utilisateurs</td><td style="padding:8px"><code>/etc/passwd</code> · <code>/etc/shadow</code> · <code>/etc/group</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">SSH</td><td style="padding:8px"><code>/etc/ssh/sshd_config</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Réseau (Netplan)</td><td style="padding:8px"><code>/etc/netplan/00-installer-config.yaml</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">DNS résolution</td><td style="padding:8px"><code>/etc/resolv.conf</code> · <code>/etc/hosts</code> · <code>/etc/nsswitch.conf</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">DHCP Kea</td><td style="padding:8px"><code>/etc/kea/kea-dhcp4.conf</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">DNS Bind9</td><td style="padding:8px"><code>/etc/bind/named.conf.options</code> · <code>/etc/bind/named.conf.local</code> · <code>/etc/bind/zones/</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Apache</td><td style="padding:8px"><code>/etc/apache2/sites-available/</code> · <code>/etc/apache2/ports.conf</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Samba</td><td style="padding:8px"><code>/etc/samba/smb.conf</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">iptables</td><td style="padding:8px"><code>/etc/iptables/rules.v4</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Sudo</td><td style="padding:8px"><code>/etc/sudoers</code> (éditer avec <code>visudo</code> !)</td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Fstab (montages)</td><td style="padding:8px"><code>/etc/fstab</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Kernel params</td><td style="padding:8px"><code>/etc/sysctl.conf</code></td></tr>
                             </tbody>
                         </table>
                     </div>
