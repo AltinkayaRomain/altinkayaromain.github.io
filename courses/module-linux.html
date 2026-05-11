@@ -4,64 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Révisions - Linux Expert - Romain Altinkaya</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
     <div id="particles-js"></div>
     <div id="header-placeholder"></div>
- 
+
     <main class="container">
         <header class="hero">
             <h1>Administration Linux (Debian/RHEL)</h1>
             <p class="terminal-text">_TSSR_ROOT_ACCESS_GRANTED</p>
         </header>
- 
+
         <div class="course-layout">
- 
+
             <aside class="course-sidebar">
                 <h3>Sommaire Expert</h3>
                 <ul>
                     <li><a href="#base"><i class="fas fa-chevron-right"></i> Commandes de base</a></li>
-                    <li><a href="#users"><i class="fas fa-chevron-right"></i> Utilisateurs & Groupes</a></li>
+                    <li><a href="#users"><i class="fas fa-chevron-right"></i> Utilisateurs &amp; Groupes</a></li>
                     <li><a href="#chmod"><i class="fas fa-chevron-right"></i> chmod — Droits</a></li>
                     <li><a href="#chown"><i class="fas fa-chevron-right"></i> chown / chgrp</a></li>
                     <li><a href="#arbo"><i class="fas fa-chevron-right"></i> Arborescence FHS</a></li>
                     <li><a href="#perms"><i class="fas fa-chevron-right"></i> SUID / SGID / ACL</a></li>
-                    <li><a href="#lvm"><i class="fas fa-chevron-right"></i> Disques & LVM</a></li>
-                    <li><a href="#archives"><i class="fas fa-chevron-right"></i> Archives & Paquets</a></li>
-                    <li><a href="#process"><i class="fas fa-chevron-right"></i> Processus & Systemd</a></li>
-                    <li><a href="#network"><i class="fas fa-chevron-right"></i> Réseau & SSH</a></li>
+                    <li><a href="#lvm"><i class="fas fa-chevron-right"></i> Disques &amp; LVM</a></li>
+                    <li><a href="#archives"><i class="fas fa-chevron-right"></i> Archives &amp; Paquets</a></li>
+                    <li><a href="#process"><i class="fas fa-chevron-right"></i> Processus &amp; Systemd</a></li>
+                    <li><a href="#network"><i class="fas fa-chevron-right"></i> Réseau &amp; SSH</a></li>
                     <li><a href="#bash"><i class="fas fa-chevron-right"></i> Scripting Bash</a></li>
+                    <li><a href="#interfaces"><i class="fas fa-chevron-right"></i> Config interfaces</a></li>
+                    <li><a href="#dhcp"><i class="fas fa-chevron-right"></i> Serveur DHCP (ISC)</a></li>
+                    <li><a href="#dns"><i class="fas fa-chevron-right"></i> Serveur DNS (Bind9)</a></li>
+                    <li><a href="#nat"><i class="fas fa-chevron-right"></i> Routage &amp; NAT</a></li>
+                    <li><a href="#samba"><i class="fas fa-chevron-right"></i> Samba (partage &amp; AD)</a></li>
+                    <li><a href="#cheatsheet"><i class="fas fa-chevron-right"></i> Cheat Sheet Services</a></li>
                 </ul>
             </aside>
- 
+
             <div class="course-content">
- 
-                <!-- ═══════════════════════════════════════
-                     0. COMMANDES DE BASE
-                ═══════════════════════════════════════ -->
+
                 <section id="base" class="card">
                     <div class="card-header">
                         <i class="fas fa-terminal card-icon-main"></i>
                         <h2>0. Commandes de base &amp; Navigation</h2>
                     </div>
                     <p>Avant tout le reste : se déplacer et manipuler des fichiers sans hésitation.</p>
- 
                     <h3>A. Navigation</h3>
                     <div class="table-responsive">
                         <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
-                            <thead>
-                                <tr style="border-bottom: 1px solid var(--accent);">
-                                    <th>Commande</th><th>Effet</th><th>Exemple</th>
-                                </tr>
-                            </thead>
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th>Commande</th><th>Effet</th><th>Exemple</th></tr></thead>
                             <tbody>
                                 <tr><td style="color:var(--accent);"><code>pwd</code></td><td>Affiche le dossier courant</td><td><code>pwd</code> → <code>/home/romain</code></td></tr>
                                 <tr><td style="color:var(--accent);"><code>ls</code></td><td>Liste le contenu</td><td><code>ls -la</code> (détails + cachés)</td></tr>
@@ -70,15 +66,10 @@
                             </tbody>
                         </table>
                     </div>
- 
                     <h3>B. Manipulation de fichiers</h3>
                     <div class="table-responsive">
                         <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
-                            <thead>
-                                <tr style="border-bottom: 1px solid var(--accent);">
-                                    <th>Commande</th><th>Effet</th><th>Exemple</th>
-                                </tr>
-                            </thead>
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th>Commande</th><th>Effet</th><th>Exemple</th></tr></thead>
                             <tbody>
                                 <tr><td style="color:var(--accent);"><code>touch</code></td><td>Crée un fichier vide</td><td><code>touch rapport.txt</code></td></tr>
                                 <tr><td style="color:var(--accent);"><code>mkdir</code></td><td>Crée un dossier</td><td><code>mkdir -p /data/logs/2026</code></td></tr>
@@ -91,7 +82,6 @@
                             </tbody>
                         </table>
                     </div>
- 
                     <h3>C. Lire la sortie de <code>ls -la</code></h3>
                     <div class="note-box">
                         <i class="fas fa-info-circle"></i>
@@ -101,37 +91,28 @@
                         <strong>Droits :</strong> <code>rw-</code> User | <code>r--</code> Group | <code>r--</code> Others<br>
                         <strong>Ensuite :</strong> nb liens · propriétaire · groupe · taille · date · nom</p>
                     </div>
- 
                     <div class="terminal-block">
                         <div class="terminal-header">Exemples pratiques</div>
                         <code># Lister avec détails et fichiers cachés
 ls -la /home/romain
- 
+
 # Chercher un fichier par nom
 find / -name "sshd_config" 2>/dev/null
- 
+
 # Afficher les 20 dernières lignes d'un log en direct
 tail -f -n 20 /var/log/syslog</code>
                     </div>
                 </section>
- 
-                <!-- ═══════════════════════════════════════
-                     1. UTILISATEURS & GROUPES
-                ═══════════════════════════════════════ -->
+
                 <section id="users" class="card">
                     <div class="card-header">
                         <i class="fas fa-users card-icon-main"></i>
                         <h2>1. Utilisateurs &amp; Groupes</h2>
                     </div>
- 
                     <h3>A. Les fichiers système clés</h3>
                     <div class="table-responsive">
                         <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
-                            <thead>
-                                <tr style="border-bottom: 1px solid var(--accent);">
-                                    <th>Fichier</th><th>Contenu</th>
-                                </tr>
-                            </thead>
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th>Fichier</th><th>Contenu</th></tr></thead>
                             <tbody>
                                 <tr><td style="color:var(--accent);"><code>/etc/passwd</code></td><td><code>login:x:UID:GID:commentaire:home:shell</code></td></tr>
                                 <tr><td style="color:var(--accent);"><code>/etc/shadow</code></td><td>Mots de passe hashés (lisible par root uniquement)</td></tr>
@@ -139,7 +120,6 @@ tail -f -n 20 /var/log/syslog</code>
                             </tbody>
                         </table>
                     </div>
- 
                     <div class="terminal-block">
                         <div class="terminal-header">/etc/passwd — exemple de ligne</div>
                         <code>romain:x:1001:1001:Romain Altinkaya:/home/romain:/bin/bash
@@ -148,51 +128,47 @@ tail -f -n 20 /var/log/syslog</code>
 #      │  └─ UID (identifiant unique)
 #      └─ "x" = mot de passe stocké dans /etc/shadow</code>
                     </div>
- 
                     <h3>B. Gestion des utilisateurs</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">useradd / usermod / userdel</div>
                         <code># Créer un utilisateur (avec home + shell bash)
 useradd -m -s /bin/bash jean
- 
+
 # Définir / changer le mot de passe
 passwd jean
- 
+
 # Ajouter jean au groupe sudo (sans le retirer des autres)
 usermod -aG sudo jean
- 
+
 # Changer le shell
 usermod -s /bin/sh jean
- 
+
 # Supprimer un utilisateur ET son dossier home
 userdel -r jean
- 
+
 # Afficher les groupes et l'UID/GID d'un user
 groups jean
 id jean</code>
                     </div>
- 
                     <div class="note-box">
                         <i class="fas fa-exclamation-triangle"></i>
                         <p><strong>Piège examen :</strong> <code>usermod -G admins jean</code> (sans <code>-a</code>) <strong>écrase</strong> tous les groupes de jean. Toujours utiliser <code>-aG</code> pour <em>ajouter</em> sans supprimer les groupes existants.</p>
                     </div>
- 
                     <h3>C. Gestion des groupes</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">groupadd / groupdel</div>
                         <code># Créer un groupe
 groupadd admins
- 
+
 # Ajouter un user à un groupe (méthode propre)
 usermod -aG admins jean
- 
+
 # Voir tous les membres d'un groupe
 getent group admins
- 
+
 # Supprimer un groupe
 groupdel admins</code>
                     </div>
- 
                     <h3>D. Changer d'identité</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">sudo / su</div>
@@ -202,35 +178,24 @@ su - jean         # Changer vers l'user jean (avec son environnement)
 whoami            # Vérifier qui on est actuellement</code>
                     </div>
                 </section>
- 
-                <!-- ═══════════════════════════════════════
-                     2. CHMOD
-                ═══════════════════════════════════════ -->
+
                 <section id="chmod" class="card">
                     <div class="card-header">
                         <i class="fas fa-lock card-icon-main"></i>
                         <h2>2. chmod — Modifier les droits</h2>
                     </div>
- 
                     <h3>A. Les 3 valeurs à connaître par cœur</h3>
                     <div class="note-box">
                         <i class="fas fa-calculator"></i>
-                        <p>
-                            <strong>r (Lecture) = 4</strong> &nbsp;·&nbsp; <strong>w (Écriture) = 2</strong> &nbsp;·&nbsp; <strong>x (Exécution) = 1</strong><br><br>
-                            On additionne : <code>rwx = 4+2+1 = <strong>7</strong></code> &nbsp;·&nbsp; <code>rw- = 4+2 = <strong>6</strong></code> &nbsp;·&nbsp; <code>r-x = 4+1 = <strong>5</strong></code> &nbsp;·&nbsp; <code>r-- = <strong>4</strong></code> &nbsp;·&nbsp; <code>--- = <strong>0</strong></code><br><br>
-                            Le chiffre octal se compose de <strong>3 positions : User | Group | Others</strong><br>
-                            Exemple : <code>755</code> = <code>rwx</code> pour User, <code>r-x</code> pour Group, <code>r-x</code> pour Others
-                        </p>
+                        <p><strong>r (Lecture) = 4</strong> &nbsp;·&nbsp; <strong>w (Écriture) = 2</strong> &nbsp;·&nbsp; <strong>x (Exécution) = 1</strong><br><br>
+                        On additionne : <code>rwx = 4+2+1 = <strong>7</strong></code> &nbsp;·&nbsp; <code>rw- = 4+2 = <strong>6</strong></code> &nbsp;·&nbsp; <code>r-x = 4+1 = <strong>5</strong></code> &nbsp;·&nbsp; <code>r-- = <strong>4</strong></code> &nbsp;·&nbsp; <code>--- = <strong>0</strong></code><br><br>
+                        Le chiffre octal se compose de <strong>3 positions : User | Group | Others</strong><br>
+                        Exemple : <code>755</code> = <code>rwx</code> pour User, <code>r-x</code> pour Group, <code>r-x</code> pour Others</p>
                     </div>
- 
                     <h3>B. Tableau de référence rapide</h3>
                     <div class="table-responsive">
                         <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
-                            <thead>
-                                <tr style="border-bottom: 1px solid var(--accent);">
-                                    <th>Octal</th><th>Symbolique</th><th>Signification</th><th>Cas d'usage</th>
-                                </tr>
-                            </thead>
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th>Octal</th><th>Symbolique</th><th>Signification</th><th>Cas d'usage</th></tr></thead>
                             <tbody>
                                 <tr><td style="color:var(--accent);"><code>777</code></td><td><code>rwxrwxrwx</code></td><td>Tout le monde fait tout</td><td>⚠️ À éviter en prod</td></tr>
                                 <tr><td style="color:var(--accent);"><code>755</code></td><td><code>rwxr-xr-x</code></td><td>Owner: tout / Others: lire+exécuter</td><td>Scripts, dossiers web publics</td></tr>
@@ -241,7 +206,6 @@ whoami            # Vérifier qui on est actuellement</code>
                             </tbody>
                         </table>
                     </div>
- 
                     <h3>C. Notation octale vs symbolique</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">chmod — exemples pratiques</div>
@@ -249,90 +213,65 @@ whoami            # Vérifier qui on est actuellement</code>
 chmod 755 script.sh           # rwxr-xr-x
 chmod 644 index.html          # rw-r--r--
 chmod -R 750 /var/www/html    # Récursif sur tout le dossier
- 
+
 # ── NOTATION SYMBOLIQUE ──────────────────────────
-# Syntaxe : [u/g/o/a] [+/-/=] [r/w/x]
 chmod u+x script.sh           # Ajouter l'exécution pour le propriétaire
 chmod g-w fichier.txt         # Retirer l'écriture au groupe
 chmod o= fichier.txt          # Others : aucun droit
 chmod a+r rapport.txt         # Tout le monde peut lire (a = all)
 chmod u=rw,g=r,o= secret.txt  # Définir chaque catégorie précisément
- 
+
 # ── VÉRIFIER après modification ──────────────────
 ls -l script.sh
-# -rwxr-xr-x 1 romain admins 512 mai 3 10:00 script.sh
- 
 stat fichier.txt  # Affichage octal + symbolique</code>
                     </div>
- 
                     <div class="note-box">
                         <i class="fas fa-key"></i>
                         <p><strong>Examen pratique :</strong> Pour les clés SSH, <code>chmod 600 id_rsa</code> est <strong>obligatoire</strong> — SSH refusera de fonctionner si la clé est lisible par d'autres. Pour rendre un script exécutable : <code>chmod +x script.sh</code>.</p>
                     </div>
                 </section>
- 
-                <!-- ═══════════════════════════════════════
-                     3. CHOWN / CHGRP
-                ═══════════════════════════════════════ -->
+
                 <section id="chown" class="card">
                     <div class="card-header">
                         <i class="fas fa-user-shield card-icon-main"></i>
                         <h2>3. chown &amp; chgrp — Changer le propriétaire</h2>
                     </div>
- 
                     <h3>A. chown</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">chown — syntaxe et exemples</div>
                         <code># Changer uniquement le propriétaire
 chown jean fichier.txt
- 
-# Changer propriétaire ET groupe en une commande (syntaxe user:group)
+
+# Changer propriétaire ET groupe (syntaxe user:group)
 chown jean:admins fichier.txt
- 
-# Changer uniquement le groupe (avec chown)
+
+# Changer uniquement le groupe
 chown :admins fichier.txt
- 
-# Récursif sur tout un dossier (très courant en prod)
-chown -R www-data:www-data /var/www/html
- 
-# Vérifier
-ls -l fichier.txt
-# -rw-r--r-- 1 jean admins 512 mai 3 10:00 fichier.txt</code>
+
+# Récursif sur tout un dossier
+chown -R www-data:www-data /var/www/html</code>
                     </div>
- 
                     <h3>B. chgrp</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">chgrp — changer uniquement le groupe</div>
                         <code>chgrp admins fichier.txt
 chgrp -R developers /opt/projet   # Récursif</code>
                     </div>
- 
                     <div class="note-box">
                         <i class="fas fa-exclamation-triangle"></i>
                         <p><strong>Règle importante :</strong> Seul <strong>root</strong> peut changer le propriétaire d'un fichier. Un user peut changer le groupe d'un fichier qu'il possède, à condition d'<em>appartenir</em> au groupe cible.</p>
                     </div>
- 
-                    <h3>C. Cas pratique complet — Déploiement web</h3>
+                    <h3>C. Cas pratique — Déploiement web</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">Scénario : site Apache avec user "romain" + Apache (www-data)</div>
-                        <code># 1. Créer le dossier du site
-mkdir -p /var/www/monsite
- 
-# 2. Attribuer : romain propriétaire, www-data groupe
+                        <code>mkdir -p /var/www/monsite
 chown -R romain:www-data /var/www/monsite
- 
-# 3. romain peut tout faire, Apache peut lire/naviguer, Others : rien
 chmod -R 750 /var/www/monsite
- 
-# 4. Vérifier
 ls -la /var/www/monsite
 # drwxr-x--- 2 romain www-data 4096 mai 3 10:00 monsite</code>
                     </div>
                 </section>
- 
-                <!-- ═══════════════════════════════════════
-                     4. ARBORESCENCE FHS
-                ═══════════════════════════════════════ -->
+
                 <section id="arbo" class="card">
                     <div class="card-header">
                         <i class="fas fa-folder-tree card-icon-main"></i>
@@ -340,7 +279,7 @@ ls -la /var/www/monsite
                     </div>
                     <p>Sous Linux, "Tout est fichier". Comprendre où ranger les choses est la base.</p>
                     <ul>
-                        <li><strong>/etc :</strong> Fichiers de configuration (ex: <code>/etc/network/interfaces</code>, <code>/etc/passwd</code>).</li>
+                        <li><strong>/etc :</strong> Fichiers de configuration (<code>/etc/network/interfaces</code>, <code>/etc/passwd</code>).</li>
                         <li><strong>/var :</strong> Données variables (Logs dans <code>/var/log</code>, Site Web dans <code>/var/www</code>).</li>
                         <li><strong>/dev :</strong> Périphériques matériels (Disques <code>sda</code>, terminaux <code>tty</code>).</li>
                         <li><strong>/proc :</strong> Système de fichiers virtuel (Info Noyau, CPU, RAM). N'existe qu'en RAM.</li>
@@ -349,96 +288,69 @@ ls -la /var/www/monsite
                         <li><strong>/opt :</strong> Logiciels tiers installés manuellement.</li>
                         <li><strong>/bin, /sbin :</strong> Binaires essentiels du système.</li>
                     </ul>
- 
                     <div class="terminal-block">
                         <div class="terminal-header">Commandes de recherche</div>
                         <code># Trouver les fichiers modifiés il y a moins de 24h
 find /home -mtime -1
- 
+
 # Chercher "ERROR" dans tous les logs (insensible à la casse)
 grep -ri "error" /var/log/
- 
+
 # Trouver tous les fichiers avec le SUID activé (audit sécurité)
 find / -perm -4000 -type f 2>/dev/null</code>
                     </div>
                 </section>
- 
-                <!-- ═══════════════════════════════════════
-                     5. DROITS SPÉCIAUX & ACL
-                ═══════════════════════════════════════ -->
+
                 <section id="perms" class="card">
                     <div class="card-header">
                         <i class="fas fa-key card-icon-main"></i>
                         <h2>5. Droits Spéciaux : SUID, SGID, Sticky &amp; ACL</h2>
                     </div>
- 
                     <h3>A. Droits Spéciaux (Le piège de l'examen)</h3>
                     <div class="table-responsive">
                         <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
-                            <thead>
-                                <tr style="border-bottom: 1px solid var(--accent);">
-                                    <th>Nom</th><th>Code</th><th>Effet</th>
-                                </tr>
-                            </thead>
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th>Nom</th><th>Code</th><th>Effet</th></tr></thead>
                             <tbody>
-                                <tr>
-                                    <td style="color:var(--accent);">SUID (Set User ID)</td>
-                                    <td>u+s (4000)</td>
-                                    <td>Exécute avec les droits du <strong>propriétaire</strong> (ex: <code>passwd</code>).</td>
-                                </tr>
-                                <tr>
-                                    <td style="color:var(--accent);">SGID (Set Group ID)</td>
-                                    <td>g+s (2000)</td>
-                                    <td>Dans un dossier : les fichiers créés héritent du <strong>groupe</strong> parent (Collaboratif).</td>
-                                </tr>
-                                <tr>
-                                    <td style="color:var(--accent);">Sticky Bit</td>
-                                    <td>+t (1000)</td>
-                                    <td>Seul le propriétaire peut supprimer son fichier (utilisé sur <code>/tmp</code>).</td>
-                                </tr>
+                                <tr><td style="color:var(--accent);">SUID (Set User ID)</td><td>u+s (4000)</td><td>Exécute avec les droits du <strong>propriétaire</strong> (ex: <code>passwd</code>).</td></tr>
+                                <tr><td style="color:var(--accent);">SGID (Set Group ID)</td><td>g+s (2000)</td><td>Dans un dossier : les fichiers créés héritent du <strong>groupe</strong> parent.</td></tr>
+                                <tr><td style="color:var(--accent);">Sticky Bit</td><td>+t (1000)</td><td>Seul le propriétaire peut supprimer son fichier (utilisé sur <code>/tmp</code>).</td></tr>
                             </tbody>
                         </table>
                     </div>
- 
                     <div class="terminal-block">
                         <div class="terminal-header">Appliquer les droits spéciaux</div>
                         <code># Sticky Bit sur un dossier partagé
 chmod +t /partage
 chmod 1777 /partage          # Équivalent octal
- 
+
 # SUID sur un binaire
 chmod u+s /usr/bin/monprog
 chmod 4755 /usr/bin/monprog  # Équivalent octal</code>
                     </div>
- 
                     <h3>B. ACL (Access Control Lists)</h3>
                     <p>Quand UGO ne suffit pas (ex: donner des droits à 2 utilisateurs spécifiques).</p>
                     <div class="terminal-block">
                         <div class="terminal-header">Gestion des ACL</div>
                         <code># Donner rwx à l'utilisateur "jean" sur un fichier
 setfacl -m u:jean:rwx fichier.txt
- 
+
 # Donner r-x au groupe "devs"
 setfacl -m g:devs:rx fichier.txt
- 
+
 # Voir les ACL
 getfacl fichier.txt
- 
+
 # Supprimer toutes les ACL
 setfacl -b fichier.txt</code>
                     </div>
                 </section>
- 
-                <!-- ═══════════════════════════════════════
-                     6. LVM
-                ═══════════════════════════════════════ -->
+
                 <section id="lvm" class="card">
                     <div class="card-header">
                         <i class="fas fa-hdd card-icon-main"></i>
                         <h2>6. Stockage &amp; LVM (Logical Volume Manager)</h2>
                     </div>
                     <p>LVM permet de redimensionner des partitions à chaud. C'est indispensable en entreprise.</p>
- 
                     <div class="note-box">
                         <i class="fas fa-layer-group"></i>
                         <p><strong>Hiérarchie LVM :</strong><br>
@@ -446,104 +358,77 @@ setfacl -b fichier.txt</code>
                         2. <strong>VG (Volume Group) :</strong> Le "sac" de stockage global.<br>
                         3. <strong>LV (Logical Volume) :</strong> La partition virtuelle qu'on formate et monte.</p>
                     </div>
- 
                     <div class="terminal-block">
                         <div class="terminal-header">Création LVM Complète</div>
                         <code># 1. Créer le Volume Physique
 pvcreate /dev/sdb
- 
+
 # 2. Créer le Groupe de Volume "data_vg"
 vgcreate data_vg /dev/sdb
- 
+
 # 3. Créer un Volume Logique de 10Go
 lvcreate -n backups_lv -L 10G data_vg
- 
+
 # 4. Formater (EXT4) et Monter
 mkfs.ext4 /dev/data_vg/backups_lv
 mount /dev/data_vg/backups_lv /mnt/backups
- 
+
 # 5. Rendre le montage permanent
 echo "/dev/data_vg/backups_lv /mnt/backups ext4 defaults 0 2" >> /etc/fstab</code>
                     </div>
                 </section>
- 
-                <!-- ═══════════════════════════════════════
-                     7. ARCHIVES & PAQUETS
-                ═══════════════════════════════════════ -->
+
                 <section id="archives" class="card">
                     <div class="card-header">
                         <i class="fas fa-box-archive card-icon-main"></i>
                         <h2>7. Archives &amp; Gestion des paquets</h2>
                     </div>
- 
                     <h3>A. tar — Archiver et compresser</h3>
                     <div class="note-box">
                         <i class="fas fa-lightbulb"></i>
                         <p><strong>Mémo des options tar :</strong>&nbsp;
                         <code>c</code>réer &nbsp;·&nbsp; e<code>x</code>traire &nbsp;·&nbsp; <code>v</code>erbeux &nbsp;·&nbsp; <code>f</code>ichier &nbsp;·&nbsp; <code>z</code>=gzip &nbsp;·&nbsp; <code>j</code>=bzip2</p>
                     </div>
- 
                     <div class="terminal-block">
                         <div class="terminal-header">tar — exemples pratiques</div>
                         <code># Créer une archive .tar.gz
 tar -czf archive.tar.gz /home/romain/
- 
+
 # Extraire une archive
 tar -xzf archive.tar.gz
- 
+
 # Extraire vers un dossier spécifique
 tar -xzf archive.tar.gz -C /tmp/restauration/
- 
+
 # Lister le contenu sans extraire
 tar -tzf archive.tar.gz
- 
+
 # Archive bzip2 (meilleure compression, plus lent)
 tar -cjf archive.tar.bz2 /opt/projet/</code>
                     </div>
- 
                     <h3>B. apt — Gestion des paquets (Debian/Ubuntu)</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">apt — commandes essentielles</div>
-                        <code># Mettre à jour la liste des paquets (toujours avant install)
-apt update
- 
-# Mettre à jour tous les paquets installés
-apt upgrade
- 
-# Installer un ou plusieurs paquets
+                        <code>apt update                    # Mettre à jour la liste (toujours avant install)
+apt upgrade                   # Mettre à jour tous les paquets
 apt install vim htop net-tools
- 
-# Supprimer (garder la config)
-apt remove vim
- 
-# Supprimer paquet + fichiers de config
-apt purge vim
- 
-# Rechercher un paquet
+apt remove vim                # Supprimer (garder la config)
+apt purge vim                 # Supprimer paquet + fichiers de config
 apt search nom_paquet
- 
-# Infos sur un paquet
 apt show vim
- 
-# Nettoyer le cache
-apt autoremove && apt clean</code>
+apt autoremove && apt clean   # Nettoyer le cache</code>
                     </div>
- 
                     <div class="note-box">
                         <i class="fas fa-exclamation-triangle"></i>
                         <p><strong>Examen pratique :</strong> Toujours faire <code>apt update</code> avant <code>apt install</code> — sinon les dépendances peuvent échouer ou vous installez une version obsolète.</p>
                     </div>
                 </section>
- 
-                <!-- ═══════════════════════════════════════
-                     8. PROCESSUS & SYSTEMD
-                ═══════════════════════════════════════ -->
+
                 <section id="process" class="card">
                     <div class="card-header">
                         <i class="fas fa-microchip card-icon-main"></i>
                         <h2>8. Processus &amp; Services</h2>
                     </div>
- 
                     <h3>A. Gestion des Processus</h3>
                     <ul>
                         <li><strong>PID :</strong> Process ID (Identifiant unique).</li>
@@ -554,51 +439,39 @@ apt autoremove && apt clean</code>
                             </ul>
                         </li>
                     </ul>
- 
                     <div class="terminal-block">
                         <div class="terminal-header">Gestion des processus</div>
                         <code>ps aux                      # Lister tous les processus
 ps aux | grep apache2       # Filtrer par nom
 top                         # Vue dynamique
 htop                        # Vue dynamique (plus lisible)
- 
+
 kill 1234                   # SIGTERM (propre)
 kill -9 1234                # SIGKILL (forcé)
 killall apache2             # Tuer par nom</code>
                     </div>
- 
                     <h3>B. Systemd (Systemctl)</h3>
                     <p>Le gestionnaire de démarrage moderne (PID 1).</p>
                     <div class="terminal-block">
-                        <div class="terminal-header">Gestion Services & Logs</div>
-                        <code># Démarrer / arrêter / redémarrer
-systemctl start apache2
+                        <div class="terminal-header">Gestion Services &amp; Logs</div>
+                        <code>systemctl start apache2
 systemctl stop apache2
 systemctl restart apache2
 systemctl reload apache2    # Recharge la config sans couper le service
- 
-# Activer / désactiver au démarrage
 systemctl enable apache2
 systemctl disable apache2
- 
-# Statut d'un service
 systemctl status apache2
- 
-# Analyser pourquoi un service a planté (CRUCIAL)
-journalctl -xe
+
+journalctl -xe              # Analyser pourquoi un service a planté (CRUCIAL)
 journalctl -u apache2 -f   # Logs en direct</code>
                     </div>
                 </section>
- 
-                <!-- ═══════════════════════════════════════
-                     9. RÉSEAU & SSH
-                ═══════════════════════════════════════ -->
+
                 <section id="network" class="card">
                     <div class="card-header">
                         <i class="fas fa-network-wired card-icon-main"></i>
                         <h2>9. Réseau &amp; Sécurité SSH</h2>
                     </div>
- 
                     <h3>A. Configuration IP (Moderne)</h3>
                     <p>On n'utilise plus <code>ifconfig</code> (obsolète), mais la suite <code>ip</code>.</p>
                     <ul>
@@ -606,7 +479,6 @@ journalctl -u apache2 -f   # Logs en direct</code>
                         <li>Voir la passerelle : <code>ip route</code></li>
                         <li>Voir les ports ouverts : <code>ss -lntp</code> (Remplace netstat)</li>
                     </ul>
- 
                     <h3>B. Sécuriser SSH (/etc/ssh/sshd_config)</h3>
                     <p>Avant de mettre un serveur en prod, changez ces 3 lignes :</p>
                     <div class="terminal-block">
@@ -614,69 +486,48 @@ journalctl -u apache2 -f   # Logs en direct</code>
                         <code>PermitRootLogin no         # Interdire root direct
 PasswordAuthentication no  # Clés SSH uniquement
 Port 2222                  # Changer le port par défaut (Anti-bot)
- 
-# Après modification, recharger SSH
+
 systemctl reload sshd</code>
                     </div>
- 
                     <h3>C. Générer et déployer une clé SSH</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">Authentification par clé</div>
-                        <code># Sur le client : générer la paire de clés
-ssh-keygen -t ed25519 -C "romain@monpc"
- 
-# Copier la clé publique sur le serveur
+                        <code>ssh-keygen -t ed25519 -C "romain@monpc"
 ssh-copy-id -i ~/.ssh/id_ed25519.pub user@serveur
- 
-# Se connecter avec la clé
 ssh -i ~/.ssh/id_ed25519 user@serveur -p 2222
- 
-# Droits obligatoires sur la clé privée !
-chmod 600 ~/.ssh/id_ed25519</code>
+chmod 600 ~/.ssh/id_ed25519   # Droits obligatoires !</code>
                     </div>
                 </section>
- 
-                <!-- ═══════════════════════════════════════
-                     10. SCRIPTING BASH
-                ═══════════════════════════════════════ -->
+
                 <section id="bash" class="card">
                     <div class="card-header">
                         <i class="fas fa-code card-icon-main"></i>
                         <h2>10. Scripting Bash Automatisé</h2>
                     </div>
                     <p>Savoir automatiser une sauvegarde est un TP classique.</p>
- 
                     <div class="terminal-block">
-                        <div class="terminal-header">backup.sh (Boucle & Condition)</div>
+                        <div class="terminal-header">backup.sh (Boucle &amp; Condition)</div>
                         <code>#!/bin/bash
- 
-# Variables
+
 DEST="/var/backups"
 DATE=$(date +%Y-%m-%d)
 USERS=("jean" "paul" "admin")
- 
-# Vérifier si le dossier existe
+
 if [ ! -d "$DEST" ]; then
     mkdir -p "$DEST"
 fi
- 
-# Boucle sur les utilisateurs
+
 for USER in "${USERS[@]}"; do
     echo "Sauvegarde de $USER..."
     tar -czf "$DEST/$USER-$DATE.tar.gz" "/home/$USER" 2>/dev/null
 done
- 
+
 echo "Sauvegarde terminée !"</code>
                     </div>
- 
                     <h3>Aide-mémoire tests Bash</h3>
                     <div class="table-responsive">
                         <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
-                            <thead>
-                                <tr style="border-bottom: 1px solid var(--accent);">
-                                    <th>Test</th><th>Signification</th>
-                                </tr>
-                            </thead>
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th>Test</th><th>Signification</th></tr></thead>
                             <tbody>
                                 <tr><td style="color:var(--accent);"><code>-f fichier</code></td><td>Le fichier existe et est un fichier régulier</td></tr>
                                 <tr><td style="color:var(--accent);"><code>-d dossier</code></td><td>Le dossier existe</td></tr>
@@ -687,11 +538,658 @@ echo "Sauvegarde terminée !"</code>
                         </table>
                     </div>
                 </section>
- 
+
+                <!-- SÉPARATEUR SERVICES RÉSEAUX -->
+                <div class="card" style="background:rgba(0,229,176,0.03);border-color:rgba(0,229,176,0.2);text-align:center;padding:20px;">
+                    <p style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:3px;color:var(--accent);margin:0;">── SERVICES RÉSEAUX ──</p>
+                </div>
+
+                <section id="interfaces" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-ethernet card-icon-main"></i>
+                        <h2>11. Configuration des interfaces réseau</h2>
+                    </div>
+                    <p>La configuration réseau peut être statique (fichiers) ou dynamique (DHCP). Les méthodes varient selon la distribution.</p>
+
+                    <h3>A. Diagnostic réseau</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Commandes de diagnostic</div>
+                        <code># Afficher toutes les interfaces et leurs IP
+ip a
+ip addr show eth0             # Interface spécifique
+
+# Table de routage
+ip route
+ip route show default         # Passerelle par défaut
+
+# Ports en écoute
+ss -tuln                      # TCP + UDP
+ss -antp                      # Connexions établies avec PID
+
+# Connectivité
+ping -c 4 8.8.8.8
+traceroute 8.8.8.8
+
+# Capturer le trafic (diagnostic avancé)
+tcpdump -i eth0 -n port 53    # Requêtes DNS
+tcpdump -i eth0 -n port 67    # Trafic DHCP</code>
+                    </div>
+
+                    <h3>B. Configuration statique — Netplan (Ubuntu 18.04+)</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/netplan/00-installer-config.yaml</div>
+                        <code>network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      dhcp4: false
+      addresses:
+        - 192.168.1.10/24
+      routes:
+        - to: default
+          via: 192.168.1.254
+      nameservers:
+        addresses: [8.8.8.8, 1.1.1.1]
+        search: [mondomaine.local]
+
+# Appliquer la configuration
+netplan apply
+netplan try    # Appliquer avec rollback automatique si ça plante</code>
+                    </div>
+
+                    <h3>C. Configuration statique — Legacy Debian (/etc/network/interfaces)</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/network/interfaces</div>
+                        <code>auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+    address 192.168.1.10
+    netmask 255.255.255.0
+    gateway 192.168.1.254
+    dns-nameservers 8.8.8.8 1.1.1.1
+    dns-search mondomaine.local
+
+# Redémarrer le réseau
+systemctl restart networking
+ifdown eth0 && ifup eth0      # Relancer une seule interface</code>
+                    </div>
+
+                    <h3>D. Configuration statique — RHEL/CentOS/Rocky</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/sysconfig/network-scripts/ifcfg-eth0</div>
+                        <code>DEVICE=eth0
+TYPE=Ethernet
+BOOTPROTO=static
+ONBOOT=yes
+IPADDR=192.168.1.10
+PREFIX=24
+GATEWAY=192.168.1.254
+DNS1=8.8.8.8
+DNS2=1.1.1.1
+
+# Redémarrer
+systemctl restart NetworkManager
+nmcli connection reload</code>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Fichiers clés à connaître :</strong><br>
+                        <code>/etc/resolv.conf</code> — Serveurs DNS utilisés par le système<br>
+                        <code>/etc/hosts</code> — Résolution locale (prioritaire sur le DNS)<br>
+                        <code>/etc/hostname</code> — Nom de la machine<br>
+                        <code>/etc/nsswitch.conf</code> — Ordre de résolution de noms : files → dns</p>
+                    </div>
+                </section>
+
+                <section id="dhcp" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-server card-icon-main"></i>
+                        <h2>12. Serveur DHCP (ISC DHCP)</h2>
+                    </div>
+                    <p>Le serveur DHCP distribue automatiquement les paramètres réseau aux clients. Protocole UDP, ports <strong>67</strong> (serveur) et <strong>68</strong> (client).</p>
+
+                    <h3>A. Installation</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Installation &amp; activation</div>
+                        <code># Debian/Ubuntu
+apt install isc-dhcp-server -y
+
+# RHEL/Rocky
+dnf install dhcp-server -y
+
+systemctl enable --now isc-dhcp-server</code>
+                    </div>
+
+                    <h3>B. Configuration principale</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/dhcp/dhcpd.conf</div>
+                        <code># ── Paramètres globaux ──────────────────────────────
+default-lease-time 86400;       # Bail par défaut : 24h
+max-lease-time 172800;          # Bail maximum : 48h
+authoritative;                  # Ce serveur fait autorité sur le réseau
+
+option domain-name-servers 192.168.1.1, 8.8.8.8;
+option domain-name "mondomaine.local";
+
+# ── Déclaration du sous-réseau ────────────────────
+subnet 192.168.1.0 netmask 255.255.255.0 {
+    range 192.168.1.100 192.168.1.200;      # Plage dynamique
+    option routers 192.168.1.254;           # Passerelle
+    option subnet-mask 255.255.255.0;
+    option broadcast-address 192.168.1.255;
+}
+
+# ── Réservation par adresse MAC ───────────────────
+host serveur-web {
+    hardware ethernet AA:BB:CC:DD:EE:FF;
+    fixed-address 192.168.1.10;
+    option host-name "serveur-web";
+}</code>
+                    </div>
+
+                    <h3>C. Interface d'écoute &amp; surveillance</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/default/isc-dhcp-server + vérification</div>
+                        <code># Spécifier l'interface d'écoute (Debian)
+INTERFACESv4="eth0"
+INTERFACESv6=""
+
+# Vérifier la syntaxe de la config
+dhcpd -t -cf /etc/dhcp/dhcpd.conf
+
+# Voir les baux actifs
+cat /var/lib/dhcp/dhcpd.leases
+
+# Logs en temps réel
+journalctl -u isc-dhcp-server -f
+
+# Tester depuis un client
+dhclient -r eth0    # Libérer le bail
+dhclient eth0       # Demander un nouveau bail</code>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Piège examen :</strong> Si le serveur DHCP est sur un sous-réseau différent des clients, il faut configurer un <strong>relais DHCP</strong> sur le routeur (Helper Address) ou installer <code>isc-dhcp-relay</code>. Les requêtes DHCP sont des broadcasts qui ne traversent pas les routeurs.</p>
+                    </div>
+                </section>
+
+                <section id="dns" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-globe card-icon-main"></i>
+                        <h2>13. Serveur DNS — Bind9</h2>
+                    </div>
+                    <p>Bind9 est le serveur DNS open-source de référence. Il peut être <strong>résolveur récursif</strong> (cache) ou <strong>serveur autoritaire</strong> (zones).</p>
+
+                    <h3>A. Installation</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Installation Bind9</div>
+                        <code># Debian/Ubuntu
+apt install bind9 bind9utils dnsutils -y
+
+# RHEL/Rocky
+dnf install bind bind-utils -y
+
+systemctl enable --now bind9   # Debian
+systemctl enable --now named   # RHEL</code>
+                    </div>
+
+                    <h3>B. Options principales</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/bind/named.conf.options</div>
+                        <code>options {
+    directory "/var/cache/bind";
+
+    # Autoriser les requêtes depuis le LAN
+    allow-query { localhost; 192.168.1.0/24; };
+
+    # Redirecteurs DNS upstream
+    forwarders {
+        8.8.8.8;
+        1.1.1.1;
+    };
+
+    recursion yes;
+    allow-recursion { localhost; 192.168.1.0/24; };
+    dnssec-validation auto;
+    listen-on { any; };
+};</code>
+                    </div>
+
+                    <h3>C. Déclaration des zones</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/bind/named.conf.local</div>
+                        <code># Zone directe (nom → IP)
+zone "mondomaine.local" {
+    type master;
+    file "/etc/bind/zones/db.mondomaine.local";
+    allow-update { none; };
+};
+
+# Zone inverse (IP → nom) pour 192.168.1.x
+zone "1.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zones/db.192.168.1";
+    allow-update { none; };
+};</code>
+                    </div>
+
+                    <h3>D. Fichier de zone directe</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/bind/zones/db.mondomaine.local</div>
+                        <code>$TTL    604800
+@   IN  SOA  ns1.mondomaine.local. admin.mondomaine.local. (
+                2024010101  ; Serial — INCRÉMENTER à chaque modif !
+                3600        ; Refresh (1h)
+                1800        ; Retry  (30min)
+                604800      ; Expire (1 semaine)
+                86400 )     ; Negative Cache TTL (1 jour)
+
+; ── Serveurs NS et enregistrement A ──────────────
+@       IN  NS      ns1.mondomaine.local.
+ns1     IN  A       192.168.1.1
+
+; ── Enregistrements A (nom → IP) ─────────────────
+@           IN  A       192.168.1.1
+serveur-web IN  A       192.168.1.10
+pc-alice    IN  A       192.168.1.100
+pc-bob      IN  A       192.168.1.101
+
+; ── Alias CNAME ──────────────────────────────────
+www         IN  CNAME   serveur-web.mondomaine.local.
+ftp         IN  CNAME   serveur-web.mondomaine.local.
+
+; ── Messagerie MX ────────────────────────────────
+@           IN  MX  10  mail.mondomaine.local.
+mail        IN  A       192.168.1.20</code>
+                    </div>
+
+                    <h3>E. Fichier de zone inverse</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/bind/zones/db.192.168.1</div>
+                        <code>$TTL    604800
+@   IN  SOA  ns1.mondomaine.local. admin.mondomaine.local. (
+                2024010101
+                3600
+                1800
+                604800
+                86400 )
+
+@   IN  NS  ns1.mondomaine.local.
+
+; ── PTR (IP → nom) — dernier octet seulement ─────
+1   IN  PTR  ns1.mondomaine.local.
+10  IN  PTR  serveur-web.mondomaine.local.
+20  IN  PTR  mail.mondomaine.local.
+100 IN  PTR  pc-alice.mondomaine.local.</code>
+                    </div>
+
+                    <h3>F. Vérification et tests</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Commandes de vérification Bind9</div>
+                        <code># Vérifier la configuration globale
+named-checkconf
+
+# Vérifier une zone spécifique
+named-checkzone mondomaine.local /etc/bind/zones/db.mondomaine.local
+named-checkzone 1.168.192.in-addr.arpa /etc/bind/zones/db.192.168.1
+
+# Recharger les zones sans redémarrer
+rndc reload
+
+# Vider le cache DNS
+rndc flush
+
+# Tests avec dig
+dig @192.168.1.1 serveur-web.mondomaine.local          # Résolution directe
+dig @192.168.1.1 -x 192.168.1.10                       # Résolution inverse
+dig @192.168.1.1 MX mondomaine.local                   # Enregistrement MX
+dig @192.168.1.1 NS mondomaine.local                   # Serveurs de noms
+
+# Test avec nslookup (plus simple)
+nslookup serveur-web.mondomaine.local 192.168.1.1</code>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Piège examen — Le numéro de série :</strong> À chaque modification de zone, <strong>incrémenter obligatoirement le Serial</strong>. Sans ça, les serveurs secondaires ne récupèrent pas la mise à jour. Format recommandé : <code>YYYYMMDDNN</code> (ex: 2024031501).</p>
+                    </div>
+
+                    <h3>G. Types d'enregistrements DNS</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:8px">Type</th><th style="padding:8px">Rôle</th><th style="padding:8px">Exemple</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:8px">A</td><td style="padding:8px">Nom → IPv4</td><td style="padding:8px"><code>www IN A 192.168.1.10</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">AAAA</td><td style="padding:8px">Nom → IPv6</td><td style="padding:8px"><code>www IN AAAA 2001:db8::1</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">PTR</td><td style="padding:8px">IP → Nom (zone inverse)</td><td style="padding:8px"><code>10 IN PTR www.mondomaine.local.</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">CNAME</td><td style="padding:8px">Alias vers un nom</td><td style="padding:8px"><code>ftp IN CNAME www.mondomaine.local.</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">MX</td><td style="padding:8px">Serveur de messagerie</td><td style="padding:8px"><code>@ IN MX 10 mail.mondomaine.local.</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">NS</td><td style="padding:8px">Serveur de noms de la zone</td><td style="padding:8px"><code>@ IN NS ns1.mondomaine.local.</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">SOA</td><td style="padding:8px">Début d'autorité de la zone</td><td style="padding:8px">Serial, Refresh, Retry, Expire, TTL</td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">SRV</td><td style="padding:8px">Localisation de services (AD, SIP)</td><td style="padding:8px"><code>_ldap._tcp IN SRV 0 100 389 dc1.</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">TXT</td><td style="padding:8px">Texte libre (SPF, DKIM…)</td><td style="padding:8px"><code>@ IN TXT "v=spf1 mx -all"</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="nat" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-route card-icon-main"></i>
+                        <h2>14. Routage &amp; NAT (iptables)</h2>
+                    </div>
+                    <p>Pour transformer un serveur Linux en routeur/passerelle NAT : activer le forwarding IP puis configurer les règles iptables.</p>
+
+                    <h3>A. Activer le routage IP</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Activer le forwarding IP</div>
+                        <code># Activer temporairement (perdu au reboot)
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# Activer en permanence
+echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+sysctl -p
+
+# Vérifier
+sysctl net.ipv4.ip_forward   # Doit retourner : 1</code>
+                    </div>
+
+                    <h3>B. NAT Masquerade (SNAT dynamique)</h3>
+                    <div class="note-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Scénario :</strong><br>
+                        <code>eth0</code> = interface WAN (côté Internet / box)<br>
+                        <code>eth1</code> = interface LAN (réseau interne 10.0.0.0/24)</p>
+                    </div>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Configuration NAT complète</div>
+                        <code># ── Politique par défaut ────────────────────────────
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+
+# ── Connexions établies (ne pas casser les sessions) ─
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# ── Loopback obligatoire ─────────────────────────────
+iptables -A INPUT -i lo -j ACCEPT
+
+# ── LAN vers Internet ────────────────────────────────
+iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
+
+# ── NAT : tout le LAN sort avec l'IP de eth0 ─────────
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+# ── SSH depuis l'extérieur ───────────────────────────
+iptables -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT</code>
+                    </div>
+
+                    <h3>C. DNAT — Redirection de port (Port Forwarding)</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Exposer un serveur interne (10.0.0.10)</div>
+                        <code># Rediriger le port 80 entrant vers le serveur web interne
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 \
+    -j DNAT --to-destination 10.0.0.10:80
+
+# Autoriser le forwarding vers ce serveur
+iptables -A FORWARD -i eth0 -o eth1 \
+    -d 10.0.0.10 -p tcp --dport 80 -j ACCEPT
+
+# Idem pour HTTPS
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 \
+    -j DNAT --to-destination 10.0.0.10:443</code>
+                    </div>
+
+                    <h3>D. Persister les règles</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Sauvegarder les règles iptables</div>
+                        <code># Installer iptables-persistent (Debian)
+apt install iptables-persistent -y
+netfilter-persistent save      # Sauvegarde dans /etc/iptables/rules.v4
+
+# Sauvegarder / restaurer manuellement
+iptables-save > /etc/iptables/rules.v4
+iptables-restore < /etc/iptables/rules.v4
+
+# Voir les règles
+iptables -L -n -v --line-numbers
+iptables -t nat -L -n -v       # Table NAT</code>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Ordre des règles :</strong> iptables lit les règles de haut en bas, la première correspondante s'applique. Utilisez <code>-I</code> pour insérer en haut, <code>-A</code> pour ajouter en bas. Supprimer une règle par numéro : <code>iptables -D INPUT 3</code>.</p>
+                    </div>
+                </section>
+
+                <section id="samba" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-folder-open card-icon-main"></i>
+                        <h2>15. Samba — Partage de fichiers &amp; Contrôleur de domaine</h2>
+                    </div>
+                    <p>Samba implémente le protocole SMB/CIFS sur Linux. Il peut être <strong>serveur de fichiers</strong> autonome ou <strong>contrôleur de domaine AD</strong> complet.</p>
+
+                    <h3>A. Serveur de fichiers (Workgroup)</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Installation</div>
+                        <code>apt install samba samba-common-bin -y
+cp /etc/samba/smb.conf /etc/samba/smb.conf.bak</code>
+                    </div>
+                    <div class="terminal-block">
+                        <div class="terminal-header">/etc/samba/smb.conf</div>
+                        <code>[global]
+   workgroup = WORKGROUP
+   server string = Serveur Samba Linux
+   server role = standalone server
+   security = user
+   map to guest = bad user
+   log file = /var/log/samba/log.%m
+
+# ── Partage public (accès anonyme) ───────────────────
+[public]
+   comment = Partage Public
+   path = /srv/samba/public
+   browseable = yes
+   read only = yes
+   guest ok = yes
+
+# ── Partage privé (authentification requise) ─────────
+[data]
+   comment = Données Equipe
+   path = /srv/samba/data
+   browseable = yes
+   read only = no
+   valid users = @smbusers
+   create mask = 0660
+   directory mask = 0770
+   force group = smbusers</code>
+                    </div>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Création dossiers &amp; utilisateurs Samba</div>
+                        <code># Créer les dossiers
+mkdir -p /srv/samba/public /srv/samba/data
+chmod 777 /srv/samba/public
+chmod 770 /srv/samba/data
+
+# Créer groupe et utilisateur Unix
+groupadd smbusers
+useradd -m -s /sbin/nologin -G smbusers alice
+chown -R root:smbusers /srv/samba/data
+
+# Ajouter à la base Samba (mdp Samba SÉPARÉ du mdp Unix)
+smbpasswd -a alice    # Définir le mot de passe Samba
+smbpasswd -e alice    # Activer le compte
+
+# Vérifier la configuration
+testparm
+
+# Démarrer Samba
+systemctl restart smbd nmbd
+systemctl enable smbd nmbd</code>
+                    </div>
+
+                    <h3>B. Samba comme contrôleur de domaine AD</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Provisionnement domaine AD avec Samba</div>
+                        <code># Installation
+apt install samba winbind krb5-config krb5-user -y
+
+# Arrêter les services Samba classiques
+systemctl stop smbd nmbd winbind
+systemctl disable smbd nmbd winbind
+
+# Provisionnement du domaine
+samba-tool domain provision \
+    --server-role=dc \
+    --use-rfc2307 \
+    --dns-backend=SAMBA_INTERNAL \
+    --realm=MONDOMAINE.LOCAL \
+    --domain=MONDOMAINE \
+    --adminpass='Admin@2024!'
+
+# Activer le service AD DC
+systemctl unmask samba-ad-dc
+systemctl enable --now samba-ad-dc
+
+# Vérifier le niveau fonctionnel
+samba-tool domain level show</code>
+                    </div>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Administration Samba AD avec samba-tool</div>
+                        <code># Créer un utilisateur
+samba-tool user create jean 'Mdp@2024!'
+
+# Lister les utilisateurs
+samba-tool user list
+
+# Créer un groupe et ajouter un membre
+samba-tool group add informatique
+samba-tool group addmembers informatique jean
+
+# Réinitialiser un mot de passe
+samba-tool user setpassword jean --newpassword='Nouveau@2024!'
+
+# Requête DNS
+samba-tool dns query 127.0.0.1 mondomaine.local @ ALL</code>
+                    </div>
+
+                    <h3>C. Intégrer un Linux dans un domaine AD Windows</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Joindre un Linux à un domaine AD (SSSD + realmd)</div>
+                        <code># Installation
+apt install sssd sssd-ad sssd-tools realmd adcli -y
+
+# Découvrir le domaine
+realm discover MONDOMAINE.LOCAL
+
+# Rejoindre le domaine
+realm join --user=Administrateur MONDOMAINE.LOCAL
+
+# Vérifier la jonction
+realm list
+id jean@MONDOMAINE.LOCAL
+su - jean@MONDOMAINE.LOCAL</code>
+                    </div>
+
+                    <h3>D. Surveillance Samba</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Commandes de surveillance</div>
+                        <code># Connexions et partages actifs
+smbstatus
+smbstatus -b   # Version résumée
+
+# Lister les partages disponibles
+smbclient -L localhost -U alice
+smbclient -L localhost -N    # Sans mot de passe (partages publics)
+
+# Se connecter à un partage en CLI
+smbclient //192.168.1.1/data -U alice
+
+# Monter un partage Samba
+mount -t cifs //192.168.1.1/data /mnt/data \
+    -o username=alice,password=Mdp,uid=1001
+
+# Gestion utilisateurs Samba
+pdbedit -L              # Lister tous les comptes Samba
+smbpasswd -d alice      # Désactiver
+smbpasswd -e alice      # Activer</code>
+                    </div>
+                </section>
+
+                <section id="cheatsheet" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-terminal card-icon-main"></i>
+                        <h2>16. Cheat Sheet — Services Réseaux</h2>
+                    </div>
+                    <p>Commandes à connaître par cœur pour l'épreuve pratique TSSR.</p>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">DHCP — Vérification rapide</div>
+                        <code">dhcpd -t -cf /etc/dhcp/dhcpd.conf    # Syntaxe config
+cat /var/lib/dhcp/dhcpd.leases       # Baux actifs
+journalctl -u isc-dhcp-server -f     # Logs en direct
+dhclient -r eth0 && dhclient eth0    # Renouveler depuis un client
+tcpdump -i eth0 -n port 67           # Capturer trafic DHCP</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">DNS Bind9 — Vérification rapide</div>
+                        <code">named-checkconf                        # Config globale
+named-checkzone mondomaine.local \
+    /etc/bind/zones/db.mondomaine.local  # Zone spécifique
+rndc reload                            # Recharger les zones sans redémarrer
+rndc flush                             # Vider le cache DNS
+dig @127.0.0.1 serveur-web.mondomaine.local
+dig @127.0.0.1 -x 192.168.1.10         # Résolution inverse
+tcpdump -i eth0 -n port 53             # Capturer requêtes DNS</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">iptables — Vue rapide</div>
+                        <code">iptables -L -n -v --line-numbers       # Toutes les règles
+iptables -t nat -L -n -v               # Table NAT
+iptables -D INPUT 3                    # Supprimer règle n°3
+iptables -F                            # Vider toutes les règles (ATTENTION)
+iptables-save > /etc/iptables/rules.v4 # Sauvegarder</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Samba — Vérification rapide</div>
+                        <code">testparm                               # Tester smb.conf
+smbstatus                              # Connexions actives
+smbclient -L localhost -N              # Lister les partages
+pdbedit -L                             # Lister les users Samba
+tail -f /var/log/samba/log.smbd        # Logs Samba</code>
+                    </div>
+
+                    <h3>Récapitulatif des fichiers de configuration</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:8px">Service</th><th style="padding:8px">Fichier principal</th><th style="padding:8px">Commande de vérif.</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:8px">DHCP</td><td style="padding:8px"><code>/etc/dhcp/dhcpd.conf</code></td><td style="padding:8px"><code>dhcpd -t -cf /etc/dhcp/dhcpd.conf</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">DNS Bind9</td><td style="padding:8px"><code>/etc/bind/named.conf</code></td><td style="padding:8px"><code>named-checkconf</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Zones DNS</td><td style="padding:8px"><code>/etc/bind/zones/</code></td><td style="padding:8px"><code>named-checkzone</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Samba</td><td style="padding:8px"><code>/etc/samba/smb.conf</code></td><td style="padding:8px"><code>testparm</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">iptables</td><td style="padding:8px"><code>/etc/iptables/rules.v4</code></td><td style="padding:8px"><code>iptables -L -n -v</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Netplan</td><td style="padding:8px"><code>/etc/netplan/*.yaml</code></td><td style="padding:8px"><code>netplan try</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">DNS résolution</td><td style="padding:8px"><code>/etc/resolv.conf</code></td><td style="padding:8px"><code>resolvectl status</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:8px">Hosts locaux</td><td style="padding:8px"><code>/etc/hosts</code></td><td style="padding:8px"><code>getent hosts nom</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
             </div>
         </div>
     </main>
- 
+
     <footer><p>© 2026 — Altinkaya Romain | SysAdmin Linux</p></footer>
     <script src="../assets/js/script.js"></script>
 </body>
