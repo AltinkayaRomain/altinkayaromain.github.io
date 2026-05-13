@@ -1472,5 +1472,37 @@ tail -f /var/log/samba/log.smbd        # Logs Samba</code>
 
     <footer><p>© 2026 — Altinkaya Romain | SysAdmin Linux</p></footer>
     <script src="../assets/js/script.js"></script>
-</body>
-</html>
+    <script>
+    // ── Suivi de la section active dans la sidebar ──
+    const sections = document.querySelectorAll('.course-content section[id]');
+    const sidebarLinks = document.querySelectorAll('.course-sidebar a');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                sidebarLinks.forEach(link => {
+                    link.classList.remove('active');
+                    link.style.color = '';
+                    link.style.background = '';
+                    link.style.borderColor = '';
+                    link.style.paddingLeft = '';
+                });
+                const activeLink = document.querySelector(`.course-sidebar a[href="#${id}"]`);
+                if (activeLink) {
+                    activeLink.style.color = 'var(--accent)';
+                    activeLink.style.background = 'rgba(0,229,176,0.07)';
+                    activeLink.style.borderColor = 'rgba(0,229,176,0.2)';
+                    activeLink.style.paddingLeft = '14px';
+                    // Faire défiler la sidebar pour que le lien actif soit visible
+                    activeLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                }
+            }
+        });
+    }, {
+        rootMargin: '-80px 0px -60% 0px',
+        threshold: 0
+    });
+
+    sections.forEach(section => observer.observe(section));
+    </script>
