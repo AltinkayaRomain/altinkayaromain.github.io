@@ -373,6 +373,7 @@ code {
     font-family: var(--font-mono);
     letter-spacing: 0.3px;
     transition: all 0.2s ease;
+    margin: 12px 0;
 }
 .tag:hover {
     border-color: var(--accent);
