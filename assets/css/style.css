@@ -396,9 +396,22 @@ code {
     padding: 22px;
     border-radius: 18px;
     border: 1px solid var(--border);
-    height: fit-content;
     box-shadow: var(--shadow-card);
+    /* Limiter la hauteur à l'écran disponible et permettre le scroll interne */
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+    /* Scrollbar stylisée dans la sidebar */
+    scrollbar-width: thin;
+    scrollbar-color: #1a2030 transparent;
 }
+
+.course-sidebar::-webkit-scrollbar { width: 4px; }
+.course-sidebar::-webkit-scrollbar-track { background: transparent; }
+.course-sidebar::-webkit-scrollbar-thumb {
+    background: #1a2030;
+    border-radius: 10px;
+}
+.course-sidebar::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 .course-sidebar::before {
     content: '';
