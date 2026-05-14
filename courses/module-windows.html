@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Révisions - Windows Server Expert - Romain Altinkaya</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
@@ -24,42 +22,45 @@
         </header>
 
         <div class="course-layout">
-            
+
             <aside class="course-sidebar">
                 <h3>Sommaire Expert</h3>
                 <ul>
-                    <li><a href="#adds"><i class="fas fa-chevron-right"></i> ADDS & FSMO (Détails)</a></li>
-                    <li><a href="#dns"><i class="fas fa-chevron-right"></i> DNS : Zones & Enreg.</a></li>
-                    <li><a href="#dhcp"><i class="fas fa-chevron-right"></i> DHCP : Process DORA</a></li>
-                    <li><a href="#gpo"><i class="fas fa-chevron-right"></i> GPO : LSDOU & WMI</a></li>
-                    <li><a href="#fs"><i class="fas fa-chevron-right"></i> Fichiers (NTFS/DFS)</a></li>
+                    <li><a href="#adds"><i class="fas fa-chevron-right"></i> ADDS &amp; FSMO</a></li>
+                    <li><a href="#dns"><i class="fas fa-chevron-right"></i> DNS : Zones &amp; Enreg.</a></li>
+                    <li><a href="#dhcp"><i class="fas fa-chevron-right"></i> DHCP : DORA &amp; Failover</a></li>
+                    <li><a href="#gpo"><i class="fas fa-chevron-right"></i> GPO : LSDOU &amp; WMI</a></li>
+                    <li><a href="#fs"><i class="fas fa-chevron-right"></i> Fichiers NTFS / DFS</a></li>
+                    <li><a href="#rds"><i class="fas fa-chevron-right"></i> RDS (Bureau à distance)</a></li>
+                    <li><a href="#iis"><i class="fas fa-chevron-right"></i> IIS (Serveur Web)</a></li>
+                    <li><a href="#wds"><i class="fas fa-chevron-right"></i> WDS / MDT (Déploiement)</a></li>
+                    <li><a href="#hyperv"><i class="fas fa-chevron-right"></i> Hyper-V</a></li>
                     <li><a href="#powershell"><i class="fas fa-chevron-right"></i> PowerShell Admin</a></li>
+                    <li><a href="#examen"><i class="fas fa-chevron-right"></i> 🎯 Mémo Examen</a></li>
                 </ul>
             </aside>
 
             <div class="course-content">
-                
+
+                <!-- ═══════════════════════════════════════
+                     1. ADDS & FSMO
+                ═══════════════════════════════════════ -->
                 <section id="adds" class="card">
                     <div class="card-header">
                         <i class="fab fa-windows card-icon-main"></i>
-                        <h2>1. Architecture ADDS & FSMO</h2>
+                        <h2>1. Architecture ADDS &amp; FSMO</h2>
                     </div>
-                    
-                    <p>L'Active Directory est une base de données (<strong>NTDS.DIT</strong>) accessible via le protocole <strong>LDAP (389)</strong>. Pour l'examen, il faut maîtriser la structure logique et physique.</p>
-
-                    
+                    <p>L'Active Directory est une base de données (<strong>NTDS.DIT</strong>) accessible via le protocole <strong>LDAP (389)</strong>. Il faut maîtriser la structure logique et physique.</p>
 
                     <h3>A. Structure Logique</h3>
                     <ul>
                         <li><strong>Forêt :</strong> L'instance la plus haute. Frontière de sécurité ultime.</li>
                         <li><strong>Arbre :</strong> Ensemble de domaines partageant un espace de nom (ex: <code>corp.local</code> et <code>dev.corp.local</code>).</li>
-                        <li><strong>Domaine :</strong> Frontière d'administration (les admins du domaine A n'ont pas de droits sur le domaine B par défaut).</li>
-                        <li><strong>OU (Unité d'Organisation) :</strong> Le SEUL conteneur sur lequel on peut lier une GPO.</li>
+                        <li><strong>Domaine :</strong> Frontière d'administration. Les admins du domaine A n'ont pas de droits sur le domaine B par défaut.</li>
+                        <li><strong>OU (Unité d'Organisation) :</strong> Le SEUL conteneur sur lequel on peut lier une GPO et déléguer l'administration.</li>
                     </ul>
 
-                    <h3>B. Les 5 Rôles FSMO (Flexible Single Master Operations)</h3>
-                    <p>Dans un système multi-maître, certaines actions nécessitent un "Chef" unique pour éviter les conflits.</p>
-                    
+                    <h3>B. Les 5 Rôles FSMO</h3>
                     <div class="table-responsive">
                         <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse; margin-top: 10px;">
                             <thead>
@@ -70,182 +71,864 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td style="padding: 5px; color: var(--accent);">Contrôleur de Schéma</td>
-                                    <td>Forêt (1 seul)</td>
-                                    <td>Modifie la structure de la base AD (ex: ajout attribut Exchange).</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 5px; color: var(--accent);">Maître d'attribution de noms</td>
-                                    <td>Forêt (1 seul)</td>
-                                    <td>Gère l'ajout/suppression de domaines dans la forêt.</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 5px; color: var(--accent);">PDC Emulator</td>
-                                    <td>Domaine</td>
-                                    <td><strong>Le plus important :</strong> Source de temps (NTP), Verrouillage mdp, compatibilité.</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 5px; color: var(--accent);">RID Master</td>
-                                    <td>Domaine</td>
-                                    <td>Distribue les blocs d'ID (SID) pour créer des objets.</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 5px; color: var(--accent);">Infrastructure Master</td>
-                                    <td>Domaine</td>
-                                    <td>Gère les références d'objets inter-domaines.</td>
-                                </tr>
+                                <tr><td style="padding:5px; color:var(--accent);">Contrôleur de Schéma</td><td style="padding:5px;">Forêt (1 seul)</td><td style="padding:5px;">Modifie la structure de la base AD (ex: ajout attribut Exchange).</td></tr>
+                                <tr><td style="padding:5px; color:var(--accent);">Maître d'attribution de noms</td><td style="padding:5px;">Forêt (1 seul)</td><td style="padding:5px;">Gère l'ajout/suppression de domaines dans la forêt.</td></tr>
+                                <tr><td style="padding:5px; color:var(--accent);">PDC Emulator</td><td style="padding:5px;">Domaine</td><td style="padding:5px;"><strong>Le plus critique :</strong> Source NTP, verrouillage mdp, compatibilité anciens clients.</td></tr>
+                                <tr><td style="padding:5px; color:var(--accent);">RID Master</td><td style="padding:5px;">Domaine</td><td style="padding:5px;">Distribue les blocs d'ID (SID) pour créer des objets AD.</td></tr>
+                                <tr><td style="padding:5px; color:var(--accent);">Infrastructure Master</td><td style="padding:5px;">Domaine</td><td style="padding:5px;">Gère les références d'objets inter-domaines.</td></tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="terminal-block">
-                        <div class="terminal-header">PowerShell - Trouver les maîtres FSMO</div>
+                        <div class="terminal-header">PowerShell — Trouver les maîtres FSMO</div>
                         <code>Get-ADDomain | Select-Object PDCEmulator, RIDMaster, InfrastructureMaster
-Get-ADForest | Select-Object SchemaMaster, NamingMaster</code>
+Get-ADForest | Select-Object SchemaMaster, NamingMaster
+
+# Depuis CMD
+netdom query fsmo</code>
+                    </div>
+
+                    <h3>C. Sites &amp; Services AD</h3>
+                    <p>Les sites AD représentent la topologie physique du réseau (liens WAN). Ils optimisent la réplication et l'authentification des clients.</p>
+                    <ul>
+                        <li><strong>Site :</strong> Ensemble de sous-réseaux IP bien connectés (LAN).</li>
+                        <li><strong>Site Link :</strong> Connexion entre deux sites (définit la fréquence et le coût de réplication).</li>
+                        <li><strong>KCC (Knowledge Consistency Checker) :</strong> Crée automatiquement la topologie de réplication entre les DC.</li>
+                    </ul>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — Réplication AD</div>
+                        <code># Forcer la réplication immédiate
+repadmin /syncall /AdeP
+
+# Voir l'état de la réplication
+repadmin /showrepl
+
+# Diagnostiquer les erreurs de réplication
+dcdiag /test:replications</code>
+                    </div>
+
+                    <h3>D. Joindre un poste au domaine</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — Jonction de domaine</div>
+                        <code># Joindre un poste au domaine
+Add-Computer -DomainName "mondomaine.local" -Credential (Get-Credential) -Restart
+
+# Vérifier la jonction
+(Get-WmiObject Win32_ComputerSystem).PartOfDomain
+
+# Quitter le domaine
+Remove-Computer -UnjoinDomainCredential (Get-Credential) -WorkgroupName "WORKGROUP" -Restart</code>
+                    </div>
+
+                    <h3>E. Gestion des utilisateurs et groupes AD</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — Utilisateurs AD</div>
+                        <code># Créer un utilisateur complet
+New-ADUser -Name "Jean Dupont" `
+    -SamAccountName "jean.dupont" `
+    -UserPrincipalName "jean.dupont@mondomaine.local" `
+    -Path "OU=RH,DC=mondomaine,DC=local" `
+    -AccountPassword (ConvertTo-SecureString "Mdp@2024!" -AsPlainText -Force) `
+    -Enabled $true `
+    -PasswordNeverExpires $false `
+    -ChangePasswordAtLogon $true
+
+# Désactiver / activer un compte
+Disable-ADAccount -Identity "jean.dupont"
+Enable-ADAccount -Identity "jean.dupont"
+
+# Déplacer vers une autre OU
+Move-ADObject -Identity "CN=Jean Dupont,OU=RH,DC=mondomaine,DC=local" `
+    -TargetPath "OU=IT,DC=mondomaine,DC=local"
+
+# Créer un groupe et ajouter des membres
+New-ADGroup -Name "GRP_Informatique" -GroupScope Global -GroupCategory Security `
+    -Path "OU=Groupes,DC=mondomaine,DC=local"
+Add-ADGroupMember -Identity "GRP_Informatique" -Members "jean.dupont","alice.martin"
+
+# Lister les membres d'un groupe
+Get-ADGroupMember -Identity "GRP_Informatique" | Select-Object Name, SamAccountName
+
+# Trouver les comptes inactifs depuis 30 jours
+Search-ADAccount -AccountInactive -TimeSpan 30.00:00:00 | Select-Object Name, LastLogonDate</code>
                     </div>
                 </section>
 
+                <!-- ═══════════════════════════════════════
+                     2. DNS
+                ═══════════════════════════════════════ -->
                 <section id="dns" class="card">
                     <div class="card-header">
                         <i class="fas fa-network-wired card-icon-main"></i>
                         <h2>2. Service DNS (Domain Name System)</h2>
                     </div>
-                    <p>90% des pannes AD viennent du DNS. Le DNS traduit les noms en IP, mais localise surtout les services (LDAP, Kerberos).</p>
-                    
-                    
+                    <p>90% des pannes AD viennent du DNS. Le DNS traduit les noms en IP, mais localise surtout les services (LDAP, Kerberos) via les enregistrements SRV.</p>
 
                     <h3>A. Types de Zones</h3>
                     <ul>
-                        <li><strong>Zone Principale :</strong> Copie en lecture/écriture.</li>
-                        <li><strong>Zone Secondaire :</strong> Copie en lecture seule (pour la redondance ou les sites distants).</li>
-                        <li><strong>Zone Stub :</strong> Contient uniquement les enregistrements NS (Name Server) d'un autre domaine.</li>
-                        <li><strong>Intégrée à Active Directory :</strong> Permet la réplication sécurisée et multi-maître entre tous les DC.</li>
+                        <li><strong>Zone Principale :</strong> Copie en lecture/écriture. Source de vérité pour la zone.</li>
+                        <li><strong>Zone Secondaire :</strong> Copie en lecture seule reçue du serveur principal (redondance).</li>
+                        <li><strong>Zone Stub :</strong> Contient uniquement les enregistrements NS d'un autre domaine (délégation).</li>
+                        <li><strong>Zone intégrée AD :</strong> Stockée dans l'AD, réplication multi-maître sécurisée entre tous les DC. <strong>Recommandée en environnement AD.</strong></li>
                     </ul>
 
-                    <h3>B. Enregistrements Critiques</h3>
+                    <h3>B. Types d'enregistrements critiques</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:5px">Type</th><th style="padding:5px">Rôle</th><th style="padding:5px">Exemple</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">A</td><td style="padding:5px">Nom → IPv4</td><td style="padding:5px"><code>dc1 → 192.168.1.1</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">PTR</td><td style="padding:5px">IP → Nom (zone inverse)</td><td style="padding:5px"><code>1.1.168.192.in-addr.arpa → dc1.mondomaine.local</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">SRV</td><td style="padding:5px">Localisation de services AD</td><td style="padding:5px"><code>_ldap._tcp → dc1:389</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">CNAME</td><td style="padding:5px">Alias</td><td style="padding:5px"><code>www → serveur-web.mondomaine.local</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">MX</td><td style="padding:5px">Serveur mail</td><td style="padding:5px"><code>mondomaine.local → mail.mondomaine.local (priorité 10)</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                     <div class="note-box">
                         <i class="fas fa-exclamation-triangle"></i>
-                        <p><strong>Question Examen :</strong> "Comment un PC trouve son contrôleur de domaine ?" <br>
-                        <strong>Réponse :</strong> Grâce aux enregistrements <strong>SRV (Service)</strong> dans le dossier <code>_msdcs</code> du DNS.</p>
+                        <p><strong>Question Examen :</strong> "Comment un PC trouve son contrôleur de domaine ?"<br>
+                        <strong>Réponse :</strong> Via les enregistrements <strong>SRV</strong> dans le dossier <code>_msdcs</code> du DNS. C'est pourquoi le DNS doit absolument fonctionner avant l'AD.</p>
                     </div>
 
                     <h3>C. Forwarders vs Root Hints</h3>
                     <ul>
-                        <li><strong>Redirecteurs (Forwarders) :</strong> Si le serveur ne connaît pas la réponse, il demande à un DNS spécifique (ex: 8.8.8.8 ou FAI). C'est la méthode recommandée.</li>
-                        <li><strong>Racine (Root Hints) :</strong> Il demande directement aux 13 serveurs racines mondiaux (plus lent).</li>
+                        <li><strong>Redirecteurs (Forwarders) :</strong> Si le serveur ne connaît pas la réponse, il interroge un DNS externe (8.8.8.8, FAI). <strong>Méthode recommandée.</strong></li>
+                        <li><strong>Racine (Root Hints) :</strong> Interroge directement les 13 serveurs racines mondiaux. Plus lent.</li>
                     </ul>
+
+                    <h3>D. Dépannage DNS</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell &amp; CMD — Diagnostic DNS</div>
+                        <code># Tester la résolution DNS
+Resolve-DnsName dc1.mondomaine.local
+Resolve-DnsName -Name mondomaine.local -Type MX
+
+# Vider le cache DNS du client
+ipconfig /flushdns
+
+# Voir le cache DNS du client
+ipconfig /displaydns
+
+# Tester depuis CMD
+nslookup dc1.mondomaine.local
+nslookup -type=SRV _ldap._tcp.mondomaine.local
+
+# Vérifier l'enregistrement des SRV AD
+dcdiag /test:DNS /v</code>
+                    </div>
                 </section>
 
+                <!-- ═══════════════════════════════════════
+                     3. DHCP
+                ═══════════════════════════════════════ -->
                 <section id="dhcp" class="card">
                     <div class="card-header">
                         <i class="fas fa-project-diagram card-icon-main"></i>
-                        <h2>3. DHCP & Processus DORA</h2>
+                        <h2>3. DHCP &amp; Processus DORA</h2>
                     </div>
-                    <p>Distribution automatique des IP. Protocole UDP (Ports 67 Serveur / 68 Client).</p>
+                    <p>Distribution automatique des paramètres réseau. Protocole UDP, ports <strong>67</strong> (serveur) et <strong>68</strong> (client).</p>
 
-                    <h3>A. Le Processus DORA (Oral Technique)</h3>
+                    <h3>A. Le Processus DORA</h3>
                     <ol>
-                        <li><strong>D</strong>iscover (Broadcast) : Le client crie "Y'a quelqu'un ?"</li>
-                        <li><strong>O</strong>ffer (Unicast/Broadcast) : Le serveur répond "Tiens, une IP dispo".</li>
-                        <li><strong>R</strong>equest (Broadcast) : Le client dit "Ok je prends celle-là !".</li>
-                        <li><strong>A</strong>cknowledge (Unicast) : Le serveur valide et note le bail.</li>
+                        <li><strong>D</strong>iscover (Broadcast) : Le client cherche un serveur DHCP.</li>
+                        <li><strong>O</strong>ffer (Broadcast/Unicast) : Le serveur propose une IP disponible.</li>
+                        <li><strong>R</strong>equest (Broadcast) : Le client accepte l'offre.</li>
+                        <li><strong>A</strong>cknowledge (Unicast) : Le serveur confirme et enregistre le bail.</li>
                     </ol>
 
-                    <h3>B. Sécurité & Options</h3>
+                    <h3>B. Options DHCP importantes</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:5px">Option</th><th style="padding:5px">Code</th><th style="padding:5px">Description</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">Routeur</td><td style="padding:5px">003</td><td style="padding:5px">Passerelle par défaut</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Serveurs DNS</td><td style="padding:5px">006</td><td style="padding:5px">Adresses des serveurs DNS</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Nom de domaine</td><td style="padding:5px">015</td><td style="padding:5px">Suffixe DNS (ex: mondomaine.local)</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Serveur WINS</td><td style="padding:5px">044</td><td style="padding:5px">Résolution NetBIOS (legacy)</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Serveur PXE (WDS)</td><td style="padding:5px">066/067</td><td style="padding:5px">Boot réseau pour WDS/MDT</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>C. DHCP Failover (Haute disponibilité)</h3>
+                    <p>Le failover DHCP permet à deux serveurs DHCP de se partager une étendue pour assurer la continuité en cas de panne.</p>
                     <ul>
-                        <li><strong>Réservation :</strong> Fixer une IP via l'adresse MAC.</li>
-                        <li><strong>Relais DHCP :</strong> Si le serveur est dans un autre sous-réseau, le routeur doit relayer les requêtes Broadcast (Helper Address).</li>
+                        <li><strong>Mode Hot Standby :</strong> Un serveur actif, un en veille (5% des baux réservés au standby).</li>
+                        <li><strong>Mode Load Balance :</strong> Les deux serveurs se partagent les baux (50/50 par défaut).</li>
                     </ul>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — Administration DHCP</div>
+                        <code># Installer le rôle DHCP
+Install-WindowsFeature -Name DHCP -IncludeManagementTools
+
+# Autoriser le serveur DHCP dans AD
+Add-DhcpServerInDC -DnsName "dhcp01.mondomaine.local" -IPAddress 192.168.1.2
+
+# Créer une étendue (scope)
+Add-DhcpServerv4Scope -Name "LAN Principal" `
+    -StartRange 192.168.1.100 `
+    -EndRange 192.168.1.200 `
+    -SubnetMask 255.255.255.0 `
+    -State Active
+
+# Configurer les options de l'étendue
+Set-DhcpServerv4OptionValue -ScopeId 192.168.1.0 `
+    -Router 192.168.1.254 `
+    -DnsServer 192.168.1.1 `
+    -DnsDomain "mondomaine.local"
+
+# Ajouter une réservation
+Add-DhcpServerv4Reservation -ScopeId 192.168.1.0 `
+    -IPAddress 192.168.1.10 `
+    -ClientId "AA-BB-CC-DD-EE-FF" `
+    -Description "Serveur Web"
+
+# Voir les baux actifs
+Get-DhcpServerv4Lease -ScopeId 192.168.1.0
+
+# Configurer le failover
+Add-DhcpServerv4Failover -Name "DHCP-Failover" `
+    -PartnerServer "dhcp02.mondomaine.local" `
+    -ScopeId 192.168.1.0 `
+    -Mode LoadBalance `
+    -LoadBalancePercent 50</code>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Piège examen :</strong> Un serveur DHCP doit être <strong>autorisé dans l'AD</strong> avant de pouvoir distribuer des IP sur un domaine. Sans autorisation, il reste silencieux. Commande : <code>Add-DhcpServerInDC</code>.</p>
+                    </div>
                 </section>
 
+                <!-- ═══════════════════════════════════════
+                     4. GPO
+                ═══════════════════════════════════════ -->
                 <section id="gpo" class="card">
                     <div class="card-header">
                         <i class="fas fa-cogs card-icon-main"></i>
                         <h2>4. GPO (Group Policy Objects)</h2>
                     </div>
-                    
+
                     <h3>A. Ordre d'application : L.S.D.O.U.</h3>
-                    <p>L'ordre est crucial pour le T-Shoot. La dernière appliquée écrase les précédentes.</p>
+                    <p>La dernière GPO appliquée écrase les précédentes sur les mêmes paramètres.</p>
                     <ol>
-                        <li><strong>L</strong>ocal (Le PC lui-même)</li>
-                        <li><strong>S</strong>ite (Géographique, défini dans AD Sites & Services)</li>
+                        <li><strong>L</strong>ocal (Le PC lui-même — priorité la plus basse)</li>
+                        <li><strong>S</strong>ite (Géographique, défini dans AD Sites &amp; Services)</li>
                         <li><strong>D</strong>omaine</li>
-                        <li><strong>OU</strong> (Unités d'Organisation - Parents puis Enfants)</li>
+                        <li><strong>OU</strong> (Unités d'Organisation — parents puis enfants — priorité la plus haute)</li>
                     </ol>
 
                     <div class="note-box">
                         <i class="fas fa-lightbulb"></i>
-                        <p><strong>Exception :</strong> L'option "Appliquer (Enforced)" gagne toujours, même sur une OU qui bloque l'héritage.</p>
+                        <p><strong>Exceptions :</strong><br>
+                        — <strong>Enforced (Appliquer) :</strong> La GPO gagne toujours, même si une OU enfant bloque l'héritage.<br>
+                        — <strong>Block Inheritance :</strong> L'OU ignore les GPO des niveaux supérieurs (sauf si Enforced).<br>
+                        — <strong>Loopback Processing :</strong> Applique les GPO de l'ordinateur à l'utilisateur connecté dessus (utile pour les salles info).</p>
                     </div>
 
                     <h3>B. Ciblage Avancé</h3>
                     <ul>
-                        <li><strong>Filtre de Sécurité :</strong> "Qui" applique la GPO (Par défaut : Authenticated Users).</li>
-                        <li><strong>Filtre WMI :</strong> Ciblage technique (ex: Appliquer seulement si OS = Windows 11).</li>
-                        <li><strong>Item-Level Targeting (GPP) :</strong> Très précis (ex: Mapper le lecteur Z: seulement si l'utilisateur est dans le groupe "Compta").</li>
+                        <li><strong>Filtre de Sécurité :</strong> Définit QUI applique la GPO. Par défaut : <code>Authenticated Users</code>. Peut être restreint à un groupe.</li>
+                        <li><strong>Filtre WMI :</strong> Condition technique (ex: appliquer uniquement si OS = Windows 11 Pro).</li>
+                        <li><strong>Item-Level Targeting (GPP) :</strong> Ciblage très fin sur des préférences (ex: lecteur réseau Z: uniquement pour le groupe "Compta").</li>
                     </ul>
 
+                    <h3>C. GPO Preferences vs GPO Settings</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:5px">Caractéristique</th><th style="padding:5px">Settings (Stratégies)</th><th style="padding:5px">Preferences (Préférences)</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">Caractère</td><td style="padding:5px">Obligatoire (l'utilisateur ne peut pas changer)</td><td style="padding:5px">Suggéré (l'utilisateur peut modifier)</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Exemples</td><td style="padding:5px">Politique de mdp, firewall, fond d'écran forcé</td><td style="padding:5px">Lecteurs réseau, imprimantes, raccourcis</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Item-Level Targeting</td><td style="padding:5px">Non disponible</td><td style="padding:5px">Disponible</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>D. GPO essentielles à connaître</h3>
                     <div class="terminal-block">
-                        <div class="terminal-header">CMD - T-Shoot GPO</div>
-                        <code># Forcer la mise à jour
+                        <div class="terminal-header">Chemins GPO importants</div>
+                        <code"># Politique de mots de passe
+Computer Config > Windows Settings > Security Settings > Account Policies > Password Policy
+
+# Verrouillage de compte
+Computer Config > Windows Settings > Security Settings > Account Policies > Account Lockout Policy
+
+# Désactiver USB
+Computer Config > Admin Templates > System > Removable Storage Access
+  > "All Removable Storage classes: Deny all access" = Enabled
+
+# Fond d'écran imposé
+User Config > Admin Templates > Desktop > Desktop Wallpaper
+
+# Rediriger le bureau vers un serveur de fichiers
+User Config > Windows Settings > Folder Redirection > Desktop
+
+# Script de connexion
+User Config > Windows Settings > Scripts > Logon
+
+# Mappage lecteur réseau (Preferences)
+User Config > Preferences > Windows Settings > Drive Maps</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">CMD/PowerShell — T-Shoot GPO</div>
+                        <code># Forcer la mise à jour des GPO
 gpupdate /force
 
-# Voir quelles GPO sont appliquées (Génère un rapport HTML)
-gpresult /h rapport.html</code>
+# Rapport HTML complet des GPO appliquées
+gpresult /h C:\rapport_gpo.html
+gpresult /r   # Résumé dans le terminal
+
+# Voir les GPO depuis PowerShell
+Get-GPO -All | Select-Object DisplayName, GpoStatus
+Get-GPResultantSetOfPolicy -ReportType HTML -Path C:\rsop.html</code>
                     </div>
                 </section>
 
+                <!-- ═══════════════════════════════════════
+                     5. SERVEUR DE FICHIERS
+                ═══════════════════════════════════════ -->
                 <section id="fs" class="card">
                     <div class="card-header">
                         <i class="fas fa-folder-open card-icon-main"></i>
-                        <h2>5. Serveur de Fichiers (FS / DFS)</h2>
+                        <h2>5. Serveur de Fichiers (NTFS / DFS)</h2>
                     </div>
-                    
-                    <h3>A. NTFS vs Partage : La Règle d'Or</h3>
-                    <p>Quand on accède à un dossier via le réseau, deux portes s'imposent :</p>
-                    <ul>
-                        <li><strong>Droits de Partage :</strong> La porte d'entrée du réseau. Souvent mis en "Tout le monde : Modifier/Lecture".</li>
-                        <li><strong>Droits NTFS (Security) :</strong> La serrure du dossier. C'est ici qu'on gère la vraie sécurité (Héritage, Groupes).</li>
-                    </ul>
-                    <p style="color: var(--accent);"><strong>Règle : C'est toujours la permission la plus RESTRICTIVE qui s'applique.</strong></p>
 
-                    <h3>B. FSRM (Gestionnaire de ressources)</h3>
+                    <h3>A. NTFS vs Partage réseau — La Règle d'Or</h3>
+                    <p>Quand on accède à un dossier via le réseau, deux niveaux de droits s'appliquent simultanément :</p>
                     <ul>
-                        <li><strong>Quotas :</strong> Limiter l'espace disque par utilisateur (ex: 500 Mo max).</li>
-                        <li><strong>Filtrage de fichiers :</strong> Interdire l'enregistrement de fichiers MP3 ou EXE sur le serveur.</li>
+                        <li><strong>Droits de Partage :</strong> La porte d'entrée réseau. Souvent : <em>Tout le monde = Modifier</em>.</li>
+                        <li><strong>Droits NTFS (Sécurité) :</strong> La vraie sécurité fine. C'est ici qu'on gère les groupes et l'héritage.</li>
                     </ul>
+                    <p style="color: var(--accent);"><strong>Règle absolue : C'est toujours la permission la plus RESTRICTIVE qui s'applique.</strong></p>
 
-                    <h3>C. DFS (Système de fichiers distribué)</h3>
+                    <h3>B. Permissions NTFS — Les niveaux</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:5px">Permission</th><th style="padding:5px">Fichiers</th><th style="padding:5px">Dossiers</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">Lecture</td><td style="padding:5px">Lire le contenu</td><td style="padding:5px">Lister les fichiers</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Lecture &amp; Exécution</td><td style="padding:5px">Lire + exécuter</td><td style="padding:5px">Traverser le dossier</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Écriture</td><td style="padding:5px">Modifier le contenu</td><td style="padding:5px">Créer des fichiers/dossiers</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Modification</td><td style="padding:5px">Lire + Écrire + Supprimer</td><td style="padding:5px">Lire + Écrire + Supprimer</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Contrôle Total</td><td style="padding:5px">Tout + changer les droits</td><td style="padding:5px">Tout + changer les droits</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <p><strong>Bonne pratique AGDLP :</strong><br>
+                        <strong>A</strong>ccount (utilisateurs) → <strong>G</strong>lobal group → <strong>D</strong>omain <strong>L</strong>ocal group → <strong>P</strong>ermission<br>
+                        On ajoute les utilisateurs dans des groupes globaux, qu'on met dans des groupes locaux de domaine, auxquels on attribue les permissions NTFS.</p>
+                    </div>
+
+                    <h3>C. FSRM (File Server Resource Manager)</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — FSRM</div>
+                        <code"># Installer FSRM
+Install-WindowsFeature -Name FS-Resource-Manager -IncludeManagementTools
+
+# Créer un quota de 1 Go sur un dossier
+New-FsrmQuota -Path "D:\Partages\RH" -Size 1GB
+
+# Créer un filtre de fichiers (interdire .mp3 et .avi)
+New-FsrmFileGroup -Name "Multimedia" -IncludePattern @("*.mp3","*.mp4","*.avi","*.mkv")
+New-FsrmFileScreen -Path "D:\Partages" -Template "Block Audio and Video Files"</code>
+                    </div>
+
+                    <h3>D. DFS (Distributed File System)</h3>
                     <ul>
-                        <li><strong>Namespace (Espace de nom) :</strong> Crée un point d'entrée unique (ex: \\corp.local\Public) masquant les vrais noms de serveurs.</li>
-                        <li><strong>Replication (DFSR) :</strong> Synchronise les dossiers entre deux serveurs pour la haute disponibilité.</li>
+                        <li><strong>DFS Namespace :</strong> Point d'entrée unique <code>\\corp.local\Public</code> masquant les vrais serveurs. Transparence pour les utilisateurs.</li>
+                        <li><strong>DFS Replication (DFSR) :</strong> Synchronise les dossiers entre serveurs pour la haute disponibilité et la géo-redondance.</li>
                     </ul>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — DFS</div>
+                        <code"># Installer DFS
+Install-WindowsFeature -Name FS-DFS-Namespace, FS-DFS-Replication -IncludeManagementTools
+
+# Créer un namespace
+New-DfsnRoot -TargetPath "\\SRV01\Public" -Type DomainV2 -Path "\\mondomaine.local\Public"
+
+# Ajouter un lien DFS
+New-DfsnFolder -Path "\\mondomaine.local\Public\RH" -TargetPath "\\SRV01\RH"
+
+# Voir l'état de la réplication DFSR
+Get-DfsrMembership -GroupName * | Select-Object GroupName, ComputerName, State</code>
+                    </div>
                 </section>
 
+                <!-- ═══════════════════════════════════════
+                     6. RDS
+                ═══════════════════════════════════════ -->
+                <section id="rds" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-desktop card-icon-main"></i>
+                        <h2>6. RDS — Remote Desktop Services</h2>
+                    </div>
+                    <p>RDS permet aux utilisateurs d'accéder à des applications ou bureaux Windows à distance, centralisés sur un serveur. Utilisé pour les clients légers et le télétravail.</p>
+
+                    <h3>A. Composants RDS</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:5px">Rôle</th><th style="padding:5px">Description</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">RD Session Host (RDSH)</td><td style="padding:5px">Héberge les sessions utilisateurs. Le serveur principal.</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">RD Connection Broker</td><td style="padding:5px">Répartit la charge entre plusieurs RDSH et gère la reconnexion.</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">RD Web Access</td><td style="padding:5px">Portail web pour accéder aux applications publiées (RemoteApp).</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">RD Gateway</td><td style="padding:5px">Point d'entrée sécurisé depuis Internet (HTTPS port 443).</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">RD Licensing</td><td style="padding:5px">Gère les licences CAL RDS. Obligatoire après 120 jours.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>B. Installation et configuration</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — Installation RDS</div>
+                        <code"># Installer les rôles RDS
+Install-WindowsFeature -Name RDS-RD-Server, RDS-Connection-Broker, `
+    RDS-Web-Access, RDS-Licensing -IncludeManagementTools
+
+# Autoriser les connexions Bureau à distance (sur le RDSH)
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server" `
+    -Name "fDenyTSConnections" -Value 0
+
+# Autoriser dans le firewall
+Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+
+# Ajouter des utilisateurs au groupe "Remote Desktop Users"
+Add-LocalGroupMember -Group "Remote Desktop Users" -Member "jean.dupont"
+
+# Voir les sessions actives
+Get-RDUserSession -ConnectionBroker "broker.mondomaine.local"
+
+# Déconnecter une session
+Disconnect-RDUser -HostServer "rdsh01.mondomaine.local" -UnifiedSessionID 3</code>
+                    </div>
+
+                    <h3>C. RemoteApp — Publier une application</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — RemoteApp</div>
+                        <code"># Publier une application RemoteApp
+New-RDRemoteApp -CollectionName "Collection RH" `
+    -DisplayName "Word 2024" `
+    -FilePath "C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE" `
+    -ConnectionBroker "broker.mondomaine.local"
+
+# Lister les RemoteApps publiées
+Get-RDRemoteApp -ConnectionBroker "broker.mondomaine.local"</code>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Licence RDS :</strong> Sans serveur de licences RDS correctement configuré, les sessions se déconnectent après 120 jours (période de grâce). Le serveur RD Licensing doit être activé et pointé depuis les RDSH via GPO.</p>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     7. IIS
+                ═══════════════════════════════════════ -->
+                <section id="iis" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-globe card-icon-main"></i>
+                        <h2>7. IIS — Internet Information Services</h2>
+                    </div>
+                    <p>IIS est le serveur web de Microsoft intégré à Windows Server. Il héberge des sites web, applications .NET, et services web.</p>
+
+                    <h3>A. Installation</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — Installation IIS</div>
+                        <code"># Installation complète avec outils de gestion
+Install-WindowsFeature -Name Web-Server -IncludeManagementTools
+
+# Avec les modules supplémentaires courants
+Install-WindowsFeature -Name Web-Server, Web-Common-Http, Web-Asp-Net45, `
+    Web-Net-Ext45, Web-ISAPI-Ext, Web-ISAPI-Filter, `
+    Web-Mgmt-Tools, Web-Mgmt-Console
+
+# Vérifier l'installation
+Get-WindowsFeature -Name Web-* | Where-Object {$_.InstallState -eq "Installed"}</code>
+                    </div>
+
+                    <h3>B. Gestion des sites web</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — Administration IIS (module WebAdministration)</div>
+                        <code"># Importer le module IIS
+Import-Module WebAdministration
+
+# Lister les sites
+Get-Website
+
+# Créer un nouveau site
+New-Website -Name "MonSite" `
+    -Port 80 `
+    -HostHeader "monsite.local" `
+    -PhysicalPath "C:\inetpub\monsite" `
+    -ApplicationPool "MonSitePool"
+
+# Créer un pool d'applications (recommandé : 1 pool par site)
+New-WebAppPool -Name "MonSitePool"
+Set-ItemProperty "IIS:\AppPools\MonSitePool" -Name "managedRuntimeVersion" -Value "v4.0"
+
+# Démarrer / arrêter un site
+Start-Website -Name "MonSite"
+Stop-Website -Name "MonSite"
+
+# Configurer les liaisons (bindings) — HTTPS
+New-WebBinding -Name "MonSite" -Protocol https -Port 443 -HostHeader "monsite.local"</code>
+                    </div>
+
+                    <h3>C. Authentification et sécurité IIS</h3>
+                    <ul>
+                        <li><strong>Authentification Anonyme :</strong> Tout le monde accède (sites publics).</li>
+                        <li><strong>Authentification Windows :</strong> SSO avec les comptes AD. Idéal pour intranet.</li>
+                        <li><strong>Authentification de base :</strong> Login/mdp en base64 — nécessite HTTPS obligatoirement.</li>
+                    </ul>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — Authentification IIS</div>
+                        <code"># Désactiver l'auth anonyme, activer l'auth Windows
+Set-WebConfigurationProperty -Filter "/system.webServer/security/authentication/anonymousAuthentication" `
+    -Name "enabled" -Value "False" -Location "MonSite"
+Set-WebConfigurationProperty -Filter "/system.webServer/security/authentication/windowsAuthentication" `
+    -Name "enabled" -Value "True" -Location "MonSite"
+
+# Logs IIS — emplacement par défaut
+# C:\inetpub\logs\LogFiles\W3SVC1\</code>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     8. WDS / MDT
+                ═══════════════════════════════════════ -->
+                <section id="wds" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-download card-icon-main"></i>
+                        <h2>8. WDS / MDT — Déploiement de postes</h2>
+                    </div>
+                    <p>WDS (Windows Deployment Services) et MDT (Microsoft Deployment Toolkit) permettent de déployer Windows en masse via le réseau (PXE Boot), sans DVD ni clé USB.</p>
+
+                    <h3>A. WDS — Windows Deployment Services</h3>
+                    <ul>
+                        <li><strong>Rôle :</strong> Serveur PXE qui envoie les images Windows via le réseau.</li>
+                        <li><strong>Images de démarrage (Boot Image) :</strong> WinPE — démarre le PC avant l'installation.</li>
+                        <li><strong>Images d'installation (Install Image) :</strong> L'OS à installer (install.wim du DVD Windows).</li>
+                    </ul>
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — Installation et configuration WDS</div>
+                        <code"># Installer WDS
+Install-WindowsFeature -Name WDS -IncludeManagementTools
+
+# Configurer WDS (dossier de stockage des images)
+wdsutil /Initialize-Server /RemInst:"D:\RemoteInstall"
+wdsutil /Set-Server /AnswerClients:All
+
+# Ajouter une image de démarrage (WinPE)
+wdsutil /Add-Image /ImageFile:"D:\Sources\boot.wim" /ImageType:Boot
+
+# Ajouter une image d'installation
+wdsutil /Add-Image /ImageFile:"D:\Sources\install.wim" /ImageType:Install /ImageGroup:"Windows 11"
+
+# Voir les images disponibles
+wdsutil /Get-AllImages /Show:All</code>
+                    </div>
+
+                    <h3>B. MDT — Microsoft Deployment Toolkit</h3>
+                    <p>MDT s'appuie sur WDS pour automatiser entièrement le déploiement : partitionnement, installation, drivers, applications, jonction au domaine.</p>
+                    <ul>
+                        <li><strong>Deployment Share :</strong> Dossier partagé contenant tout le nécessaire (OS, drivers, apps, scripts).</li>
+                        <li><strong>Task Sequence :</strong> Séquence d'étapes automatisées du déploiement.</li>
+                        <li><strong>Unattend.xml :</strong> Fichier de réponses pour automatiser l'installation Windows.</li>
+                        <li><strong>MDT DB :</strong> Base de données qui associe un PC (MAC ou nom) à une configuration spécifique.</li>
+                    </ul>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Configuration DHCP pour PXE Boot</div>
+                        <code"># Le DHCP doit fournir les options PXE aux clients
+# Option 66 (Boot Server) : adresse IP du serveur WDS
+# Option 67 (Boot Filename) : chemin du fichier de démarrage
+
+Set-DhcpServerv4OptionValue -OptionId 66 -Value "192.168.1.5"    # IP WDS
+Set-DhcpServerv4OptionValue -OptionId 67 -Value "boot\x64\wdsnbp.com"</code>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Flux de déploiement PXE :</strong><br>
+                        1. Le PC démarre → BIOS/UEFI en mode PXE<br>
+                        2. Le DHCP donne une IP + options 66/67 (serveur WDS)<br>
+                        3. WDS envoie WinPE via TFTP<br>
+                        4. WinPE démarre et se connecte au Deployment Share MDT<br>
+                        5. La Task Sequence s'exécute (partitionnement, copie OS, drivers, apps, domaine)</p>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     9. HYPER-V
+                ═══════════════════════════════════════ -->
+                <section id="hyperv" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-server card-icon-main"></i>
+                        <h2>9. Hyper-V — Virtualisation Windows</h2>
+                    </div>
+                    <p>Hyper-V est l'hyperviseur de type 1 intégré à Windows Server. Il permet de créer et gérer des machines virtuelles directement sur le serveur physique.</p>
+
+                    <h3>A. Concepts clés</h3>
+                    <ul>
+                        <li><strong>VM (Machine Virtuelle) :</strong> Serveur virtuel avec son propre OS, CPU virtuel, RAM et disque.</li>
+                        <li><strong>VHD/VHDX :</strong> Format de disque virtuel. VHDX supporte jusqu'à 64 To et est plus résilient.</li>
+                        <li><strong>Snapshot/Checkpoint :</strong> Point de restauration de la VM à un instant T.</li>
+                        <li><strong>Live Migration :</strong> Déplacer une VM d'un hôte à un autre sans interruption (nécessite un cluster).</li>
+                        <li><strong>Réplication Hyper-V :</strong> Copie asynchrone d'une VM vers un site secondaire (DR).</li>
+                    </ul>
+
+                    <h3>B. Types de switchs virtuels</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:5px">Type</th><th style="padding:5px">Description</th><th style="padding:5px">Usage</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">External</td><td style="padding:5px">Connecté au réseau physique</td><td style="padding:5px">VMs accessibles depuis le réseau</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Internal</td><td style="padding:5px">Entre VMs + hôte Hyper-V uniquement</td><td style="padding:5px">Gestion, communication hôte-VM</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Private</td><td style="padding:5px">Entre VMs uniquement (hôte exclu)</td><td style="padding:5px">Réseau isolé entre VMs</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">PowerShell — Administration Hyper-V</div>
+                        <code"># Installer Hyper-V
+Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
+
+# Créer une VM
+New-VM -Name "SRV-TEST" `
+    -MemoryStartupBytes 2GB `
+    -Path "D:\VMs" `
+    -NewVHDPath "D:\VMs\SRV-TEST\SRV-TEST.vhdx" `
+    -NewVHDSizeBytes 60GB `
+    -Generation 2
+
+# Configurer la VM
+Set-VMProcessor -VMName "SRV-TEST" -Count 2
+Set-VMMemory -VMName "SRV-TEST" -DynamicMemoryEnabled $true -MinimumBytes 1GB -MaximumBytes 4GB
+
+# Connecter au switch réseau
+Connect-VMNetworkAdapter -VMName "SRV-TEST" -SwitchName "vSwitch-LAN"
+
+# Démarrer / arrêter
+Start-VM -Name "SRV-TEST"
+Stop-VM -Name "SRV-TEST" -Force
+
+# Créer un checkpoint
+Checkpoint-VM -Name "SRV-TEST" -SnapshotName "Avant-MAJ"
+
+# Restaurer un checkpoint
+Restore-VMCheckpoint -VMName "SRV-TEST" -Name "Avant-MAJ"
+
+# Lister les VMs
+Get-VM | Select-Object Name, State, MemoryAssigned, Uptime</code>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     10. POWERSHELL
+                ═══════════════════════════════════════ -->
                 <section id="powershell" class="card">
                     <div class="card-header">
                         <i class="fas fa-terminal card-icon-main"></i>
-                        <h2>6. Cheat Sheet PowerShell</h2>
+                        <h2>10. Cheat Sheet PowerShell</h2>
                     </div>
                     <p>Commandes vitales à connaître par cœur pour l'épreuve pratique.</p>
-                    
+
                     <div class="terminal-block">
-                        <div class="terminal-header">Administration Quotidienne</div>
-                        <code># Créer un utilisateur
-New-ADUser -Name "Jean" -SamAccountName "jean" -Path "OU=RH,DC=tuto,DC=local" -Enabled $true
+                        <div class="terminal-header">Active Directory — Gestion quotidienne</div>
+                        <code"># Créer un utilisateur
+New-ADUser -Name "Jean Dupont" -SamAccountName "jean.dupont" `
+    -Path "OU=RH,DC=mondomaine,DC=local" `
+    -AccountPassword (ConvertTo-SecureString "Mdp@2024!" -AsPlainText -Force) `
+    -Enabled $true
 
 # Réinitialiser un mot de passe
-Set-ADAccountPassword -Identity "jean" -Reset -NewPassword (ConvertTo-SecureString "Mdp123!" -AsPlainText -Force)
+Set-ADAccountPassword -Identity "jean.dupont" -Reset `
+    -NewPassword (ConvertTo-SecureString "NvMdp@2024!" -AsPlainText -Force)
 
-# Tester la connexion réseau (Mieux que Ping)
-Test-NetConnection -ComputerName "192.168.1.50" -Port 3389
+# Forcer le changement de mdp à la prochaine connexion
+Set-ADUser -Identity "jean.dupont" -ChangePasswordAtLogon $true
 
-# Lister les services arrêtés
-Get-Service | Where-Object {$_.Status -eq "Stopped"}
+# Désactiver / activer un compte
+Disable-ADAccount -Identity "jean.dupont"
+Enable-ADAccount  -Identity "jean.dupont"
 
-# Installer un rôle (ex: Serveur Web)
-Install-WindowsFeature -Name Web-Server -IncludeManagementTools</code>
+# Rechercher un utilisateur
+Get-ADUser -Filter {Name -like "*dupont*"} | Select-Object Name, SamAccountName, Enabled
+
+# Membres d'un groupe
+Get-ADGroupMember -Identity "Domain Admins" | Select-Object Name
+
+# Comptes inactifs depuis 30 jours
+Search-ADAccount -AccountInactive -TimeSpan 30.00:00:00 | Select-Object Name</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Système &amp; Services</div>
+                        <code"># Installer un rôle Windows
+Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+
+# Lister les rôles installés
+Get-WindowsFeature | Where-Object {$_.InstallState -eq "Installed"}
+
+# Services
+Get-Service | Where-Object {$_.Status -eq "Stopped"} | Select-Object Name, DisplayName
+Start-Service -Name "wuauserv"
+Stop-Service  -Name "wuauserv"
+Restart-Service -Name "spooler"
+
+# Processus
+Get-Process | Sort-Object CPU -Descending | Select-Object -First 10
+Stop-Process -Name "notepad" -Force
+
+# Redémarrer / éteindre
+Restart-Computer -Force
+Stop-Computer -Force</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Réseau</div>
+                        <code"># Voir les interfaces réseau
+Get-NetIPAddress | Select-Object InterfaceAlias, IPAddress, PrefixLength
+
+# Voir la table de routage
+Get-NetRoute | Where-Object {$_.DestinationPrefix -eq "0.0.0.0/0"}
+
+# Configurer une IP statique
+New-NetIPAddress -InterfaceAlias "Ethernet" `
+    -IPAddress 192.168.1.10 `
+    -PrefixLength 24 `
+    -DefaultGateway 192.168.1.254
+
+# Configurer les DNS
+Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 192.168.1.1,8.8.8.8
+
+# Tester la connectivité (mieux que ping)
+Test-NetConnection -ComputerName 192.168.1.50 -Port 3389
+Test-NetConnection -ComputerName "dc01.mondomaine.local" -Port 389  # Test LDAP
+
+# Voir les connexions actives
+Get-NetTCPConnection | Where-Object {$_.State -eq "Established"}</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Fichiers &amp; Disques</div>
+                        <code"># Lister les disques
+Get-Disk
+Get-Volume
+
+# Initialiser un disque et créer une partition
+Initialize-Disk -Number 1 -PartitionStyle GPT
+New-Partition -DiskNumber 1 -UseMaximumSize -DriveLetter D
+Format-Volume -DriveLetter D -FileSystem NTFS -NewFileSystemLabel "Data" -Confirm:$false
+
+# Partages réseau
+Get-SmbShare
+New-SmbShare -Name "Partage" -Path "D:\Partages\Public" -FullAccess "Domain Admins" -ReadAccess "Authenticated Users"
+
+# Permissions NTFS via PowerShell
+$acl = Get-Acl "D:\Partages\RH"
+$rule = New-Object System.Security.AccessControl.FileSystemAccessRule("GRP_RH","Modify","ContainerInherit,ObjectInherit","None","Allow")
+$acl.SetAccessRule($rule)
+Set-Acl "D:\Partages\RH" $acl</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Journaux d'événements &amp; Audit</div>
+                        <code"># Voir les erreurs système des dernières 24h
+Get-EventLog -LogName System -EntryType Error -Newest 50 |
+    Select-Object TimeGenerated, Source, Message
+
+# Voir les connexions échouées (Event 4625)
+Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4625} -MaxEvents 20 |
+    Select-Object TimeCreated, Message
+
+# Voir les connexions réussies (Event 4624)
+Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4624} -MaxEvents 20
+
+# Exporter un journal
+wevtutil epl Security C:\Backup\security.evtx</code>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     11. MÉMO EXAMEN
+                ═══════════════════════════════════════ -->
+                <section id="examen" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-graduation-cap card-icon-main"></i>
+                        <h2>🎯 Mémo Examen — Le plus important à retenir</h2>
+                    </div>
+
+                    <h3>A. Les pièges classiques</h3>
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>
+                        <strong>DNS d'abord :</strong> Toujours vérifier le DNS avant de déboguer l'AD. 90% des pannes AD = DNS.<br>
+                        <strong>DHCP autorisé :</strong> Un serveur DHCP doit être autorisé dans l'AD sinon il ne répond pas.<br>
+                        <strong>Règle NTFS :</strong> Permission la plus restrictive entre NTFS et partage = permission effective.<br>
+                        <strong>GPO Enforced :</strong> Gagne toujours sur Block Inheritance.<br>
+                        <strong>PDC Emulator :</strong> Source de temps NTP — tous les DC doivent être synchronisés avec lui.<br>
+                        <strong>RDS Licence :</strong> Période de grâce 120 jours puis déconnexion si pas de serveur de licences.
+                        </p>
+                    </div>
+
+                    <h3>B. Commandes indispensables</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:5px">Action</th><th style="padding:5px">Commande</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">Trouver les FSMO</td><td style="padding:5px"><code>netdom query fsmo</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Forcer la réplication AD</td><td style="padding:5px"><code>repadmin /syncall /AdeP</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Diagnostiquer l'AD</td><td style="padding:5px"><code>dcdiag /v</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Forcer les GPO</td><td style="padding:5px"><code>gpupdate /force</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Rapport GPO</td><td style="padding:5px"><code>gpresult /h rapport.html</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Vider cache DNS client</td><td style="padding:5px"><code>ipconfig /flushdns</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Tester port réseau</td><td style="padding:5px"><code>Test-NetConnection -ComputerName srv -Port 389</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Voir sessions RDS</td><td style="padding:5px"><code>query session</code> ou <code>qwinsta</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Installer un rôle</td><td style="padding:5px"><code>Install-WindowsFeature -Name NomRole -IncludeManagementTools</code></td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Voir les événements erreur</td><td style="padding:5px"><code>Get-EventLog -LogName System -EntryType Error -Newest 20</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>C. Ports à connaître</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:5px">Port</th><th style="padding:5px">Service</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">53</td><td style="padding:5px">DNS (UDP + TCP)</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">67/68</td><td style="padding:5px">DHCP (serveur/client)</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">80 / 443</td><td style="padding:5px">HTTP / HTTPS (IIS)</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">88</td><td style="padding:5px">Kerberos</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">135</td><td style="padding:5px">RPC Endpoint Mapper</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">389 / 636</td><td style="padding:5px">LDAP / LDAPS</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">445</td><td style="padding:5px">SMB (partages fichiers)</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">3389</td><td style="padding:5px">RDP (Bureau à distance)</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">5985 / 5986</td><td style="padding:5px">WinRM (PowerShell distant)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>D. Ordre logique d'installation d'un rôle Windows</h3>
+                    <div class="note-box">
+                        <i class="fas fa-list-ol"></i>
+                        <p>
+                        <strong>1.</strong> <code>Install-WindowsFeature -Name NomRole -IncludeManagementTools</code><br>
+                        <strong>2.</strong> Configurer via GUI (Server Manager) ou PowerShell<br>
+                        <strong>3.</strong> Vérifier avec <code>Get-WindowsFeature</code> et les outils du rôle<br>
+                        <strong>4.</strong> Autoriser dans le pare-feu Windows si nécessaire<br>
+                        <strong>5.</strong> Tester depuis un client (<code>Test-NetConnection</code>, <code>nslookup</code>...)<br>
+                        <strong>6.</strong> Vérifier les Event Logs si problème (<code>Get-EventLog</code>)
+                        </p>
                     </div>
                 </section>
 
@@ -253,8 +936,33 @@ Install-WindowsFeature -Name Web-Server -IncludeManagementTools</code>
         </div>
     </main>
 
-    <footer><p>© 2026 — Altinkaya Romain | Base de Connaissances TSSR</p></footer>
-    
+    <footer><p>© 2026 — Altinkaya Romain | Windows Server Expert</p></footer>
     <script src="../assets/js/script.js"></script>
+    <script>
+    const sections = document.querySelectorAll('.course-content section[id]');
+    const sidebarLinks = document.querySelectorAll('.course-sidebar a');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                sidebarLinks.forEach(link => {
+                    link.style.color = '';
+                    link.style.background = '';
+                    link.style.borderColor = '';
+                    link.style.paddingLeft = '';
+                });
+                const activeLink = document.querySelector(`.course-sidebar a[href="#${id}"]`);
+                if (activeLink) {
+                    activeLink.style.color = 'var(--accent)';
+                    activeLink.style.background = 'rgba(0,229,176,0.07)';
+                    activeLink.style.borderColor = 'rgba(0,229,176,0.2)';
+                    activeLink.style.paddingLeft = '14px';
+                    activeLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                }
+            }
+        });
+    }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+    </script>
 </body>
 </html>
