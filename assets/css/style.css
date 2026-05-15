@@ -1,7 +1,7 @@
 /* ============================================================
-   ALTINKAYA ROMAIN — style.css v2.0
+   ALTINKAYA ROMAIN — style.css v2.1
    Direction : Dark Ops / Terminal Premium
-   Conserve exactement les mêmes class names
+   Optimisations performance
    ============================================================ */
 
 /* --- 1. IMPORTS & VARIABLES --- */
@@ -66,10 +66,11 @@ body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOc[...]
     opacity: 0.018;
     pointer-events: none;
     z-index: 0;
+    will-change: auto;
 }
 
 /* Scrollbar premium */
@@ -114,6 +115,7 @@ a.btn-neon:hover {
     gap: 28px;
     z-index: 2000;
     box-shadow: 0 4px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,229,176,0.04) inset;
+    will-change: transform;
 }
 
 .floating-nav::before {
@@ -158,6 +160,7 @@ a.btn-neon:hover {
     position: fixed;
     inset: 0;
     z-index: -1;
+    will-change: auto;
 }
 
 .hero {
@@ -233,6 +236,7 @@ a.btn-neon:hover {
     overflow: hidden;
     box-shadow: var(--shadow-card);
     animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: transform, box-shadow;
 }
 
 /* Reflet interne en haut de chaque card */
@@ -255,6 +259,7 @@ a.btn-neon:hover {
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;
+    will-change: opacity;
 }
 
 .card:hover {
@@ -375,6 +380,7 @@ code {
     font-family: var(--font-mono);
     letter-spacing: 0.3px;
     transition: all 0.2s ease;
+    will-change: border-color, color, background;
 }
 .tag:hover {
     border-color: var(--accent);
@@ -401,12 +407,11 @@ code {
     border-radius: 18px;
     border: 1px solid var(--border);
     box-shadow: var(--shadow-card);
-    /* Limiter la hauteur à l'écran disponible et permettre le scroll interne */
     max-height: calc(100vh - 110px);
     overflow-y: auto;
-    /* Scrollbar stylisée dans la sidebar */
     scrollbar-width: thin;
     scrollbar-color: #1a2030 transparent;
+    will-change: auto;
 }
 
 .course-sidebar::-webkit-scrollbar { width: 4px; }
@@ -436,7 +441,6 @@ code {
     border-bottom: 1px solid var(--border);
 }
 
-/* On annule le ::before des h3 dans la sidebar */
 .course-sidebar h3::before { display: none; }
 
 .course-sidebar ul { list-style: none; padding: 0; margin: 0; }
@@ -451,6 +455,7 @@ code {
     border-radius: 8px;
     transition: all 0.2s ease;
     border: 1px solid transparent;
+    will-change: color, background, border-color;
 }
 .course-sidebar a:hover {
     color: var(--accent) !important;
@@ -485,7 +490,6 @@ code {
     letter-spacing: 0.5px;
 }
 
-/* Dots macOS */
 .terminal-header::before {
     content: '';
     position: absolute;
@@ -513,7 +517,6 @@ code {
     overflow-x: auto;
 }
 
-/* Commentaires en vert dans le terminal */
 .terminal-block code {
     -webkit-text-fill-color: #c8d8e8;
 }
@@ -626,6 +629,7 @@ td[style*="color: var(--accent)"] code {
     position: relative;
     overflow: hidden;
     text-decoration: none !important;
+    will-change: background, color, transform, box-shadow;
 }
 
 .btn-neon:hover {
@@ -682,6 +686,7 @@ footer::before {
     justify-content: center;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    will-change: border-color, color, transform, box-shadow;
 }
 
 #backToTop:hover {
@@ -708,7 +713,6 @@ footer::before {
     50%       { box-shadow: 0 0 35px rgba(0,229,176,0.25); }
 }
 
-/* Statut "disponible" — pulsation */
 .status-dot {
     display: inline-block;
     width: 8px; height: 8px;
@@ -717,6 +721,7 @@ footer::before {
     margin-right: 8px;
     animation: pulseGlow 2s infinite;
     box-shadow: 0 0 8px #22c55e;
+    will-change: box-shadow;
 }
 
 /* --- 17. RESPONSIVE --- */
