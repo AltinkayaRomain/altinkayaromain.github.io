@@ -173,128 +173,6 @@
             color: #000;
         }
 
-        /* ── Zone d'upload ── */
-        .upload-zone {
-            border: 2px dashed rgba(0,229,176,0.25);
-            border-radius: 16px;
-            padding: 36px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(0,229,176,0.02);
-            margin-bottom: 28px;
-        }
-        .upload-zone:hover, .upload-zone.drag-over {
-            border-color: var(--accent);
-            background: rgba(0,229,176,0.05);
-        }
-        .upload-icon {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 12px;
-            opacity: 0.7;
-        }
-        .upload-title {
-            font-family: var(--font-head);
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-        .upload-sub {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            color: var(--text-dim);
-            letter-spacing: 1px;
-        }
-        #file-input { display: none; }
-
-        /* ── Modal d'ajout ── */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(6px);
-            z-index: 9000;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-overlay.show { display: flex; }
-        .modal {
-            background: var(--card);
-            border: 1px solid rgba(0,229,176,0.2);
-            border-radius: 20px;
-            padding: 32px;
-            width: 100%;
-            max-width: 480px;
-            margin: 20px;
-            position: relative;
-        }
-        .modal-title {
-            font-family: var(--font-head);
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .modal-close {
-            position: absolute;
-            top: 16px; right: 16px;
-            background: none;
-            border: none;
-            color: var(--text-dim);
-            cursor: pointer;
-            font-size: 1.2rem;
-            padding: 4px;
-            transition: color 0.2s;
-        }
-        .modal-close:hover { color: var(--accent); }
-
-        .form-group { margin-bottom: 16px; }
-        .form-label {
-            display: block;
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 6px;
-        }
-        .form-input, .form-select, .form-textarea {
-            width: 100%;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 10px 14px;
-            color: var(--text);
-            font-family: var(--font-body);
-            font-size: 0.88rem;
-            transition: border-color 0.2s;
-            box-sizing: border-box;
-        }
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-        .form-select option { background: #0a0c10; }
-        .form-textarea { resize: vertical; min-height: 80px; }
-
-        .file-preview {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            background: rgba(0,229,176,0.05);
-            border: 1px solid rgba(0,229,176,0.2);
-            border-radius: 10px;
-            font-size: 0.82rem;
-            color: var(--accent);
-            font-family: var(--font-mono);
-        }
-
         /* ── Stats ── */
         .stats-proc {
             display: grid;
@@ -399,14 +277,6 @@
             <div class="stat-proc-box"><span class="num" id="stat-cats">0</span><span class="lbl">Catégories</span></div>
         </div>
 
-        <!-- ── UPLOAD ZONE ── -->
-        <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
-            <input type="file" id="file-input" accept=".pdf,.docx,.doc" multiple>
-            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-            <div class="upload-title">Ajouter une procédure</div>
-            <div class="upload-sub">Glissez-déposez vos fichiers PDF ou DOCX · ou cliquez pour parcourir</div>
-        </div>
-
         <!-- ── RECHERCHE + FILTRES ── -->
         <div class="search-bar">
             <i class="fas fa-search"></i>
@@ -421,55 +291,11 @@
         <div class="proc-grid" id="proc-grid">
             <div class="empty-state" id="empty-state">
                 <i class="fas fa-folder-open"></i>
-                <p>Aucune procédure pour le moment.<br>Ajoutez votre premier document ci-dessus.</p>
+                <p>Chargement des procédures...</p>
             </div>
         </div>
 
     </main>
-
-    <!-- ── MODAL D'AJOUT ── -->
-    <div class="modal-overlay" id="modal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
-            <div class="modal-title">
-                <i class="fas fa-file-circle-plus" style="color:var(--accent)"></i>
-                Ajouter la procédure
-            </div>
-
-            <div class="file-preview" id="file-preview">
-                <i class="fas fa-file"></i>
-                <span id="file-name-preview">fichier.pdf</span>
-            </div>
-
-            <div style="margin-top:16px;">
-                <div class="form-group">
-                    <label class="form-label">Titre</label>
-                    <input type="text" class="form-input" id="proc-title" placeholder="Ex: Installation Zabbix sur Debian">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Catégorie</label>
-                    <select class="form-select" id="proc-cat">
-                        <option value="Supervision">Supervision</option>
-                        <option value="Linux">Linux</option>
-                        <option value="Windows">Windows</option>
-                        <option value="Réseau">Réseau</option>
-                        <option value="Sécurité">Sécurité</option>
-                        <option value="Virtualisation">Virtualisation</option>
-                        <option value="Messagerie">Messagerie</option>
-                        <option value="Déploiement">Déploiement</option>
-                        <option value="Autre">Autre</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Description (optionnel)</label>
-                    <textarea class="form-textarea" id="proc-desc" placeholder="Brève description de la procédure..."></textarea>
-                </div>
-                <button class="btn-neon" style="width:100%;justify-content:center;margin-top:8px;" onclick="saveProc()">
-                    <i class="fas fa-save"></i> Enregistrer la procédure
-                </button>
-            </div>
-        </div>
-    </div>
 
     <footer><p>© 2026 — Altinkaya Romain | Procédures TSSR</p></footer>
     <button id="backToTop"><i class="fas fa-arrow-up"></i></button>
@@ -477,10 +303,9 @@
 
     <script>
     // ══════════════════════════════════════════
-    //  ÉTAT & STOCKAGE LOCAL
+    //  ÉTAT & VARIABLES
     // ══════════════════════════════════════════
-    let procedures = JSON.parse(localStorage.getItem('tssr_procedures') || '[]');
-    let currentFile = null;
+    let procedures = [];
     let currentFilter = 'all';
     let searchQuery = '';
 
@@ -488,176 +313,30 @@
     //  INIT
     // ══════════════════════════════════════════
     document.addEventListener('DOMContentLoaded', () => {
-        renderAll();
-        initUpload();
+        loadProcedures();
         initSearch();
-
-        // Procédures de démonstration si vide
-        if (procedures.length === 0) {
-            procedures = [
-                {
-                    id: 1,
-                    title: 'Installation et configuration de Zabbix',
-                    category: 'Supervision',
-                    description: 'Procédure complète d\'installation de Zabbix Server et agent sur Debian 12, configuration de la base MySQL et de l\'interface web.',
-                    type: 'pdf',
-                    filename: 'install_zabbix.pdf',
-                    size: '1.2 Mo',
-                    date: '2026-03-15',
-                    url: null
-                },
-                {
-                    id: 2,
-                    title: 'Déploiement Grafana avec datasource Zabbix',
-                    category: 'Supervision',
-                    description: 'Installation de Grafana et configuration du plugin Zabbix pour créer des dashboards de supervision réseau.',
-                    type: 'pdf',
-                    filename: 'grafana_zabbix.pdf',
-                    size: '856 Ko',
-                    date: '2026-03-20',
-                    url: null
-                },
-                {
-                    id: 3,
-                    title: 'Installation GLPI sur Linux',
-                    category: 'Déploiement',
-                    description: 'Mise en place de GLPI (ticketing + inventaire) avec stack LAMP sur Debian, configuration LDAP et plugin FusionInventory.',
-                    type: 'docx',
-                    filename: 'install_glpi.docx',
-                    size: '2.1 Mo',
-                    date: '2026-02-10',
-                    url: null
-                },
-                {
-                    id: 4,
-                    title: 'Hardening Windows Server 2022',
-                    category: 'Sécurité',
-                    description: 'Checklist de durcissement Active Directory 2022 conforme CIS Benchmark : GPO, LAPS, comptes de service, audit.',
-                    type: 'pdf',
-                    filename: 'hardening_windows2022.pdf',
-                    size: '3.4 Mo',
-                    date: '2026-04-01',
-                    url: null
-                },
-                {
-                    id: 5,
-                    title: 'Configuration pfSense — Règles firewall',
-                    category: 'Réseau',
-                    description: 'Procédure de configuration des règles de filtrage, NAT et VPN sur pfSense 2.7.',
-                    type: 'pdf',
-                    filename: 'pfsense_firewall.pdf',
-                    size: '1.8 Mo',
-                    date: '2026-01-25',
-                    url: null
-                },
-                {
-                    id: 6,
-                    title: 'Déploiement Proxmox VE + Ceph',
-                    category: 'Virtualisation',
-                    description: 'Installation d\'un cluster Proxmox 3 nœuds avec stockage Ceph distribué et configuration de la haute disponibilité.',
-                    type: 'docx',
-                    filename: 'proxmox_ceph.docx',
-                    size: '4.2 Mo',
-                    date: '2026-03-05',
-                    url: null
-                }
-            ];
-            saveProcedures();
-        }
-
-        renderAll();
     });
 
     // ══════════════════════════════════════════
-    //  UPLOAD
+    //  CHARGER LES PROCÉDURES DEPUIS JSON
     // ══════════════════════════════════════════
-    function initUpload() {
-        const zone = document.getElementById('upload-zone');
-        const input = document.getElementById('file-input');
-
-        input.addEventListener('change', e => {
-            handleFiles(e.target.files);
-        });
-
-        zone.addEventListener('dragover', e => {
-            e.preventDefault();
-            zone.classList.add('drag-over');
-        });
-        zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
-        zone.addEventListener('drop', e => {
-            e.preventDefault();
-            zone.classList.remove('drag-over');
-            handleFiles(e.dataTransfer.files);
-        });
-    }
-
-    function handleFiles(files) {
-        Array.from(files).forEach(file => {
-            const ext = file.name.split('.').pop().toLowerCase();
-            if (!['pdf', 'docx', 'doc'].includes(ext)) {
-                alert('Format non supporté : ' + file.name + '\nAcceptés : PDF, DOCX, DOC');
-                return;
-            }
-            currentFile = {
-                file,
-                name: file.name,
-                type: ext === 'pdf' ? 'pdf' : 'docx',
-                size: formatSize(file.size)
-            };
-            openModal(file.name);
-        });
-    }
-
-    function formatSize(bytes) {
-        if (bytes < 1024) return bytes + ' o';
-        if (bytes < 1024*1024) return (bytes/1024).toFixed(0) + ' Ko';
-        return (bytes/(1024*1024)).toFixed(1) + ' Mo';
-    }
-
-    // ══════════════════════════════════════════
-    //  MODAL
-    // ══════════════════════════════════════════
-    function openModal(filename) {
-        document.getElementById('file-name-preview').textContent = filename;
-        document.getElementById('proc-title').value = filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
-        document.getElementById('modal').classList.add('show');
-    }
-
-    function closeModal() {
-        document.getElementById('modal').classList.remove('show');
-        currentFile = null;
-        document.getElementById('file-input').value = '';
-    }
-
-    function saveProc() {
-        const title = document.getElementById('proc-title').value.trim();
-        const cat   = document.getElementById('proc-cat').value;
-        const desc  = document.getElementById('proc-desc').value.trim();
-
-        if (!title) { alert('Veuillez saisir un titre.'); return; }
-
-        // Créer une URL objet pour lire le fichier depuis le navigateur
-        let url = null;
-        if (currentFile && currentFile.file) {
-            url = URL.createObjectURL(currentFile.file);
-        }
-
-        procedures.push({
-            id: Date.now(),
-            title,
-            category: cat,
-            description: desc || 'Aucune description.',
-            type: currentFile ? currentFile.type : 'pdf',
-            filename: currentFile ? currentFile.name : title + '.pdf',
-            size: currentFile ? currentFile.size : '—',
-            date: new Date().toISOString().split('T')[0],
-            url
-        });
-
-        saveProcedures();
-        renderAll();
-        closeModal();
-        document.getElementById('proc-desc').value = '';
+    function loadProcedures() {
+        fetch('procedures/index.json')
+            .then(response => {
+                if (!response.ok) throw new Error('Erreur de chargement');
+                return response.json();
+            })
+            .then(data => {
+                procedures = data;
+                renderAll();
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                document.getElementById('empty-state').innerHTML = `
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p>Erreur de chargement des procédures.<br>Vérifiez que procedures/index.json existe.</p>
+                `;
+            });
     }
 
     // ══════════════════════════════════════════
@@ -671,22 +350,6 @@
     }
 
     // ══════════════════════════════════════════
-    //  STORAGE
-    // ══════════════════════════════════════════
-    function saveProcedures() {
-        // On sauvegarde sans les URLs objet (non persistantes)
-        const toSave = procedures.map(p => ({...p, url: null}));
-        localStorage.setItem('tssr_procedures', JSON.stringify(toSave));
-    }
-
-    function deleteProc(id) {
-        if (!confirm('Supprimer cette procédure ?')) return;
-        procedures = procedures.filter(p => p.id !== id);
-        saveProcedures();
-        renderAll();
-    }
-
-    // ══════════════════════════════════════════
     //  RENDU
     // ══════════════════════════════════════════
     function renderAll() {
@@ -696,8 +359,8 @@
     }
 
     function renderStats() {
-        const pdfs  = procedures.filter(p => p.type === 'pdf').length;
-        const docxs = procedures.filter(p => p.type === 'docx').length;
+        const pdfs  = procedures.filter(p => p.filename.toLowerCase().endsWith('.pdf')).length;
+        const docxs = procedures.filter(p => p.filename.toLowerCase().endsWith('.docx') || p.filename.toLowerCase().endsWith('.doc')).length;
         const cats  = new Set(procedures.map(p => p.category)).size;
         document.getElementById('stat-total').textContent = procedures.length;
         document.getElementById('stat-pdf').textContent   = pdfs;
@@ -745,11 +408,14 @@
             return;
         }
 
-        grid.innerHTML = filtered.map(p => `
+        grid.innerHTML = filtered.map(p => {
+            const ext = p.filename.split('.').pop().toLowerCase();
+            const fileUrl = `procedures/${p.filename}`;
+            return `
             <div class="proc-card" data-id="${p.id}">
                 <div class="proc-header">
-                    <div class="proc-icon ${p.type}">
-                        <i class="fas fa-file-${p.type === 'pdf' ? 'pdf' : 'word'}"></i>
+                    <div class="proc-icon ${ext}">
+                        <i class="fas fa-file-${ext === 'pdf' ? 'pdf' : 'word'}"></i>
                     </div>
                     <div class="proc-meta">
                         <div class="proc-title" title="${p.title}">${p.title}</div>
@@ -762,29 +428,18 @@
                 </div>
                 <div class="proc-desc">${p.description}</div>
                 <div class="proc-actions">
-                    ${p.url
-                        ? `<a href="${p.url}" target="_blank" class="proc-btn primary"><i class="fas fa-eye"></i> Ouvrir</a>
-                           <a href="${p.url}" download="${p.filename}" class="proc-btn"><i class="fas fa-download"></i> Télécharger</a>`
-                        : `<span class="proc-btn" style="opacity:.4;cursor:default;"><i class="fas fa-eye"></i> Ouvrir</span>
-                           <span class="proc-btn" style="opacity:.4;cursor:default;"><i class="fas fa-download"></i> Télécharger</span>`
-                    }
-                    <button class="proc-btn" onclick="deleteProc(${p.id})" style="flex:0;padding:8px 10px;color:#ef4444;border-color:rgba(239,68,68,0.2);">
-                        <i class="fas fa-trash"></i>
-                    </button>
+                    <a href="${fileUrl}" target="_blank" class="proc-btn primary"><i class="fas fa-eye"></i> Ouvrir</a>
+                    <a href="${fileUrl}" download class="proc-btn"><i class="fas fa-download"></i> Télécharger</a>
                 </div>
             </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     function formatDate(dateStr) {
         const d = new Date(dateStr);
         return d.toLocaleDateString('fr-FR', {day:'2-digit', month:'short', year:'numeric'});
     }
-
-    // Fermer modal en cliquant à l'extérieur
-    document.getElementById('modal').addEventListener('click', e => {
-        if (e.target === document.getElementById('modal')) closeModal();
-    });
     </script>
 </body>
 </html>

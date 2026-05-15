@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "title": "Installation et configuration de Zabbix",
+    "category": "Supervision",
+    "description": "Procédure complète d'installation de Zabbix Server et agent sur Debian 12, configuration de la base MySQL et de l'interface web.",
+    "filename": "install_zabbix.pdf",
+    "size": "1.2 Mo",
+    "date": "2026-03-15"
+  },
+  {
+    "id": 2,
+    "title": "Déploiement Grafana avec datasource Zabbix",
+    "category": "Supervision",
+    "description": "Installation de Grafana et configuration du plugin Zabbix pour créer des dashboards de supervision réseau.",
+    "filename": "grafana_zabbix.pdf",
+    "size": "856 Ko",
+    "date": "2026-03-20"
+  },
+  {
+    "id": 3,
+    "title": "Installation GLPI sur Linux",
+    "category": "Déploiement",
+    "description": "Mise en place de GLPI (ticketing + inventaire) avec stack LAMP sur Debian, configuration LDAP et plugin FusionInventory.",
+    "filename": "install_glpi.docx",
+    "size": "2.1 Mo",
+    "date": "2026-02-10"
+  },
+  {
+    "id": 4,
+    "title": "Hardening Windows Server 2022",
+    "category": "Sécurité",
+    "description": "Checklist de durcissement Active Directory 2022 conforme CIS Benchmark : GPO, LAPS, comptes de service, audit.",
+    "filename": "hardening_windows2022.pdf",
+    "size": "3.4 Mo",
+    "date": "2026-04-01"
+  },
+  {
+    "id": 5,
+    "title": "Configuration pfSense — Règles firewall",
+    "category": "Réseau",
+    "description": "Procédure de configuration des règles de filtrage, NAT et VPN sur pfSense 2.7.",
+    "filename": "pfsense_firewall.pdf",
+    "size": "1.8 Mo",
+    "date": "2026-01-25"
+  },
+  {
+    "id": 6,
+    "title": "Déploiement Proxmox VE + Ceph",
+    "category": "Virtualisation",
+    "description": "Installation d'un cluster Proxmox 3 nœuds avec stockage Ceph distribué et configuration de la haute disponibilité.",
+    "filename": "proxmox_ceph.docx",
+    "size": "4.2 Mo",
+    "date": "2026-03-05"
+  }
+]
