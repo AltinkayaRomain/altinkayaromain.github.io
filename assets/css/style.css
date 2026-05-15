@@ -1,7 +1,7 @@
 /* ============================================================
-   ALTINKAYA ROMAIN — style.css v2.2
+   ALTINKAYA ROMAIN — style.css v2.0
    Direction : Dark Ops / Terminal Premium
-   Navigation responsive + optimisations
+   Conserve exactement les mêmes class names
    ============================================================ */
 
 /* --- 1. IMPORTS & VARIABLES --- */
@@ -66,11 +66,10 @@ body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOc[...]
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
     opacity: 0.018;
     pointer-events: none;
     z-index: 0;
-    will-change: auto;
 }
 
 /* Scrollbar premium */
@@ -113,10 +112,8 @@ a.btn-neon:hover {
     border-radius: 100px;
     display: flex;
     gap: 28px;
-    align-items: center;
     z-index: 2000;
     box-shadow: 0 4px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,229,176,0.04) inset;
-    will-change: transform;
 }
 
 .floating-nav::before {
@@ -129,54 +126,7 @@ a.btn-neon:hover {
     opacity: 0.4;
 }
 
-/* Burger menu button */
-.nav-burger {
-    display: none;
-    flex-direction: column;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    gap: 5px;
-    z-index: 2001;
-    will-change: transform;
-}
-
-.burger-line {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--accent);
-    border-radius: 2px;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    transform-origin: center;
-}
-
-.nav-burger:hover .burger-line {
-    background: var(--accent-2);
-}
-
-/* Burger animé */
-.nav-open .burger-line:nth-child(1) {
-    transform: rotate(45deg) translate(10px, 10px);
-}
-
-.nav-open .burger-line:nth-child(2) {
-    opacity: 0;
-}
-
-.nav-open .burger-line:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
-}
-
-/* Navigation links */
-.nav-links {
-    display: flex;
-    gap: 28px;
-    align-items: center;
-}
-
-.nav-link {
+.floating-nav a {
     color: var(--text-dim) !important;
     font-weight: 600;
     font-size: 0.72rem;
@@ -184,11 +134,9 @@ a.btn-neon:hover {
     letter-spacing: 1.5px;
     position: relative;
     padding-bottom: 2px;
-    transition: color 0.3s ease;
-    will-change: color;
 }
 
-.nav-link::after {
+.floating-nav a::after {
     content: '';
     position: absolute;
     bottom: -2px; left: 0;
@@ -197,101 +145,19 @@ a.btn-neon:hover {
     transition: width 0.3s ease;
 }
 
-.nav-link:hover, .nav-link.active {
+.floating-nav a:hover, .floating-nav a.active {
     color: var(--accent) !important;
     text-shadow: none;
 }
 
-.nav-link:hover::after,
-.nav-link.active::after { width: 100%; }
+.floating-nav a:hover::after,
+.floating-nav a.active::after { width: 100%; }
 
-/* --- 5. RESPONSIVE NAVIGATION --- */
-@media (max-width: 768px) {
-    .floating-nav {
-        padding: 10px 14px;
-        gap: 0;
-        width: auto;
-        max-width: none;
-        left: auto;
-        right: 16px;
-        transform: none;
-        border-radius: 12px;
-    }
-
-    .floating-nav::before { display: none; }
-
-    .nav-burger {
-        display: flex;
-    }
-
-    .nav-links {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        flex-direction: column;
-        gap: 0;
-        margin-top: 12px;
-        background: rgba(8, 11, 18, 0.95);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255,255,255,0.07);
-        border-radius: 12px;
-        padding: 16px 0;
-        min-width: 220px;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-    }
-
-    .nav-open .nav-links {
-        max-height: 400px;
-    }
-
-    .nav-link {
-        padding: 12px 20px;
-        font-size: 0.85rem;
-        display: block;
-        width: 100%;
-    }
-
-    .nav-link::after {
-        display: none;
-    }
-
-    .nav-link:hover {
-        background: rgba(0,229,176,0.08);
-        color: var(--accent) !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .floating-nav {
-        right: 12px;
-        top: 12px;
-        padding: 8px 10px;
-    }
-
-    .nav-burger {
-        padding: 6px;
-    }
-
-    .burger-line {
-        width: 20px;
-        height: 2px;
-    }
-
-    .nav-links {
-        right: -10px;
-        min-width: 200px;
-    }
-}
-
-/* --- 6. PARTICLES & HERO --- */
+/* --- 5. PARTICLES & HERO --- */
 #particles-js {
     position: fixed;
     inset: 0;
     z-index: -1;
-    will-change: auto;
 }
 
 .hero {
@@ -336,7 +202,7 @@ a.btn-neon:hover {
     animation: fadeUp 0.8s 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* --- 7. CONTAINER & GRILLE BENTO --- */
+/* --- 6. CONTAINER & GRILLE BENTO --- */
 .container {
     max-width: 1120px;
     margin: 0 auto;
@@ -353,7 +219,7 @@ a.btn-neon:hover {
     gap: 16px;
 }
 
-/* --- 8. CARDS --- */
+/* --- 7. CARDS --- */
 .card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -367,7 +233,6 @@ a.btn-neon:hover {
     overflow: hidden;
     box-shadow: var(--shadow-card);
     animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-    will-change: transform, box-shadow;
 }
 
 /* Reflet interne en haut de chaque card */
@@ -390,7 +255,6 @@ a.btn-neon:hover {
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;
-    will-change: opacity;
 }
 
 .card:hover {
@@ -419,7 +283,7 @@ a.btn-neon:hover {
 .bento-grid .card:nth-child(5) { animation-delay: 0.30s; }
 .bento-grid .card:nth-child(6) { animation-delay: 0.36s; }
 
-/* --- 9. COMPOSANTS INTERNES DES CARDS --- */
+/* --- 8. COMPOSANTS INTERNES DES CARDS --- */
 .card-header {
     display: flex;
     align-items: center;
@@ -511,7 +375,6 @@ code {
     font-family: var(--font-mono);
     letter-spacing: 0.3px;
     transition: all 0.2s ease;
-    will-change: border-color, color, background;
 }
 .tag:hover {
     border-color: var(--accent);
@@ -519,7 +382,7 @@ code {
     background: rgba(0,229,176,0.05);
 }
 
-/* --- 10. LAYOUT COURS --- */
+/* --- 9. LAYOUT COURS --- */
 .course-layout {
     display: grid;
     grid-template-columns: 250px 1fr;
@@ -538,11 +401,12 @@ code {
     border-radius: 18px;
     border: 1px solid var(--border);
     box-shadow: var(--shadow-card);
+    /* Limiter la hauteur à l'écran disponible et permettre le scroll interne */
     max-height: calc(100vh - 110px);
     overflow-y: auto;
+    /* Scrollbar stylisée dans la sidebar */
     scrollbar-width: thin;
     scrollbar-color: #1a2030 transparent;
-    will-change: auto;
 }
 
 .course-sidebar::-webkit-scrollbar { width: 4px; }
@@ -572,6 +436,7 @@ code {
     border-bottom: 1px solid var(--border);
 }
 
+/* On annule le ::before des h3 dans la sidebar */
 .course-sidebar h3::before { display: none; }
 
 .course-sidebar ul { list-style: none; padding: 0; margin: 0; }
@@ -586,7 +451,6 @@ code {
     border-radius: 8px;
     transition: all 0.2s ease;
     border: 1px solid transparent;
-    will-change: color, background, border-color;
 }
 .course-sidebar a:hover {
     color: var(--accent) !important;
@@ -600,7 +464,7 @@ code {
 .course-content { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
 .course-content .card { animation: none; }
 
-/* --- 11. BLOCS TERMINAL / CODE --- */
+/* --- 10. BLOCS TERMINAL / CODE --- */
 .terminal-block {
     background: #030508;
     border-radius: 14px;
@@ -621,6 +485,7 @@ code {
     letter-spacing: 0.5px;
 }
 
+/* Dots macOS */
 .terminal-header::before {
     content: '';
     position: absolute;
@@ -648,11 +513,12 @@ code {
     overflow-x: auto;
 }
 
+/* Commentaires en vert dans le terminal */
 .terminal-block code {
     -webkit-text-fill-color: #c8d8e8;
 }
 
-/* --- 12. NOTE BOXES --- */
+/* --- 11. NOTE BOXES --- */
 .note-box {
     display: flex;
     gap: 16px;
@@ -693,7 +559,7 @@ code {
     background: linear-gradient(135deg, rgba(245,158,11,0.04) 0%, transparent 100%);
 }
 
-/* --- 13. TABLEAUX --- */
+/* --- 12. TABLEAUX --- */
 .table-responsive { overflow-x: auto; border-radius: 12px; }
 
 table {
@@ -735,7 +601,7 @@ td[style*="color: var(--accent)"] code {
     background: rgba(0,229,176,0.06);
 }
 
-/* --- 14. CV & BOUTONS --- */
+/* --- 13. CV & BOUTONS --- */
 .cv-actions {
     display: flex;
     justify-content: space-between;
@@ -760,7 +626,6 @@ td[style*="color: var(--accent)"] code {
     position: relative;
     overflow: hidden;
     text-decoration: none !important;
-    will-change: background, color, transform, box-shadow;
 }
 
 .btn-neon:hover {
@@ -779,7 +644,7 @@ td[style*="color: var(--accent)"] code {
     -webkit-text-fill-color: #000 !important;
 }
 
-/* --- 15. FOOTER --- */
+/* --- 14. FOOTER --- */
 footer {
     padding: 60px 20px 40px;
     text-align: center;
@@ -800,7 +665,7 @@ footer::before {
     opacity: 0.3;
 }
 
-/* --- 16. BACK TO TOP --- */
+/* --- 15. BACK TO TOP --- */
 #backToTop {
     position: fixed;
     bottom: 28px;
@@ -817,7 +682,6 @@ footer::before {
     justify-content: center;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    will-change: border-color, color, transform, box-shadow;
 }
 
 #backToTop:hover {
@@ -827,7 +691,7 @@ footer::before {
     box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 0 15px rgba(0,229,176,0.15);
 }
 
-/* --- 17. ANIMATIONS --- */
+/* --- 16. ANIMATIONS --- */
 @keyframes fadeUp {
     from {
         opacity: 0;
@@ -844,6 +708,7 @@ footer::before {
     50%       { box-shadow: 0 0 35px rgba(0,229,176,0.25); }
 }
 
+/* Statut "disponible" — pulsation */
 .status-dot {
     display: inline-block;
     width: 8px; height: 8px;
@@ -852,14 +717,15 @@ footer::before {
     margin-right: 8px;
     animation: pulseGlow 2s infinite;
     box-shadow: 0 0 8px #22c55e;
-    will-change: box-shadow;
 }
 
-/* --- 18. RESPONSIVE STANDARD --- */
+/* --- 17. RESPONSIVE --- */
 @media (max-width: 900px) {
     .card-large, .card-small, .card-full { grid-column: span 12; }
     .course-layout { grid-template-columns: 1fr; }
     .course-sidebar { position: relative; top: 0; width: 100%; }
+    .floating-nav { gap: 16px; padding: 10px 18px; }
+    .floating-nav a { font-size: 0.65rem; letter-spacing: 1px; }
 }
 
 @media (max-width: 600px) {
