@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const headerPath = basePath + '/partials/header.html';
     loadPartial(headerPath + '?v=' + Date.now(), 'header-placeholder');
     initBackToTop();
-    initParticles(); // Charger particles après le DOM
 });
 
 function loadPartial(url, elementId) {
@@ -65,31 +64,21 @@ function initBackToTop() {
     });
 }
 
-// 5. Particules — OPTIMISÉES
-function initParticles() {
-    // Désactiver sur mobile pour économiser la batterie
-    if (window.innerWidth < 768) {
-        console.log('Particles désactivées sur mobile');
-        return;
-    }
-
-    if (typeof particlesJS === 'undefined' || !document.getElementById("particles-js")) {
-        return;
-    }
-
+// 5. Particules
+if (document.getElementById("particles-js")) {
     particlesJS('particles-js', {
         "particles": {
-            "number": { "value": 20, "density": { "enable": true, "value_area": 800 } }, // Réduit de 40 à 20
+            "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
             "color": { "value": "#00ffcc" },
             "shape": { "type": "circle" },
-            "opacity": { "value": 0.15, "random": true }, // Légèrement plus transparent
-            "size": { "value": 1.2, "random": true }, // Réduit de 1.5 à 1.2
-            "line_linked": { "enable": true, "distance": 100, "color": "#00ffcc", "opacity": 0.08, "width": 0.8 }, // Distance réduite et largeur optimisée
-            "move": { "enable": true, "speed": 0.6, "direction": "none", "out_mode": "out" } // Vitesse réduite
+            "opacity": { "value": 0.2, "random": true },
+            "size": { "value": 1.5, "random": true },
+            "line_linked": { "enable": true, "distance": 150, "color": "#00ffcc", "opacity": 0.1, "width": 1 },
+            "move": { "enable": true, "speed": 1, "direction": "none", "out_mode": "out" }
         },
         "interactivity": {
             "events": { "onhover": { "enable": true, "mode": "grab" } }
         },
-        "retina_detect": false // Désactiver la détection retina pour économiser ressources
+        "retina_detect": true
     });
 }
