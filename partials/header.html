@@ -1,7 +1,47 @@
-<nav class="floating-nav">
-    <a href="/index.html">Accueil</a>
-    <a href="/skills.html">Compétences</a>
-    <a href="/courses.html">Cours</a>
-    <a href="/quiz.html">Quiz</a>
-    <a href="/procedures.html">Procédures</a>
+<nav class="floating-nav" id="floating-nav">
+    <!-- Burger menu button (mobile only) -->
+    <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+    </button>
+    
+    <!-- Navigation links -->
+    <div class="nav-links" id="nav-links">
+        <a href="/index.html" class="nav-link">Accueil</a>
+        <a href="/skills.html" class="nav-link">Compétences</a>
+        <a href="/courses.html" class="nav-link">Cours</a>
+        <a href="/quiz.html" class="nav-link">Quiz</a>
+        <a href="/procedures.html" class="nav-link">Procédures</a>
+    </div>
 </nav>
+
+<script>
+    // Burger menu toggle
+    const navBurger = document.getElementById('nav-burger');
+    const navLinks = document.getElementById('nav-links');
+    const navBar = document.getElementById('floating-nav');
+
+    if (navBurger) {
+        navBurger.addEventListener('click', () => {
+            const isOpen = navBar.classList.toggle('nav-open');
+            navBurger.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Fermer le menu en cliquant sur un lien
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navBar.classList.remove('nav-open');
+                navBurger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Fermer le menu en cliquant en dehors
+        document.addEventListener('click', (e) => {
+            if (!navBar.contains(e.target)) {
+                navBar.classList.remove('nav-open');
+                navBurger.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+</script>
