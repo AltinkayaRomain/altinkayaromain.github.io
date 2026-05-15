@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révisions - VPN & Firewalling - Romain Altinkaya</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div id="header-placeholder"></div>
+
+    <main class="container">
+        <header class="hero">
+            <h1>VPN & Firewalling (pfSense)</h1>
+            <p class="terminal-text">_TSSR_NETWORK_SECURITY_PERIMETER</p>
+        </header>
+
+        <div class="course-layout">
+
+            <aside class="course-sidebar">
+                <h3>Sommaire Expert</h3>
+                <ul>
+                    <li><a href="#concepts"><i class="fas fa-chevron-right"></i> Concepts Firewall</a></li>
+                    <li><a href="#pfsense"><i class="fas fa-chevron-right"></i> pfSense — Installation</a></li>
+                    <li><a href="#interfaces"><i class="fas fa-chevron-right"></i> Interfaces & VLAN</a></li>
+                    <li><a href="#regles"><i class="fas fa-chevron-right"></i> Règles de filtrage</a></li>
+                    <li><a href="#nat"><i class="fas fa-chevron-right"></i> NAT & Redirection</a></li>
+                    <li><a href="#vpn-concepts"><i class="fas fa-chevron-right"></i> Concepts VPN</a></li>
+                    <li><a href="#openvpn"><i class="fas fa-chevron-right"></i> OpenVPN (pfSense)</a></li>
+                    <li><a href="#ipsec"><i class="fas fa-chevron-right"></i> IPsec Site-à-Site</a></li>
+                    <li><a href="#ids"><i class="fas fa-chevron-right"></i> IDS/IPS (Snort/Suricata)</a></li>
+                    <li><a href="#examen"><i class="fas fa-chevron-right"></i> 🎯 Mémo Examen</a></li>
+                </ul>
+            </aside>
+
+            <div class="course-content">
+
+                <!-- ═══════════════════════════════════════
+                     1. CONCEPTS FIREWALL
+                ═══════════════════════════════════════ -->
+                <section id="concepts" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-fire-flame-curved card-icon-main"></i>
+                        <h2>1. Concepts Fondamentaux du Pare-feu</h2>
+                    </div>
+                    <p>Un pare-feu contrôle le trafic réseau en appliquant des règles. Il constitue la première ligne de défense périmétrique d'un réseau.</p>
+
+                    <h3>A. Types de pare-feu</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="padding:5px">Type</th>
+                                    <th style="padding:5px">Fonctionnement</th>
+                                    <th style="padding:5px">Exemple</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">Stateless (sans état)</td><td style="padding:5px">Analyse chaque paquet individuellement selon IP/port. Rapide mais limité.</td><td style="padding:5px">ACL Cisco basique</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Stateful (avec état)</td><td style="padding:5px">Suit les connexions. Autorise les réponses aux requêtes établies automatiquement.</td><td style="padding:5px">pfSense, iptables</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Applicatif (L7)</td><td style="padding:5px">Inspecte le contenu applicatif (HTTP, DNS...). Peut détecter les menaces dans le payload.</td><td style="padding:5px">pfSense + Snort</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">NGFW (Next-Gen)</td><td style="padding:5px">L7 + IPS + filtrage URL + déchiffrement SSL + identification utilisateur.</td><td style="padding:5px">Fortinet, Palo Alto</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>B. Architecture DMZ</h3>
+                    <p>La DMZ (Zone DéMilitarisée) est un réseau intermédiaire entre Internet et le LAN interne. Les serveurs accessibles depuis Internet (web, mail) y sont placés.</p>
+
+                    <div class="note-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p><strong>Architecture 3 zones typique :</strong><br>
+                        <strong>WAN</strong> (Internet) → Firewall → <strong>DMZ</strong> (Serveurs publics) → Firewall → <strong>LAN</strong> (Réseau interne)<br><br>
+                        Règle : Le LAN peut accéder à la DMZ et à Internet. La DMZ ne peut pas accéder au LAN. Internet ne peut pas accéder au LAN directement.</p>
+                    </div>
+
+                    <h3>C. Politique de filtrage — Default Deny vs Default Allow</h3>
+                    <ul>
+                        <li><strong>Default Deny (recommandé) :</strong> Tout est bloqué par défaut, on autorise explicitement ce qui est nécessaire. Principe du moindre privilège.</li>
+                        <li><strong>Default Allow :</strong> Tout est autorisé par défaut, on bloque ce qui est dangereux. Déconseillé en production.</li>
+                    </ul>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     2. PFSENSE INSTALLATION
+                ═══════════════════════════════════════ -->
+                <section id="pfsense" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-shield-halved card-icon-main"></i>
+                        <h2>2. pfSense — Présentation &amp; Installation</h2>
+                    </div>
+                    <p>pfSense est un pare-feu/routeur open-source basé sur FreeBSD. C'est la solution de référence pour les PME et les labos TSSR. Il intègre pare-feu, VPN, IDS/IPS, proxy, et bien plus.</p>
+
+                    <h3>A. Prérequis matériels</h3>
+                    <ul>
+                        <li><strong>Minimum :</strong> CPU 64 bits, 1 Go RAM, 8 Go stockage, <strong>2 cartes réseau minimum</strong> (WAN + LAN).</li>
+                        <li><strong>Recommandé labo :</strong> VM avec 2 Go RAM, 3 interfaces réseau (WAN + LAN + DMZ).</li>
+                        <li><strong>En production :</strong> Appliance dédiée (Netgate) ou serveur avec NIC Intel.</li>
+                    </ul>
+
+                    <h3>B. Configuration initiale</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Accès à l'interface pfSense</div>
+                        <code># Accès WebGUI par défaut
+URL      : https://192.168.1.1
+Login    : admin
+Password : pfsense   (à changer immédiatement !)
+
+# Accès console (si WebGUI inaccessible)
+# Menu console pfSense :
+# 1) Assign Interfaces
+# 2) Set interface(s) IP address
+# 8) Shell
+# 16) Restart webConfigurator</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Commandes Shell pfSense (FreeBSD)</div>
+                        <code># Voir les interfaces réseau
+ifconfig
+
+# Voir la table de routage
+netstat -rn
+
+# Voir les règles de filtrage actives
+pfctl -sr
+
+# Voir les connexions NAT actives
+pfctl -sn
+
+# Voir les états de connexion (stateful)
+pfctl -ss | head -20
+
+# Vider les états de connexion
+pfctl -F states
+
+# Redémarrer pfSense
+reboot</code>
+                    </div>
+
+                    <h3>C. Structure des menus WebGUI</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="padding:5px">Menu</th>
+                                    <th style="padding:5px">Contenu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">Interfaces</td><td style="padding:5px">Configuration WAN, LAN, DMZ, VLAN, DHCP par interface</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Firewall</td><td style="padding:5px">Règles, NAT, Aliases, Traffic Shaper, Virtual IPs</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Services</td><td style="padding:5px">DHCP, DNS Resolver, NTP, Snort, Squid...</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">VPN</td><td style="padding:5px">OpenVPN, IPsec, L2TP, WireGuard</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Diagnostics</td><td style="padding:5px">Ping, Traceroute, Packet Capture, States, Logs</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Status</td><td style="padding:5px">Dashboard, Interfaces, Logs système, Trafic</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     3. INTERFACES & VLAN
+                ═══════════════════════════════════════ -->
+                <section id="interfaces" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-network-wired card-icon-main"></i>
+                        <h2>3. Interfaces &amp; VLAN sur pfSense</h2>
+                    </div>
+                    <p>pfSense peut gérer plusieurs interfaces physiques et des VLANs 802.1Q pour segmenter le réseau.</p>
+
+                    <h3>A. Configuration des interfaces</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Interfaces > Assignments — Configuration typique</div>
+                        <code># Interface WAN (em0 / vtnet0)
+Type         : DHCP (box internet) ou IP statique (opérateur)
+Description  : WAN
+MTU          : 1500 (ou 1492 pour PPPoE)
+Spoofing MAC : non (sauf si nécessaire)
+
+# Interface LAN (em1 / vtnet1)
+Type         : IP statique
+IP           : 192.168.1.1 / 24
+Description  : LAN
+DHCP Server  : Activé (range .100 à .200)
+
+# Interface DMZ (em2 / vtnet2)
+Type         : IP statique
+IP           : 192.168.10.1 / 24
+Description  : DMZ
+DHCP Server  : Optionnel (IPs fixes recommandées en DMZ)</code>
+                    </div>
+
+                    <h3>B. Création de VLANs</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Interfaces > VLANs — Création d'un VLAN</div>
+                        <code"># Interfaces > VLANs > Add
+Parent Interface : em1          # Interface physique qui porte le trunk
+VLAN Tag         : 10           # ID du VLAN (1-4094)
+Description      : VLAN_RH
+
+# Puis Interfaces > Assignments > Add
+# Sélectionner VLAN 10 on em1
+# Configurer l'IP : 10.0.10.1/24
+# Activer le DHCP si nécessaire
+
+# Schéma : Switch trunk → em1 pfSense
+# em1.10 = VLAN 10 (RH)      10.0.10.0/24
+# em1.20 = VLAN 20 (INFO)    10.0.20.0/24
+# em1.30 = VLAN 30 (SERVEURS) 10.0.30.0/24</code>
+                    </div>
+
+                    <h3>C. DNS Resolver (Unbound)</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Services > DNS Resolver — Configuration</div>
+                        <code"># Services > DNS Resolver
+Enable DNS Resolver     : ✓ Activé
+Listen Port             : 53
+Network Interfaces      : LAN, DMZ, Localhost
+DNSSEC                  : ✓ Activé
+DNS Query Forwarding    : ✓ (vers 8.8.8.8, 1.1.1.1)
+
+# Entrée DNS locale (override)
+Host    : serveur-web
+Domain  : mondomaine.local
+IP      : 192.168.10.10
+Description : Serveur Web DMZ</code>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     4. RÈGLES DE FILTRAGE
+                ═══════════════════════════════════════ -->
+                <section id="regles" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-list-check card-icon-main"></i>
+                        <h2>4. Règles de Filtrage pfSense</h2>
+                    </div>
+                    <p>Les règles pfSense sont lues de haut en bas. La première règle correspondante s'applique. pfSense est <strong>Stateful</strong> : les réponses aux connexions établies sont automatiquement autorisées.</p>
+
+                    <h3>A. Logique des règles pfSense</h3>
+                    <div class="note-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <p><strong>Important :</strong> Sur pfSense, les règles de filtrage sont appliquées sur l'interface <strong>d'entrée</strong> (ingress), pas de sortie. Une règle sur l'interface LAN filtre le trafic <em>qui vient du LAN</em>.</p>
+                    </div>
+
+                    <h3>B. Structure d'une règle pfSense</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="padding:5px">Champ</th>
+                                    <th style="padding:5px">Description</th>
+                                    <th style="padding:5px">Exemple</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">Action</td><td style="padding:5px">Pass / Block / Reject</td><td style="padding:5px">Pass</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Interface</td><td style="padding:5px">Sur quelle interface s'applique la règle</td><td style="padding:5px">LAN</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Protocol</td><td style="padding:5px">TCP, UDP, ICMP, Any...</td><td style="padding:5px">TCP</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Source</td><td style="padding:5px">IP/réseau/alias source</td><td style="padding:5px">LAN net</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Destination</td><td style="padding:5px">IP/réseau/alias destination</td><td style="padding:5px">any</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Dest. Port</td><td style="padding:5px">Port ou plage de ports</td><td style="padding:5px">80, 443</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Log</td><td style="padding:5px">Activer la journalisation</td><td style="padding:5px">✓</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>C. Règles typiques par zone</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Firewall > Rules — Règles LAN (politique permissive standard)</div>
+                        <code"># Règle 1 — Autoriser DNS depuis le LAN
+Action      : Pass
+Interface   : LAN
+Protocol    : TCP/UDP
+Source      : LAN net
+Destination : This Firewall (pfSense lui-même)
+Dest Port   : 53 (DNS)
+Description : LAN peut résoudre DNS via pfSense
+
+# Règle 2 — Autoriser HTTP/HTTPS depuis le LAN
+Action      : Pass
+Protocol    : TCP
+Source      : LAN net
+Destination : any
+Dest Port   : 80, 443
+Description : Navigation web
+
+# Règle 3 — Bloquer LAN vers DMZ (sauf services autorisés)
+Action      : Block
+Source      : LAN net
+Destination : DMZ net
+Description : Isoler la DMZ du LAN (Default Deny)</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Firewall > Rules — Règles WAN (exposition services)</div>
+                        <code"># Règle 1 — Bloquer tout depuis WAN (Default Deny implicite)
+# pfSense bloque tout depuis le WAN par défaut
+# Il faut explicitement autoriser ce qu'on veut exposer
+
+# Règle 2 — Autoriser HTTPS entrant vers serveur web en DMZ
+Action      : Pass
+Interface   : WAN
+Protocol    : TCP
+Source      : any
+Destination : WAN address (IP publique pfSense)
+Dest Port   : 443
+Description : HTTPS vers serveur web DMZ (avec NAT associé)</code>
+                    </div>
+
+                    <h3>D. Aliases — Simplifier les règles</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Firewall > Aliases — Regrouper des IPs/ports</div>
+                        <code"># Alias réseau — Regrouper des IPs
+Firewall > Aliases > Add
+Name  : SERVEURS_DMZ
+Type  : Network
+Value : 192.168.10.10/32
+        192.168.10.20/32
+        192.168.10.30/32
+
+# Alias port — Regrouper des ports web
+Name  : PORTS_WEB
+Type  : Port
+Value : 80
+        443
+        8080
+
+# Utilisation dans une règle :
+Source : LAN net
+Dest   : SERVEURS_DMZ   ← alias utilisé ici
+Port   : PORTS_WEB</code>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     5. NAT & REDIRECTION
+                ═══════════════════════════════════════ -->
+                <section id="nat" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-right-left card-icon-main"></i>
+                        <h2>5. NAT &amp; Redirection de ports</h2>
+                    </div>
+                    <p>pfSense gère plusieurs types de NAT pour la translation d'adresses et l'exposition de services.</p>
+
+                    <h3>A. Outbound NAT (SNAT — sortie vers Internet)</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Firewall > NAT > Outbound</div>
+                        <code"># Mode Automatic Outbound NAT (par défaut)
+# pfSense crée automatiquement les règles de masquerade
+# Tout le trafic du LAN sort avec l'IP WAN de pfSense
+
+# Mode Manuel — exemple de règle NAT sortant
+Interface   : WAN
+Protocol    : any
+Source      : 192.168.1.0/24    # Réseau LAN
+Translation : Interface address  # IP WAN de pfSense
+Description : LAN vers Internet (masquerade)</code>
+                    </div>
+
+                    <h3>B. Port Forward (DNAT — exposition d'un service)</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Firewall > NAT > Port Forward</div>
+                        <code"># Exposer un serveur web en DMZ (192.168.10.10) depuis Internet
+Interface      : WAN
+Protocol       : TCP
+Dest.          : WAN address        # IP publique pfSense
+Dest. Port     : 443 (HTTPS)
+Redirect to    : 192.168.10.10      # IP serveur web en DMZ
+Redirect Port  : 443
+Description    : HTTPS vers serveur web DMZ
+
+# ⚠️ pfSense crée automatiquement une règle firewall associée
+# (option "Add associated filter rule" cochée par défaut)
+
+# Port forward SSH sur port non standard
+Interface      : WAN
+Protocol       : TCP
+Dest. Port     : 2222              # Port externe
+Redirect to    : 192.168.1.50      # Serveur interne
+Redirect Port  : 22                # Port interne réel</code>
+                    </div>
+
+                    <h3>C. Virtual IPs (VIP) — Plusieurs IPs publiques</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Firewall > Virtual IPs</div>
+                        <code"># Si vous avez un bloc d'IPs publiques (/29 par ex.)
+# Ajouter des VIP pour chaque IP supplémentaire
+
+Type    : IP Alias (ou CARP pour HA)
+Interface : WAN
+IP      : 203.0.113.2/32
+Description : VIP Serveur Mail
+
+# Puis dans Port Forward :
+Destination : 203.0.113.2   # VIP spécifique
+Redirect to : 192.168.10.20  # Serveur mail en DMZ</code>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     6. CONCEPTS VPN
+                ═══════════════════════════════════════ -->
+                <section id="vpn-concepts" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-user-secret card-icon-main"></i>
+                        <h2>6. Concepts VPN</h2>
+                    </div>
+                    <p>Un VPN (Virtual Private Network) crée un tunnel chiffré sur un réseau non sécurisé (Internet), permettant de communiquer comme sur un réseau privé.</p>
+
+                    <h3>A. Types de VPN</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="padding:5px">Type</th>
+                                    <th style="padding:5px">Usage</th>
+                                    <th style="padding:5px">Protocoles</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">Remote Access (Client-to-Site)</td><td style="padding:5px">Télétravailleur → Réseau entreprise</td><td style="padding:5px">OpenVPN, WireGuard, L2TP/IPsec</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Site-to-Site</td><td style="padding:5px">Siège ↔ Agence (tunnel permanent)</td><td style="padding:5px">IPsec, OpenVPN, WireGuard</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">SSL/TLS VPN</td><td style="padding:5px">Accès web via navigateur (HTTPS)</td><td style="padding:5px">OpenVPN, SSL</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>B. Comparatif des protocoles VPN</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="padding:5px">Protocole</th>
+                                    <th style="padding:5px">Port</th>
+                                    <th style="padding:5px">Chiffrement</th>
+                                    <th style="padding:5px">Points forts</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">OpenVPN</td><td style="padding:5px">1194 UDP (ou 443 TCP)</td><td style="padding:5px">TLS + AES-256</td><td style="padding:5px">Très sécurisé, multiplateforme, passe les firewalls</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">IPsec (IKEv2)</td><td style="padding:5px">500/4500 UDP</td><td style="padding:5px">AES-256 + SHA-256</td><td style="padding:5px">Standard, natif Windows/iOS, excellent site-à-site</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">WireGuard</td><td style="padding:5px">51820 UDP</td><td style="padding:5px">ChaCha20 + Poly1305</td><td style="padding:5px">Très rapide, code simple, moderne</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">L2TP/IPsec</td><td style="padding:5px">1701 UDP + 500/4500</td><td style="padding:5px">IPsec (AES)</td><td style="padding:5px">Natif Windows, mais plus lent (double encapsulation)</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">PPTP</td><td style="padding:5px">1723 TCP</td><td style="padding:5px">MPPE (faible)</td><td style="padding:5px">⚠️ Obsolète et non sécurisé — à ne jamais utiliser</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>C. Concepts clés de chiffrement VPN</h3>
+                    <ul>
+                        <li><strong>Tunnel :</strong> Le flux chiffré qui encapsule les données originales dans un nouveau paquet IP.</li>
+                        <li><strong>PKI (Public Key Infrastructure) :</strong> Autorité de certification (CA) qui signe les certificats des clients et serveurs VPN.</li>
+                        <li><strong>Perfect Forward Secrecy (PFS) :</strong> Chaque session génère une clé unique. Si une clé est compromise, les autres sessions restent sécurisées.</li>
+                        <li><strong>Split Tunneling :</strong> Seul le trafic vers le réseau d'entreprise passe par le VPN. Le reste (YouTube, etc.) utilise la connexion locale directe.</li>
+                        <li><strong>Full Tunneling :</strong> Tout le trafic passe par le VPN (y compris Internet). Plus sécurisé mais plus lent.</li>
+                    </ul>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     7. OPENVPN
+                ═══════════════════════════════════════ -->
+                <section id="openvpn" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-lock card-icon-main"></i>
+                        <h2>7. OpenVPN sur pfSense (Remote Access)</h2>
+                    </div>
+                    <p>OpenVPN est le VPN recommandé pour le télétravail sur pfSense. Il utilise des certificats TLS et peut passer les firewalls restrictifs via le port 443 TCP.</p>
+
+                    <h3>A. Création de la PKI (Autorité de Certification)</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">System > Cert. Manager > CAs > Add</div>
+                        <code"># Étape 1 — Créer l'Autorité de Certification (CA)
+Method          : Create an internal Certificate Authority
+Descriptive name: CA_VPN_MonEntreprise
+Key type        : RSA 4096 bits
+Digest Algorithm: SHA512
+Lifetime        : 3650 jours (10 ans)
+Common Name     : CA_VPN
+
+# Étape 2 — Créer le certificat du serveur VPN
+System > Cert. Manager > Certificates > Add
+Method          : Create an internal Certificate
+Descriptive name: CERT_SERVEUR_VPN
+Certificate Authority: CA_VPN_MonEntreprise
+Key type        : RSA 4096 bits
+Digest Algorithm: SHA512
+Certificate Type: Server Certificate
+Common Name     : vpn.monentreprise.fr</code>
+                    </div>
+
+                    <h3>B. Configuration du serveur OpenVPN</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">VPN > OpenVPN > Servers > Add</div>
+                        <code"># Paramètres généraux
+Server mode     : Remote Access (SSL/TLS + User Auth)
+Protocol        : UDP on IPv4 only
+Device mode     : tun (layer 3)
+Interface       : WAN
+Local port      : 1194
+
+# Cryptographie
+TLS Key         : ✓ Générer automatiquement (protection DDoS)
+Peer Certificate Resolver: CA_VPN_MonEntreprise
+Server certificate: CERT_SERVEUR_VPN
+DH Parameters   : 4096 bits
+Encryption algo : AES-256-GCM
+Auth digest     : SHA512
+Hardware Crypto : BSD cryptodev engine (si dispo)
+
+# Réseau tunnel
+IPv4 Tunnel Network : 10.8.0.0/24   # Réseau VPN dédié
+IPv4 Local Network  : 192.168.1.0/24  # Réseau LAN à atteindre
+DNS Default Domain  : monentreprise.local
+DNS Server 1        : 192.168.1.1     # DNS interne
+
+# Clients
+Dynamic IP    : ✓ (IPs attribuées dynamiquement aux clients)
+Topology      : subnet</code>
+                    </div>
+
+                    <h3>C. Création des comptes utilisateurs VPN</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">System > User Manager > Add + Certificat client</div>
+                        <code"># Créer un utilisateur
+System > User Manager > Add
+Username : jean.dupont
+Password : MotDePasseForT@2024!
+✓ Click to create a user certificate
+Certificate name: CERT_jean.dupont
+
+# Générer la configuration client (.ovpn)
+VPN > OpenVPN > Client Export
+Remote Access Server : Serveur VPN (1194)
+Export type : Most Clients (fichier .ovpn tout-en-un)
+
+# Le fichier .ovpn contient :
+# - Adresse du serveur VPN
+# - Clé TLS, CA, certificat et clé privée client
+# - Configuration complète prête à l'emploi</code>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Règles firewall à créer après installation OpenVPN :</strong><br>
+                        1. Interface <strong>WAN</strong> → Autoriser UDP 1194 entrant vers pfSense<br>
+                        2. Interface <strong>OpenVPN</strong> → Autoriser le trafic des clients VPN vers le LAN<br>
+                        Sans ces règles, le tunnel monte mais le trafic est bloqué.</p>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     8. IPSEC SITE-A-SITE
+                ═══════════════════════════════════════ -->
+                <section id="ipsec" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-arrows-left-right card-icon-main"></i>
+                        <h2>8. IPsec Site-à-Site</h2>
+                    </div>
+                    <p>IPsec site-à-site crée un tunnel permanent entre deux sites (siège ↔ agence). Les deux pfSense s'authentifient mutuellement et chiffrent tout le trafic inter-sites.</p>
+
+                    <h3>A. Phases IPsec</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="padding:5px">Phase</th>
+                                    <th style="padding:5px">Nom</th>
+                                    <th style="padding:5px">Rôle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">Phase 1 (IKE)</td><td style="padding:5px">ISAKMP SA</td><td style="padding:5px">Authentification des deux pfSense et établissement d'un canal sécurisé de négociation</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Phase 2 (ESP)</td><td style="padding:5px">IPsec SA</td><td style="padding:5px">Définit les réseaux à faire transiter et les algorithmes de chiffrement du tunnel de données</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>B. Configuration Phase 1 (sur les deux pfSense)</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">VPN > IPsec > Tunnels > Phase 1</div>
+                        <code"># SITE A (Siège) — IP WAN : 203.0.113.1
+# SITE B (Agence) — IP WAN : 198.51.100.1
+
+# ── Phase 1 sur le pfSense du Siège ─────────────
+Key Exchange    : IKEv2
+Internet Protocol: IPv4
+Interface       : WAN
+Remote Gateway  : 198.51.100.1      # IP WAN de l'agence
+Description     : IPsec vers Agence Paris
+
+Authentication  : Mutual PSK (ou Certificats)
+Pre-Shared Key  : [clé partagée complexe — identique des deux côtés]
+
+Encryption Algorithm : AES 256 bits
+Hash Algorithm       : SHA256
+DH Group             : 14 (2048 bits)
+Lifetime             : 28800 secondes (8h)
+
+# ── Phase 1 sur le pfSense de l'Agence ──────────
+# Configuration identique mais Remote Gateway = 203.0.113.1</code>
+                    </div>
+
+                    <h3>C. Configuration Phase 2</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">VPN > IPsec > Tunnels > Phase 2</div>
+                        <code"># Phase 2 sur le Siège
+Mode            : Tunnel IPv4
+Local Network   : 192.168.1.0/24    # LAN du Siège
+Remote Network  : 192.168.2.0/24    # LAN de l'Agence
+
+Protocol        : ESP
+Encryption Algo : AES 256 bits
+Hash Algos      : SHA256
+PFS Key Group   : 14 (2048 bits) — Perfect Forward Secrecy
+Lifetime        : 3600 secondes (1h)
+
+# Phase 2 sur l'Agence
+# Local = 192.168.2.0/24
+# Remote = 192.168.1.0/24
+# (inversé par rapport au Siège)</code>
+                    </div>
+
+                    <h3>D. Vérification du tunnel IPsec</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Status > IPsec + Diagnostics</div>
+                        <code"># Vérifier l'état du tunnel
+Status > IPsec
+# ✓ Phase 1 : Established
+# ✓ Phase 2 : Established
+
+# Depuis le Shell pfSense
+ipsec statusall
+ipsec status
+
+# Forcer la reconnexion si le tunnel est DOWN
+ipsec restart
+
+# Test de connectivité à travers le tunnel
+Diagnostics > Ping
+Source address : LAN du Siège (192.168.1.1)
+Destination    : Un hôte de l'Agence (192.168.2.10)</code>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Règles firewall IPsec :</strong> Créer les règles sur l'interface <strong>IPsec</strong> pour autoriser le trafic entre les deux sites. Sans règle sur l'interface IPsec, le tunnel monte mais tout le trafic est bloqué.</p>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     9. IDS/IPS
+                ═══════════════════════════════════════ -->
+                <section id="ids" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-magnifying-glass card-icon-main"></i>
+                        <h2>9. IDS/IPS — Snort &amp; Suricata sur pfSense</h2>
+                    </div>
+                    <p>pfSense peut être enrichi d'un IDS/IPS (Intrusion Detection/Prevention System) pour détecter et bloquer les attaques réseau en temps réel.</p>
+
+                    <h3>A. IDS vs IPS</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="padding:5px">Type</th>
+                                    <th style="padding:5px">Mode</th>
+                                    <th style="padding:5px">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">IDS (Intrusion Detection)</td><td style="padding:5px">Passif — analyse une copie du trafic</td><td style="padding:5px">Alerte uniquement, ne bloque pas</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">IPS (Intrusion Prevention)</td><td style="padding:5px">Inline — analyse le trafic en temps réel</td><td style="padding:5px">Alerte ET bloque automatiquement</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>B. Installation et configuration Snort</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">System > Package Manager > Snort</div>
+                        <code"># Installation
+System > Package Manager > Available Packages
+Chercher "snort" > Install
+
+# Configuration de base
+Services > Snort > Global Settings
+  ✓ Enable Snort VRT Rules (compte gratuit oinkcode.snort.org)
+  ✓ Enable ET Open Rules (Emerging Threats — gratuit)
+  Update Interval : 12 heures
+
+# Activer sur une interface
+Services > Snort > Snort Interfaces > Add
+Interface  : WAN (analyser le trafic entrant)
+Description: Snort WAN
+
+# Mode IPS (bloquer)
+Block Offenders   : ✓ Activé
+IPS Policy        : Balanced (bonne base)
+Block on: Both (Source and Destination)
+
+# Whitelister des IPs légitimes (éviter les faux positifs)
+Services > Snort > Pass Lists > Add
+Ajouter les IPs de confiance (supervision, admin...)</code>
+                    </div>
+
+                    <h3>C. Suricata — Alternative moderne à Snort</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Services > Suricata — Configuration</div>
+                        <code"># Suricata est multi-thread = plus performant que Snort
+# Installation identique via Package Manager
+
+Services > Suricata > Global Settings
+  ✓ ET Open Rules
+  ✓ Feodo Tracker Botnet C2 (blocage botnets)
+  ✓ ABUSE.ch SSL Blacklist
+
+# Interface WAN
+Run Mode   : Workers (multi-thread)
+IPS Mode   : Legacy Mode (inline via netmap si dispo)
+Block Offenders : ✓
+
+# Logs et alertes
+Services > Suricata > Alerts
+# Voir les détections en temps réel</code>
+                    </div>
+                </section>
+
+                <!-- ═══════════════════════════════════════
+                     10. MÉMO EXAMEN
+                ═══════════════════════════════════════ -->
+                <section id="examen" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-graduation-cap card-icon-main"></i>
+                        <h2>🎯 Mémo Examen — Le plus important à retenir</h2>
+                    </div>
+
+                    <h3>A. Les pièges classiques pfSense</h3>
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>
+                        <strong>Règles sur l'interface d'entrée :</strong> Les règles pfSense filtrent le trafic entrant sur l'interface source, pas sortant.<br>
+                        <strong>Règles OpenVPN :</strong> Après création du serveur, il faut créer manuellement les règles sur les interfaces WAN et OpenVPN.<br>
+                        <strong>Règles IPsec :</strong> Idem — créer les règles sur l'interface IPsec après montée du tunnel.<br>
+                        <strong>Default Deny WAN :</strong> pfSense bloque tout le trafic entrant sur le WAN par défaut. C'est voulu.<br>
+                        <strong>DHCP + DNS :</strong> Toujours configurer le serveur DHCP pour pointer vers pfSense en tant que DNS.
+                        </p>
+                    </div>
+
+                    <h3>B. Commandes de diagnostic rapide</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Shell pfSense — Diagnostic réseau</div>
+                        <code"># Voir les règles de filtrage actives
+pfctl -sr
+
+# Voir les règles NAT actives
+pfctl -sn
+
+# Voir les connexions établies (états)
+pfctl -ss | grep ESTABLISHED | wc -l
+
+# Voir le trafic en temps réel sur une interface
+tcpdump -i em0 -n
+
+# Tester la résolution DNS
+drill google.com @8.8.8.8
+
+# Voir les logs système
+clog /var/log/system.log | tail -50
+
+# Voir les logs firewall
+clog /var/log/filter.log | tail -50</code>
+                    </div>
+
+                    <h3>C. Ports importants à connaître</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--accent);">
+                                    <th style="padding:5px">Port</th>
+                                    <th style="padding:5px">Service</th>
+                                    <th style="padding:5px">Protocole</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">443</td><td style="padding:5px">pfSense WebGUI (HTTPS)</td><td style="padding:5px">TCP</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">22</td><td style="padding:5px">pfSense SSH</td><td style="padding:5px">TCP</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">1194</td><td style="padding:5px">OpenVPN (défaut)</td><td style="padding:5px">UDP</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">500 / 4500</td><td style="padding:5px">IPsec (IKE / NAT-T)</td><td style="padding:5px">UDP</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">51820</td><td style="padding:5px">WireGuard</td><td style="padding:5px">UDP</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">1701</td><td style="padding:5px">L2TP</td><td style="padding:5px">UDP</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">53</td><td style="padding:5px">DNS (Unbound)</td><td style="padding:5px">UDP/TCP</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">67/68</td><td style="padding:5px">DHCP</td><td style="padding:5px">UDP</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>D. Checklist déploiement pfSense</h3>
+                    <div class="note-box">
+                        <i class="fas fa-list-check"></i>
+                        <p>
+                        <strong>1.</strong> Changer le mot de passe admin par défaut<br>
+                        <strong>2.</strong> Configurer WAN (DHCP ou statique)<br>
+                        <strong>3.</strong> Configurer LAN (IP statique + DHCP server)<br>
+                        <strong>4.</strong> Vérifier les règles firewall par défaut (LAN → any = autorisé)<br>
+                        <strong>5.</strong> Configurer les Forwarders DNS (8.8.8.8, 1.1.1.1)<br>
+                        <strong>6.</strong> Activer les mises à jour automatiques<br>
+                        <strong>7.</strong> Configurer les backups automatiques (System > Backup)<br>
+                        <strong>8.</strong> Tester la connectivité depuis le LAN (ping, navigation)<br>
+                        <strong>9.</strong> Configurer les règles firewall restrictives selon le besoin<br>
+                        <strong>10.</strong> Activer Snort/Suricata sur le WAN
+                        </p>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <footer><p>© 2026 — Altinkaya Romain | VPN &amp; Firewalling pfSense</p></footer>
+    <script src="../assets/js/script.js"></script>
+    <script>
+    const sections = document.querySelectorAll('.course-content section[id]');
+    const sidebarLinks = document.querySelectorAll('.course-sidebar a');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                sidebarLinks.forEach(link => {
+                    link.style.color = '';
+                    link.style.background = '';
+                    link.style.borderColor = '';
+                    link.style.paddingLeft = '';
+                });
+                const active = document.querySelector(`.course-sidebar a[href="#${id}"]`);
+                if (active) {
+                    active.style.color = 'var(--accent)';
+                    active.style.background = 'rgba(0,229,176,0.07)';
+                    active.style.borderColor = 'rgba(0,229,176,0.2)';
+                    active.style.paddingLeft = '14px';
+                    active.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                }
+            }
+        });
+    }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+    </script>
+</body>
+</html>
