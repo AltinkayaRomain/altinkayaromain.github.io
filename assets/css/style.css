@@ -209,6 +209,8 @@ a.btn-neon:hover {
     padding: 0 24px 80px;
     position: relative;
     z-index: 1;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .bento-grid {
@@ -373,7 +375,6 @@ code {
     font-family: var(--font-mono);
     letter-spacing: 0.3px;
     transition: all 0.2s ease;
-    margin: 12px 0;
 }
 .tag:hover {
     border-color: var(--accent);
@@ -384,10 +385,12 @@ code {
 /* --- 9. LAYOUT COURS --- */
 .course-layout {
     display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 32px;
+    grid-template-columns: 250px 1fr;
+    gap: 28px;
     margin-top: 40px;
     align-items: start;
+    min-width: 0;
+    width: 100%;
 }
 
 .course-sidebar {
@@ -458,7 +461,7 @@ code {
 }
 .course-sidebar a i { font-size: 0.6rem; opacity: 0.5; }
 
-.course-content { display: flex; flex-direction: column; gap: 20px; }
+.course-content { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
 .course-content .card { animation: none; }
 
 /* --- 10. BLOCS TERMINAL / CODE --- */
@@ -501,10 +504,13 @@ code {
     color: #c8d8e8;
     font-size: 0.82rem;
     white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
     line-height: 1.8;
     background: transparent;
     border: none;
     border-radius: 0;
+    overflow-x: auto;
 }
 
 /* Commentaires en vert dans le terminal */
