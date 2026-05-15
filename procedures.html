@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procédures — Altinkaya Romain</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+    <style>
+        /* ── Catégories ── */
+        .cat-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+        .cat-btn {
+            padding: 6px 16px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.02);
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .cat-btn:hover, .cat-btn.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(0,229,176,0.07);
+        }
+
+        /* ── Grille de procédures ── */
+        .proc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .proc-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .proc-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+        }
+        .proc-card:hover {
+            border-color: rgba(0,229,176,0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+        }
+
+        .proc-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+        .proc-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .proc-icon.pdf  { background: rgba(239,68,68,0.1);  border: 1px solid rgba(239,68,68,0.2);  color: #ef4444; }
+        .proc-icon.docx { background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); color: #3b82f6; }
+
+        .proc-meta { flex: 1; min-width: 0; }
+        .proc-title {
+            font-family: var(--font-head);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .proc-info {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .proc-cat {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(0,229,176,0.07);
+            border: 1px solid rgba(0,229,176,0.2);
+            color: var(--accent);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .proc-date {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+        }
+        .proc-size {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+        }
+
+        .proc-desc {
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .proc-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .proc-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.02);
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .proc-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(0,229,176,0.05);
+        }
+        .proc-btn.primary {
+            border-color: rgba(0,229,176,0.3);
+            color: var(--accent);
+            background: rgba(0,229,176,0.05);
+        }
+        .proc-btn.primary:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* ── Zone d'upload ── */
+        .upload-zone {
+            border: 2px dashed rgba(0,229,176,0.25);
+            border-radius: 16px;
+            padding: 36px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(0,229,176,0.02);
+            margin-bottom: 28px;
+        }
+        .upload-zone:hover, .upload-zone.drag-over {
+            border-color: var(--accent);
+            background: rgba(0,229,176,0.05);
+        }
+        .upload-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+            opacity: 0.7;
+        }
+        .upload-title {
+            font-family: var(--font-head);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .upload-sub {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+        #file-input { display: none; }
+
+        /* ── Modal d'ajout ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(6px);
+            z-index: 9000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal {
+            background: var(--card);
+            border: 1px solid rgba(0,229,176,0.2);
+            border-radius: 20px;
+            padding: 32px;
+            width: 100%;
+            max-width: 480px;
+            margin: 20px;
+            position: relative;
+        }
+        .modal-title {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 4px;
+            transition: color 0.2s;
+        }
+        .modal-close:hover { color: var(--accent); }
+
+        .form-group { margin-bottom: 16px; }
+        .form-label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .form-select option { background: #0a0c10; }
+        .form-textarea { resize: vertical; min-height: 80px; }
+
+        .file-preview {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: rgba(0,229,176,0.05);
+            border: 1px solid rgba(0,229,176,0.2);
+            border-radius: 10px;
+            font-size: 0.82rem;
+            color: var(--accent);
+            font-family: var(--font-mono);
+        }
+
+        /* ── Stats ── */
+        .stats-proc {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+        .stat-proc-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+        }
+        .stat-proc-box .num {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #00e5b0, #00c8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .stat-proc-box .lbl {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ── Empty state ── */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-dim);
+        }
+        .empty-state i {
+            font-size: 3rem;
+            color: rgba(0,229,176,0.2);
+            margin-bottom: 16px;
+            display: block;
+        }
+        .empty-state p {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        /* ── Search ── */
+        .search-bar {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 16px 12px 44px;
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .search-bar i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 700px) {
+            .stats-proc { grid-template-columns: repeat(2,1fr); }
+            .proc-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div id="header-placeholder"></div>
+
+    <main class="container">
+        <header class="hero">
+            <h1>Procédures</h1>
+            <p class="terminal-text">_TSSR_PROCEDURES_&_GUIDES</p>
+        </header>
+
+        <!-- ── STATS ── -->
+        <div class="stats-proc">
+            <div class="stat-proc-box"><span class="num" id="stat-total">0</span><span class="lbl">Procédures</span></div>
+            <div class="stat-proc-box"><span class="num" id="stat-pdf">0</span><span class="lbl">PDF</span></div>
+            <div class="stat-proc-box"><span class="num" id="stat-docx">0</span><span class="lbl">DOCX</span></div>
+            <div class="stat-proc-box"><span class="num" id="stat-cats">0</span><span class="lbl">Catégories</span></div>
+        </div>
+
+        <!-- ── UPLOAD ZONE ── -->
+        <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+            <input type="file" id="file-input" accept=".pdf,.docx,.doc" multiple>
+            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="upload-title">Ajouter une procédure</div>
+            <div class="upload-sub">Glissez-déposez vos fichiers PDF ou DOCX · ou cliquez pour parcourir</div>
+        </div>
+
+        <!-- ── RECHERCHE + FILTRES ── -->
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="search-input" placeholder="Rechercher une procédure...">
+        </div>
+
+        <div class="cat-filters" id="cat-filters">
+            <button class="cat-btn active" data-cat="all">Toutes</button>
+        </div>
+
+        <!-- ── GRILLE ── -->
+        <div class="proc-grid" id="proc-grid">
+            <div class="empty-state" id="empty-state">
+                <i class="fas fa-folder-open"></i>
+                <p>Aucune procédure pour le moment.<br>Ajoutez votre premier document ci-dessus.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ── MODAL D'AJOUT ── -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <div class="modal-title">
+                <i class="fas fa-file-circle-plus" style="color:var(--accent)"></i>
+                Ajouter la procédure
+            </div>
+
+            <div class="file-preview" id="file-preview">
+                <i class="fas fa-file"></i>
+                <span id="file-name-preview">fichier.pdf</span>
+            </div>
+
+            <div style="margin-top:16px;">
+                <div class="form-group">
+                    <label class="form-label">Titre</label>
+                    <input type="text" class="form-input" id="proc-title" placeholder="Ex: Installation Zabbix sur Debian">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Catégorie</label>
+                    <select class="form-select" id="proc-cat">
+                        <option value="Supervision">Supervision</option>
+                        <option value="Linux">Linux</option>
+                        <option value="Windows">Windows</option>
+                        <option value="Réseau">Réseau</option>
+                        <option value="Sécurité">Sécurité</option>
+                        <option value="Virtualisation">Virtualisation</option>
+                        <option value="Messagerie">Messagerie</option>
+                        <option value="Déploiement">Déploiement</option>
+                        <option value="Autre">Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description (optionnel)</label>
+                    <textarea class="form-textarea" id="proc-desc" placeholder="Brève description de la procédure..."></textarea>
+                </div>
+                <button class="btn-neon" style="width:100%;justify-content:center;margin-top:8px;" onclick="saveProc()">
+                    <i class="fas fa-save"></i> Enregistrer la procédure
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer><p>© 2026 — Altinkaya Romain | Procédures TSSR</p></footer>
+    <button id="backToTop"><i class="fas fa-arrow-up"></i></button>
+    <script src="assets/js/script.js"></script>
+
+    <script>
+    // ══════════════════════════════════════════
+    //  ÉTAT & STOCKAGE LOCAL
+    // ══════════════════════════════════════════
+    let procedures = JSON.parse(localStorage.getItem('tssr_procedures') || '[]');
+    let currentFile = null;
+    let currentFilter = 'all';
+    let searchQuery = '';
+
+    // ══════════════════════════════════════════
+    //  INIT
+    // ══════════════════════════════════════════
+    document.addEventListener('DOMContentLoaded', () => {
+        renderAll();
+        initUpload();
+        initSearch();
+
+        // Procédures de démonstration si vide
+        if (procedures.length === 0) {
+            procedures = [
+                {
+                    id: 1,
+                    title: 'Installation et configuration de Zabbix',
+                    category: 'Supervision',
+                    description: 'Procédure complète d\'installation de Zabbix Server et agent sur Debian 12, configuration de la base MySQL et de l\'interface web.',
+                    type: 'pdf',
+                    filename: 'install_zabbix.pdf',
+                    size: '1.2 Mo',
+                    date: '2026-03-15',
+                    url: null
+                },
+                {
+                    id: 2,
+                    title: 'Déploiement Grafana avec datasource Zabbix',
+                    category: 'Supervision',
+                    description: 'Installation de Grafana et configuration du plugin Zabbix pour créer des dashboards de supervision réseau.',
+                    type: 'pdf',
+                    filename: 'grafana_zabbix.pdf',
+                    size: '856 Ko',
+                    date: '2026-03-20',
+                    url: null
+                },
+                {
+                    id: 3,
+                    title: 'Installation GLPI sur Linux',
+                    category: 'Déploiement',
+                    description: 'Mise en place de GLPI (ticketing + inventaire) avec stack LAMP sur Debian, configuration LDAP et plugin FusionInventory.',
+                    type: 'docx',
+                    filename: 'install_glpi.docx',
+                    size: '2.1 Mo',
+                    date: '2026-02-10',
+                    url: null
+                },
+                {
+                    id: 4,
+                    title: 'Hardening Windows Server 2022',
+                    category: 'Sécurité',
+                    description: 'Checklist de durcissement Active Directory 2022 conforme CIS Benchmark : GPO, LAPS, comptes de service, audit.',
+                    type: 'pdf',
+                    filename: 'hardening_windows2022.pdf',
+                    size: '3.4 Mo',
+                    date: '2026-04-01',
+                    url: null
+                },
+                {
+                    id: 5,
+                    title: 'Configuration pfSense — Règles firewall',
+                    category: 'Réseau',
+                    description: 'Procédure de configuration des règles de filtrage, NAT et VPN sur pfSense 2.7.',
+                    type: 'pdf',
+                    filename: 'pfsense_firewall.pdf',
+                    size: '1.8 Mo',
+                    date: '2026-01-25',
+                    url: null
+                },
+                {
+                    id: 6,
+                    title: 'Déploiement Proxmox VE + Ceph',
+                    category: 'Virtualisation',
+                    description: 'Installation d\'un cluster Proxmox 3 nœuds avec stockage Ceph distribué et configuration de la haute disponibilité.',
+                    type: 'docx',
+                    filename: 'proxmox_ceph.docx',
+                    size: '4.2 Mo',
+                    date: '2026-03-05',
+                    url: null
+                }
+            ];
+            saveProcedures();
+        }
+
+        renderAll();
+    });
+
+    // ══════════════════════════════════════════
+    //  UPLOAD
+    // ══════════════════════════════════════════
+    function initUpload() {
+        const zone = document.getElementById('upload-zone');
+        const input = document.getElementById('file-input');
+
+        input.addEventListener('change', e => {
+            handleFiles(e.target.files);
+        });
+
+        zone.addEventListener('dragover', e => {
+            e.preventDefault();
+            zone.classList.add('drag-over');
+        });
+        zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+        zone.addEventListener('drop', e => {
+            e.preventDefault();
+            zone.classList.remove('drag-over');
+            handleFiles(e.dataTransfer.files);
+        });
+    }
+
+    function handleFiles(files) {
+        Array.from(files).forEach(file => {
+            const ext = file.name.split('.').pop().toLowerCase();
+            if (!['pdf', 'docx', 'doc'].includes(ext)) {
+                alert('Format non supporté : ' + file.name + '\nAcceptés : PDF, DOCX, DOC');
+                return;
+            }
+            currentFile = {
+                file,
+                name: file.name,
+                type: ext === 'pdf' ? 'pdf' : 'docx',
+                size: formatSize(file.size)
+            };
+            openModal(file.name);
+        });
+    }
+
+    function formatSize(bytes) {
+        if (bytes < 1024) return bytes + ' o';
+        if (bytes < 1024*1024) return (bytes/1024).toFixed(0) + ' Ko';
+        return (bytes/(1024*1024)).toFixed(1) + ' Mo';
+    }
+
+    // ══════════════════════════════════════════
+    //  MODAL
+    // ══════════════════════════════════════════
+    function openModal(filename) {
+        document.getElementById('file-name-preview').textContent = filename;
+        document.getElementById('proc-title').value = filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+        document.getElementById('modal').classList.add('show');
+    }
+
+    function closeModal() {
+        document.getElementById('modal').classList.remove('show');
+        currentFile = null;
+        document.getElementById('file-input').value = '';
+    }
+
+    function saveProc() {
+        const title = document.getElementById('proc-title').value.trim();
+        const cat   = document.getElementById('proc-cat').value;
+        const desc  = document.getElementById('proc-desc').value.trim();
+
+        if (!title) { alert('Veuillez saisir un titre.'); return; }
+
+        // Créer une URL objet pour lire le fichier depuis le navigateur
+        let url = null;
+        if (currentFile && currentFile.file) {
+            url = URL.createObjectURL(currentFile.file);
+        }
+
+        procedures.push({
+            id: Date.now(),
+            title,
+            category: cat,
+            description: desc || 'Aucune description.',
+            type: currentFile ? currentFile.type : 'pdf',
+            filename: currentFile ? currentFile.name : title + '.pdf',
+            size: currentFile ? currentFile.size : '—',
+            date: new Date().toISOString().split('T')[0],
+            url
+        });
+
+        saveProcedures();
+        renderAll();
+        closeModal();
+        document.getElementById('proc-desc').value = '';
+    }
+
+    // ══════════════════════════════════════════
+    //  RECHERCHE
+    // ══════════════════════════════════════════
+    function initSearch() {
+        document.getElementById('search-input').addEventListener('input', e => {
+            searchQuery = e.target.value.toLowerCase();
+            renderCards();
+        });
+    }
+
+    // ══════════════════════════════════════════
+    //  STORAGE
+    // ══════════════════════════════════════════
+    function saveProcedures() {
+        // On sauvegarde sans les URLs objet (non persistantes)
+        const toSave = procedures.map(p => ({...p, url: null}));
+        localStorage.setItem('tssr_procedures', JSON.stringify(toSave));
+    }
+
+    function deleteProc(id) {
+        if (!confirm('Supprimer cette procédure ?')) return;
+        procedures = procedures.filter(p => p.id !== id);
+        saveProcedures();
+        renderAll();
+    }
+
+    // ══════════════════════════════════════════
+    //  RENDU
+    // ══════════════════════════════════════════
+    function renderAll() {
+        renderStats();
+        renderFilters();
+        renderCards();
+    }
+
+    function renderStats() {
+        const pdfs  = procedures.filter(p => p.type === 'pdf').length;
+        const docxs = procedures.filter(p => p.type === 'docx').length;
+        const cats  = new Set(procedures.map(p => p.category)).size;
+        document.getElementById('stat-total').textContent = procedures.length;
+        document.getElementById('stat-pdf').textContent   = pdfs;
+        document.getElementById('stat-docx').textContent  = docxs;
+        document.getElementById('stat-cats').textContent  = cats;
+    }
+
+    function renderFilters() {
+        const cats = ['all', ...new Set(procedures.map(p => p.category))];
+        const container = document.getElementById('cat-filters');
+        container.innerHTML = cats.map(cat => `
+            <button class="cat-btn ${currentFilter === cat ? 'active' : ''}"
+                    data-cat="${cat}"
+                    onclick="setFilter('${cat}')">
+                ${cat === 'all' ? 'Toutes' : cat}
+                ${cat !== 'all' ? `<span style="opacity:.5;margin-left:4px;">${procedures.filter(p=>p.category===cat).length}</span>` : ''}
+            </button>
+        `).join('');
+    }
+
+    function setFilter(cat) {
+        currentFilter = cat;
+        renderFilters();
+        renderCards();
+    }
+
+    function renderCards() {
+        const grid  = document.getElementById('proc-grid');
+        const empty = document.getElementById('empty-state');
+
+        let filtered = procedures.filter(p => {
+            const catOk  = currentFilter === 'all' || p.category === currentFilter;
+            const searchOk = !searchQuery ||
+                p.title.toLowerCase().includes(searchQuery) ||
+                p.description.toLowerCase().includes(searchQuery) ||
+                p.category.toLowerCase().includes(searchQuery);
+            return catOk && searchOk;
+        });
+
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div class="empty-state" id="empty-state">
+                <i class="fas fa-search"></i>
+                <p>Aucune procédure trouvée.</p>
+            </div>`;
+            return;
+        }
+
+        grid.innerHTML = filtered.map(p => `
+            <div class="proc-card" data-id="${p.id}">
+                <div class="proc-header">
+                    <div class="proc-icon ${p.type}">
+                        <i class="fas fa-file-${p.type === 'pdf' ? 'pdf' : 'word'}"></i>
+                    </div>
+                    <div class="proc-meta">
+                        <div class="proc-title" title="${p.title}">${p.title}</div>
+                        <div class="proc-info">
+                            <span class="proc-cat">${p.category}</span>
+                            <span class="proc-size">${p.size}</span>
+                            <span class="proc-date">${formatDate(p.date)}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="proc-desc">${p.description}</div>
+                <div class="proc-actions">
+                    ${p.url
+                        ? `<a href="${p.url}" target="_blank" class="proc-btn primary"><i class="fas fa-eye"></i> Ouvrir</a>
+                           <a href="${p.url}" download="${p.filename}" class="proc-btn"><i class="fas fa-download"></i> Télécharger</a>`
+                        : `<span class="proc-btn" style="opacity:.4;cursor:default;"><i class="fas fa-eye"></i> Ouvrir</span>
+                           <span class="proc-btn" style="opacity:.4;cursor:default;"><i class="fas fa-download"></i> Télécharger</span>`
+                    }
+                    <button class="proc-btn" onclick="deleteProc(${p.id})" style="flex:0;padding:8px 10px;color:#ef4444;border-color:rgba(239,68,68,0.2);">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function formatDate(dateStr) {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('fr-FR', {day:'2-digit', month:'short', year:'numeric'});
+    }
+
+    // Fermer modal en cliquant à l'extérieur
+    document.getElementById('modal').addEventListener('click', e => {
+        if (e.target === document.getElementById('modal')) closeModal();
+    });
+    </script>
+</body>
+</html>
