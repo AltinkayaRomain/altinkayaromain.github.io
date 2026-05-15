@@ -26,25 +26,23 @@
             <aside class="course-sidebar">
                 <h3>Sommaire Expert</h3>
                 <ul>
-                    <li><a href="#adds"><i class="fas fa-chevron-right"></i> ADDS &amp; FSMO</a></li>
-                    <li><a href="#dns"><i class="fas fa-chevron-right"></i> DNS : Zones &amp; Enreg.</a></li>
-                    <li><a href="#dhcp"><i class="fas fa-chevron-right"></i> DHCP : DORA &amp; Failover</a></li>
-                    <li><a href="#gpo"><i class="fas fa-chevron-right"></i> GPO : LSDOU &amp; WMI</a></li>
-                    <li><a href="#fs"><i class="fas fa-chevron-right"></i> Fichiers NTFS / DFS</a></li>
-                    <li><a href="#rds"><i class="fas fa-chevron-right"></i> RDS (Bureau à distance)</a></li>
-                    <li><a href="#iis"><i class="fas fa-chevron-right"></i> IIS (Serveur Web)</a></li>
-                    <li><a href="#wds"><i class="fas fa-chevron-right"></i> WDS / MDT (Déploiement)</a></li>
-                    <li><a href="#hyperv"><i class="fas fa-chevron-right"></i> Hyper-V</a></li>
-                    <li><a href="#powershell"><i class="fas fa-chevron-right"></i> PowerShell Admin</a></li>
-                    <li><a href="#examen"><i class="fas fa-chevron-right"></i> 🎯 Mémo Examen</a></li>
+                    <li><a href="#adds"><i class="fas fa-chevron-right"></i> 1. ADDS &amp; FSMO</a></li>
+                    <li><a href="#dns"><i class="fas fa-chevron-right"></i> 2. DNS : Zones &amp; Enreg.</a></li>
+                    <li><a href="#dhcp"><i class="fas fa-chevron-right"></i> 3. DHCP : DORA &amp; Failover</a></li>
+                    <li><a href="#gpo"><i class="fas fa-chevron-right"></i> 4. GPO : LSDOU &amp; WMI</a></li>
+                    <li><a href="#fs"><i class="fas fa-chevron-right"></i> 5. Fichiers NTFS / DFS</a></li>
+                    <li><a href="#rds"><i class="fas fa-chevron-right"></i> 6. RDS (Bureau à distance)</a></li>
+                    <li><a href="#iis"><i class="fas fa-chevron-right"></i> 7. IIS (Serveur Web)</a></li>
+                    <li><a href="#wds"><i class="fas fa-chevron-right"></i> 8. WDS / MDT (Déploiement)</a></li>
+                    <li><a href="#hyperv"><i class="fas fa-chevron-right"></i> 9. Hyper-V</a></li>
+                    <li><a href="#exchange"><i class="fas fa-chevron-right"></i> 10. Exchange (Messagerie)</a></li>
+                    <li><a href="#powershell"><i class="fas fa-chevron-right"></i> 11. PowerShell Admin</a></li>
+                    <li><a href="#examen"><i class="fas fa-chevron-right"></i> 12. 🎯 Mémo Examen</a></li>
                 </ul>
             </aside>
 
             <div class="course-content">
 
-                <!-- ═══════════════════════════════════════
-                     1. ADDS & FSMO
-                ═══════════════════════════════════════ -->
                 <section id="adds" class="card">
                     <div class="card-header">
                         <i class="fab fa-windows card-icon-main"></i>
@@ -155,9 +153,6 @@ Search-ADAccount -AccountInactive -TimeSpan 30.00:00:00 | Select-Object Name, La
                     </div>
                 </section>
 
-                <!-- ═══════════════════════════════════════
-                     2. DNS
-                ═══════════════════════════════════════ -->
                 <section id="dns" class="card">
                     <div class="card-header">
                         <i class="fas fa-network-wired card-icon-main"></i>
@@ -221,9 +216,6 @@ dcdiag /test:DNS /v</code>
                     </div>
                 </section>
 
-                <!-- ═══════════════════════════════════════
-                     3. DHCP
-                ═══════════════════════════════════════ -->
                 <section id="dhcp" class="card">
                     <div class="card-header">
                         <i class="fas fa-project-diagram card-icon-main"></i>
@@ -303,9 +295,6 @@ Add-DhcpServerv4Failover -Name "DHCP-Failover" `
                     </div>
                 </section>
 
-                <!-- ═══════════════════════════════════════
-                     4. GPO
-                ═══════════════════════════════════════ -->
                 <section id="gpo" class="card">
                     <div class="card-header">
                         <i class="fas fa-cogs card-icon-main"></i>
@@ -351,7 +340,7 @@ Add-DhcpServerv4Failover -Name "DHCP-Failover" `
                     <h3>D. GPO essentielles à connaître</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">Chemins GPO importants</div>
-                        <code"># Politique de mots de passe
+                        <code># Politique de mots de passe
 Computer Config > Windows Settings > Security Settings > Account Policies > Password Policy
 
 # Verrouillage de compte
@@ -389,9 +378,6 @@ Get-GPResultantSetOfPolicy -ReportType HTML -Path C:\rsop.html</code>
                     </div>
                 </section>
 
-                <!-- ═══════════════════════════════════════
-                     5. SERVEUR DE FICHIERS
-                ═══════════════════════════════════════ -->
                 <section id="fs" class="card">
                     <div class="card-header">
                         <i class="fas fa-folder-open card-icon-main"></i>
@@ -430,7 +416,7 @@ Get-GPResultantSetOfPolicy -ReportType HTML -Path C:\rsop.html</code>
                     <h3>C. FSRM (File Server Resource Manager)</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">PowerShell — FSRM</div>
-                        <code"># Installer FSRM
+                        <code># Installer FSRM
 Install-WindowsFeature -Name FS-Resource-Manager -IncludeManagementTools
 
 # Créer un quota de 1 Go sur un dossier
@@ -448,7 +434,7 @@ New-FsrmFileScreen -Path "D:\Partages" -Template "Block Audio and Video Files"</
                     </ul>
                     <div class="terminal-block">
                         <div class="terminal-header">PowerShell — DFS</div>
-                        <code"># Installer DFS
+                        <code># Installer DFS
 Install-WindowsFeature -Name FS-DFS-Namespace, FS-DFS-Replication -IncludeManagementTools
 
 # Créer un namespace
@@ -462,9 +448,6 @@ Get-DfsrMembership -GroupName * | Select-Object GroupName, ComputerName, State</
                     </div>
                 </section>
 
-                <!-- ═══════════════════════════════════════
-                     6. RDS
-                ═══════════════════════════════════════ -->
                 <section id="rds" class="card">
                     <div class="card-header">
                         <i class="fas fa-desktop card-icon-main"></i>
@@ -489,7 +472,7 @@ Get-DfsrMembership -GroupName * | Select-Object GroupName, ComputerName, State</
                     <h3>B. Installation et configuration</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">PowerShell — Installation RDS</div>
-                        <code"># Installer les rôles RDS
+                        <code># Installer les rôles RDS
 Install-WindowsFeature -Name RDS-RD-Server, RDS-Connection-Broker, `
     RDS-Web-Access, RDS-Licensing -IncludeManagementTools
 
@@ -513,7 +496,7 @@ Disconnect-RDUser -HostServer "rdsh01.mondomaine.local" -UnifiedSessionID 3</cod
                     <h3>C. RemoteApp — Publier une application</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">PowerShell — RemoteApp</div>
-                        <code"># Publier une application RemoteApp
+                        <code># Publier une application RemoteApp
 New-RDRemoteApp -CollectionName "Collection RH" `
     -DisplayName "Word 2024" `
     -FilePath "C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE" `
@@ -529,9 +512,6 @@ Get-RDRemoteApp -ConnectionBroker "broker.mondomaine.local"</code>
                     </div>
                 </section>
 
-                <!-- ═══════════════════════════════════════
-                     7. IIS
-                ═══════════════════════════════════════ -->
                 <section id="iis" class="card">
                     <div class="card-header">
                         <i class="fas fa-globe card-icon-main"></i>
@@ -542,7 +522,7 @@ Get-RDRemoteApp -ConnectionBroker "broker.mondomaine.local"</code>
                     <h3>A. Installation</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">PowerShell — Installation IIS</div>
-                        <code"># Installation complète avec outils de gestion
+                        <code># Installation complète avec outils de gestion
 Install-WindowsFeature -Name Web-Server -IncludeManagementTools
 
 # Avec les modules supplémentaires courants
@@ -557,7 +537,7 @@ Get-WindowsFeature -Name Web-* | Where-Object {$_.InstallState -eq "Installed"}<
                     <h3>B. Gestion des sites web</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">PowerShell — Administration IIS (module WebAdministration)</div>
-                        <code"># Importer le module IIS
+                        <code># Importer le module IIS
 Import-Module WebAdministration
 
 # Lister les sites
@@ -590,7 +570,7 @@ New-WebBinding -Name "MonSite" -Protocol https -Port 443 -HostHeader "monsite.lo
                     </ul>
                     <div class="terminal-block">
                         <div class="terminal-header">PowerShell — Authentification IIS</div>
-                        <code"># Désactiver l'auth anonyme, activer l'auth Windows
+                        <code># Désactiver l'auth anonyme, activer l'auth Windows
 Set-WebConfigurationProperty -Filter "/system.webServer/security/authentication/anonymousAuthentication" `
     -Name "enabled" -Value "False" -Location "MonSite"
 Set-WebConfigurationProperty -Filter "/system.webServer/security/authentication/windowsAuthentication" `
@@ -601,9 +581,6 @@ Set-WebConfigurationProperty -Filter "/system.webServer/security/authentication/
                     </div>
                 </section>
 
-                <!-- ═══════════════════════════════════════
-                     8. WDS / MDT
-                ═══════════════════════════════════════ -->
                 <section id="wds" class="card">
                     <div class="card-header">
                         <i class="fas fa-download card-icon-main"></i>
@@ -619,7 +596,7 @@ Set-WebConfigurationProperty -Filter "/system.webServer/security/authentication/
                     </ul>
                     <div class="terminal-block">
                         <div class="terminal-header">PowerShell — Installation et configuration WDS</div>
-                        <code"># Installer WDS
+                        <code># Installer WDS
 Install-WindowsFeature -Name WDS -IncludeManagementTools
 
 # Configurer WDS (dossier de stockage des images)
@@ -647,7 +624,7 @@ wdsutil /Get-AllImages /Show:All</code>
 
                     <div class="terminal-block">
                         <div class="terminal-header">Configuration DHCP pour PXE Boot</div>
-                        <code"># Le DHCP doit fournir les options PXE aux clients
+                        <code># Le DHCP doit fournir les options PXE aux clients
 # Option 66 (Boot Server) : adresse IP du serveur WDS
 # Option 67 (Boot Filename) : chemin du fichier de démarrage
 
@@ -666,9 +643,6 @@ Set-DhcpServerv4OptionValue -OptionId 67 -Value "boot\x64\wdsnbp.com"</code>
                     </div>
                 </section>
 
-                <!-- ═══════════════════════════════════════
-                     9. HYPER-V
-                ═══════════════════════════════════════ -->
                 <section id="hyperv" class="card">
                     <div class="card-header">
                         <i class="fas fa-server card-icon-main"></i>
@@ -699,7 +673,7 @@ Set-DhcpServerv4OptionValue -OptionId 67 -Value "boot\x64\wdsnbp.com"</code>
 
                     <div class="terminal-block">
                         <div class="terminal-header">PowerShell — Administration Hyper-V</div>
-                        <code"># Installer Hyper-V
+                        <code># Installer Hyper-V
 Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
 
 # Créer une VM
@@ -732,19 +706,207 @@ Get-VM | Select-Object Name, State, MemoryAssigned, Uptime</code>
                     </div>
                 </section>
 
-                <!-- ═══════════════════════════════════════
-                     10. POWERSHELL
-                ═══════════════════════════════════════ -->
+                <section id="exchange" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-envelope card-icon-main"></i>
+                        <h2>10. Exchange Server — Messagerie</h2>
+                    </div>
+                    <p>Microsoft Exchange est le serveur de messagerie d'entreprise. Il gère les emails, calendriers, contacts et tâches, et s'intègre nativement avec Active Directory.</p>
+                    
+                    <h3>A. Architecture Exchange</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:5px">Rôle</th><th style="padding:5px">Description</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">Mailbox Server</td><td style="padding:5px">Héberge les boîtes aux lettres et les bases de données Exchange. Rôle principal.</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Edge Transport</td><td style="padding:5px">En DMZ — filtre les emails entrants/sortants (antispam, antivirus). Ne rejoint pas le domaine AD.</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">Database Availability Group (DAG)</td><td style="padding:5px">Cluster de haute disponibilité des bases de données Exchange (réplication entre serveurs).</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h3>B. Concepts clés</h3>
+                    <ul>
+                        <li><strong>Boîte aux lettres (Mailbox) :</strong> Espace de stockage associé à un utilisateur AD.</li>
+                        <li><strong>Base de données de boîtes aux lettres :</strong> Fichier .edb stockant plusieurs boîtes aux lettres.</li>
+                        <li><strong>Connecteur d'envoi (Send Connector) :</strong> Définit comment Exchange envoie les emails vers Internet (via smart host ou MX direct).</li>
+                        <li><strong>Connecteur de réception (Receive Connector) :</strong> Définit qui peut envoyer des emails au serveur Exchange.</li>
+                        <li><strong>Accepted Domain :</strong> Les domaines pour lesquels Exchange accepte les emails (ex: monentreprise.fr).</li>
+                        <li><strong>Email Address Policy :</strong> Définit le format des adresses email (ex: prenom.nom@monentreprise.fr).</li>
+                    </ul>
+                    
+                    <h3>C. Protocoles de messagerie</h3>
+                    <div class="table-responsive">
+                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse;">
+                            <thead><tr style="border-bottom: 1px solid var(--accent);"><th style="padding:5px">Protocole</th><th style="padding:5px">Port</th><th style="padding:5px">Usage</th></tr></thead>
+                            <tbody>
+                                <tr><td style="color:var(--accent);padding:5px">SMTP</td><td style="padding:5px">25 (serveur) / 587 (client)</td><td style="padding:5px">Envoi d'emails entre serveurs et depuis les clients</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">SMTPS</td><td style="padding:5px">465</td><td style="padding:5px">SMTP chiffré (SSL)</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">IMAP</td><td style="padding:5px">143 / 993 (SSL)</td><td style="padding:5px">Lecture emails sur serveur (synchronisé)</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">POP3</td><td style="padding:5px">110 / 995 (SSL)</td><td style="padding:5px">Téléchargement emails en local (non synchronisé)</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">MAPI/HTTPS</td><td style="padding:5px">443</td><td style="padding:5px">Protocole natif Outlook vers Exchange (Outlook Anywhere)</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">EWS (Exchange Web Services)</td><td style="padding:5px">443</td><td style="padding:5px">API Exchange pour applications tierces</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">ActiveSync</td><td style="padding:5px">443</td><td style="padding:5px">Synchronisation avec mobiles (smartphones)</td></tr>
+                                <tr><td style="color:var(--accent);padding:5px">OWA (Outlook Web App)</td><td style="padding:5px">443</td><td style="padding:5px">Webmail via navigateur</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h3>D. Administration Exchange — PowerShell</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Exchange Management Shell — Gestion des boîtes aux lettres</div>
+                        <code># Créer une boîte aux lettres pour un utilisateur AD existant
+Enable-Mailbox -Identity "jean.dupont" -Database "DB_Mailbox_01"
+
+# Créer un utilisateur + boîte aux lettres en une commande
+New-Mailbox -Name "Alice Martin" `
+    -Alias "alice.martin" `
+    -UserPrincipalName "alice.martin@monentreprise.fr" `
+    -Database "DB_Mailbox_01" `
+    -Password (ConvertTo-SecureString "Mdp@2024!" -AsPlainText -Force)
+
+# Voir toutes les boîtes aux lettres
+Get-Mailbox | Select-Object Name, Alias, Database, PrimarySmtpAddress
+
+# Voir la taille d'une boîte
+Get-MailboxStatistics -Identity "jean.dupont" | Select-Object DisplayName, TotalItemSize, ItemCount
+
+# Ajouter une adresse email secondaire
+Set-Mailbox -Identity "jean.dupont" -EmailAddresses @{Add="jdupont@monentreprise.fr"}
+
+# Configurer les quotas de boîte aux lettres
+Set-Mailbox -Identity "jean.dupont" `
+    -IssueWarningQuota 1.9GB `
+    -ProhibitSendQuota 2GB `
+    -ProhibitSendReceiveQuota 2.5GB
+
+# Désactiver / supprimer une boîte aux lettres
+Disable-Mailbox -Identity "jean.dupont"      # Conserve le compte AD
+Remove-Mailbox -Identity "jean.dupont"       # Supprime le compte AD aussi</code>
+                    </div>
+                    
+                    <div class="terminal-block">
+                        <div class="terminal-header">Exchange Management Shell — Boîtes partagées et groupes</div>
+                        <code># Créer une boîte aux lettres partagée (shared mailbox)
+New-Mailbox -Shared -Name "Support IT" -Alias "support.it" `
+    -PrimarySmtpAddress "support@monentreprise.fr"
+
+# Donner accès à la boîte partagée
+Add-MailboxPermission -Identity "support.it" `
+    -User "jean.dupont" `
+    -AccessRights FullAccess `
+    -InheritanceType All
+
+# Donner le droit d'envoyer au nom de
+Add-RecipientPermission -Identity "support.it" `
+    -Trustee "jean.dupont" `
+    -AccessRights SendAs
+
+# Créer un groupe de distribution
+New-DistributionGroup -Name "Equipe Informatique" `
+    -Alias "equipe.info" `
+    -PrimarySmtpAddress "info@monentreprise.fr"
+
+# Ajouter des membres au groupe
+Add-DistributionGroupMember -Identity "equipe.info" -Member "jean.dupont"
+Add-DistributionGroupMember -Identity "equipe.info" -Member "alice.martin"
+
+# Lister les membres
+Get-DistributionGroupMember -Identity "equipe.info"</code>
+                    </div>
+                    
+                    <div class="terminal-block">
+                        <div class="terminal-header">Exchange Management Shell — Transport et connecteurs</div>
+                        <code># Voir les connecteurs d'envoi
+Get-SendConnector | Select-Object Name, AddressSpaces, SmartHosts, Enabled
+
+# Créer un connecteur d'envoi vers Internet (via smart host FAI)
+New-SendConnector -Name "Vers Internet" `
+    -AddressSpaces "SMTP:*;1" `
+    -SmartHosts "smtp.monFAI.fr" `
+    -SmartHostAuthMechanism None
+
+# Voir les connecteurs de réception
+Get-ReceiveConnector | Select-Object Name, Bindings, RemoteIPRanges, AuthMechanism
+
+# Voir la file d'attente des messages
+Get-Queue
+Get-Message -Queue "SMTP:srv-mail\25" | Select-Object Subject, FromAddress, Status
+
+# Tester l'envoi d'un email en PowerShell
+Send-MailMessage -From "test@monentreprise.fr" `
+    -To "alice.martin@monentreprise.fr" `
+    -Subject "Test Exchange" `
+    -Body "Email de test" `
+    -SmtpServer "srv-exchange01"</code>
+                    </div>
+                    
+                    <div class="terminal-block">
+                        <div class="terminal-header">Exchange Management Shell — Règles de transport</div>
+                        <code># Créer une règle de transport (ex: ajouter disclaimer légal)
+New-TransportRule -Name "Disclaimer légal" `
+    -ApplyToMessageContaining ".*" `
+    -ApplyHtmlDisclaimerText "&lt;p&gt;Ce message est confidentiel.&lt;/p&gt;" `
+    -ApplyHtmlDisclaimerLocation Append `
+    -ApplyHtmlDisclaimerFallbackAction Wrap
+
+# Règle antispam — bloquer un expéditeur
+New-TransportRule -Name "Bloquer spam" `
+    -SenderAddressLocation Header `
+    -From "spam@exemple.com" `
+    -DeleteMessage $true
+
+# Journalisation — archiver tous les emails vers une boîte d'archivage
+New-JournalRule -Name "Archive Globale" `
+    -JournalEmailAddress "archive@monentreprise.fr" `
+    -Scope Global `
+    -Enabled $true</code>
+                    </div>
+                    
+                    <h3>E. Maintenance et surveillance</h3>
+                    <div class="terminal-block">
+                        <div class="terminal-header">Exchange Management Shell — Santé et maintenance</div>
+                        <code># Vérifier l'état de santé d'Exchange
+Get-ServerHealth -Identity "srv-exchange01" | Where-Object {$_.AlertValue -ne "Healthy"}
+
+# Voir l'état des bases de données
+Get-MailboxDatabase -Status | Select-Object Name, Mounted, DatabaseSize, AvailableNewMailboxSpace
+
+# Monter / démonter une base de données
+Mount-Database -Identity "DB_Mailbox_01"
+Dismount-Database -Identity "DB_Mailbox_01"
+
+# Vérifier les logs d'événements Exchange
+Get-EventLog -LogName Application -Source "MSExchange*" -EntryType Error -Newest 20
+
+# Test de flux de messagerie (envoi et réception)
+Test-Mailflow -TargetMailboxServer "srv-exchange01"
+
+# Voir les statistiques de transport
+Get-TransportService | Get-MessageTrackingLog -EventId RECEIVE -Start (Get-Date).AddHours(-1) |
+    Select-Object Timestamp, Sender, Recipients, MessageSubject</code>
+                    </div>
+
+                    <div class="note-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p><strong>Pièges examen :</strong><br>
+                        — Exchange nécessite que le <strong>DNS interne</strong> soit parfaitement configuré (enregistrements A, MX, Autodiscover).<br>
+                        — L'enregistrement <strong>Autodiscover</strong> (CNAME ou A) est indispensable pour la configuration automatique d'Outlook.<br>
+                        — Le port <strong>25 entrant</strong> doit être ouvert sur le firewall pour recevoir les emails depuis Internet.<br>
+                        — SMTP sortant : préférer le port <strong>587</strong> (submission) depuis les clients, pas le 25.</p>
+                    </div>
+                </section>
+
                 <section id="powershell" class="card">
                     <div class="card-header">
                         <i class="fas fa-terminal card-icon-main"></i>
-                        <h2>10. Cheat Sheet PowerShell</h2>
+                        <h2>11. Cheat Sheet PowerShell</h2>
                     </div>
                     <p>Commandes vitales à connaître par cœur pour l'épreuve pratique.</p>
 
                     <div class="terminal-block">
                         <div class="terminal-header">Active Directory — Gestion quotidienne</div>
-                        <code"># Créer un utilisateur
+                        <code># Créer un utilisateur
 New-ADUser -Name "Jean Dupont" -SamAccountName "jean.dupont" `
     -Path "OU=RH,DC=mondomaine,DC=local" `
     -AccountPassword (ConvertTo-SecureString "Mdp@2024!" -AsPlainText -Force) `
@@ -773,7 +935,7 @@ Search-ADAccount -AccountInactive -TimeSpan 30.00:00:00 | Select-Object Name</co
 
                     <div class="terminal-block">
                         <div class="terminal-header">Système &amp; Services</div>
-                        <code"># Installer un rôle Windows
+                        <code># Installer un rôle Windows
 Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
 
 # Lister les rôles installés
@@ -796,7 +958,7 @@ Stop-Computer -Force</code>
 
                     <div class="terminal-block">
                         <div class="terminal-header">Réseau</div>
-                        <code"># Voir les interfaces réseau
+                        <code># Voir les interfaces réseau
 Get-NetIPAddress | Select-Object InterfaceAlias, IPAddress, PrefixLength
 
 # Voir la table de routage
@@ -821,7 +983,7 @@ Get-NetTCPConnection | Where-Object {$_.State -eq "Established"}</code>
 
                     <div class="terminal-block">
                         <div class="terminal-header">Fichiers &amp; Disques</div>
-                        <code"># Lister les disques
+                        <code># Lister les disques
 Get-Disk
 Get-Volume
 
@@ -843,7 +1005,7 @@ Set-Acl "D:\Partages\RH" $acl</code>
 
                     <div class="terminal-block">
                         <div class="terminal-header">Journaux d'événements &amp; Audit</div>
-                        <code"># Voir les erreurs système des dernières 24h
+                        <code># Voir les erreurs système des dernières 24h
 Get-EventLog -LogName System -EntryType Error -Newest 50 |
     Select-Object TimeGenerated, Source, Message
 
@@ -859,13 +1021,10 @@ wevtutil epl Security C:\Backup\security.evtx</code>
                     </div>
                 </section>
 
-                <!-- ═══════════════════════════════════════
-                     11. MÉMO EXAMEN
-                ═══════════════════════════════════════ -->
                 <section id="examen" class="card">
                     <div class="card-header">
                         <i class="fas fa-graduation-cap card-icon-main"></i>
-                        <h2>🎯 Mémo Examen — Le plus important à retenir</h2>
+                        <h2>12. 🎯 Mémo Examen — Le plus important à retenir</h2>
                     </div>
 
                     <h3>A. Les pièges classiques</h3>
