@@ -220,6 +220,7 @@ a.btn-neon:hover {
 }
 
 /* --- 7. CARDS --- */
+/* Cards now use a column flex layout so content and actions are separated */
 .card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -233,6 +234,18 @@ a.btn-neon:hover {
     overflow: hidden;
     box-shadow: var(--shadow-card);
     animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 220px; /* évite que les boutons chevauchent le texte */
+}
+
+/* Ensure card content layers above decorative pseudo elements */
+.card .card-header,
+.card p,
+.card .tags {
+    z-index: 1;
 }
 
 /* Reflet interne en haut de chaque card */
@@ -331,6 +344,8 @@ a.btn-neon:hover {
     font-size: 0.92rem;
     margin: 12px 0;
     line-height: 1.75;
+    /* ensure paragraph doesn't overlap actions */
+    margin-bottom: 12px;
 }
 
 .card ul {
@@ -602,11 +617,12 @@ td[style*="color: var(--accent)"] code {
 }
 
 /* --- 13. CV & BOUTONS --- */
+/* Actions container: margin-top:auto pushes actions to the bottom of the card */
 .cv-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-top: auto;
     flex-wrap: wrap;
     gap: 15px;
 }
@@ -626,6 +642,8 @@ td[style*="color: var(--accent)"] code {
     position: relative;
     overflow: hidden;
     text-decoration: none !important;
+    flex-shrink: 0; /* prevent button from shrinking and overlapping text */
+    white-space: nowrap;
 }
 
 .btn-neon:hover {
@@ -642,6 +660,15 @@ td[style*="color: var(--accent)"] code {
 .btn-neon:hover i {
     color: #000 !important;
     -webkit-text-fill-color: #000 !important;
+}
+
+/* If you want a dedicated footer area in cards, you can use .card-footer */
+.card-footer {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
 }
 
 /* --- 14. FOOTER --- */
@@ -730,6 +757,10 @@ footer::before {
 
 @media (max-width: 600px) {
     .hero { padding: 100px 0 30px; }
-    .card { padding: 20px; border-radius: 16px; }
+    .card { padding: 20px; border-radius: 16px; min-height: 0; }
     .bento-grid { gap: 12px; }
+
+    /* Make buttons full width on small screens to avoid overlap */
+    .card .cv-actions { justify-content: center; }
+    .btn-neon { width: 100%; justify-content: center; }
 }
