@@ -1,7 +1,9 @@
 /* ============================================================
-   ALTINKAYA ROMAIN — style.css v2.0
+   ALTINKAYA ROMAIN — style.css v2.0 (modifié)
    Direction : Dark Ops / Terminal Premium
    Conserve exactement les mêmes class names
+   Modifications : garantir que les boutons des cards restent en bas,
+   éviter le chevauchement du texte, patch si HTML non modifié.
    ============================================================ */
 
 /* --- 1. IMPORTS & VARIABLES --- */
@@ -241,6 +243,16 @@ a.btn-neon:hover {
     min-height: 220px; /* évite que les boutons chevauchent le texte */
 }
 
+/* Patch : si le bouton est directement enfant de .card (HTML non modifié),
+   on force le bouton à se comporter comme une action en bas */
+.card > a.btn-neon,
+.card > .btn-neon {
+    margin-top: auto;
+    align-self: flex-start; /* mettre flex-end pour aligner à droite */
+    z-index: 2;
+    flex-shrink: 0;
+}
+
 /* Ensure card content layers above decorative pseudo elements */
 .card .card-header,
 .card p,
@@ -280,7 +292,7 @@ a.btn-neon:hover {
 .card:hover::after { opacity: 1; }
 
 /* Tailles bento */
-.card-large { grid-column: span 8; }
+.card-large { grid-column: span 8; min-height: 260px; } /* un peu plus haut pour les grandes cartes */
 .card-small { grid-column: span 4; }
 .card-full  { grid-column: span 12; }
 
@@ -379,7 +391,7 @@ code {
 }
 
 /* Tags */
-.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; margin-bottom: 12px; }
 .tag {
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(255,255,255,0.07);
