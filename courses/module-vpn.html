@@ -202,7 +202,7 @@ DHCP Server  : Optionnel (IPs fixes recommandées en DMZ)</code>
                     <h3>B. Création de VLANs</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">Interfaces > VLANs — Création d'un VLAN</div>
-                        <code"># Interfaces > VLANs > Add
+                        <code># Interfaces > VLANs > Add
 Parent Interface : em1          # Interface physique qui porte le trunk
 VLAN Tag         : 10           # ID du VLAN (1-4094)
 Description      : VLAN_RH
@@ -221,7 +221,7 @@ Description      : VLAN_RH
                     <h3>C. DNS Resolver (Unbound)</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">Services > DNS Resolver — Configuration</div>
-                        <code"># Services > DNS Resolver
+                        <code># Services > DNS Resolver
 Enable DNS Resolver     : ✓ Activé
 Listen Port             : 53
 Network Interfaces      : LAN, DMZ, Localhost
@@ -277,7 +277,7 @@ Description : Serveur Web DMZ</code>
                     <h3>C. Règles typiques par zone</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">Firewall > Rules — Règles LAN (politique permissive standard)</div>
-                        <code"># Règle 1 — Autoriser DNS depuis le LAN
+                        <code># Règle 1 — Autoriser DNS depuis le LAN
 Action      : Pass
 Interface   : LAN
 Protocol    : TCP/UDP
@@ -303,7 +303,7 @@ Description : Isoler la DMZ du LAN (Default Deny)</code>
 
                     <div class="terminal-block">
                         <div class="terminal-header">Firewall > Rules — Règles WAN (exposition services)</div>
-                        <code"># Règle 1 — Bloquer tout depuis WAN (Default Deny implicite)
+                        <code># Règle 1 — Bloquer tout depuis WAN (Default Deny implicite)
 # pfSense bloque tout depuis le WAN par défaut
 # Il faut explicitement autoriser ce qu'on veut exposer
 
@@ -320,7 +320,7 @@ Description : HTTPS vers serveur web DMZ (avec NAT associé)</code>
                     <h3>D. Aliases — Simplifier les règles</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">Firewall > Aliases — Regrouper des IPs/ports</div>
-                        <code"># Alias réseau — Regrouper des IPs
+                        <code># Alias réseau — Regrouper des IPs
 Firewall > Aliases > Add
 Name  : SERVEURS_DMZ
 Type  : Network
@@ -355,7 +355,7 @@ Port   : PORTS_WEB</code>
                     <h3>A. Outbound NAT (SNAT — sortie vers Internet)</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">Firewall > NAT > Outbound</div>
-                        <code"># Mode Automatic Outbound NAT (par défaut)
+                        <code># Mode Automatic Outbound NAT (par défaut)
 # pfSense crée automatiquement les règles de masquerade
 # Tout le trafic du LAN sort avec l'IP WAN de pfSense
 
@@ -393,7 +393,7 @@ Redirect Port  : 22                # Port interne réel</code>
                     <h3>C. Virtual IPs (VIP) — Plusieurs IPs publiques</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">Firewall > Virtual IPs</div>
-                        <code"># Si vous avez un bloc d'IPs publiques (/29 par ex.)
+                        <code># Si vous avez un bloc d'IPs publiques (/29 par ex.)
 # Ajouter des VIP pour chaque IP supplémentaire
 
 Type    : IP Alias (ou CARP pour HA)
@@ -479,7 +479,7 @@ Redirect to : 192.168.10.20  # Serveur mail en DMZ</code>
                     <h3>A. Création de la PKI (Autorité de Certification)</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">System > Cert. Manager > CAs > Add</div>
-                        <code"># Étape 1 — Créer l'Autorité de Certification (CA)
+                        <code># Étape 1 — Créer l'Autorité de Certification (CA)
 Method          : Create an internal Certificate Authority
 Descriptive name: CA_VPN_MonEntreprise
 Key type        : RSA 4096 bits
@@ -501,7 +501,7 @@ Common Name     : vpn.monentreprise.fr</code>
                     <h3>B. Configuration du serveur OpenVPN</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">VPN > OpenVPN > Servers > Add</div>
-                        <code"># Paramètres généraux
+                        <code># Paramètres généraux
 Server mode     : Remote Access (SSL/TLS + User Auth)
 Protocol        : UDP on IPv4 only
 Device mode     : tun (layer 3)
@@ -531,7 +531,7 @@ Topology      : subnet</code>
                     <h3>C. Création des comptes utilisateurs VPN</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">System > User Manager > Add + Certificat client</div>
-                        <code"># Créer un utilisateur
+                        <code># Créer un utilisateur
 System > User Manager > Add
 Username : jean.dupont
 Password : MotDePasseForT@2024!
@@ -588,7 +588,7 @@ Export type : Most Clients (fichier .ovpn tout-en-un)
                     <h3>B. Configuration Phase 1 (sur les deux pfSense)</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">VPN > IPsec > Tunnels > Phase 1</div>
-                        <code"># SITE A (Siège) — IP WAN : 203.0.113.1
+                        <code># SITE A (Siège) — IP WAN : 203.0.113.1
 # SITE B (Agence) — IP WAN : 198.51.100.1
 
 # ── Phase 1 sur le pfSense du Siège ─────────────
@@ -613,7 +613,7 @@ Lifetime             : 28800 secondes (8h)
                     <h3>C. Configuration Phase 2</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">VPN > IPsec > Tunnels > Phase 2</div>
-                        <code"># Phase 2 sur le Siège
+                        <code># Phase 2 sur le Siège
 Mode            : Tunnel IPv4
 Local Network   : 192.168.1.0/24    # LAN du Siège
 Remote Network  : 192.168.2.0/24    # LAN de l'Agence
@@ -633,7 +633,7 @@ Lifetime        : 3600 secondes (1h)
                     <h3>D. Vérification du tunnel IPsec</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">Status > IPsec + Diagnostics</div>
-                        <code"># Vérifier l'état du tunnel
+                        <code># Vérifier l'état du tunnel
 Status > IPsec
 # ✓ Phase 1 : Established
 # ✓ Phase 2 : Established
@@ -687,7 +687,7 @@ Destination    : Un hôte de l'Agence (192.168.2.10)</code>
                     <h3>B. Installation et configuration Snort</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">System > Package Manager > Snort</div>
-                        <code"># Installation
+                        <code># Installation
 System > Package Manager > Available Packages
 Chercher "snort" > Install
 
@@ -715,7 +715,7 @@ Ajouter les IPs de confiance (supervision, admin...)</code>
                     <h3>C. Suricata — Alternative moderne à Snort</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">Services > Suricata — Configuration</div>
-                        <code"># Suricata est multi-thread = plus performant que Snort
+                        <code># Suricata est multi-thread = plus performant que Snort
 # Installation identique via Package Manager
 
 Services > Suricata > Global Settings
@@ -758,7 +758,7 @@ Services > Suricata > Alerts
                     <h3>B. Commandes de diagnostic rapide</h3>
                     <div class="terminal-block">
                         <div class="terminal-header">Shell pfSense — Diagnostic réseau</div>
-                        <code"># Voir les règles de filtrage actives
+                        <code># Voir les règles de filtrage actives
 pfctl -sr
 
 # Voir les règles NAT actives
