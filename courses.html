@@ -15,7 +15,15 @@
 </head>
 <body>
     <div id="particles-js"></div>
-    <div id="header-placeholder"></div>
+    <div id="header-placeholder">
+      <!-- Fallback nav (sera remplacé par partials/header.html si fetch fonctionne) -->
+      <nav class="floating-nav" role="navigation" aria-label="Navigation principale">
+        <a href="/skills.html">Compétences</a>
+        <a href="/courses.html">Cours</a>
+        <a href="/quiz.html">Quiz</a>
+        <a href="/procedures.html">Procédures</a>
+      </nav>
+    </div>
 
     <main class="container">
         <header class="hero">
@@ -80,6 +88,21 @@
                     <p>Diagnostic IP, Méthodes Agile, Relation Client et Usage de l'IA appliquée à l'IT.</p>
                     <a href="courses/module-agile.html" class="btn-neon">Fiches Méthodes</a>
                 </div>
+            </div>
+
+            <!-- Nouvelle carte ajoutée pour la page VPN & Firewalling (pfSense) -->
+            <div class="card card-small">
+              <div class="card-header">
+                <i class="fas fa-shield-alt card-icon-main"></i>
+                <h3>VPN & Firewalling (pfSense)</h3>
+              </div>
+              <p>Concepts de pare‑feu, installation pfSense, interfaces & VLAN, règles, NAT et OpenVPN.</p>
+              <div class="tags">
+                <span class="tag">Réseau</span>
+                <span class="tag">Sécurité</span>
+                <span class="tag">pfSense</span>
+              </div>
+              <a href="courses/module-vpn.html" class="btn-neon">Voir le cours</a>
             </div>
 
         </div>
