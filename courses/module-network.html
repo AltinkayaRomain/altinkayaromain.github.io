@@ -9,210 +9,1135 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+    <style>
+        /* ── Progress tracker ── */
+        .progress-bar-track {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: rgba(255,255,255,.08);
+            z-index: 9999;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), #00ffd5);
+            transition: width .15s ease;
+        }
+
+        /* ── Badge années ── */
+        .year-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .7rem;
+            letter-spacing: .08em;
+            padding: 3px 10px;
+            border-radius: 20px;
+            border: 1px solid;
+            margin-bottom: 8px;
+        }
+        .year-badge.y1 { color: #4fc3f7; border-color: #4fc3f7; background: rgba(79,195,247,.08); }
+        .year-badge.y2 { color: #ff8a65; border-color: #ff8a65; background: rgba(255,138,101,.08); }
+
+        /* ── Module timeline sur la sidebar ── */
+        .course-sidebar .module-group { margin-top: 14px; }
+        .course-sidebar .module-group-title {
+            font-size: .65rem;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            padding: 0 0 4px 0;
+            border-bottom: 1px solid rgba(255,255,255,.06);
+            margin-bottom: 6px;
+        }
+
+        /* ── Section header with hours ── */
+        .section-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+        .section-hours {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .7rem;
+            color: var(--accent);
+            background: rgba(var(--accent-rgb,0,255,136),.08);
+            border: 1px solid rgba(var(--accent-rgb,0,255,136),.25);
+            padding: 2px 10px;
+            border-radius: 12px;
+        }
+        .section-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .7rem;
+            color: var(--text-dim);
+        }
+        .section-bloc {
+            font-size: .7rem;
+            color: #ff8a65;
+            border: 1px solid rgba(255,138,101,.3);
+            padding: 2px 10px;
+            border-radius: 12px;
+        }
+
+        /* ── Tabs pour les sous-sections ── */
+        .tab-nav {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin: 16px 0 10px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            padding-bottom: 10px;
+        }
+        .tab-btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            padding: 4px 14px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,.15);
+            background: transparent;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--accent);
+            color: #0a0f0d;
+            border-color: var(--accent);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* ── Key-concept grid ── */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            margin: 12px 0;
+        }
+        .concept-card {
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 10px;
+            padding: 14px;
+            transition: border-color .2s;
+        }
+        .concept-card:hover { border-color: var(--accent); }
+        .concept-card .cc-icon {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .concept-card .cc-title {
+            font-weight: 600;
+            font-size: .85rem;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+        .concept-card .cc-desc {
+            font-size: .78rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        /* ── Highlight tip ── */
+        .tip-box {
+            background: rgba(0,255,136,.05);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+            padding: 10px 14px;
+            margin: 10px 0;
+            font-size: .83rem;
+            color: var(--text-dim);
+        }
+        .tip-box strong { color: var(--accent); }
+
+        .warn-box {
+            background: rgba(255,200,0,.05);
+            border-left: 3px solid #ffc107;
+            border-radius: 0 8px 8px 0;
+            padding: 10px 14px;
+            margin: 10px 0;
+            font-size: .83rem;
+            color: var(--text-dim);
+        }
+        .warn-box strong { color: #ffc107; }
+
+        /* ── Comparison table ── */
+        .cmp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .82rem;
+            color: var(--text-dim);
+            margin: 10px 0;
+        }
+        .cmp-table th {
+            text-align: left;
+            border-bottom: 1px solid var(--accent);
+            padding: 6px 10px;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .75rem;
+        }
+        .cmp-table td { padding: 6px 10px; border-bottom: 1px solid rgba(255,255,255,.05); }
+        .cmp-table tr:hover td { background: rgba(255,255,255,.02); }
+        .good { color: #69f0ae; }
+        .bad  { color: #ff5252; }
+
+        /* ── Port quick-ref ── */
+        .port-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 8px;
+            margin: 10px 0;
+        }
+        .port-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,.03);
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: .78rem;
+        }
+        .port-num {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            font-size: .75rem;
+        }
+    </style>
 </head>
 <body>
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="readProgress"></div></div>
     <div id="particles-js"></div>
     <div id="header-placeholder"></div>
 
     <main class="container">
         <header class="hero">
-            <h1>Architecture Réseaux CISCO & Sécurité</h1>
-            <p class="terminal-text">_TSSR_CCNA_LEVEL_NETWORKING</p>
+            <h1>Architecture Réseaux & Sécurité</h1>
+            <p class="terminal-text">_TSSR_CCNA_LEVEL_NETWORKING — 2 ANS / 903H</p>
         </header>
 
         <div class="course-layout">
-            
+
+            <!-- ════════════ SIDEBAR ════════════ -->
             <aside class="course-sidebar">
-                <h3>Sommaire Expert</h3>
-                <ul>
-                    <li><a href="#osi"><i class="fas fa-chevron-right"></i> OSI : Encapsulation</a></li>
-                    <li><a href="#l2"><i class="fas fa-chevron-right"></i> Switching : VLAN & STP</a></li>
-                    <li><a href="#l3"><i class="fas fa-chevron-right"></i> Routage : OSPF & RoaS</a></li>
-                    <li><a href="#tcp"><i class="fas fa-chevron-right"></i> Transport : TCP vs UDP</a></li>
-                    <li><a href="#sec"><i class="fas fa-chevron-right"></i> Sécurité : ACL & NAT</a></li>
-                    <li><a href="#cisco"><i class="fas fa-chevron-right"></i> Cheat Sheet Cisco</a></li>
-                </ul>
+                <h3>Sommaire</h3>
+
+                <div class="module-group">
+                    <div class="module-group-title">Année 1</div>
+                    <ul>
+                        <li><a href="#tcpip"><i class="fas fa-chevron-right"></i> TCP/IP & Modèle OSI</a></li>
+                        <li><a href="#routing"><i class="fas fa-chevron-right"></i> Routage Statique & OSPF</a></li>
+                        <li><a href="#switching"><i class="fas fa-chevron-right"></i> Switching, VLAN & STP</a></li>
+                        <li><a href="#transport"><i class="fas fa-chevron-right"></i> Transport : TCP vs UDP</a></li>
+                    </ul>
+                </div>
+
+                <div class="module-group">
+                    <div class="module-group-title">Année 2</div>
+                    <ul>
+                        <li><a href="#voip"><i class="fas fa-chevron-right"></i> Téléphonie IP & WiFi</a></li>
+                        <li><a href="#lamp"><i class="fas fa-chevron-right"></i> Archi nTiers (LAMP)</a></li>
+                        <li><a href="#security"><i class="fas fa-chevron-right"></i> Sécurité : VPN & Firewall</a></li>
+                        <li><a href="#tshoot"><i class="fas fa-chevron-right"></i> Méthodes de Dépannage</a></li>
+                        <li><a href="#monitoring"><i class="fas fa-chevron-right"></i> Monitoring & Supervision</a></li>
+                    </ul>
+                </div>
+
+                <div class="module-group">
+                    <div class="module-group-title">Références</div>
+                    <ul>
+                        <li><a href="#ports"><i class="fas fa-chevron-right"></i> Ports Incontournables</a></li>
+                        <li><a href="#cisco"><i class="fas fa-chevron-right"></i> Cheat Sheet Cisco</a></li>
+                    </ul>
+                </div>
             </aside>
 
+            <!-- ════════════ CONTENU ════════════ -->
             <div class="course-content">
-                
-                <section id="osi" class="card">
+
+                <!-- ── 1. TCP/IP ── -->
+                <section id="tcpip" class="card">
                     <div class="card-header">
                         <i class="fas fa-layer-group card-icon-main"></i>
-                        <h2>1. Modèle OSI & Encapsulation</h2>
+                        <h2>1. TCP/IP & Modèle OSI</h2>
                     </div>
-                    <p>Pour dépanner un réseau, il faut suivre le trajet de la donnée. À chaque couche, une information est ajoutée (en-tête).</p>
+                    <div class="section-meta">
+                        <span class="year-badge y1"><i class="fas fa-calendar-alt"></i> Novembre 2024</span>
+                        <span class="section-hours">21h — 3 jours</span>
+                        <span class="section-bloc">Bloc A1/C4</span>
+                    </div>
+                    <p>Fondation absolue de tout le reste. À maîtriser parfaitement avant de passer au routage.</p>
 
-                    
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="osi-tab1">Modèle OSI</button>
+                        <button class="tab-btn" data-tab="osi-tab2">Adressage IPv4</button>
+                        <button class="tab-btn" data-tab="osi-tab3">IPv6 Notions</button>
+                        <button class="tab-btn" data-tab="osi-tab4">Numération</button>
+                    </div>
 
-                    <div class="table-responsive">
-                        <table style="width:100%; color: var(--text-dim); font-size: 0.85rem; border-collapse: collapse; margin-top: 10px;">
-                            <thead>
-                                <tr style="border-bottom: 1px solid var(--accent);">
-                                    <th style="text-align:left;">Couche</th>
-                                    <th style="text-align:left;">Unité (PDU)</th>
-                                    <th style="text-align:left;">Équipement / Concept</th>
-                                </tr>
-                            </thead>
+                    <div id="osi-tab1" class="tab-content active">
+                        <div class="table-responsive">
+                            <table class="cmp-table">
+                                <thead>
+                                    <tr><th>Couche</th><th>PDU</th><th>Équipement / Concept</th><th>Protocoles</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td style="color:var(--accent)">7. Application</td><td>Données</td><td>Logiciels, APIs</td><td>HTTP, FTP, DNS, SMTP</td></tr>
+                                    <tr><td style="color:var(--accent)">6. Présentation</td><td>Données</td><td>Chiffrement, compression</td><td>SSL/TLS, JPEG</td></tr>
+                                    <tr><td style="color:var(--accent)">5. Session</td><td>Données</td><td>Gestion des sessions</td><td>NetBIOS, RPC</td></tr>
+                                    <tr><td style="color:var(--accent)">4. Transport</td><td>Segment</td><td>Ports, Pare-feu</td><td>TCP, UDP</td></tr>
+                                    <tr><td style="color:var(--accent)">3. Réseau</td><td>Paquet</td><td><strong>Routeur</strong>, Adresse IP</td><td>IP, ICMP, OSPF</td></tr>
+                                    <tr><td style="color:var(--accent)">2. Liaison</td><td>Trame</td><td><strong>Switch</strong>, Adresse MAC</td><td>Ethernet, 802.1Q</td></tr>
+                                    <tr><td style="color:var(--accent)">1. Physique</td><td>Bit</td><td>Câble RJ45, Fibre, Hub</td><td>—</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tip-box"><strong>Moyen mnémotechnique :</strong> "Avec Pouce Soigné, Tous Réseau Liaison Physique" (App / Présent / Session / Transport / Réseau / Liaison / Physique)</div>
+                    </div>
+
+                    <div id="osi-tab2" class="tab-content">
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">🔢</span>
+                                <div class="cc-title">Classes d'adresses</div>
+                                <div class="cc-desc">A: 1-126 /8 — B: 128-191 /16 — C: 192-223 /24<br>Classe D = Multicast, E = Réservé</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🏠</span>
+                                <div class="cc-title">Plages Privées (RFC 1918)</div>
+                                <div class="cc-desc">10.0.0.0/8<br>172.16.0.0/12<br>192.168.0.0/16</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">📐</span>
+                                <div class="cc-title">Calcul CIDR</div>
+                                <div class="cc-desc">/24 = 256 adresses, 254 hôtes<br>Réseau = IP & Masque<br>Broadcast = dernier octet FF</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🔀</span>
+                                <div class="cc-title">VLSM</div>
+                                <div class="cc-desc">Découper un réseau en sous-réseaux de tailles différentes selon les besoins réels.</div>
+                            </div>
+                        </div>
+                        <div class="warn-box"><strong>Piège exam :</strong> L'adresse réseau et l'adresse broadcast ne sont PAS assignables à un hôte. Hôtes utiles = 2ⁿ - 2.</div>
+                    </div>
+
+                    <div id="osi-tab3" class="tab-content">
+                        <p style="color:var(--text-dim);font-size:.85rem">IPv6 = 128 bits, notation hexadécimale séparée par <code>:</code></p>
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">🌍</span>
+                                <div class="cc-title">Avantages IPv6</div>
+                                <div class="cc-desc">Espace d'adressage quasi-infini, auto-configuration SLAAC, IPsec natif, pas besoin de NAT.</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🔗</span>
+                                <div class="cc-title">Types d'adresses</div>
+                                <div class="cc-desc">Unicast (1→1), Multicast (1→n), Anycast (1→le plus proche). <em>Pas de broadcast !</em></div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">📝</span>
+                                <div class="cc-title">Notation abrégée</div>
+                                <div class="cc-desc">:: remplace les groupes nuls consécutifs (1 seule fois).<br>2001:0db8::1</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="osi-tab4" class="tab-content">
+                        <p style="color:var(--text-dim);font-size:.85rem">Conversions indispensables pour le calcul réseau.</p>
+                        <table class="cmp-table">
+                            <thead><tr><th>Décimal</th><th>Binaire</th><th>Hexa</th></tr></thead>
                             <tbody>
-                                <tr>
-                                    <td style="color: var(--accent);">4. Transport</td>
-                                    <td>Segment</td>
-                                    <td>Ports (TCP/UDP), Pare-feu</td>
-                                </tr>
-                                <tr>
-                                    <td style="color: var(--accent);">3. Réseau</td>
-                                    <td>Paquet</td>
-                                    <td><strong>Routeur</strong>, Adresse IP, ICMP</td>
-                                </tr>
-                                <tr>
-                                    <td style="color: var(--accent);">2. Liaison</td>
-                                    <td>Trame</td>
-                                    <td><strong>Switch</strong>, Adresse MAC, VLAN</td>
-                                </tr>
-                                <tr>
-                                    <td style="color: var(--accent);">1. Physique</td>
-                                    <td>Bit</td>
-                                    <td>Câble RJ45, Fibre, Hub, WiFi</td>
-                                </tr>
+                                <tr><td>0</td><td>0000 0000</td><td>0x00</td></tr>
+                                <tr><td>128</td><td>1000 0000</td><td>0x80</td></tr>
+                                <tr><td>192</td><td>1100 0000</td><td>0xC0</td></tr>
+                                <tr><td>224</td><td>1110 0000</td><td>0xE0</td></tr>
+                                <tr><td>255</td><td>1111 1111</td><td>0xFF</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="tip-box"><strong>Astuce masque :</strong> /25 = 128, /26 = 192, /27 = 224, /28 = 240, /29 = 248, /30 = 252</div>
+                    </div>
+                </section>
+
+                <!-- ── 2. ROUTAGE ── -->
+                <section id="routing" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-route card-icon-main"></i>
+                        <h2>2. Routage Statique & Dynamique</h2>
+                    </div>
+                    <div class="section-meta">
+                        <span class="year-badge y1"><i class="fas fa-calendar-alt"></i> Janvier 2025</span>
+                        <span class="section-hours">35h — 5 jours</span>
+                        <span class="section-bloc">Bloc A1/C4 · A2/C7</span>
+                    </div>
+
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="route-tab1">Routage Statique</button>
+                        <button class="tab-btn" data-tab="route-tab2">OSPF</button>
+                        <button class="tab-btn" data-tab="route-tab3">RIP / EIGRP</button>
+                        <button class="tab-btn" data-tab="route-tab4">Router-on-a-Stick</button>
+                    </div>
+
+                    <div id="route-tab1" class="tab-content active">
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">✅</span>
+                                <div class="cc-title">Avantages</div>
+                                <div class="cc-desc">Simple à configurer, pas de surcharge CPU, prédictible, sécurisé (pas d'échange de routes).</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">❌</span>
+                                <div class="cc-title">Inconvénients</div>
+                                <div class="cc-desc">Pas scalable, maintenance manuelle, aucune adaptation aux pannes.</div>
+                            </div>
+                        </div>
+                        <div class="terminal-block">
+                            <div class="terminal-header">Route statique Cisco</div>
+                            <code>! Route vers 192.168.2.0/24 via le prochain saut
+Router(config)# ip route 192.168.2.0 255.255.255.0 192.168.1.1
+
+! Route par défaut (Gateway of Last Resort)
+Router(config)# ip route 0.0.0.0 0.0.0.0 10.0.0.1</code>
+                        </div>
+                    </div>
+
+                    <div id="route-tab2" class="tab-content">
+                        <p style="color:var(--text-dim);font-size:.85rem">OSPF (Open Shortest Path First) = protocole à état de lien. Chaque routeur connait la carte complète du réseau.</p>
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">🗺️</span>
+                                <div class="cc-title">Link-State</div>
+                                <div class="cc-desc">Chaque routeur construit une LSDB (Link-State Database) = carte complète du réseau.</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">⚡</span>
+                                <div class="cc-title">Coût (Métrique)</div>
+                                <div class="cc-desc">Coût = 100 Mbps / Bande passante. OSPF préfère le chemin le plus RAPIDE, pas le plus court.</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🏛️</span>
+                                <div class="cc-title">Area 0 (Backbone)</div>
+                                <div class="cc-desc">Obligatoire. Toutes les autres aires doivent y être connectées directement ou via ABR.</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">📡</span>
+                                <div class="cc-title">DR / BDR</div>
+                                <div class="cc-desc">Sur réseau multi-accès, élection d'un Designated Router pour réduire les échanges LSDB.</div>
+                            </div>
+                        </div>
+                        <div class="terminal-block">
+                            <div class="terminal-header">Config OSPF Cisco</div>
+                            <code>Router(config)# router ospf 1
+Router(config-router)# router-id 1.1.1.1
+! Wildcard mask = inverse du masque (ex: /24 → 0.0.0.255)
+Router(config-router)# network 192.168.10.0 0.0.0.255 area 0
+Router(config-router)# passive-interface g0/1  ! Ne pas envoyer OSPF sur ce port</code>
+                        </div>
+                        <div class="warn-box"><strong>Rappel Wildcard :</strong> /24 → 0.0.0.255 · /25 → 0.0.0.127 · /30 → 0.0.0.3</div>
+                    </div>
+
+                    <div id="route-tab3" class="tab-content">
+                        <table class="cmp-table">
+                            <thead><tr><th>Protocole</th><th>Type</th><th>Métrique</th><th>Convergence</th><th>Usage</th></tr></thead>
+                            <tbody>
+                                <tr><td>RIP v2</td><td>Vecteur de distance</td><td>Sauts (max 15)</td><td class="bad">Lente (30s)</td><td>Petits réseaux / labo</td></tr>
+                                <tr><td>EIGRP</td><td>Hybride (Cisco)</td><td>Composite (BW+Delay)</td><td class="good">Rapide</td><td>Réseaux Cisco purs</td></tr>
+                                <tr><td>OSPF</td><td>État de lien</td><td>Coût (BW)</td><td class="good">Rapide</td><td>Standard entreprise</td></tr>
+                                <tr><td>BGP</td><td>Vecteur de chemin</td><td>Politique</td><td>Variable</td><td>Internet / AS</td></tr>
                             </tbody>
                         </table>
                     </div>
+
+                    <div id="route-tab4" class="tab-content">
+                        <p style="color:var(--text-dim);font-size:.85rem">Router-on-a-Stick = routage inter-VLAN avec une seule interface physique découpée en sous-interfaces logiques.</p>
+                        <div class="terminal-block">
+                            <div class="terminal-header">RoaS — Config Cisco</div>
+                            <code>Router(config)# interface g0/0
+Router(config-if)# no shutdown
+
+Router(config)# interface g0/0.10
+Router(config-subif)# encapsulation dot1Q 10
+Router(config-subif)# ip address 192.168.10.254 255.255.255.0
+
+Router(config)# interface g0/0.20
+Router(config-subif)# encapsulation dot1Q 20
+Router(config-subif)# ip address 192.168.20.254 255.255.255.0</code>
+                        </div>
+                        <div class="tip-box"><strong>Du côté switch :</strong> Le port relié au routeur doit être configuré en <strong>mode trunk</strong>, pas access.</div>
+                    </div>
                 </section>
 
-                <section id="l2" class="card">
+                <!-- ── 3. SWITCHING ── -->
+                <section id="switching" class="card">
                     <div class="card-header">
                         <i class="fas fa-network-wired card-icon-main"></i>
-                        <h2>2. Switching Avancé (L2)</h2>
+                        <h2>3. Switching, VLAN & STP</h2>
                     </div>
-                    
-                    <h3>A. VLANs & Tagging (802.1Q)</h3>
-                    <p>Un VLAN découpe un switch physique en plusieurs switchs logiques.
-                    <br><strong>Problème :</strong> Comment faire passer plusieurs VLANs dans un seul câble entre deux switchs ?
-                    <br><strong>Solution :</strong> Le <strong>Trunk</strong> (802.1Q). Il ajoute une "étiquette" (Tag) de 4 octets dans l'en-tête de la trame Ethernet pour dire "Je viens du VLAN 10".</p>
-                    
-                    
-
-                    <div class="note-box">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p><strong>Native VLAN :</strong> C'est le seul VLAN qui passe dans le Trunk SANS étiquette. Par sécurité, changez-le (ne laissez pas le VLAN 1 par défaut) pour éviter le "VLAN Hopping".</p>
+                    <div class="section-meta">
+                        <span class="year-badge y1"><i class="fas fa-calendar-alt"></i> Janvier 2025</span>
+                        <span class="section-hours">35h — 5 jours</span>
+                        <span class="section-bloc">Bloc A1/C4 · A2/C7</span>
                     </div>
 
-                    <h3>B. Spanning Tree Protocol (STP)</h3>
-                    <p>Si vous bouclez deux câbles entre deux switchs pour la redondance, vous créez une <strong>Tempête de Broadcast</strong> (le réseau tombe en 2 secondes).
-                    <br><strong>Rôle du STP :</strong> Détecter la boucle et bloquer logiquement un port.</p>
-                    <ul>
-                        <li><strong>Root Bridge :</strong> Le chef du réseau L2 (celui qui a la plus petite priorité ou adresse MAC).</li>
-                        <li><strong>BPDU :</strong> Les paquets de "bonjour" que s'envoient les switchs pour surveiller la topologie.</li>
-                    </ul>
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="sw-tab1">VLANs & Trunk</button>
+                        <button class="tab-btn" data-tab="sw-tab2">STP</button>
+                        <button class="tab-btn" data-tab="sw-tab3">Table CAM</button>
+                        <button class="tab-btn" data-tab="sw-tab4">Config Cisco</button>
+                    </div>
+
+                    <div id="sw-tab1" class="tab-content active">
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">🧱</span>
+                                <div class="cc-title">VLAN (Access)</div>
+                                <div class="cc-desc">Port dédié à un seul VLAN. La trame sort SANS tag (transparence pour le PC).</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🚂</span>
+                                <div class="cc-title">Trunk 802.1Q</div>
+                                <div class="cc-desc">Transporte plusieurs VLANs sur un seul câble. Ajoute un tag 4 octets dans la trame Ethernet.</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🏷️</span>
+                                <div class="cc-title">Native VLAN</div>
+                                <div class="cc-desc">Seul VLAN passant sans tag sur un trunk. Changer le défaut (VLAN 1) pour éviter le VLAN Hopping.</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">📢</span>
+                                <div class="cc-title">VTP (optionnel)</div>
+                                <div class="cc-desc">Propage la configuration VLAN entre switchs. Dangereux en production si mal configuré.</div>
+                            </div>
+                        </div>
+                        <div class="terminal-block">
+                            <div class="terminal-header">Config VLAN Cisco Switch</div>
+                            <code>! Créer un VLAN
+Switch(config)# vlan 10
+Switch(config-vlan)# name COMPTA
+
+! Port Access
+Switch(config)# interface f0/1
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 10
+
+! Port Trunk
+Switch(config)# interface g0/1
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# switchport trunk native vlan 99
+Switch(config-if)# switchport trunk allowed vlan 10,20,30</code>
+                        </div>
+                    </div>
+
+                    <div id="sw-tab2" class="tab-content">
+                        <p style="color:var(--text-dim);font-size:.85rem">STP empêche les boucles de commutation qui causeraient des <strong>Tempêtes de Broadcast</strong> (réseau mort en secondes).</p>
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">👑</span>
+                                <div class="cc-title">Root Bridge</div>
+                                <div class="cc-desc">Switch avec la plus petite priorité (défaut 32768) ou la plus petite MAC. C'est lui le "chef".</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">📧</span>
+                                <div class="cc-title">BPDU</div>
+                                <div class="cc-desc">Bridge Protocol Data Units. Messages échangés entre switchs pour surveiller la topologie.</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🚫</span>
+                                <div class="cc-title">Port Bloqué</div>
+                                <div class="cc-desc">STP désactive logiquement un port pour casser la boucle. Réactivé si le lien actif tombe.</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">⚡</span>
+                                <div class="cc-title">RSTP (802.1w)</div>
+                                <div class="cc-desc">Version rapide du STP. Convergence en quelques secondes vs 30-50s pour le STP classique.</div>
+                            </div>
+                        </div>
+                        <div class="warn-box"><strong>PortFast + BPDU Guard :</strong> Sur les ports qui connectent des PC (jamais d'autres switchs), activez PortFast pour accélérer la connexion, et BPDU Guard pour couper le port si un switch inconnu est branché.</div>
+                    </div>
+
+                    <div id="sw-tab3" class="tab-content">
+                        <p style="color:var(--text-dim);font-size:.85rem">Le switch apprend les adresses MAC dynamiquement dans sa <strong>table CAM</strong> (Content Addressable Memory).</p>
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">📚</span>
+                                <div class="cc-title">Apprentissage</div>
+                                <div class="cc-desc">Quand une trame arrive, le switch enregistre l'adresse MAC source + le port d'arrivée.</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🎯</span>
+                                <div class="cc-title">Forwarding</div>
+                                <div class="cc-desc">Si la MAC destination est dans la table → envoi direct sur le bon port. Sinon : Flooding.</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🌊</span>
+                                <div class="cc-title">Flooding</div>
+                                <div class="cc-desc">MAC inconnue ou broadcast → la trame est envoyée sur TOUS les ports sauf le port source.</div>
+                            </div>
+                        </div>
+                        <div class="terminal-block">
+                            <div class="terminal-header">Voir la table CAM</div>
+                            <code>Switch# show mac address-table
+Switch# show mac address-table dynamic
+Switch# clear mac address-table dynamic</code>
+                        </div>
+                    </div>
+
+                    <div id="sw-tab4" class="tab-content">
+                        <div class="terminal-block">
+                            <div class="terminal-header">Commandes Switch — Diagnostic</div>
+                            <code># État des VLANs
+Switch# show vlan brief
+
+# État des interfaces
+Switch# show interfaces trunk
+Switch# show interfaces status
+
+# STP
+Switch# show spanning-tree
+Switch# show spanning-tree vlan 10
+
+# Sécurité ports
+Switch(config-if)# switchport port-security maximum 2
+Switch(config-if)# switchport port-security violation shutdown</code>
+                        </div>
+                    </div>
                 </section>
 
-                <section id="l3" class="card">
-                    <div class="card-header">
-                        <i class="fas fa-route card-icon-main"></i>
-                        <h2>3. Routage & Interconnexion</h2>
-                    </div>
-                    
-                    <h3>A. Router-on-a-Stick (Inter-VLAN)</h3>
-                    <p>Les VLANs sont isolés. Pour qu'ils se parlent, il faut un routeur. On utilise une seule interface physique découpée en <strong>sous-interfaces logiques</strong>.</p>
-                    <div class="terminal-block">
-                        <div class="terminal-header">Config Cisco - RoaS</div>
-                        <code>Router(config)# interface g0/0.10
-Router(config-subif)# encapsulation dot1Q 10
-Router(config-subif)# ip address 192.168.10.254 255.255.255.0</code>
-                    </div>
-
-                    <h3>B. Routage Dynamique OSPF</h3>
-                    <p>Plutôt que d'écrire 50 routes statiques, OSPF apprend le réseau tout seul.
-                    <br><strong>Concepts Clés :</strong></p>
-                    <ul>
-                        <li><strong>Link-State :</strong> Chaque routeur connait la carte complète du réseau.</li>
-                        <li><strong>Coût :</strong> OSPF choisit le chemin le plus RAPIDE (Bande passante), pas le plus court (comme RIP).</li>
-                        <li><strong>Area 0 (Backbone) :</strong> Obligatoire. Toutes les autres aires doivent y être connectées.</li>
-                        <li><strong>Wildcard Mask :</strong> L'inverse du masque de sous-réseau (ex: /24 = 0.0.0.255).</li>
-                    </ul>
-                </section>
-
-                <section id="tcp" class="card">
+                <!-- ── 4. TRANSPORT ── -->
+                <section id="transport" class="card">
                     <div class="card-header">
                         <i class="fas fa-exchange-alt card-icon-main"></i>
                         <h2>4. Transport : TCP vs UDP</h2>
                     </div>
-                    
-                    <h3>A. Le "Three-Way Handshake" TCP</h3>
-                    <p>Avant d'envoyer des données, TCP vérifie que l'autre est prêt. C'est une connexion <strong>FIABLE</strong>.</p>
-                    
-                    <ol>
-                        <li><strong>SYN :</strong> "Bonjour, je veux te parler."</li>
-                        <li><strong>SYN-ACK :</strong> "Bonjour, j'ai bien reçu, je suis d'accord."</li>
-                        <li><strong>ACK :</strong> "Parfait, j'envoie les données."</li>
-                    </ol>
+                    <div class="section-meta">
+                        <span class="year-badge y1"><i class="fas fa-calendar-alt"></i> Novembre 2024</span>
+                        <span class="section-hours">Inclus TCP/IP — 21h</span>
+                        <span class="section-bloc">Bloc A1/C4</span>
+                    </div>
 
-                    <h3>B. Comparatif Express</h3>
-                    <ul>
-                        <li><strong>TCP :</strong> Lent mais sûr. Réordonne les paquets, renvoie les perdus (Web, Mail, Transfert Fichier).</li>
-                        <li><strong>UDP :</strong> Rapide mais "bête". Si un paquet est perdu, tant pis (Streaming, VoIP, DNS, Jeux en ligne).</li>
-                    </ul>
+                    <h3>Three-Way Handshake TCP</h3>
+                    <div class="concept-grid">
+                        <div class="concept-card">
+                            <span class="cc-icon">1️⃣</span>
+                            <div class="cc-title">SYN</div>
+                            <div class="cc-desc">Client → Serveur : "Bonjour, je veux me connecter, mon numéro de séquence est X."</div>
+                        </div>
+                        <div class="concept-card">
+                            <span class="cc-icon">2️⃣</span>
+                            <div class="cc-title">SYN-ACK</div>
+                            <div class="cc-desc">Serveur → Client : "Reçu (ACK=X+1), je suis prêt, mon séquence est Y."</div>
+                        </div>
+                        <div class="concept-card">
+                            <span class="cc-icon">3️⃣</span>
+                            <div class="cc-title">ACK</div>
+                            <div class="cc-desc">Client → Serveur : "Parfait (ACK=Y+1), connexion établie. J'envoie les données."</div>
+                        </div>
+                    </div>
+
+                    <table class="cmp-table" style="margin-top:16px">
+                        <thead><tr><th>Critère</th><th>TCP</th><th>UDP</th></tr></thead>
+                        <tbody>
+                            <tr><td>Connexion</td><td class="good">Orienté connexion</td><td class="bad">Sans connexion</td></tr>
+                            <tr><td>Fiabilité</td><td class="good">Accusés de réception</td><td class="bad">Best-effort</td></tr>
+                            <tr><td>Ordre</td><td class="good">Réordonne les paquets</td><td class="bad">Pas d'ordre garanti</td></tr>
+                            <tr><td>Débit</td><td class="bad">Plus lent (overhead)</td><td class="good">Très rapide</td></tr>
+                            <tr><td>Usages</td><td>Web, Mail, FTP, SSH</td><td>DNS, DHCP, VoIP, Streaming, Jeux</td></tr>
+                        </tbody>
+                    </table>
                 </section>
 
-                <section id="sec" class="card">
+                <!-- ════ ANNÉE 2 ════ -->
+
+                <!-- ── 5. LINUX SERVICES RÉSEAUX ── -->
+                <!-- ── 5. VOIP & WIFI ── -->
+                <section id="voip" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-phone-alt card-icon-main"></i>
+                        <h2>5. Téléphonie IP (ToIP) & WiFi</h2>
+                    </div>
+                    <div class="section-meta">
+                        <span class="year-badge y2"><i class="fas fa-calendar-alt"></i> Octobre 2025</span>
+                        <span class="section-hours">21h — 3 jours</span>
+                        <span class="section-bloc">Bloc A1/C4 · A2/C7</span>
+                    </div>
+
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="voip-tab1">Protocoles ToIP</button>
+                        <button class="tab-btn" data-tab="voip-tab2">Asterisk</button>
+                        <button class="tab-btn" data-tab="voip-tab3">WiFi</button>
+                    </div>
+
+                    <div id="voip-tab1" class="tab-content active">
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">📞</span>
+                                <div class="cc-title">SIP</div>
+                                <div class="cc-desc">Session Initiation Protocol. Gère la signalisation (établir/terminer l'appel). Port 5060 (UDP/TCP).</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🎤</span>
+                                <div class="cc-title">RTP</div>
+                                <div class="cc-desc">Real-time Transport Protocol. Transporte la voix en temps réel. Ports dynamiques (UDP).</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🏢</span>
+                                <div class="cc-title">IPBX</div>
+                                <div class="cc-desc">Serveur qui gère les appels internes + les connexions vers le réseau téléphonique public (RNIS/SIP Trunk).</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🏷️</span>
+                                <div class="cc-title">VLAN Voix</div>
+                                <div class="cc-desc">Isoler la voix dans un VLAN dédié + activer QoS pour prioriser les paquets voix. DSCP EF.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="voip-tab2" class="tab-content">
+                        <div class="terminal-block">
+                            <div class="terminal-header">Asterisk — sip.conf (extrait)</div>
+                            <code>[general]
+context=default
+allowguest=no
+
+[1001]
+type=friend
+secret=motdepasse
+host=dynamic
+context=interne
+callerid=Alice &lt;1001&gt;</code>
+                        </div>
+                        <div class="terminal-block">
+                            <div class="terminal-header">Asterisk — extensions.conf (dial plan)</div>
+                            <code>[interne]
+; Appel entre postes internes
+exten => 1001,1,Dial(SIP/1001,30)
+exten => 1001,2,Voicemail(1001@default)
+exten => 1002,1,Dial(SIP/1002,30)</code>
+                        </div>
+                    </div>
+
+                    <div id="voip-tab3" class="tab-content">
+                        <table class="cmp-table">
+                            <thead><tr><th>Standard</th><th>Fréquence</th><th>Débit max</th><th>Portée</th></tr></thead>
+                            <tbody>
+                                <tr><td>802.11b</td><td>2.4 GHz</td><td>11 Mbps</td><td>~50m</td></tr>
+                                <tr><td>802.11g</td><td>2.4 GHz</td><td>54 Mbps</td><td>~50m</td></tr>
+                                <tr><td>802.11n (Wi-Fi 4)</td><td>2.4/5 GHz</td><td>600 Mbps</td><td>~70m</td></tr>
+                                <tr><td>802.11ac (Wi-Fi 5)</td><td>5 GHz</td><td>3.5 Gbps</td><td>~35m</td></tr>
+                                <tr><td>802.11ax (Wi-Fi 6)</td><td>2.4/5/6 GHz</td><td>9.6 Gbps</td><td>~50m</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="tip-box"><strong>Sécurité WiFi :</strong> WEP → cassé. WPA → vulnérable. <strong>WPA2/WPA3 (AES)</strong> uniquement en production. Désactiver WPS.</div>
+                    </div>
+                </section>
+
+                <!-- ── 7. LAMP ── -->
+                <section id="lamp" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-server card-icon-main"></i>
+                        <h2>6. Architecture nTiers (LAMP)</h2>
+                    </div>
+                    <div class="section-meta">
+                        <span class="year-badge y2"><i class="fas fa-calendar-alt"></i> Octobre 2025</span>
+                        <span class="section-hours">14h — 2 jours</span>
+                        <span class="section-bloc">Bloc A1/C3 · C4</span>
+                    </div>
+
+                    <div class="concept-grid">
+                        <div class="concept-card">
+                            <span class="cc-icon">🖥️</span>
+                            <div class="cc-title">1-Tier (Monolithique)</div>
+                            <div class="cc-desc">Tout sur une seule machine. Simple mais pas scalable, pas de redondance.</div>
+                        </div>
+                        <div class="concept-card">
+                            <span class="cc-icon">🔀</span>
+                            <div class="cc-title">2-Tier (Client/Serveur)</div>
+                            <div class="cc-desc">Client ↔ Serveur DB. Le client fait une partie du traitement (application épaisse).</div>
+                        </div>
+                        <div class="concept-card">
+                            <span class="cc-icon">🏗️</span>
+                            <div class="cc-title">3-Tier (LAMP)</div>
+                            <div class="cc-desc">Présentation (Apache) ↔ Logique (PHP) ↔ Données (MySQL). Séparation claire des responsabilités.</div>
+                        </div>
+                        <div class="concept-card">
+                            <span class="cc-icon">☁️</span>
+                            <div class="cc-title">nTiers / Microservices</div>
+                            <div class="cc-desc">Chaque composant est indépendant, scalable et déployable séparément. Base du cloud moderne.</div>
+                        </div>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Déploiement LAMP — Debian/Ubuntu</div>
+                        <code># Installation
+apt install apache2 php php-mysql mariadb-server -y
+
+# Sécuriser MySQL
+mysql_secure_installation
+
+# Tester PHP
+echo "&lt;?php phpinfo(); ?&gt;" > /var/www/html/info.php
+
+# Activer mod_rewrite (pour les CMS)
+a2enmod rewrite
+systemctl restart apache2</code>
+                    </div>
+                </section>
+
+                <!-- ── 8. SÉCURITÉ VPN & FIREWALL ── -->
+                <section id="security" class="card">
                     <div class="card-header">
                         <i class="fas fa-shield-alt card-icon-main"></i>
-                        <h2>5. Sécurité : ACL & NAT</h2>
+                        <h2>7. Sécurité : VPN & Firewalling</h2>
+                    </div>
+                    <div class="section-meta">
+                        <span class="year-badge y2"><i class="fas fa-calendar-alt"></i> Octobre 2025</span>
+                        <span class="section-hours">35h — 5 jours</span>
+                        <span class="section-bloc">Bloc A1/C4 · A2/C7</span>
                     </div>
 
-                    <h3>A. ACL (Access Control Lists)</h3>
-                    <p>Le pare-feu du routeur. Lit les règles de haut en bas.</p>
-                    <ul>
-                        <li><strong>Standard (1-99) :</strong> Filtre uniquement sur l'IP SOURCE. (À placer le plus près possible de la destination).</li>
-                        <li><strong>Etendue (100-199) :</strong> Filtre sur Source, Destination, Protocole et Port. (À placer le plus près possible de la source).</li>
-                    </ul>
-                    <div class="note-box">
-                        <i class="fas fa-lock"></i>
-                        <p><strong>Implicit Deny :</strong> Il y a toujours un "Deny All" invisible à la fin d'une ACL. Si vous n'autorisez rien explicitement, tout est bloqué.</p>
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="sec-tab1">ACL Cisco</button>
+                        <button class="tab-btn" data-tab="sec-tab2">NAT/PAT</button>
+                        <button class="tab-btn" data-tab="sec-tab3">VPN</button>
+                        <button class="tab-btn" data-tab="sec-tab4">Firewall</button>
                     </div>
 
-                    <h3>B. NAT (Network Address Translation)</h3>
-                    <ul>
-                        <li><strong>NAT Dynamique (PAT) :</strong> "Many-to-One". Tout le bureau sort sur Internet avec l'unique IP Publique de la Box. Utilise les ports pour différencier les PC.</li>
-                        <li><strong>NAT Statique :</strong> "One-to-One". Pour publier un serveur Web (DMZ) accessible depuis l'extérieur.</li>
-                    </ul>
+                    <div id="sec-tab1" class="tab-content active">
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">📋</span>
+                                <div class="cc-title">ACL Standard (1-99)</div>
+                                <div class="cc-desc">Filtre uniquement sur l'IP source. À placer <strong>le plus près de la destination</strong>.</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🎯</span>
+                                <div class="cc-title">ACL Étendue (100-199)</div>
+                                <div class="cc-desc">Filtre Source + Destination + Protocole + Port. À placer <strong>le plus près de la source</strong>.</div>
+                            </div>
+                        </div>
+                        <div class="terminal-block">
+                            <div class="terminal-header">ACL Étendue — Exemple</div>
+                            <code">! Autoriser HTTP depuis 192.168.1.0/24 vers n'importe où
+Router(config)# ip access-list extended WEB_OUT
+Router(config-ext-nacl)# permit tcp 192.168.1.0 0.0.0.255 any eq 80
+Router(config-ext-nacl)# permit tcp 192.168.1.0 0.0.0.255 any eq 443
+Router(config-ext-nacl)# deny ip any any log
+
+! Appliquer sur l'interface (IN = entrant depuis le LAN)
+Router(config-if)# ip access-group WEB_OUT in</code>
+                        </div>
+                        <div class="warn-box"><strong>Implicit Deny :</strong> Toute ACL se termine par un "deny all" invisible. Si vous n'autorisez pas explicitement, c'est bloqué.</div>
+                    </div>
+
+                    <div id="sec-tab2" class="tab-content">
+                        <table class="cmp-table">
+                            <thead><tr><th>Type</th><th>Ratio</th><th>Usage</th></tr></thead>
+                            <tbody>
+                                <tr><td>NAT Statique</td><td>1:1</td><td>Exposer un serveur (DMZ). IP publique fixe → IP privée fixe.</td></tr>
+                                <tr><td>NAT Dynamique</td><td>N:N</td><td>Pool d'IPs publiques partagé entre plusieurs hôtes.</td></tr>
+                                <tr><td>PAT (NAT Overload)</td><td>N:1</td><td>Toute une LAN partage une seule IP publique (Box internet). Utilise les ports TCP/UDP pour différencier.</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="terminal-block">
+                            <div class="terminal-header">PAT Cisco — Accès Internet</div>
+                            <code>! Définir les interfaces
+Router(config-if)# ip nat inside   ! Interface LAN
+Router(config-if)# ip nat outside  ! Interface WAN
+
+! ACL pour le trafic à nater
+Router(config)# access-list 1 permit 192.168.1.0 0.0.0.255
+
+! PAT sur l'interface WAN
+Router(config)# ip nat inside source list 1 interface g0/0 overload</code>
+                        </div>
+                    </div>
+
+                    <div id="sec-tab3" class="tab-content">
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">🔒</span>
+                                <div class="cc-title">VPN Site-à-Site</div>
+                                <div class="cc-desc">Tunnel chiffré entre deux routeurs/firewalls. Connecte deux sites distants comme s'ils étaient sur le même LAN. (IPsec)</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">💻</span>
+                                <div class="cc-title">VPN Client (SSL/TLS)</div>
+                                <div class="cc-desc">Un utilisateur distant se connecte au réseau d'entreprise via son PC. (OpenVPN, Cisco AnyConnect)</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🛡️</span>
+                                <div class="cc-title">IPsec — IKE Phase 1</div>
+                                <div class="cc-desc">Authentification des routeurs + échange de clés Diffie-Hellman. Crée le tunnel ISAKMP.</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">📦</span>
+                                <div class="cc-title">IPsec — IKE Phase 2</div>
+                                <div class="cc-desc">Négociation des paramètres de chiffrement des données (AES, SHA). Crée les SA (Security Associations).</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sec-tab4" class="tab-content">
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">🏰</span>
+                                <div class="cc-title">DMZ</div>
+                                <div class="cc-desc">Zone tampon entre Internet et le LAN interne. Les serveurs publics (Web, Mail) y sont placés.</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🔍</span>
+                                <div class="cc-title">Stateful vs Stateless</div>
+                                <div class="cc-desc">Stateful garde la trace des connexions établies (meilleur). Stateless évalue chaque paquet isolément (ACL).</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🌐</span>
+                                <div class="cc-title">Solutions Courantes</div>
+                                <div class="cc-desc">pfSense/OPNsense (open source), Cisco ASA, Fortinet FortiGate, Palo Alto.</div>
+                            </div>
+                        </div>
+                        <div class="tip-box"><strong>Règle d'or Firewall :</strong> Tout bloquer par défaut (<em>default deny</em>), puis autoriser uniquement ce qui est nécessaire. Jamais l'inverse.</div>
+                    </div>
                 </section>
 
+                <!-- ── 9. TSHOOT ── -->
+                <section id="tshoot" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-tools card-icon-main"></i>
+                        <h2>8. Méthodes de Dépannage IP</h2>
+                    </div>
+                    <div class="section-meta">
+                        <span class="year-badge y2"><i class="fas fa-calendar-alt"></i> Mars 2026</span>
+                        <span class="section-hours">35h — 5 jours</span>
+                        <span class="section-bloc">Bloc A1/C4 · A2/C5 · C7</span>
+                    </div>
+
+                    <h3>Démarche Méthodique (Bottom-Up)</h3>
+                    <div class="concept-grid">
+                        <div class="concept-card">
+                            <span class="cc-icon">🔌</span>
+                            <div class="cc-title">L1 — Physique</div>
+                            <div class="cc-desc">Câble branché ? LED allumée ? <code>show interfaces</code> → chercher "down/down".</div>
+                        </div>
+                        <div class="concept-card">
+                            <span class="cc-icon">🔗</span>
+                            <div class="cc-title">L2 — Liaison</div>
+                            <div class="cc-desc">Bon VLAN ? Port en mode access/trunk correct ? ARP qui répond ? <code>show mac address-table</code></div>
+                        </div>
+                        <div class="concept-card">
+                            <span class="cc-icon">🗺️</span>
+                            <div class="cc-title">L3 — Réseau</div>
+                            <div class="cc-desc">IP correcte ? Masque OK ? Gateway joignable ? Route existante ? <code>ping</code> + <code>traceroute</code></div>
+                        </div>
+                        <div class="concept-card">
+                            <span class="cc-icon">🚪</span>
+                            <div class="cc-title">L4+ — Transport / App</div>
+                            <div class="cc-desc">Port ouvert ? Firewall bloquant ? Service actif ? <code>telnet IP PORT</code> pour tester un port.</div>
+                        </div>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Boîte à outils Tshoot</div>
+                        <code"># --- Windows ---
+ipconfig /all              # IP, MAC, Gateway, DNS
+ping 8.8.8.8               # Test connectivité
+tracert 8.8.8.8            # Chemin emprunté
+nslookup google.com        # Test DNS
+netstat -an                # Connexions actives + ports en écoute
+arp -a                     # Cache ARP local
+
+# --- Linux ---
+ip a                       # Interfaces et IPs
+ip route show              # Table de routage
+ss -tulnp                  # Ports en écoute (remplace netstat)
+dig google.com             # Test DNS complet
+tcpdump -i eth0 -n         # Capture trafic temps réel
+curl -I http://serveur     # Test applicatif HTTP</code>
+                    </div>
+
+                    <div class="warn-box"><strong>Documentation :</strong> Toujours rédiger un rapport d'intervention : symptôme → diagnostic → actions → vérification → résolution. C'est exigé à l'examen.</div>
+                </section>
+
+                <!-- ── 10. MONITORING ── -->
+                <section id="monitoring" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line card-icon-main"></i>
+                        <h2>9. Monitoring & Supervision</h2>
+                    </div>
+                    <div class="section-meta">
+                        <span class="year-badge y2"><i class="fas fa-calendar-alt"></i> Mai 2026</span>
+                        <span class="section-hours">21h — 3 jours</span>
+                        <span class="section-bloc">Bloc A1/C3 · C4 · A2/C7</span>
+                    </div>
+
+                    <div class="concept-grid">
+                        <div class="concept-card">
+                            <span class="cc-icon">📊</span>
+                            <div class="cc-title">Nagios / Centreon</div>
+                            <div class="cc-desc">Supervision par checks actifs (ping, services). Alertes par mail/SMS. Le standard historique.</div>
+                        </div>
+                        <div class="concept-card">
+                            <span class="cc-icon">📈</span>
+                            <div class="cc-title">Zabbix</div>
+                            <div class="cc-desc">Supervision avancée avec agents, SNMP, auto-découverte, dashboards et alertes configurables.</div>
+                        </div>
+                        <div class="concept-card">
+                            <span class="cc-icon">🔭</span>
+                            <div class="cc-title">Prometheus + Grafana</div>
+                            <div class="cc-desc">Stack moderne. Prometheus collecte les métriques (pull), Grafana les affiche. Populaire en DevOps.</div>
+                        </div>
+                        <div class="concept-card">
+                            <span class="cc-icon">📡</span>
+                            <div class="cc-title">SNMP</div>
+                            <div class="cc-desc">Protocole de supervision réseau. v3 recommandé (chiffré). Permet d'interroger routeurs, switchs, serveurs.</div>
+                        </div>
+                    </div>
+                    <div class="tip-box"><strong>OID & MIB :</strong> SNMP utilise des OID (Object IDentifier) pour identifier chaque métrique. Les MIB sont les "dictionnaires" qui les définissent.</div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">SNMP — Commandes de base</div>
+                        <code"># Interroger un équipement (community string "public")
+snmpwalk -v2c -c public 192.168.1.1
+
+# Récupérer une valeur spécifique (uptime)
+snmpget -v2c -c public 192.168.1.1 1.3.6.1.2.1.1.3.0
+
+# Activer SNMP sur Cisco (v2c)
+Router(config)# snmp-server community public RO
+Router(config)# snmp-server host 192.168.1.100 version 2c public</code>
+                    </div>
+                </section>
+
+                <!-- ── PORTS ── -->
+                <section id="ports" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-hashtag card-icon-main"></i>
+                        <h2>Ports Incontournables</h2>
+                    </div>
+                    <p>À connaître par cœur pour les ACL, le firewall et les questions d'examen.</p>
+                    <div class="port-grid">
+                        <div class="port-item"><span>FTP</span><span class="port-num">20/21 TCP</span></div>
+                        <div class="port-item"><span>SSH</span><span class="port-num">22 TCP</span></div>
+                        <div class="port-item"><span>Telnet</span><span class="port-num">23 TCP</span></div>
+                        <div class="port-item"><span>SMTP</span><span class="port-num">25 TCP</span></div>
+                        <div class="port-item"><span>DNS</span><span class="port-num">53 UDP/TCP</span></div>
+                        <div class="port-item"><span>DHCP</span><span class="port-num">67/68 UDP</span></div>
+                        <div class="port-item"><span>TFTP</span><span class="port-num">69 UDP</span></div>
+                        <div class="port-item"><span>HTTP</span><span class="port-num">80 TCP</span></div>
+                        <div class="port-item"><span>Kerberos</span><span class="port-num">88 TCP/UDP</span></div>
+                        <div class="port-item"><span>POP3</span><span class="port-num">110 TCP</span></div>
+                        <div class="port-item"><span>NTP</span><span class="port-num">123 UDP</span></div>
+                        <div class="port-item"><span>IMAP</span><span class="port-num">143 TCP</span></div>
+                        <div class="port-item"><span>SNMP</span><span class="port-num">161/162 UDP</span></div>
+                        <div class="port-item"><span>LDAP</span><span class="port-num">389 TCP/UDP</span></div>
+                        <div class="port-item"><span>HTTPS</span><span class="port-num">443 TCP</span></div>
+                        <div class="port-item"><span>SMB/CIFS</span><span class="port-num">445 TCP</span></div>
+                        <div class="port-item"><span>SIP</span><span class="port-num">5060 UDP</span></div>
+                        <div class="port-item"><span>RDP</span><span class="port-num">3389 TCP</span></div>
+                        <div class="port-item"><span>LDAPS</span><span class="port-num">636 TCP</span></div>
+                        <div class="port-item"><span>SMTP TLS</span><span class="port-num">587 TCP</span></div>
+                    </div>
+                </section>
+
+                <!-- ── CISCO CHEAT SHEET ── -->
                 <section id="cisco" class="card">
                     <div class="card-header">
                         <i class="fas fa-terminal card-icon-main"></i>
-                        <h2>6. Commandes de Survie Cisco</h2>
+                        <h2>Cheat Sheet Cisco — Survie</h2>
                     </div>
-                    <p>À connaître par cœur pour l'examen pratique.</p>
-                    
+                    <p>Les commandes à connaître par cœur pour l'examen pratique Packet Tracer.</p>
+
                     <div class="terminal-block">
-                        <div class="terminal-header">Diagnostic & Infos</div>
-                        <code># Voir les IP et l'état des ports (UP/UP ?)
+                        <div class="terminal-header">Diagnostic Universel</div>
+                        <code># État des interfaces (chercher UP/UP)
 show ip interface brief
 
-# Voir la table de routage (C=Connecté, S=Statique, O=OSPF)
+# Table de routage (C=Connecté, S=Statique, O=OSPF, R=RIP)
 show ip route
 
-# Voir les VLANs existants
+# VLANs
 show vlan brief
+show interfaces trunk
 
-# Voir la configuration en cours (RAM)
+# Running config (RAM) + Startup config (NVRAM)
 show running-config
+show startup-config
 
-# SAUVEGARDER (Ne jamais oublier !)
-copy running-config startup-config</code>
+# Historique des commandes
+terminal history size 50
+
+# SAUVEGARDER — NE JAMAIS OUBLIER !
+copy running-config startup-config
+! ou en raccourci :
+wr</code>
+                    </div>
+
+                    <div class="terminal-block">
+                        <div class="terminal-header">Configuration de Base (Router & Switch)</div>
+                        <code">! Entrer en mode privilégié
+enable
+
+! Mode configuration globale
+configure terminal  (ou: conf t)
+
+! Hostname + sécurité basique
+hostname R1
+enable secret Cisco123
+service password-encryption
+no ip domain-lookup
+banner motd #Acces Autorise Uniquement#
+
+! Interface Loopback (utile pour OSPF router-id)
+interface loopback 0
+ip address 1.1.1.1 255.255.255.255
+
+! Désactiver un port Switch inutilisé (sécurité)
+interface range f0/10-24
+shutdown</code>
                     </div>
                 </section>
 
-            </div>
-        </div>
+            </div><!-- /course-content -->
+        </div><!-- /course-layout -->
     </main>
 
-    <footer><p>© 2026 — Altinkaya Romain | Expert Réseaux</p></footer>
+    <footer><p>© 2026 — Altinkaya Romain | TSSR Expert Réseaux</p></footer>
+
     <script src="../assets/js/script.js"></script>
+    <script>
+        // ── Barre de progression lecture ──
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            document.getElementById('readProgress').style.width = (scrollTop / docHeight * 100) + '%';
+        });
+
+        // ── Système d'onglets universel ──
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.dataset.tab;
+                const section = btn.closest('section') || btn.closest('.card');
+                
+                // Désactiver tous les boutons et contenus du même groupe
+                const nav = btn.closest('.tab-nav');
+                nav.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                
+                // Trouver tous les tab-content dans la même card
+                const card = btn.closest('.card');
+                card.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Activer le bon
+                btn.classList.add('active');
+                const target = document.getElementById(targetId);
+                if (target) target.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
