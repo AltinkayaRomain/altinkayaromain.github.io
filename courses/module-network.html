@@ -475,7 +475,235 @@ Router(config-subif)# ip address 192.168.20.254 255.255.255.0</code>
                     </div>
                 </section>
 
-                <!-- ── 3. SWITCHING ── -->
+                <!-- ── 3. SUBNETTING ── -->
+                <section id="subnetting" class="card">
+                    <div class="card-header">
+                        <i class="fas fa-cut card-icon-main"></i>
+                        <h2>3. Subnetting & Nombre Magique</h2>
+                    </div>
+                    <div class="section-meta">
+                        <span class="year-badge y1"><i class="fas fa-calendar-alt"></i> Novembre 2024</span>
+                        <span class="section-hours">Inclus TCP/IP — 21h</span>
+                        <span class="section-bloc">Bloc A1/C4</span>
+                    </div>
+                    <p>Le <strong>nombre magique</strong> est la clé de tout calcul réseau rapide. Il représente le "pas" entre chaque sous-réseau sur un octet donné.</p>
+                    <div class="tip-box"><strong>Formule :</strong> Nombre Magique = <strong>256 − valeur de l'octet intéressant du masque</strong><br>
+                    Exemple : masque 255.255.255.<strong>192</strong> → NM = 256 − 192 = <strong>64</strong></div>
+
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="sub-tab1">🔢 Référence rapide</button>
+                        <button class="tab-btn" data-tab="sub-tab2">✂️ Découper en N sous-réseaux</button>
+                        <button class="tab-btn" data-tab="sub-tab3">👥 Sous-réseau pour X hôtes</button>
+                        <button class="tab-btn" data-tab="sub-tab4">🔍 Trouver le sous-réseau d'une IP</button>
+                        <button class="tab-btn" data-tab="sub-tab5">🗺️ Route flottante & récapitulative</button>
+                    </div>
+
+                    <!-- TAB 1 — TABLE DE RÉFÉRENCE -->
+                    <div id="sub-tab1" class="tab-content active">
+                        <p style="color:var(--text-dim);font-size:.85rem">Mémorisez cette table — elle suffit pour résoudre 95% des exercices d'examen.</p>
+                        <table class="cmp-table">
+                            <thead>
+                                <tr><th>CIDR</th><th>Masque</th><th>Nb. Magique</th><th>Sous-réseaux (/24)</th><th>Hôtes utiles</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>/25</td><td>255.255.255.<strong>128</strong></td><td style="color:var(--accent)">128</td><td>2</td><td>126</td></tr>
+                                <tr><td>/26</td><td>255.255.255.<strong>192</strong></td><td style="color:var(--accent)">64</td><td>4</td><td>62</td></tr>
+                                <tr><td>/27</td><td>255.255.255.<strong>224</strong></td><td style="color:var(--accent)">32</td><td>8</td><td>30</td></tr>
+                                <tr><td>/28</td><td>255.255.255.<strong>240</strong></td><td style="color:var(--accent)">16</td><td>16</td><td>14</td></tr>
+                                <tr><td>/29</td><td>255.255.255.<strong>248</strong></td><td style="color:var(--accent)">8</td><td>32</td><td>6</td></tr>
+                                <tr><td>/30</td><td>255.255.255.<strong>252</strong></td><td style="color:var(--accent)">4</td><td>64</td><td>2</td></tr>
+                                <tr><td>/31</td><td>255.255.255.<strong>254</strong></td><td style="color:var(--accent)">2</td><td>128</td><td>0 (liens P2P)</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="warn-box"><strong>Formules :</strong>
+                            Nombre de sous-réseaux = <strong>2<sup>n</sup></strong> (n = bits empruntés au champ hôte)<br>
+                            Hôtes utiles par sous-réseau = <strong>2<sup>h</sup> − 2</strong> (h = bits restants pour les hôtes)<br>
+                            <em>On retire 2 : une adresse réseau + une adresse broadcast.</em>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2 — DÉCOUPER EN N SOUS-RÉSEAUX -->
+                    <div id="sub-tab2" class="tab-content">
+                        <p style="color:var(--text-dim);font-size:.85rem"><strong>Problème type :</strong> Découper <code>192.168.10.0/24</code> en <strong>6 sous-réseaux minimum</strong>.</p>
+
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">1️⃣</span>
+                                <div class="cc-title">Trouver n (bits à emprunter)</div>
+                                <div class="cc-desc">On veut ≥ 6 sous-réseaux → 2<sup>n</sup> ≥ 6<br><strong>2² = 4</strong> (insuffisant)<br><strong>2³ = 8</strong> ✅ → on emprunte <strong>3 bits</strong></div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">2️⃣</span>
+                                <div class="cc-title">Nouveau masque</div>
+                                <div class="cc-desc">/24 + 3 bits empruntés = <strong>/27</strong><br>Masque = 255.255.255.<strong>224</strong><br>Nombre magique = 256 − 224 = <strong>32</strong></div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">3️⃣</span>
+                                <div class="cc-title">Hôtes par sous-réseau</div>
+                                <div class="cc-desc">Bits restants = 8 − 3 = 5 bits<br>2<sup>5</sup> − 2 = <strong>30 hôtes utiles</strong> par sous-réseau</div>
+                            </div>
+                        </div>
+
+                        <p style="color:var(--text-dim);font-size:.85rem;margin-top:12px">On liste les sous-réseaux en ajoutant le <strong>nombre magique (32)</strong> à chaque fois :</p>
+                        <table class="cmp-table">
+                            <thead><tr><th>#</th><th>Réseau</th><th>1ère IP hôte</th><th>Dernière IP hôte</th><th>Broadcast</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td>192.168.10.<strong>0</strong>/27</td><td>192.168.10.1</td><td>192.168.10.30</td><td>192.168.10.31</td></tr>
+                                <tr><td>2</td><td>192.168.10.<strong>32</strong>/27</td><td>192.168.10.33</td><td>192.168.10.62</td><td>192.168.10.63</td></tr>
+                                <tr><td>3</td><td>192.168.10.<strong>64</strong>/27</td><td>192.168.10.65</td><td>192.168.10.94</td><td>192.168.10.95</td></tr>
+                                <tr><td>4</td><td>192.168.10.<strong>96</strong>/27</td><td>192.168.10.97</td><td>192.168.10.126</td><td>192.168.10.127</td></tr>
+                                <tr><td>5</td><td>192.168.10.<strong>128</strong>/27</td><td>192.168.10.129</td><td>192.168.10.158</td><td>192.168.10.159</td></tr>
+                                <tr><td>6</td><td>192.168.10.<strong>160</strong>/27</td><td>192.168.10.161</td><td>192.168.10.190</td><td>192.168.10.191</td></tr>
+                                <tr><td>7</td><td>192.168.10.<strong>192</strong>/27</td><td>192.168.10.193</td><td>192.168.10.222</td><td>192.168.10.223</td></tr>
+                                <tr><td>8</td><td>192.168.10.<strong>224</strong>/27</td><td>192.168.10.225</td><td>192.168.10.254</td><td>192.168.10.255</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="tip-box"><strong>Méthode :</strong> Adresse réseau → +1 = 1ère IP hôte. Broadcast − 1 = dernière IP hôte. Broadcast = (prochain réseau − 1).</div>
+                    </div>
+
+                    <!-- TAB 3 — POUR X HÔTES -->
+                    <div id="sub-tab3" class="tab-content">
+                        <p style="color:var(--text-dim);font-size:.85rem"><strong>Problème type :</strong> Créer un sous-réseau pour accueillir <strong>au moins 50 hôtes</strong> dans <code>172.16.0.0/16</code>.</p>
+
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">1️⃣</span>
+                                <div class="cc-title">Trouver h (bits hôtes)</div>
+                                <div class="cc-desc">On veut 2<sup>h</sup> − 2 ≥ 50<br><strong>2⁵ − 2 = 30</strong> (insuffisant)<br><strong>2⁶ − 2 = 62</strong> ✅ → il faut <strong>6 bits hôtes</strong></div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">2️⃣</span>
+                                <div class="cc-title">Calculer le masque</div>
+                                <div class="cc-desc">32 bits − 6 bits hôtes = <strong>/26</strong><br>Masque = 255.255.255.<strong>192</strong><br>Nombre magique = 256 − 192 = <strong>64</strong></div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">3️⃣</span>
+                                <div class="cc-title">Premier sous-réseau</div>
+                                <div class="cc-desc">Réseau : <strong>172.16.0.0/26</strong><br>Hôtes : 172.16.0.1 → 172.16.0.62<br>Broadcast : 172.16.0.63</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">4️⃣</span>
+                                <div class="cc-title">Sous-réseaux suivants</div>
+                                <div class="cc-desc">+64 à chaque fois :<br>172.16.0.64/26<br>172.16.0.128/26<br>172.16.0.192/26…</div>
+                            </div>
+                        </div>
+                        <div class="warn-box"><strong>Règle d'or :</strong> Toujours choisir la <em>puissance de 2 immédiatement supérieure</em> au besoin. Pour 50 hôtes : 2⁵=32 (trop petit) → 2⁶=64 (OK, 62 utiles).</div>
+                    </div>
+
+                    <!-- TAB 4 — TROUVER LE SOUS-RÉSEAU D'UNE IP -->
+                    <div id="sub-tab4" class="tab-content">
+                        <p style="color:var(--text-dim);font-size:.85rem"><strong>Problème type :</strong> À quel sous-réseau appartient l'IP <code>192.168.10.77/27</code> ?</p>
+
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">1️⃣</span>
+                                <div class="cc-title">Trouver le nombre magique</div>
+                                <div class="cc-desc">/27 → masque 255.255.255.<strong>224</strong><br>NM = 256 − 224 = <strong>32</strong></div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">2️⃣</span>
+                                <div class="cc-title">Division entière</div>
+                                <div class="cc-desc">Octet intéressant de l'IP = <strong>77</strong><br>77 ÷ 32 = <strong>2</strong> (partie entière)<br>2 × 32 = <strong>64</strong> → c'est l'adresse réseau</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">3️⃣</span>
+                                <div class="cc-title">Résultat</div>
+                                <div class="cc-desc">Réseau : <strong>192.168.10.64/27</strong><br>Broadcast : 64 + 32 − 1 = <strong>192.168.10.95</strong><br>Hôtes : .65 → .94</div>
+                            </div>
+                        </div>
+
+                        <p style="color:var(--text-dim);font-size:.85rem;margin-top:14px">Autre exemple : <code>10.0.0.200/26</code> ?</p>
+                        <table class="cmp-table">
+                            <thead><tr><th>Étape</th><th>Calcul</th><th>Résultat</th></tr></thead>
+                            <tbody>
+                                <tr><td>Masque /26</td><td>255.255.255.192</td><td>NM = 256 − 192 = <strong>64</strong></td></tr>
+                                <tr><td>Division entière</td><td>200 ÷ 64 = 3 (entier)</td><td>3 × 64 = <strong>192</strong></td></tr>
+                                <tr><td>Adresse réseau</td><td>—</td><td><strong>10.0.0.192/26</strong></td></tr>
+                                <tr><td>Broadcast</td><td>192 + 64 − 1</td><td><strong>10.0.0.255</strong></td></tr>
+                                <tr><td>Plage hôtes</td><td>—</td><td>10.0.0.193 → 10.0.0.254</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="tip-box"><strong>Méthode universelle :</strong> octet ÷ NM → partie entière × NM = adresse réseau. Broadcast = réseau + NM − 1.</div>
+                    </div>
+
+                    <!-- TAB 5 — ROUTE FLOTTANTE & RÉCAPITULATIVE -->
+                    <div id="sub-tab5" class="tab-content">
+
+                        <h3 style="color:var(--accent);margin-top:0">Route Flottante (Floating Static Route)</h3>
+                        <p style="color:var(--text-dim);font-size:.85rem">Une route de secours qui n'entre dans la table de routage que si la route principale tombe. Elle a une <strong>distance administrative (AD) plus élevée</strong>.</p>
+
+                        <div class="concept-grid">
+                            <div class="concept-card">
+                                <span class="cc-icon">🛣️</span>
+                                <div class="cc-title">Route principale</div>
+                                <div class="cc-desc">Via le lien fibre (g0/0), AD = 1 (statique par défaut). Active tant que l'interface est UP.</div>
+                            </div>
+                            <div class="concept-card">
+                                <span class="cc-icon">🚨</span>
+                                <div class="cc-title">Route flottante</div>
+                                <div class="cc-desc">Via le lien 4G (g0/1), AD = 5 (plus haute). Invisible dans la table… jusqu'à ce que la fibre tombe.</div>
+                            </div>
+                        </div>
+
+                        <div class="terminal-block">
+                            <div class="terminal-header">Exemple — Route Flottante Cisco</div>
+                            <code">! Contexte : accès Internet via fibre (g0/0) + 4G de secours (g0/1)
+
+! Route principale — AD 1 (par défaut pour statique)
+Router(config)# ip route 0.0.0.0 0.0.0.0 203.0.113.1
+
+! Route flottante — AD 5 (plus haute = moins prioritaire)
+! Elle n'apparaît dans "show ip route" QUE si la route AD1 disparaît
+Router(config)# ip route 0.0.0.0 0.0.0.0 198.51.100.1 5
+!                                                        ^^^ distance administrative
+
+! Vérification
+Router# show ip route static</code>
+                        </div>
+                        <div class="tip-box"><strong>Distances administratives à retenir :</strong> Connecté = 0, Statique = 1, EIGRP = 90, OSPF = 110, RIP = 120. Plus c'est bas, plus c'est prioritaire.</div>
+
+                        <h3 style="color:var(--accent);margin-top:20px">Route Récapitulative (Route Summary)</h3>
+                        <p style="color:var(--text-dim);font-size:.85rem">Regrouper plusieurs réseaux contigus en une seule route pour alléger les tables de routage. Fonctionne quand les réseaux partagent les mêmes bits de gauche.</p>
+
+                        <div class="terminal-block">
+                            <div class="terminal-header">Exemple — Résumer 4 réseaux en 1</div>
+                            <code">! Ces 4 réseaux doivent être annoncés vers un autre routeur :
+!   192.168.0.0/24
+!   192.168.1.0/24
+!   192.168.2.0/24
+!   192.168.3.0/24
+
+! Écrire les 3ème octets en binaire :
+!   0  = 0000 0000
+!   1  = 0000 0001
+!   2  = 0000 0010
+!   3  = 0000 0011
+! Bits communs : les 6 premiers (0000 00xx) → /22
+
+! Route récapitulative : 192.168.0.0/22
+Router(config)# ip route 192.168.0.0 255.255.252.0 10.0.0.2
+
+! Avec OSPF : résumer sur une interface
+Router(config-router)# area 0 range 192.168.0.0 255.255.252.0</code>
+                        </div>
+
+                        <p style="color:var(--text-dim);font-size:.85rem;margin-top:8px"><strong>Méthode pour trouver le masque récapitulatif :</strong></p>
+                        <table class="cmp-table">
+                            <thead><tr><th>Réseau</th><th>3ème octet en binaire</th></tr></thead>
+                            <tbody>
+                                <tr><td>192.168.0.0</td><td>0000 00<span style="color:var(--accent)">00</span></td></tr>
+                                <tr><td>192.168.1.0</td><td>0000 00<span style="color:var(--accent)">01</span></td></tr>
+                                <tr><td>192.168.2.0</td><td>0000 00<span style="color:var(--accent)">10</span></td></tr>
+                                <tr><td>192.168.3.0</td><td>0000 00<span style="color:var(--accent)">11</span></td></tr>
+                                <tr><td colspan="2" style="color:var(--accent)">6 bits communs → /16 + 6 = /22 → masque 255.255.252.0</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="warn-box"><strong>Attention :</strong> Une route récapitulative ne doit jamais couvrir des réseaux qui n'existent pas réellement dans votre infra, sinon le routeur attirera du trafic qu'il ne peut pas livrer (trou noir).</div>
+                    </div>
+
+                </section>
+
+                <!-- ── 4. SWITCHING (renuméroté) ── -->
                 <section id="switching" class="card">
                     <div class="card-header">
                         <i class="fas fa-network-wired card-icon-main"></i>
