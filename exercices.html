@@ -381,13 +381,13 @@
         <!-- Filtres -->
         <div class="filter-bar">
             <button class="filter-btn active" data-filter="all">Tous</button>
-            <button class="filter-btn facile" data-filter="facile">🟢 Facile</button>
-            <button class="filter-btn moyen" data-filter="moyen">🟡 Moyen</button>
-            <button class="filter-btn difficile" data-filter="difficile">🔴 Difficile</button>
-            <button class="filter-btn" data-filter="decoupage" style="border-color:rgba(0,200,255,.3);color:#00c8ff">✂️ Découpage</button>
-            <button class="filter-btn" data-filter="hotes" style="border-color:rgba(105,240,174,.3);color:#69f0ae">👥 Hôtes</button>
-            <button class="filter-btn" data-filter="identification" style="border-color:rgba(255,193,7,.3);color:#ffc107">🔍 Identification</button>
-            <button class="filter-btn" data-filter="routes" style="border-color:rgba(255,82,82,.3);color:#ff5252">🗺️ Routes</button>
+            <button class="filter-btn facile" data-filter="facile">Facile</button>
+            <button class="filter-btn moyen" data-filter="moyen">Moyen</button>
+            <button class="filter-btn difficile" data-filter="difficile">Difficile</button>
+            <button class="filter-btn" data-filter="decoupage" style="border-color:rgba(0,200,255,.3);color:#00c8ff">Découpage</button>
+            <button class="filter-btn" data-filter="hotes" style="border-color:rgba(105,240,174,.3);color:#69f0ae">Hôtes</button>
+            <button class="filter-btn" data-filter="identification" style="border-color:rgba(255,193,7,.3);color:#ffc107">Identification</button>
+            <button class="filter-btn" data-filter="routes" style="border-color:rgba(255,82,82,.3);color:#ff5252">Routes</button>
         </div>
 
         <!-- ═══════════════ EXO GRID ═══════════════ -->
@@ -410,11 +410,11 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>Nouveau masque (CIDR)</label>
-                        <input type="text" placeholder="ex: /26" data-answer="/26">
+                        <input type="text" placeholder="/xx" data-answer="/26">
                     </div>
                     <div class="answer-field">
                         <label>Nombre magique</label>
-                        <input type="text" placeholder="ex: 64" data-answer="64">
+                        <input type="text" placeholder="..." data-answer="64">
                     </div>
                     <div class="answer-field">
                         <label>Réseau 1</label>
@@ -438,7 +438,7 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 4 sous-réseaux = 2² → on emprunte <strong>2 bits</strong> → /24 + 2 = /26. Masque 255.255.255.<strong>192</strong>. NM = 256 − 192 = <strong>64</strong>.</div>
+                <div class="hint-box">4 sous-réseaux = 2² → on emprunte <strong>2 bits</strong> → /24 + 2 = /26. Masque 255.255.255.<strong>192</strong>. NM = 256 − 192 = <strong>64</strong>.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction complète :</strong><br>
@@ -464,7 +464,7 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>Nombre magique</label>
-                        <input type="text" placeholder="ex: 32" data-answer="32">
+                        <input type="text" placeholder="" data-answer="32">
                     </div>
                     <div class="answer-field">
                         <label>Adresse réseau</label>
@@ -488,7 +488,7 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 /27 → masque .224 → NM = <strong>32</strong>. Division : 45 ÷ 32 = 1 (entier) → 1×32 = <strong>32</strong>. C'est l'adresse réseau.</div>
+                <div class="hint-box">/27 → masque .224 → NM = <strong>32</strong>. Division : 45 ÷ 32 = 1 (entier) → 1×32 = <strong>32</strong>. C'est l'adresse réseau.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction :</strong><br>
@@ -513,19 +513,19 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>Bits hôtes nécessaires</label>
-                        <input type="text" placeholder="ex: 4" data-answer="4">
+                        <input type="text" placeholder="" data-answer="4">
                     </div>
                     <div class="answer-field">
                         <label>Masque CIDR</label>
-                        <input type="text" placeholder="ex: /28" data-answer="/28">
+                        <input type="text" placeholder="/xx" data-answer="/28">
                     </div>
                     <div class="answer-field">
                         <label>Hôtes utiles</label>
-                        <input type="text" placeholder="ex: 14" data-answer="14">
+                        <input type="text" placeholder="" data-answer="14">
                     </div>
                     <div class="answer-field">
                         <label>Nombre magique</label>
-                        <input type="text" placeholder="ex: 16" data-answer="16">
+                        <input type="text" placeholder="" data-answer="16">
                     </div>
                 </div>
                 <div class="exo-actions">
@@ -533,12 +533,12 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 2<sup>h</sup> − 2 ≥ 14 → 2³−2=6 (non) → 2⁴−2=<strong>14</strong> ✅ → 4 bits hôtes → /28. Masque .240 → NM = 16.</div>
+                <div class="hint-box">2<sup>h</sup> − 2 ≥ 14 → 2³−2=6 (non) → 2⁴−2=<strong>14</strong> ✓ → 4 bits hôtes → /28. Masque .240 → NM = 16.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction :</strong><br>
                     On cherche h tel que 2<sup>h</sup>−2 ≥ 14<br>
-                    h=3 → 2³−2=6 ❌ · h=4 → 2⁴−2=<code>14</code> ✅<br>
+                    h=3 → 2³−2=6 ✗ · h=4 → 2⁴−2=<code>14</code> ✓<br>
                     Masque : /32−4 = <code>/28</code> (255.255.255.240) · NM = 256−240 = <code>16</code><br>
                     Hôtes utiles : <code>14</code> exactement (juste ce qu'il faut !)
                 </div>
@@ -560,11 +560,11 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>Masque CIDR</label>
-                        <input type="text" placeholder="ex: /27" data-answer="/27">
+                        <input type="text" placeholder="/xx" data-answer="/27">
                     </div>
                     <div class="answer-field">
                         <label>Nombre magique</label>
-                        <input type="text" placeholder="ex: 32" data-answer="32">
+                        <input type="text" placeholder="" data-answer="32">
                     </div>
                     <div class="answer-field">
                         <label>Sous-réseau #1</label>
@@ -580,7 +580,7 @@
                     </div>
                     <div class="answer-field">
                         <label>Hôtes utiles/réseau</label>
-                        <input type="text" placeholder="ex: 30" data-answer="30">
+                        <input type="text" placeholder="" data-answer="30">
                     </div>
                 </div>
                 <div class="exo-actions">
@@ -588,7 +588,7 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 8 = 2³ → 3 bits empruntés → /27. NM=32. SR#3 = 0 + 2×32 = 64. SR#8 = 0 + 7×32 = 224.</div>
+                <div class="hint-box">8 = 2³ → 3 bits empruntés → /27. NM=32. SR#3 = 0 + 2×32 = 64. SR#8 = 0 + 7×32 = 224.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction :</strong><br>
@@ -613,7 +613,7 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>Nombre magique</label>
-                        <input type="text" placeholder="ex: 64" data-answer="64">
+                        <input type="text" placeholder="..." data-answer="64">
                     </div>
                     <div class="answer-field">
                         <label>Adresse réseau</label>
@@ -637,7 +637,7 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 /26 → masque .192 → NM=64. 200÷64=3 → 3×64=192. BC = 192+64−1 = 255. Dernière hôte = BC−1 = 254.</div>
+                <div class="hint-box">/26 → masque .192 → NM=64. 200÷64=3 → 3×64=192. BC = 192+64−1 = 255. Dernière hôte = BC−1 = 254.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction :</strong><br>
@@ -661,11 +661,11 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>Masque CIDR</label>
-                        <input type="text" placeholder="ex: /26" data-answer="/26">
+                        <input type="text" placeholder="/xx" data-answer="/26">
                     </div>
                     <div class="answer-field">
                         <label>Hôtes utiles</label>
-                        <input type="text" placeholder="ex: 62" data-answer="62">
+                        <input type="text" placeholder="" data-answer="62">
                     </div>
                     <div class="answer-field">
                         <label>1er sous-réseau</label>
@@ -673,7 +673,7 @@
                     </div>
                     <div class="answer-field">
                         <label>Nombre magique</label>
-                        <input type="text" placeholder="ex: 64" data-answer="64">
+                        <input type="text" placeholder="..." data-answer="64">
                     </div>
                     <div class="answer-field">
                         <label>Dernier sous-réseau</label>
@@ -685,11 +685,11 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 2⁵=30 (insuffisant) → 2⁶=64 → 64−2=62 hôtes. /26. NM=64. 4 blocs : .0, .64, .128, .192.</div>
+                <div class="hint-box">2⁵=30 (insuffisant) → 2⁶=64 → 64−2=62 hôtes. /26. NM=64. 4 blocs : .0, .64, .128, .192.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction :</strong><br>
-                    2⁶−2 = <code>62</code> ≥ 50 ✅ → <code>/26</code> · NM = <code>64</code><br>
+                    2⁶−2 = <code>62</code> ≥ 50 ✓ → <code>/26</code> · NM = <code>64</code><br>
                     Sous-réseaux : <code>192.168.50.0</code> / .64 / .128 / <code>192.168.50.192</code>
                 </div>
             </div>
@@ -707,7 +707,7 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>Nombre magique</label>
-                        <input type="text" placeholder="ex: 128" data-answer="128">
+                        <input type="text" placeholder="" data-answer="128">
                     </div>
                     <div class="answer-field">
                         <label>Adresse réseau</label>
@@ -727,7 +727,7 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 /25 → masque .128 → NM=128. 130÷128=1 → 1×128=128. La 1ère moitié = .0→.127, la 2ème = .128→.255.</div>
+                <div class="hint-box">/25 → masque .128 → NM=128. 130÷128=1 → 1×128=128. La 1ère moitié = .0→.127, la 2ème = .128→.255.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction :</strong><br>
@@ -754,11 +754,11 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>Nombre de sous-réseaux</label>
-                        <input type="text" placeholder="ex: 16" data-answer="16">
+                        <input type="text" placeholder="" data-answer="16">
                     </div>
                     <div class="answer-field">
                         <label>Nombre magique (3ème octet)</label>
-                        <input type="text" placeholder="ex: 16" data-answer="16">
+                        <input type="text" placeholder="" data-answer="16">
                     </div>
                     <div class="answer-field">
                         <label>Sous-réseau #1</label>
@@ -774,7 +774,7 @@
                     </div>
                     <div class="answer-field">
                         <label>Hôtes utiles/réseau</label>
-                        <input type="text" placeholder="ex: 4094" data-answer="4094">
+                        <input type="text" placeholder="" data-answer="4094">
                     </div>
                 </div>
                 <div class="exo-actions">
@@ -782,7 +782,7 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 /20 sur une base /16 = 4 bits empruntés → 2⁴=16 SR. Le NM s'applique au 3ème octet : masque 255 sur 3ème octet = 255.255.240.0 → NM = 256−240 = 16. SR#16 = 0+(15×16) = 240.</div>
+                <div class="hint-box">/20 sur une base /16 = 4 bits empruntés → 2⁴=16 SR. Le NM s'applique au 3ème octet : masque 255 sur 3ème octet = 255.255.240.0 → NM = 256−240 = 16. SR#16 = 0+(15×16) = 240.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction :</strong><br>
@@ -810,7 +810,7 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>Réseau A — Masque</label>
-                        <input type="text" placeholder="ex: /26" data-answer="/26">
+                        <input type="text" placeholder="/xx" data-answer="/26">
                     </div>
                     <div class="answer-field">
                         <label>Réseau A — Adresse</label>
@@ -818,7 +818,7 @@
                     </div>
                     <div class="answer-field">
                         <label>Réseau B — Masque</label>
-                        <input type="text" placeholder="ex: /27" data-answer="/27">
+                        <input type="text" placeholder="/xx" data-answer="/27">
                     </div>
                     <div class="answer-field">
                         <label>Réseau B — Adresse</label>
@@ -826,7 +826,7 @@
                     </div>
                     <div class="answer-field">
                         <label>Réseau C — Masque</label>
-                        <input type="text" placeholder="ex: /28" data-answer="/28">
+                        <input type="text" placeholder="/xx" data-answer="/28">
                     </div>
                     <div class="answer-field">
                         <label>Réseau C — Adresse</label>
@@ -838,7 +838,7 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 VLSM = toujours allouer du plus grand au plus petit. A→/26 (62h) start .0, fin .63. B→/27 (30h) start .64, fin .95. C→/28 (14h) start .96.</div>
+                <div class="hint-box">VLSM = toujours allouer du plus grand au plus petit. A→/26 (62h) start .0, fin .63. B→/27 (30h) start .64, fin .95. C→/28 (14h) start .96.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction VLSM :</strong><br>
@@ -863,7 +863,7 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>Nombre magique</label>
-                        <input type="text" placeholder="ex: 8" data-answer="8">
+                        <input type="text" placeholder="" data-answer="8">
                     </div>
                     <div class="answer-field">
                         <label>Adresse réseau</label>
@@ -883,13 +883,13 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 /29 → masque .248 → NM=8. 253÷8=31 → 31×8=248 → réseau .248. BC = 248+8−1 = 255. .253 ≠ .255 donc c'est un hôte valide.</div>
+                <div class="hint-box">/29 → masque .248 → NM=8. 253÷8=31 → 31×8=248 → réseau .248. BC = 248+8−1 = 255. .253 ≠ .255 donc c'est un hôte valide.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction :</strong><br>
                     NM = 256−248 = <code>8</code> · 253÷8 = 31 (entier) → réseau = <code>10.10.10.248/29</code><br>
                     Broadcast = 248+8−1 = <code>10.10.10.255</code><br>
-                    Plage hôtes : .249 → .254 · .253 est dans la plage → <code>hôte</code> valide ✅
+                    Plage hôtes : .249 → .254 · .253 est dans la plage → <code>hôte</code> valide ✓
                 </div>
             </div>
 
@@ -910,11 +910,11 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>AD route principale (défaut)</label>
-                        <input type="text" placeholder="ex: 1" data-answer="1">
+                        <input type="text" placeholder="" data-answer="1">
                     </div>
                     <div class="answer-field">
                         <label>AD route flottante</label>
-                        <input type="text" placeholder="ex: 5" data-answer="5">
+                        <input type="text" placeholder="" data-answer="5">
                     </div>
                     <div class="answer-field" style="grid-column: 1/-1">
                         <label>Commande Cisco route flottante</label>
@@ -926,7 +926,7 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 La route statique par défaut a AD=1. Pour qu'elle soit "flottante" (invisible tant que l'autre existe), donnez-lui une AD > 1, ex: 5. Syntaxe : ip route réseau masque nexthop AD.</div>
+                <div class="hint-box">La route statique par défaut a AD=1. Pour qu'elle soit "flottante" (invisible tant que l'autre existe), donnez-lui une AD > 1 (par exemple 5). Syntaxe : ip route réseau masque nexthop AD.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction :</strong><br>
@@ -951,15 +951,15 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>Réseau récapitulatif</label>
-                        <input type="text" placeholder="ex: 192.168.x.x" data-answer="192.168.8.0">
+                        <input type="text" placeholder="" data-answer="192.168.8.0">
                     </div>
                     <div class="answer-field">
                         <label>Masque CIDR</label>
-                        <input type="text" placeholder="ex: /22" data-answer="/22">
+                        <input type="text" placeholder="/xx" data-answer="/22">
                     </div>
                     <div class="answer-field">
                         <label>Masque décimal</label>
-                        <input type="text" placeholder="ex: 255.255.x.x" data-answer="255.255.252.0">
+                        <input type="text" placeholder="" data-answer="255.255.252.0">
                     </div>
                     <div class="answer-field" style="grid-column: 1/-1">
                         <label>Commande Cisco</label>
@@ -971,7 +971,7 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 3ème octet en binaire : 8=0000 1000, 9=0000 1001, 10=0000 1010, 11=0000 1011. Bits communs : les 6 premiers → /16+6=/22. Masque = 255.255.252.0.</div>
+                <div class="hint-box">3ème octet en binaire : 8=0000 1000, 9=0000 1001, 10=0000 1010, 11=0000 1011. Bits communs : les 6 premiers → /16+6=/22. Masque = 255.255.252.0.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction :</strong><br>
@@ -997,7 +997,7 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>Nombre magique</label>
-                        <input type="text" placeholder="ex: 4" data-answer="4">
+                        <input type="text" placeholder="" data-answer="4">
                     </div>
                     <div class="answer-field">
                         <label>Adresse réseau</label>
@@ -1017,7 +1017,7 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 /30 → masque .252 → NM=4. 5÷4=1 → réseau=.4. BC=.7. Hôtes valides : .5 et .6 seulement. L'autre routeur prend .6.</div>
+                <div class="hint-box">/30 → masque .252 → NM=4. 5÷4=1 → réseau=.4. BC=.7. Hôtes valides : .5 et .6 seulement. L'autre routeur prend .6.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction :</strong><br>
@@ -1042,23 +1042,23 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>Bits empruntés</label>
-                        <input type="text" placeholder="ex: 4" data-answer="4">
+                        <input type="text" placeholder="" data-answer="4">
                     </div>
                     <div class="answer-field">
                         <label>Masque CIDR</label>
-                        <input type="text" placeholder="ex: /28" data-answer="/28">
+                        <input type="text" placeholder="/xx" data-answer="/28">
                     </div>
                     <div class="answer-field">
                         <label>Nb réel de sous-réseaux</label>
-                        <input type="text" placeholder="ex: 16" data-answer="16">
+                        <input type="text" placeholder="" data-answer="16">
                     </div>
                     <div class="answer-field">
                         <label>Hôtes utiles / réseau</label>
-                        <input type="text" placeholder="ex: 14" data-answer="14">
+                        <input type="text" placeholder="" data-answer="14">
                     </div>
                     <div class="answer-field">
                         <label>Nombre magique</label>
-                        <input type="text" placeholder="ex: 16" data-answer="16">
+                        <input type="text" placeholder="" data-answer="16">
                     </div>
                 </div>
                 <div class="exo-actions">
@@ -1066,11 +1066,11 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 2³=8 (insuffisant) → 2⁴=16 ✅. On emprunte 4 bits → /24+4=/28. NM=16. Hôtes = 2⁴−2=14.</div>
+                <div class="hint-box">2³=8 (insuffisant) → 2⁴=16 ✓. On emprunte 4 bits → /24+4=/28. NM=16. Hôtes = 2⁴−2=14.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction :</strong><br>
-                    2³=8 ❌ · 2⁴=<code>16</code> ✅ → <code>4</code> bits empruntés → <code>/28</code><br>
+                    2³=8 ✗ · 2⁴=<code>16</code> ✓ → <code>4</code> bits empruntés → <code>/28</code><br>
                     Masque = 255.255.255.240 · NM = <code>16</code><br>
                     Hôtes utiles = 2⁴−2 = <code>14</code>
                 </div>
@@ -1091,23 +1091,23 @@
                 <div class="answer-grid">
                     <div class="answer-field">
                         <label>AD Statique</label>
-                        <input type="text" placeholder="ex: 1" data-answer="1">
+                        <input type="text" placeholder="" data-answer="1">
                     </div>
                     <div class="answer-field">
                         <label>AD OSPF</label>
-                        <input type="text" placeholder="ex: 110" data-answer="110">
+                        <input type="text" placeholder="" data-answer="110">
                     </div>
                     <div class="answer-field">
                         <label>AD RIP</label>
-                        <input type="text" placeholder="ex: 120" data-answer="120">
+                        <input type="text" placeholder="" data-answer="120">
                     </div>
                     <div class="answer-field">
                         <label>Route choisie (protocole)</label>
-                        <input type="text" placeholder="ex: OSPF" data-answer="Statique">
+                        <input type="text" placeholder="" data-answer="Statique">
                     </div>
                     <div class="answer-field" style="grid-column: 1/-1">
                         <label>Classement (meilleur → moins bon)</label>
-                        <input type="text" placeholder="ex: X > Y > Z" data-answer="Statique > OSPF > RIP">
+                        <input type="text" placeholder="" data-answer="Statique > OSPF > RIP">
                     </div>
                 </div>
                 <div class="exo-actions">
@@ -1115,7 +1115,7 @@
                     <button class="btn-hint" onclick="showHint(this)"><i class="fas fa-lightbulb"></i> Indice</button>
                     <button class="btn-reset" onclick="resetExo(this)"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="hint-box">💡 AD : Connecté=0, Statique=1, EIGRP=90, OSPF=110, RIP=120. Plus l'AD est BASSE, plus la route est PRIORITAIRE.</div>
+                <div class="hint-box">AD : Connecté=0, Statique=1, EIGRP=90, OSPF=110, RIP=120. Plus l'AD est BASSE, plus la route est PRIORITAIRE.</div>
                 <div class="exo-feedback"></div>
                 <div class="correction-box">
                     <strong>Correction :</strong><br>
@@ -1183,7 +1183,7 @@
             const allFilled = filledCount === inputs.length;
 
             if (allCorrect && allFilled) {
-                feedback.innerHTML = '✅ <strong>Parfait !</strong> Tous les champs sont corrects. Excellent travail !';
+                feedback.innerHTML = '✓ <strong>Parfait !</strong> Tous les champs sont corrects. Excellent travail !';
                 feedback.className = 'exo-feedback show success';
                 correction.classList.add('show');
                 card.classList.add('solved');
@@ -1199,7 +1199,7 @@
             } else {
                 const wrongCount = card.querySelectorAll('input.wrong').length;
                 const correctCount = card.querySelectorAll('input.correct').length;
-                feedback.innerHTML = `❌ <strong>${wrongCount} erreur(s)</strong>, ${correctCount} correct(s). Vérifiez les champs en rouge. La correction détaillée est affichée ci-dessous.`;
+                feedback.innerHTML = `✗ <strong>${wrongCount} erreur(s)</strong>, ${correctCount} correct(s). Vérifiez les champs en rouge. La correction détaillée est affichée ci-dessous.`;
                 feedback.className = 'exo-feedback show error';
                 correction.classList.add('show');
                 card.classList.add('failed');
