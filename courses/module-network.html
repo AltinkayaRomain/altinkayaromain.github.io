@@ -647,7 +647,7 @@ Router(config-subif)# ip address 192.168.20.254 255.255.255.0</code>
 
                         <div class="terminal-block">
                             <div class="terminal-header">Exemple — Route Flottante Cisco</div>
-                            <code">! Contexte : accès Internet via fibre (g0/0) + 4G de secours (g0/1)
+                            <code>! Contexte : accès Internet via fibre (g0/0) + 4G de secours (g0/1)
 
 ! Route principale — AD 1 (par défaut pour statique)
 Router(config)# ip route 0.0.0.0 0.0.0.0 203.0.113.1
@@ -667,7 +667,7 @@ Router# show ip route static</code>
 
                         <div class="terminal-block">
                             <div class="terminal-header">Exemple — Résumer 4 réseaux en 1</div>
-                            <code">! Ces 4 réseaux doivent être annoncés vers un autre routeur :
+                            <code>! Ces 4 réseaux doivent être annoncés vers un autre routeur :
 !   192.168.0.0/24
 !   192.168.1.0/24
 !   192.168.2.0/24
@@ -1053,7 +1053,7 @@ systemctl restart apache2</code>
                         </div>
                         <div class="terminal-block">
                             <div class="terminal-header">ACL Étendue — Exemple</div>
-                            <code">! Autoriser HTTP depuis 192.168.1.0/24 vers n'importe où
+                            <code>! Autoriser HTTP depuis 192.168.1.0/24 vers n'importe où
 Router(config)# ip access-list extended WEB_OUT
 Router(config-ext-nacl)# permit tcp 192.168.1.0 0.0.0.255 any eq 80
 Router(config-ext-nacl)# permit tcp 192.168.1.0 0.0.0.255 any eq 443
@@ -1173,7 +1173,7 @@ Router(config)# ip nat inside source list 1 interface g0/0 overload</code>
 
                     <div class="terminal-block">
                         <div class="terminal-header">Boîte à outils Tshoot</div>
-                        <code"># --- Windows ---
+                        <code># --- Windows ---
 ipconfig /all              # IP, MAC, Gateway, DNS
 ping 8.8.8.8               # Test connectivité
 tracert 8.8.8.8            # Chemin emprunté
@@ -1231,7 +1231,7 @@ curl -I http://serveur     # Test applicatif HTTP</code>
 
                     <div class="terminal-block">
                         <div class="terminal-header">SNMP — Commandes de base</div>
-                        <code"># Interroger un équipement (community string "public")
+                        <code># Interroger un équipement (community string "public")
 snmpwalk -v2c -c public 192.168.1.1
 
 # Récupérer une valeur spécifique (uptime)
@@ -1309,7 +1309,7 @@ wr</code>
 
                     <div class="terminal-block">
                         <div class="terminal-header">Configuration de Base (Router & Switch)</div>
-                        <code">! Entrer en mode privilégié
+                        <code>! Entrer en mode privilégié
 enable
 
 ! Mode configuration globale
